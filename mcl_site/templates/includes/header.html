@@ -15,20 +15,53 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Головна</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/news/">Новини</a>
+                
+                <!-- Про ліцей Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Про ліцей
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+                        <li><a class="dropdown-item" href="/about/">Про нас</a></li>
+                        {% if request.site.root_page %}
+                            {% for page in request.site.root_page.get_children.live.specific %}
+                                {% if page.content_type.model == 'aboutpage' %}
+                                    {% for child in page.get_children.live %}
+                                    <li><a class="dropdown-item" href="{% pageurl child %}">{{ child.title }}</a></li>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about/">Про ліцей</a>
+                
+                <!-- Навчання Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="educationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Навчання
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="educationDropdown">
+                        <li><a class="dropdown-item" href="/schedule/">Розклад</a></li>
+                        {% if request.site.root_page %}
+                            {% for page in request.site.root_page.get_children.live.specific %}
+                                {% if page.content_type.model == 'educationpage' %}
+                                    {% for child in page.get_children.live %}
+                                    <li><a class="dropdown-item" href="{% pageurl child %}">{{ child.title }}</a></li>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
                 </li>
+                
                 <li class="nav-item">
                     <a class="nav-link" href="/staff/">Колектив</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admissions/">Вступ</a>
+                    <a class="nav-link" href="/news/">Новини</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/schedule/">Розклад</a>
+                    <a class="nav-link btn btn-primary-custom text-white px-3" href="/admissions/" style="margin-left: 0.5rem;">Вступ</a>
                 </li>
             </ul>
         </div>

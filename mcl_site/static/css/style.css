@@ -610,6 +610,7 @@ footer {
     margin-bottom: -5rem !important;
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .staff-hero::before {

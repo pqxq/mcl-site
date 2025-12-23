@@ -12,10 +12,13 @@ class FormField(AbstractFormField):
 
 class ApplicationFormPage(AbstractEmailForm):
     intro = RichTextField(blank=True)
+    rules_text = RichTextField("Правила вступу", blank=True, 
+                              help_text="Текст з правилами вступу, необхідними документами, датами тощо")
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro'),
+        FieldPanel('rules_text'),
         InlinePanel('form_fields', label="Form fields"),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([

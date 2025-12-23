@@ -137,4 +137,74 @@
         </div>
     </div>
 </section>
+
+<!-- Quick Links Section -->
+{% if page.quick_links.all %}
+<section class="quick-links-section py-5" style="background: var(--gray-50);">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            {% for link in page.quick_links.all %}
+            <div class="col-md-4 col-sm-6">
+                <a href="{% if link.link %}{% pageurl link.link %}{% else %}#{% endif %}" 
+                   class="quick-link-card text-decoration-none d-block h-100">
+                    <div class="quick-link-icon">
+                        {% if link.icon %}
+                        <i class="{{ link.icon }}" style="font-size: 3rem;"></i>
+                        {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                        {% endif %}
+                    </div>
+                    <h3 class="quick-link-title">{{ link.title }}</h3>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+.quick-link-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--gray-200);
+}
+
+.quick-link-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-decoration: none;
+}
+
+.quick-link-icon {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.quick-link-title {
+    color: var(--primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+</style>
+{% endif %}
+
+<!-- Call to Action Section -->
+{% if page.cta_text and page.cta_link %}
+<section class="cta-section py-5" style="background: linear-gradient(135deg, var(--primary) 0%, #2a4a6f 100%);">
+    <div class="container text-center">
+        <h2 class="text-white mb-3">Готові розпочати навчання?</h2>
+        <p class="text-white-50 mb-4">Приєднуйтесь до нашого ліцею та відкрийте для себе світ можливостей</p>
+        <a href="{% pageurl page.cta_link %}" class="btn btn-light btn-lg px-5">
+            {{ page.cta_text }}
+        </a>
+    </div>
+</section>
+{% endif %}
 {% endblock %}

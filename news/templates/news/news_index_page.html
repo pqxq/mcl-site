@@ -12,6 +12,23 @@
         {% endif %}
     </div>
 
+    {% if all_tags %}
+    <div class="mb-4">
+        <div class="d-flex flex-wrap gap-2 justify-content-center">
+            <a href="{% pageurl page %}" 
+               class="badge {% if not current_tag %}bg-primary{% else %}bg-secondary{% endif %} text-decoration-none px-3 py-2">
+                Всі новини
+            </a>
+            {% for tag in all_tags %}
+            <a href="{% pageurl page %}?tag={{ tag.name }}" 
+               class="badge {% if current_tag == tag.name %}bg-primary{% else %}bg-secondary{% endif %} text-decoration-none px-3 py-2">
+                {{ tag.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
     {% if news_items %}
     <div class="row g-4">
         {% for post in news_items %}
@@ -36,6 +53,13 @@
                         <a href="{% pageurl post %}">{{ post.title }}</a>
                     </h2>
                     <p class="news-excerpt">{{ post.specific.intro|truncatewords:20 }}</p>
+                    {% if post.specific.tags.all %}
+                    <div class="mb-2">
+                        {% for tag in post.specific.tags.all %}
+                        <span class="badge bg-light text-dark me-1">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                     <a href="{% pageurl post %}" class="read-more">Читати далі →</a>
                 </div>
             </article>

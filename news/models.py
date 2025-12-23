@@ -4,6 +4,17 @@ from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
 from wagtail.search import index
 from django.utils import timezone
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
+
+
+class NewsPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'NewsPage',
+        related_name='tagged_items',
+        on_delete=models.CASCADE
+    )
 
 
 class NewsIndexPage(Page):
@@ -15,7 +26,7 @@ class NewsIndexPage(Page):
     ]
 
     parent_page_types = ['home.HomePage']
-    subpage_types = ['NewsPage']
+    subpage_types = ['news.NewsPage']
 
     class Meta:
         verbose_name = "Сторінка новин"
@@ -24,7 +35,23 @@ class NewsIndexPage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         # Get published news, ordered by date descending
-        context['news_items'] = self.get_children().live().order_by('-first_published_at')
+        news_items = self.get_children().live().specific().order_by('-first_published_at')
+        
+        # Filter by tag if requested
+        tag_filter = request.GET.get('tag', '')
+        if tag_filter:
+            news_items = [item for item in news_items if tag_filter in [tag.name for tag in item.tags.all()]]
+        
+        context['news_items'] = news_items
+        
+        # Get all tags for filtering
+        from taggit.models import Tag
+        from news.models import NewsPage
+        news_pages = NewsPage.objects.filter(id__in=[p.id for p in self.get_children().live()])
+        all_tags = Tag.objects.filter(newspage__in=news_pages).distinct()
+        context['all_tags'] = all_tags
+        context['current_tag'] = tag_filter
+        
         return context
 
 
@@ -41,6 +68,7 @@ class NewsPage(Page):
         related_name='+',
         verbose_name="Головне зображення"
     )
+    tags = ClusterTaggableManager(through=NewsPageTag, blank=True, verbose_name="Теги")
     
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
@@ -52,9 +80,10 @@ class NewsPage(Page):
         FieldPanel('intro'),
         FieldPanel('body'),
         FieldPanel('image'),
+        FieldPanel('tags'),
     ]
 
-    parent_page_types = ['NewsIndexPage']
+    parent_page_types = ['news.NewsIndexPage']
     subpage_types = []
 
     class Meta:

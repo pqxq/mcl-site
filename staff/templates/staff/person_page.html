@@ -34,6 +34,9 @@
                     
                     <div class="mb-4">
                         <span class="badge position-badge px-4 py-2 rounded-pill" style="font-size:0.95rem;">{{ page.position }}</span>
+                        {% if page.department %}
+                        <span class="badge bg-secondary px-3 py-2 rounded-pill ms-2" style="font-size:0.85rem;">{{ page.department }}</span>
+                        {% endif %}
                     </div>
 
                     {% if page.subjects.all %}

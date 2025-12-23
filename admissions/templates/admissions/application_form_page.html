@@ -3,8 +3,21 @@
 
 {% block content %}
 <div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
+    <div class="row">
+        {% if page.rules_text %}
+        <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="card shadow-sm border-0 bg-light sticky-top" style="top: 80px;">
+                <div class="card-body p-4">
+                    <h3 class="h5 fw-bold mb-3">Правила вступу</h3>
+                    <div class="rules-content">
+                        {{ page.rules_text|richtext }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="{% if page.rules_text %}col-lg-8{% else %}col-lg-8 mx-auto{% endif %}">
             <div class="text-center mb-5">
                 <h1 class="display-4 fw-bold mb-3">{{ page.title }}</h1>
                 <div class="lead text-muted">

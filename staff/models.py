@@ -14,8 +14,26 @@ class StaffIndexPage(Page):
     subpage_types = ['staff.PersonPage']
     parent_page_types = ['home.HomePage']
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        # Get all departments for filtering
+        from staff.models import PersonPage
+        departments = PersonPage.objects.live().exclude(department='').values_list('department', flat=True).distinct()
+        context['departments'] = sorted(set(departments))
+        
+        # Filter by department if requested
+        dept_filter = request.GET.get('department', '')
+        staff_members = list(self.get_children().live().specific())
+        if dept_filter:
+            staff_members = [p for p in staff_members if hasattr(p, 'department') and p.department == dept_filter]
+        context['staff_members'] = staff_members
+        context['current_department'] = dept_filter
+        return context
+
 class PersonPage(Page):
     position = models.CharField("Посада", max_length=100)
+    department = models.CharField("Кафедра", max_length=200, blank=True, 
+                                   help_text="Наприклад: Кафедра філології, Кафедра точних наук")
     education = models.CharField("Освіта", max_length=255, blank=True)
     category = models.CharField("Кваліфікаційна категорія", max_length=100, blank=True)
     experience = models.CharField("Стаж роботи", max_length=50, blank=True)
@@ -32,6 +50,7 @@ class PersonPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('photo'),
         FieldPanel('position'),
+        FieldPanel('department'),
         InlinePanel('subjects', label="Предмети"),
         FieldPanel('education'),
         FieldPanel('category'),

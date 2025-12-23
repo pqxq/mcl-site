@@ -31,9 +31,22 @@
         </div>
     </div>
 
+    <!-- Class Filter -->
+    <div class="d-flex justify-content-center mb-4">
+        <div class="col-md-4">
+            <label for="classFilter" class="form-label fw-bold">Фільтр за класом:</label>
+            <select id="classFilter" class="form-select">
+                <option value="">Всі класи</option>
+                {% for class_group in class_groups %}
+                <option value="{{ class_group.id }}">{{ class_group.name }} ({{ class_group.study_type }})</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
     {% if schedule_data %}
     <div class="table-responsive">
-        <table class="schedule-table">
+        <table class="schedule-table" id="scheduleTable">
             <thead>
                 <tr>
                     <th class="day-col">День</th>
@@ -41,7 +54,7 @@
                     <th class="num-col">№</th>
                     <th class="time-col">Час</th>
                     {% for class_group in class_groups %}
-                    <th class="class-col">{{ class_group.name }}<br><small>{{ class_group.study_type }}</small></th>
+                    <th class="class-col" data-class-id="{{ class_group.id }}">{{ class_group.name }}<br><small>{{ class_group.study_type }}</small></th>
                     {% endfor %}
                 </tr>
             </thead>
@@ -67,7 +80,7 @@
                     {% with lesson_list=lesson_row.lessons|get_item:class_group.id %}
                     {% if lesson_list %}
                     {% if not lesson_list.0.skip %}
-                    <td class="lesson-cell" rowspan="{{ lesson_list.0.rowspan }}">
+                    <td class="lesson-cell" data-class-id="{{ class_group.id }}" rowspan="{{ lesson_list.0.rowspan }}">
                         <div class="d-flex h-100 align-items-stretch">
                             {% for lesson in lesson_list %}
                             <div class="lesson-item flex-fill p-2 {% if not forloop.last %}border-end{% endif %}"
@@ -84,7 +97,7 @@
                     </td>
                     {% endif %}
                     {% else %}
-                    <td class="lesson-cell"></td>
+                    <td class="lesson-cell" data-class-id="{{ class_group.id }}"></td>
                     {% endif %}
                     {% endwith %}
                     {% endfor %}
@@ -250,5 +263,48 @@
             transform: none;
         }
     }
+
+    .class-col.hidden,
+    .lesson-cell.hidden {
+        display: none !important;
+    }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const classFilter = document.getElementById('classFilter');
+    const scheduleTable = document.getElementById('scheduleTable');
+    
+    if (classFilter && scheduleTable) {
+        classFilter.addEventListener('change', function() {
+            const selectedClassId = this.value;
+            const classCols = scheduleTable.querySelectorAll('.class-col');
+            const lessonCells = scheduleTable.querySelectorAll('.lesson-cell');
+            
+            if (selectedClassId === '') {
+                // Show all classes
+                classCols.forEach(col => col.classList.remove('hidden'));
+                lessonCells.forEach(cell => cell.classList.remove('hidden'));
+            } else {
+                // Hide all classes except selected
+                classCols.forEach(col => {
+                    if (col.getAttribute('data-class-id') === selectedClassId) {
+                        col.classList.remove('hidden');
+                    } else {
+                        col.classList.add('hidden');
+                    }
+                });
+                
+                lessonCells.forEach(cell => {
+                    if (cell.getAttribute('data-class-id') === selectedClassId) {
+                        cell.classList.remove('hidden');
+                    } else {
+                        cell.classList.add('hidden');
+                    }
+                });
+            }
+        });
+    }
+});
+</script>
 {% endblock %}
