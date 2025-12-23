@@ -6,8 +6,8 @@ wagtail==7.2.1
 psycopg2-binary>=2.9
 
 # Wagtail dependencies (usually installed with wagtail, but explicit for clarity)
-modelcluster>=6.0
-taggit>=5.0
+django-modelcluster>=6.0
+django-taggit>=5.0
 Pillow>=10.0
 
 # Production server (optional, for deployment)
