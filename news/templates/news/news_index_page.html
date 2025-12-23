@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}{{ page.title }} | Миколаївський ліцей №9{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">{{ page.title }}</h1>
+        {% if page.intro %}
+        <div class="lead text-muted">{{ page.intro|richtext }}</div>
+        {% endif %}
+    </div>
+
+    {% if news_items %}
+    <div class="row g-4">
+        {% for post in news_items %}
+        <div class="col-lg-4 col-md-6">
+            <article class="news-card h-100">
+                <div class="news-card-image">
+                    {% if post.specific.image %}
+                    {% image post.specific.image fill-400x250 class="w-100 h-100 object-fit-cover" %}
+                    {% else %}
+                    <span class="news-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                        </svg>
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="news-card-body">
+                    <span class="news-date">{{ post.specific.date|date:"d E Y" }}</span>
+                    <h2 class="news-title h3">
+                        <a href="{% pageurl post %}">{{ post.title }}</a>
+                    </h2>
+                    <p class="news-excerpt">{{ post.specific.intro|truncatewords:20 }}</p>
+                    <a href="{% pageurl post %}" class="read-more">Читати далі →</a>
+                </div>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <div class="mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
+                style="color: var(--gray-300);" viewBox="0 0 16 16">
+                <path
+                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Z" />
+            </svg>
+        </div>
+        <h4 class="text-muted">Новин ще немає</h4>
+        <p class="text-muted">Скоро тут з'являться новини ліцею</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

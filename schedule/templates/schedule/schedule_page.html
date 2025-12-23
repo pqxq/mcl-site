@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+{% load schedule_tags %}
+
+{% block title %}Розклад занять | Миколаївський ліцей №9{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="text-center mb-4">
+        <h1 class="display-5 fw-bold">Розклад занять</h1>
+        <p class="text-muted mb-1">Миколаївського ліцею №9</p>
+        <div class="alert alert-info d-inline-block py-1 px-4 small mb-0 fw-bold">
+            9:00 — Загальнонаціональна хвилина мовчання
+        </div>
+    </div>
+
+    <!-- Week Tabs -->
+    <div class="d-flex justify-content-center mb-4">
+        <div class="btn-group" role="group">
+            <a href="?week=1"
+                class="btn {% if current_week == '1' %}btn-primary{% else %}btn-outline-primary{% endif %}">I
+                тиждень</a>
+            <a href="?week=2"
+                class="btn {% if current_week == '2' %}btn-primary{% else %}btn-outline-primary{% endif %}">II
+                тиждень</a>
+            <a href="?week=3"
+                class="btn {% if current_week == '3' %}btn-primary{% else %}btn-outline-primary{% endif %}">III
+                тиждень</a>
+            <a href="?week=4"
+                class="btn {% if current_week == '4' %}btn-primary{% else %}btn-outline-primary{% endif %}">IV
+                тиждень</a>
+        </div>
+    </div>
+
+    {% if schedule_data %}
+    <div class="table-responsive">
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th class="day-col">День</th>
+                    <th class="para-col">Пара</th>
+                    <th class="num-col">№</th>
+                    <th class="time-col">Час</th>
+                    {% for class_group in class_groups %}
+                    <th class="class-col">{{ class_group.name }}<br><small>{{ class_group.study_type }}</small></th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for day_name, lessons_by_num in schedule_data.items %}
+                {% for lesson_num, lesson_row in lessons_by_num.items %}
+                <tr{% if forloop.first %} class="day-start" {% endif %}>
+                    {% if forloop.first %}
+                    <td class="day-cell" rowspan="{{ lessons_by_num|length }}">
+                        <div class="day-name">{{ day_name }}</div>
+                    </td>
+                    {% endif %}
+
+                    {% if lesson_row.show_para %}
+                    <td class="para-cell" rowspan="{{ lesson_row.para_rowspan }}">
+                        <div class="para-name">{{ lesson_row.para }}</div>
+                    </td>
+                    {% endif %}
+
+                    <td class="num-cell">{{ lesson_num }}</td>
+                    <td class="time-cell">{{ lesson_row.time }}</td>
+                    {% for class_group in class_groups %}
+                    {% with lesson_list=lesson_row.lessons|get_item:class_group.id %}
+                    {% if lesson_list %}
+                    {% if not lesson_list.0.skip %}
+                    <td class="lesson-cell" rowspan="{{ lesson_list.0.rowspan }}">
+                        <div class="d-flex h-100 align-items-stretch">
+                            {% for lesson in lesson_list %}
+                            <div class="lesson-item flex-fill p-2 {% if not forloop.last %}border-end{% endif %}"
+                                style="min-width: 0;">
+                                <div class="lesson-subject">
+                                    {{ lesson.subject }}
+                                </div>
+                                {% if lesson.cabinet %}
+                                <div class="lesson-cabinet">{{ lesson.cabinet }}</div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    {% endif %}
+                    {% else %}
+                    <td class="lesson-cell"></td>
+                    {% endif %}
+                    {% endwith %}
+                    {% endfor %}
+                    </tr>
+                    {% endfor %}
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <div class="mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
+                style="color: var(--gray-300);" viewBox="0 0 16 16">
+                <path
+                    d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+            </svg>
+        </div>
+        <h4 class="text-muted">Розклад ще не додано</h4>
+        <p class="text-muted">Адміністратор може додати розклад через панель керування.</p>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .schedule-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+        background: var(--white);
+        border: 1px solid var(--gray-300);
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        border: 1px solid var(--gray-300);
+        padding: 0.5rem;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .schedule-table thead th {
+        background: var(--primary);
+        color: var(--white);
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .day-col {
+        width: 60px;
+    }
+
+    .para-col {
+        width: 50px;
+    }
+
+    .num-col {
+        width: 40px;
+    }
+
+    .time-col {
+        width: 100px;
+    }
+
+    .class-col {
+        min-width: 120px;
+    }
+
+    .day-cell,
+    .para-cell {
+        background: var(--gray-100);
+        font-weight: 600;
+        vertical-align: middle;
+    }
+
+    .day-cell {
+        padding: 0.5rem;
+        background: var(--gray-100);
+        vertical-align: middle;
+    }
+
+    .day-name {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        font-size: 0.9rem;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 600;
+        margin: 0 auto;
+        padding: 5px 0;
+    }
+
+    .para-name {
+        font-size: 0.9rem;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .num-cell {
+        font-weight: 700;
+        background: var(--gray-50);
+        color: var(--primary);
+    }
+
+    .time-cell {
+        font-size: 0.75rem;
+        color: var(--gray-500);
+        white-space: nowrap;
+    }
+
+    .lesson-cell {
+        background: var(--white);
+        min-height: 50px;
+    }
+
+    .lesson-cell:hover {
+        background: var(--gray-50);
+    }
+
+    .lesson-subject {
+        font-weight: 500;
+        color: var(--gray-900);
+        font-size: 0.8rem;
+    }
+
+    .lesson-cabinet {
+        font-size: 0.7rem;
+        color: var(--gray-500);
+        margin-top: 2px;
+    }
+
+    .day-start td {
+        border-top: 5px solid var(--primary) !important;
+    }
+
+    .btn-primary {
+        background: var(--primary) !important;
+        border-color: var(--primary) !important;
+    }
+
+    .btn-outline-primary {
+        color: var(--primary);
+        border-color: var(--primary);
+    }
+
+    .btn-outline-primary:hover {
+        background: var(--primary);
+        color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+        .schedule-table {
+            font-size: 0.75rem;
+        }
+
+        .day-cell {
+            writing-mode: horizontal-tb;
+            transform: none;
+        }
+    }
+</style>
+{% endblock %}

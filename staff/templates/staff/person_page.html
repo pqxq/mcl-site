@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="person-header mb-5">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="{{ page.get_parent.url }}" class="text-white-50">Колектив</a></li>
+                <li class="breadcrumb-item active text-white" aria-current="page">{{ page.title }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="person-profile-card shadow-lg border-0 bg-white overflow-hidden">
+        <div class="row g-0">
+            <div class="col-lg-4 bg-white d-flex align-items-center justify-content-center p-4">
+                <div class="profile-portrait-wrapper" style="width: 100%; max-width: 320px;">
+                    {% if page.photo %}
+                    {% image page.photo fill-400x400 as photo %}
+                    <img src="{{ photo.url }}" class="profile-photo w-100" alt="{{ page.title }}">
+                    {% else %}
+                    <div class="profile-photo-placeholder d-flex align-items-center justify-content-center w-100" style="aspect-ratio: 1;">
+                        <span class="display-1">👤</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-8 p-5">
+                <div class="fade-in">
+                    <h1 class="h2 fw-bold mb-3 text-primary">{{ page.title }}</h1>
+                    
+                    <div class="mb-4">
+                        <span class="badge position-badge px-4 py-2 rounded-pill" style="font-size:0.95rem;">{{ page.position }}</span>
+                    </div>
+
+                    {% if page.subjects.all %}
+                    <div class="mb-5">
+                        <small class="text-muted text-uppercase fw-bold d-block mb-2"
+                            style="letter-spacing: 0.05em; font-size: 0.75rem;">Предмети</small>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for item in page.subjects.all %}
+                            <span class="badge subject-badge px-3 py-2 rounded-pill">
+                                <i class="bi bi-book me-2"></i>{{ item.name }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="row mb-5 g-3">
+                        {% if page.education %}
+                        <div class="col-md-4">
+                            <div class="info-card d-flex flex-column h-100">
+                                <div class="text-primary mb-2"><i class="bi bi-mortarboard-fill fs-5"></i></div>
+                                <small class="text-muted text-uppercase fw-bold d-block mb-2"
+                                    style="letter-spacing: 0.05em; font-size: 0.7rem;">Освіта</small>
+                                <span class="text-dark fw-500 flex-grow-1">{{ page.education }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if page.category %}
+                        <div class="col-md-4">
+                            <div class="info-card d-flex flex-column h-100">
+                                <div class="text-primary mb-2"><i class="bi bi-award-fill fs-5"></i></div>
+                                <small class="text-muted text-uppercase fw-bold d-block mb-2"
+                                    style="letter-spacing: 0.05em; font-size: 0.7rem;">Категорія</small>
+                                <span class="text-dark fw-500 flex-grow-1">{{ page.category }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if page.experience %}
+                        <div class="col-md-4">
+                            <div class="info-card d-flex flex-column h-100">
+                                <div class="text-primary mb-2"><i class="bi bi-clock-fill fs-5"></i></div>
+                                <small class="text-muted text-uppercase fw-bold d-block mb-2"
+                                    style="letter-spacing: 0.05em; font-size: 0.7rem;">Стаж</small>
+                                <span class="text-dark fw-500 flex-grow-1">{{ page.experience }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% if page.bio %}
+                    <div class="bio-content mb-5" style="line-height: 1.8; color: #555;">
+                        {{ page.bio|richtext }}
+                    </div>
+                    {% endif %}
+
+                    <div>
+                        <a href="{{ page.get_parent.url }}" class="btn btn-primary-custom rounded-pill px-4 py-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-left me-2" viewBox="0 0 16 16" style="margin-bottom: 2px; display: inline-block;">
+                                <path fill-rule="evenodd"
+                                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                            </svg>
+                            До списку
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary: #1a3a5f;
+        --primary-rgb: 26, 58, 95;
+    }
+
+    .person-header {
+        background: linear-gradient(135deg, var(--primary) 0%, #1a3a5f 100%);
+        padding: 4rem 0 6rem 0;
+        margin-bottom: -6rem !important;
+    }
+
+    .person-profile-card {
+        border-radius: 30px;
+        position: relative;
+        z-index: 10;
+        min-height: 500px;
+    }
+
+    .profile-portrait-wrapper {
+        width: 100%;
+        max-width: 300px;
+        aspect-ratio: 1;
+        position: relative;
+    }
+
+    @media (max-width: 991.98px) {
+        .profile-portrait-wrapper {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        .person-profile-card {
+            margin-top: -2rem;
+        }
+    }
+</style>
+{% endblock %}

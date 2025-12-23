@@ -1,0 +1,14 @@
+# Core Framework
+Django>=5.1,<5.2
+wagtail==7.2.1
+
+# Database drivers
+psycopg2-binary>=2.9
+
+# Wagtail dependencies (usually installed with wagtail, but explicit for clarity)
+modelcluster>=6.0
+taggit>=5.0
+Pillow>=10.0
+
+# Production server (optional, for deployment)
+# gunicorn>=20.0.0

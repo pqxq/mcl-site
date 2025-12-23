@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container hero-content">
+        <h1 class="hero-title">
+            Ми відкриваємо для вас<br>
+            <span class="highlight">світ знань!</span>
+        </h1>
+        <p class="hero-subtitle">
+            Від успіхів у ліцеї – до успіхів у житті! Поєднуємо традиції класичної освіти з інноваціями.
+        </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap"
+            style="animation: fadeInUp 0.8s ease-out 0.6s backwards;">
+            <a href="/admissions/" class="btn btn-primary-custom">Вступити до ліцею</a>
+            <a href="/about/" class="btn btn-outline-light">Дізнатися більше</a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Наші переваги</span>
+            <h2 class="section-title">Чому обирають нас?</h2>
+            <p class="section-subtitle">Ми створюємо середовище, де кожен учень може розкрити свій потенціал</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5Z" />
+                            <path
+                                d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Якісна освіта</h3>
+                    <p class="feature-text">Безкоштовна повна середня освіта найвищого рівня від кращих педагогів.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Сучасні технології</h3>
+                    <p class="feature-text">Дистанційне навчання, інтерактивні методики та цифрові інструменти.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Партнерство з ВНЗ</h3>
+                    <p class="feature-text">Співпраця з Миколаївським аграрним університетом відкриває нові можливості.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Подорожі та досвід</h3>
+                    <p class="feature-text">Вивчення історії та культури через реальні подорожі Україною та Європою.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News Section -->
+<section class="news-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Новини</span>
+            <h2 class="section-title">Останні події</h2>
+            <p class="section-subtitle">Слідкуйте за життям нашого ліцею</p>
+        </div>
+
+        <div class="row g-4">
+            {% for post in latest_news %}
+            <div class="col-lg-4 col-md-6">
+                <article class="news-card h-100">
+                    <div class="news-card-image">
+                        {% if post.image %}
+                        {% image post.image fill-400x250 class="w-100 h-100 object-fit-cover" %}
+                        {% else %}
+                        <span class="news-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                            </svg>
+                        </span>
+                        {% endif %}
+                    </div>
+                    <div class="news-card-body">
+                        <span class="news-date">{{ post.date|date:"d E Y" }}</span>
+                        <h3 class="news-title">
+                            <a href="{% pageurl post %}">{{ post.title }}</a>
+                        </h3>
+                        <p class="news-excerpt">{{ post.intro|truncatewords:20 }}</p>
+                        <a href="{% pageurl post %}" class="read-more">Читати далі →</a>
+                    </div>
+                </article>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">Новини ще не додані.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="/news/" class="btn btn-primary-custom px-5 py-2">Всі новини →</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

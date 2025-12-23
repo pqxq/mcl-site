@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="staff-hero">
+    <div class="container text-center py-5">
+        <h1 class="display-3 fw-bold text-white mb-3 fade-in">{{ page.title }}</h1>
+        <div class="lead text-white-50 mx-auto fade-in-delayed" style="max-width: 800px;">
+            {{ page.intro|richtext }}
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    {% with all_people=page.get_children.specific %}
+    {% if all_people %}
+    {% regroup all_people by is_administration as grouped_people %}
+
+    {% for group in grouped_people %}
+    {% if group.grouper %}
+    {# Administration Section (grouper is True) #}
+    <div class="row g-4 justify-content-center mb-5">
+        {% for person in group.list %}
+        <div class="col-lg-4 col-md-6 fade-in-up">
+            <div class="teacher-card admin-card border-0 text-center p-4 h-100 d-flex flex-column shadow-lg">
+                <div class="portrait-container border-primary mb-3 mx-auto">
+                    {% if person.photo %}
+                    {% image person.photo fill-400x400 as photo %}
+                    <img src="{{ photo.url }}" class="teacher-photo" alt="{{ person.title }}">
+                    {% else %}
+                    <div class="teacher-photo-placeholder d-flex align-items-center justify-content-center">
+                        <span class="fs-1">👤</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="teacher-info flex-grow-1">
+                    <h2 class="h4 fw-bold mb-2">{{ person.title }}</h2>
+                    <span class="badge badge-primary-custom px-3 py-2 mb-3 rounded-pill">{{ person.position }}</span>
+                    {% if person.subjects.all %}
+                    <p class="text-muted small mb-0">
+                        {% for item in person.subjects.all %}
+                        {{ item.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                    {% endif %}
+                </div>
+                <div class="mt-4 text-center">
+                    <a href="{% pageurl person %}" class="btn btn-primary-custom rounded-pill px-5">Біографія</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <hr class="my-5 opacity-10">
+    {% else %}
+    {# Teachers Section (grouper is False) #}
+    <div class="row g-4 justify-content-center">
+        {% for person in group.list %}
+        <div class="col-lg-3 col-md-4 col-sm-6 fade-in-up">
+            <div class="teacher-card border-0 text-center p-3 h-100 d-flex flex-column">
+                <div class="portrait-container mb-3 mx-auto">
+                    {% if person.photo %}
+                    {% image person.photo fill-300x300 as photo %}
+                    <img src="{{ photo.url }}" class="teacher-photo" alt="{{ person.title }}">
+                    {% else %}
+                    <div class="teacher-photo-placeholder d-flex align-items-center justify-content-center">
+                        <span class="fs-1">👤</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="teacher-info flex-grow-1">
+                    <h2 class="h6 fw-bold mb-1">{{ person.title }}</h2>
+                    <span class="badge badge-primary-custom px-3 py-2 mb-2 rounded-pill">{{ person.position }}</span>
+                    {% if person.subjects.all or person.subject %}
+                    <p class="text-muted small mb-0">
+                        {% for item in person.subjects.all %}
+                        {{ item.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                        {{ person.subject }}
+                        {% endfor %}
+                    </p>
+                    {% endif %}
+                </div>
+                <div class="mt-3">
+                    <a href="{% pageurl person %}"
+                        class="btn btn-sm btn-primary-custom rounded-pill px-4 stretched-link">Біографія</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+{% endblock %}

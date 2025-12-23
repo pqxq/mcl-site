@@ -1,0 +1,29 @@
+{% if grouped_schedule %}
+<div class="schedule-container">
+    {% for day_name, lessons in grouped_schedule.items %}
+    <div class="schedule-day">
+        <h3>{{ day_name }}</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Клас</th>
+                    <th>Предмет</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lesson in lessons %}
+                <tr>
+                    <td>{{ lesson.lesson_number }}</td>
+                    <td>{{ lesson.class_group }}</td>
+                    <td>{{ lesson.subject }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>Розклад відсутній.</p>
+{% endif %}

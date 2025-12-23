@@ -1,0 +1,73 @@
+{% load static %}
+
+<footer>
+    <div class="container">
+        <!-- Main Footer Content -->
+        <div class="row gy-4 align-items-start">
+            <!-- Brand Column -->
+            <div class="col-lg-5 col-md-12">
+                <div class="d-flex align-items-center justify-content-center gap-3 mb-3">
+                    <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" style="height: 250px; width: auto;">
+                </div>
+                <p class="footer-text mt-3 text-center">
+                    Якісна освіта, інноваційні методики, професійні педагоги.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="footer-title h5 mb-3">Меню</div>
+                <ul class="footer-links">
+                    <li><a href="/">Головна</a></li>
+                    <li><a href="/news/">Новини</a></li>
+                    <li><a href="/about/">Про ліцей</a></li>
+                    <li><a href="/staff/">Колектив</a></li>
+                    <li><a href="/admissions/">Вступ</a></li>
+                    <li><a href="/schedule/">Розклад</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="footer-title h5 mb-3">Контакти</div>
+                <ul class="footer-links">
+                    <li>
+                        <strong>Адреса:</strong><br>
+                        пров. Парусний, 3<br>
+                        м. Миколаїв, 54000
+                    </li>
+                    <li class="mt-2">
+                        <strong>Телефон:</strong><br>
+                        (0512) 42-45-11
+                    </li>
+                    <li class="mt-2">
+                        <strong>Email:</strong><br>
+                        <a href="mailto:licey.classic.mk@gmail.com">licey.classic.mk@gmail.com</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Social -->
+            <div class="col-lg-2 col-md-4 col-12">
+                <div class="footer-title h5 mb-3">Ми в мережі</div>
+                <ul class="footer-links">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    © {% now "Y" %} Миколаївський ліцей №9
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+                    <small>Всі права захищені</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
