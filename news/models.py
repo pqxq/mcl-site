@@ -19,18 +19,22 @@ class NewsPageTag(TaggedItemBase):
 
 class NewsIndexPage(Page):
     """Index page listing all news articles"""
+    
+    page_description = "Розділ новин (створюється один раз)"
+    
     intro = RichTextField("Вступний текст", blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
     ]
 
+    max_count = 1
     parent_page_types = ['home.HomePage']
     subpage_types = ['news.NewsPage']
 
     class Meta:
-        verbose_name = "Сторінка новин"
-        verbose_name_plural = "Сторінки новин"
+        verbose_name = "Новини (системна)"
+        verbose_name_plural = "Новини"
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -71,7 +75,8 @@ class NewsPage(Page):
     tags = ClusterTaggableManager(through=NewsPageTag, blank=True, verbose_name="Теги")
     
     search_fields = Page.search_fields + [
-        index.SearchField('intro'),
+        index.SearchField('title', boost=2),
+        index.SearchField('intro', boost=2),
         index.SearchField('body'),
     ]
 

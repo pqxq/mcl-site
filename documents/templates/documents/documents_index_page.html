@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="page-hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <span class="hero-badge">
+                <i class="bi bi-folder2 me-2"></i>Документи
+            </span>
+            <h1 class="hero-title">{{ page.title }}</h1>
+            {% if page.intro %}
+            <div class="hero-subtitle">{{ page.intro|striptags|truncatewords:30 }}</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+        </svg>
+    </div>
+</section>
+
+<!-- Filter Section -->
+<section class="filter-section">
+    <div class="container">
+        <div class="filter-card">
+            <form method="get" class="filter-form">
+                <div class="row g-3 align-items-end">
+                    <div class="col-lg-3 col-md-6">
+                        <label for="type" class="form-label">
+                            <i class="bi bi-tag me-1"></i>Тип документу
+                        </label>
+                        <select id="type" name="type" class="form-select">
+                            <option value="">— Усі типи —</option>
+                            {% for doc_type in doc_type_choices %}
+                                <option value="{{ doc_type.slug }}" {% if current_type == doc_type.slug %}selected{% endif %}>{{ doc_type.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <label for="year" class="form-label">
+                            <i class="bi bi-calendar me-1"></i>Рік
+                        </label>
+                        <select id="year" name="year" class="form-select">
+                            <option value="">— Усі роки —</option>
+                            {% for y in available_years %}
+                                <option value="{{ y }}" {% if current_year|stringformat:"s" == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <label for="tag" class="form-label">
+                            <i class="bi bi-bookmark me-1"></i>Тег
+                        </label>
+                        <input id="tag" name="tag" class="form-control" value="{{ current_tag }}" placeholder="Напр.: безпека" />
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary-custom flex-grow-1">
+                                <i class="bi bi-search me-1"></i>Фільтрувати
+                            </button>
+                            <a href="." class="btn btn-outline-secondary d-flex align-items-center justify-content-center" style="width: 42px;">
+                                <i class="bi bi-x-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Documents Grid -->
+<section class="documents-grid-section">
+    <div class="container">
+        {% if documents %}
+            <div class="row g-4">
+                {% for doc in documents %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="document-card">
+                            <div class="document-icon-wrapper">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
+                            <div class="document-content">
+                                <h3 class="document-title">
+                                    <a href="{% pageurl doc %}">{{ doc.title }}</a>
+                                </h3>
+                                <div class="document-meta">
+                                    <span class="meta-date">
+                                        <i class="bi bi-calendar3"></i>
+                                        {{ doc.date|date:"d.m.Y" }}
+                                    </span>
+                                    <span class="meta-year">{{ doc.year }}</span>
+                                </div>
+                                {% if doc.description %}
+                                <p class="document-description">
+                                    {{ doc.description|striptags|truncatewords:15 }}
+                                </p>
+                                {% endif %}
+                            </div>
+                            <div class="document-footer">
+                                <span class="document-type">{{ doc.doc_type.name|default:"Інше" }}</span>
+                                <a href="{% pageurl doc %}" class="document-link">
+                                    Переглянути <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <i class="bi bi-folder2-open"></i>
+                <h4>Документів не знайдено</h4>
+                <p>Спробуйте змінити параметри фільтрації</p>
+                <a href="." class="btn btn-primary-custom">Показати всі документи</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

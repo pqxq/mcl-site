@@ -1,3 +1,35 @@
+# mcl_site
+
+A Wagtail-powered site for Миколаївський ліцей №9.
+## Migration Checklist
+
+- Content tree:
+   - Create under Home: About, Admissions, Education, Schedule, News, Staff, Partners, Public Documents.
+   - Add child pages: News articles under News; Staff profiles under Staff; Documents under Public Documents.
+- Menus:
+   - Admin → Snippets → Menus: create `primary` and `footer` menus; add items linking to pages.
+- SEO settings:
+   - Admin → Settings → SEO Settings: set default meta description and OpenGraph image.
+- Redirects:
+   - Prepare a CSV `redirects.csv` with `old_path,new_path[,is_permanent]`.
+   - Import with:
+
+      ```powershell
+      D:/mcl-site/venv/Scripts/python.exe manage.py import_redirects redirects.csv --dry-run
+      D:/mcl-site/venv/Scripts/python.exe manage.py import_redirects redirects.csv
+      ```
+
+- Documents route:
+   - Wagtail serves files at `/documents/`. Use a different slug for the public documents index (e.g., `/public-docs/`).
+
+## Development
+
+```powershell
+D:/mcl-site/venv/Scripts/python.exe manage.py migrate
+D:/mcl-site/venv/Scripts/python.exe manage.py runserver
+```
+
+Login to Wagtail admin at `/admin/`.
 # Миколаївський ліцей №9 Website
 
 A modern Django/Wagtail CMS website for Mykolaiv Classical Lyceum #9 in Ukraine. Features dynamic content management, staff directory, news updates, admissions forms, and class scheduling.

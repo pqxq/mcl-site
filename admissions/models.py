@@ -11,6 +11,9 @@ class FormField(AbstractFormField):
     page = ParentalKey('ApplicationFormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 class ApplicationFormPage(AbstractEmailForm):
+    
+    page_description = "Форма вступу (створюється один раз)"
+    
     intro = RichTextField(blank=True)
     rules_text = RichTextField("Правила вступу", blank=True, 
                               help_text="Текст з правилами вступу, необхідними документами, датами тощо")
@@ -30,4 +33,8 @@ class ApplicationFormPage(AbstractEmailForm):
         ], "Email Settings"),
     ]
 
+    max_count = 1
     parent_page_types = ['home.HomePage']
+    
+    class Meta:
+        verbose_name = "Вступ (системна)"

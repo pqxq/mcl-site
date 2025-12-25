@@ -1,18 +1,26 @@
 from django.db import models
 from wagtail.models import Page, Orderable
+from wagtail.search import index
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from modelcluster.fields import ParentalKey
 
 class StaffIndexPage(Page):
+    
+    page_description = "Розділ колективу (створюється один раз)"
+    
     intro = RichTextField("Вступ", blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
     ]
 
+    max_count = 1
     subpage_types = ['staff.PersonPage']
     parent_page_types = ['home.HomePage']
+    
+    class Meta:
+        verbose_name = "Колектив (системна)"
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -60,6 +68,16 @@ class PersonPage(Page):
 
     parent_page_types = ['staff.StaffIndexPage']
     subpage_types = []
+
+    search_fields = Page.search_fields + [
+        index.SearchField('title', boost=2),
+        index.SearchField('position', boost=2),
+        index.SearchField('department'),
+        index.SearchField('education'),
+        index.SearchField('category'),
+        index.SearchField('experience'),
+        index.SearchField('bio'),
+    ]
 
 class TeacherSubject(Orderable):
     page = ParentalKey(PersonPage, on_delete=models.CASCADE, related_name='subjects')

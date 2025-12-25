@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="page-hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">{{ page.title }}</h1>
+            {% if page.subtitle %}
+            <div class="hero-subtitle">{{ page.subtitle }}</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+        </svg>
+    </div>
+</section>
+
+<section class="content-page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                {% if page.featured_image %}
+                <div class="content-featured-image">
+                    {% image page.featured_image width-1200 class="img-fluid" %}
+                </div>
+                {% endif %}
+                
+                <article class="content-article">
+                    <div class="article-content">
+                        {{ page.body|richtext }}
+                    </div>
+                </article>
+
+                {% if page.get_children.live %}
+                <div class="child-pages-section">
+                    <h3 class="section-title">
+                        <i class="bi bi-collection me-2"></i>Підрозділи
+                    </h3>
+                    <div class="row g-4">
+                        {% for child in page.get_children.live %}
+                        <div class="col-md-6">
+                            <a href="{% pageurl child %}" class="child-page-card">
+                                <div class="child-page-icon">
+                                    <i class="bi bi-file-text"></i>
+                                </div>
+                                <div class="child-page-content">
+                                    <h4>{{ child.title }}</h4>
+                                    {% if child.specific.subtitle %}
+                                    <p>{{ child.specific.subtitle }}</p>
+                                    {% endif %}
+                                </div>
+                                <i class="bi bi-chevron-right child-page-arrow"></i>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

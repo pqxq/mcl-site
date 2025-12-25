@@ -1,51 +1,361 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block title %}{{ page.title }} | Миколаївський ліцей №9{% endblock %}
 
+{% block extra_css %}
+<style>
+    .page-hero + .about-content,
+    .page-hero + .about-stats-section {
+        margin-top: -2px;
+    }
+    
+    .about-content {
+        background: var(--gray-50);
+        padding: 3rem 0;
+    }
+    
+    .about-intro-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2.5rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        margin-bottom: 0;
+    }
+    
+    .about-intro-card p {
+        color: var(--gray-700);
+        line-height: 1.8;
+        margin-bottom: 0;
+    }
+    
+    .about-stats-section {
+        background: var(--gray-50);
+        padding: 3rem 0;
+    }
+    
+    .about-stats-row {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+    
+    .about-stat-item {
+        text-align: center;
+        padding: 1.5rem 2rem;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        min-width: 180px;
+    }
+    
+    .about-stat-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        color: white;
+        font-size: 1.25rem;
+    }
+    
+    .about-stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+    }
+    
+    .about-stat-label {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        color: var(--gray-600);
+    }
+    
+    .content-section {
+        background: var(--gray-50);
+        padding: 0 0 3rem;
+    }
+    
+    .section-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .section-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    
+    .section-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+        color: white;
+        font-size: 1.5rem;
+        position: relative;
+    }
+    
+    .section-icon::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: var(--accent);
+        border-radius: 12px;
+        z-index: -1;
+        top: 4px;
+        left: 4px;
+    }
+    
+    .section-title {
+        color: var(--primary);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    
+    .section-content {
+        color: var(--gray-700);
+        line-height: 1.7;
+    }
+    
+    .section-content p {
+        color: var(--gray-700);
+    }
+    
+    .building-section {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        margin-top: 2rem;
+    }
+    
+    .building-image {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+    }
+    
+    .building-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(30,58,95,0.95) 0%, transparent 100%);
+        color: white;
+        padding: 4rem 2rem 2rem;
+    }
+    
+    .building-overlay h3 {
+        color: white;
+    }
+    
+    @media (max-width: 768px) {
+        .about-stat-number {
+            font-size: 2rem;
+        }
+        
+        .about-stat-label {
+            font-size: 0.75rem;
+        }
+        
+        .about-stat-item {
+            min-width: 140px;
+            padding: 1rem 1.5rem;
+        }
+        
+        .section-card {
+            padding: 1.5rem;
+        }
+        
+        .building-image {
+            height: 250px;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="about-header">
+<!-- Hero Section -->
+<section class="page-hero">
+    <div class="hero-bg-pattern"></div>
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <h1 class="display-3 fw-bold text-white mb-3">{{ page.title }}</h1>
-                {% if page.subtitle %}
-                <p class="lead text-white-75">{{ page.subtitle }}</p>
-                {% endif %}
-            </div>
+        <div class="hero-content text-center">
+            <span class="hero-badge">
+                <i class="bi bi-info-circle me-2"></i>Про нас
+            </span>
+            <h1 class="hero-title">{{ page.title }}</h1>
+            {% if page.subtitle %}
+            <div class="hero-subtitle">« {{ page.subtitle }} »</div>
+            {% endif %}
         </div>
     </div>
-</div>
-
-<article class="about-content">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10 py-5">
-                <div class="article-content">
-                    {{ page.body|richtext }}
-                </div>
-            </div>
-        </div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+        </svg>
     </div>
-</article>
+</section>
 
-<section class="about-actions pb-5">
+<!-- Intro Section -->
+{% if page.intro %}
+<section class="about-content">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-10 text-center">
-                <div class="action-buttons d-flex flex-wrap gap-3 justify-content-center">
-                    <a href="/schedule/" class="btn btn-outline-primary">
-                        <i class="bi bi-calendar3"></i> Розклад занять
-                    </a>
-                    <a href="/admissions/" class="btn btn-primary">
-                        <i class="bi bi-person-plus"></i> Вступ до ліцею
-                    </a>
-                    <a href="/staff/" class="btn btn-outline-primary">
-                        <i class="bi bi-people"></i> Наш колектив
-                    </a>
+            <div class="col-lg-10">
+                <div class="about-intro-card">
+                    {{ page.intro|richtext }}
                 </div>
             </div>
         </div>
     </div>
 </section>
+{% endif %}
+
+<!-- Statistics Section -->
+{% if page.founded_year or page.students_count or page.teachers_count %}
+<section class="about-stats-section">
+    <div class="container">
+        <div class="about-stats-row">
+            {% if page.founded_year %}
+            <div class="about-stat-item">
+                <div class="about-stat-icon">
+                    <i class="bi bi-calendar-event"></i>
+                </div>
+                <div class="about-stat-number">{{ page.founded_year }}</div>
+                <div class="about-stat-label">Рік заснування</div>
+            </div>
+            {% endif %}
+            
+            {% if page.students_count %}
+            <div class="about-stat-item">
+                <div class="about-stat-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <div class="about-stat-number">{{ page.students_count }}+</div>
+                <div class="about-stat-label">Учнів</div>
+            </div>
+            {% endif %}
+            
+            {% if page.teachers_count %}
+            <div class="about-stat-item">
+                <div class="about-stat-icon">
+                    <i class="bi bi-person-badge"></i>
+                </div>
+                <div class="about-stat-number">{{ page.teachers_count }}</div>
+                <div class="about-stat-label">Вчителів</div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Main Content Cards -->
+<section class="content-section">
+    <div class="container">
+        <div class="row g-4">
+            {% if page.mission %}
+            <div class="col-md-6">
+                <div class="section-card">
+                    <div class="section-icon">
+                        <i class="bi bi-bullseye"></i>
+                    </div>
+                    <h2 class="section-title">Місія</h2>
+                    <div class="section-content">
+                        {{ page.mission|richtext }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if page.values %}
+            <div class="col-md-6">
+                <div class="section-card">
+                    <div class="section-icon">
+                        <i class="bi bi-heart"></i>
+                    </div>
+                    <h2 class="section-title">Цінності</h2>
+                    <div class="section-content">
+                        {{ page.values|richtext }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- History Section -->
+{% if page.history %}
+<section class="content-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="section-card">
+                    <div class="section-icon mx-auto" style="margin-bottom: 2rem;">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <h2 class="section-title d-block text-center mx-auto">Історія</h2>
+                    <div class="section-content mt-4">
+                        {{ page.history|richtext }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Building Image Section -->
+{% if page.building_image %}
+<section class="building-section">
+    {% image page.building_image width-1920 as building_img %}
+    <img src="{{ building_img.url }}" alt="Будівля закладу" class="building-image">
+    <div class="building-overlay">
+        <div class="container">
+            <h3 class="mb-0">Наш заклад</h3>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Achievements Section -->
+{% if page.achievements %}
+<section class="content-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="section-card">
+                    <div class="section-icon mx-auto" style="margin-bottom: 2rem;">
+                        <i class="bi bi-trophy"></i>
+                    </div>
+                    <h2 class="section-title d-block text-center mx-auto">Досягнення</h2>
+                    <div class="section-content mt-4">
+                        {{ page.achievements|richtext }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
 {% endblock %}

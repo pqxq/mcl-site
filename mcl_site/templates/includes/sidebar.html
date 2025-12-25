@@ -1,0 +1,127 @@
+{% load static wagtailcore_tags core_menu %}
+{% wagtail_site as current_site %}
+{% get_sidebar_pages current_site.root_page as sidebar_pages %}
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <a href="/" class="sidebar-brand">
+            <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" width="56" height="56">
+            <span>Миколаївський ліцей №9</span>
+        </a>
+        <button class="sidebar-close d-lg-none" id="sidebarClose" aria-label="Закрити меню">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <nav class="sidebar-nav">
+        <ul class="sidebar-menu">
+            {# Home page link #}
+            <li class="sidebar-item">
+                <a href="/" class="sidebar-link {% if request.path == '/' %}active{% endif %}">
+                    <i class="bi bi-house-door"></i>
+                    <span>Головна</span>
+                </a>
+            </li>
+
+            {# System pages (About, News, Staff, Documents, Admissions) #}
+            {% for page in sidebar_pages.system %}
+                <li class="sidebar-item">
+                    <a href="{% pageurl page %}" class="sidebar-link {% if request.path == page.url %}active{% endif %}">
+                        <i class="bi {{ page|page_icon }}"></i>
+                        <span>{{ page.title }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+
+            {# Static schedule link #}
+            <li class="sidebar-item">
+                <a href="/schedule/" class="sidebar-link {% if '/schedule/' in request.path %}active{% endif %}">
+                    <i class="bi bi-calendar-week"></i>
+                    <span>Розклад</span>
+                </a>
+            </li>
+
+            {# Search link #}
+            <li class="sidebar-item">
+                <a href="/search/" class="sidebar-link {% if '/search/' in request.path %}active{% endif %}">
+                    <i class="bi bi-search"></i>
+                    <span>Пошук</span>
+                </a>
+            </li>
+
+            {# Divider before content pages #}
+            {% if sidebar_pages.content %}
+                <li class="sidebar-divider"></li>
+            {% endif %}
+
+            {# Content pages (custom pages created by admin) #}
+            {% for page in sidebar_pages.content %}
+                <li class="sidebar-item {% if page.get_children.live.in_menu %}has-submenu{% endif %}">
+                    {% if page.get_children.live.in_menu %}
+                        <a href="#submenu-{{ page.pk }}" class="sidebar-link" data-bs-toggle="collapse">
+                            <i class="bi {{ page|page_icon }}"></i>
+                            <span>{{ page.title }}</span>
+                            <i class="bi bi-chevron-down submenu-arrow"></i>
+                        </a>
+                        <ul class="sidebar-submenu collapse" id="submenu-{{ page.pk }}">
+                            <li>
+                                <a href="{% pageurl page %}" class="sidebar-sublink">
+                                    {{ page.title }}
+                                </a>
+                            </li>
+                            {% for child in page.get_children.live.in_menu %}
+                                <li>
+                                    <a href="{% pageurl child %}" class="sidebar-sublink">
+                                        {{ child.title }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <a href="{% pageurl page %}" class="sidebar-link {% if request.path == page.url %}active{% endif %}">
+                            <i class="bi {{ page|page_icon }}"></i>
+                            <span>{{ page.title }}</span>
+                        </a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+
+            {# Divider before sidebar sections #}
+            {% get_sidebar_sections as sidebar_sections %}
+            {% if sidebar_sections %}
+                <li class="sidebar-divider"></li>
+            {% endif %}
+
+            {# Custom sidebar sections #}
+            {% for section in sidebar_sections %}
+                {% if section.links.all %}
+                    <li class="sidebar-item has-submenu">
+                        <a href="#sidebar-section-{{ section.pk }}" class="sidebar-link" data-bs-toggle="collapse" {% if section.is_expanded %}aria-expanded="true"{% endif %}>
+                            <i class="bi {{ section.icon }}"></i>
+                            <span>{{ section.title }}</span>
+                            <i class="bi bi-chevron-down submenu-arrow"></i>
+                        </a>
+                        <ul class="sidebar-submenu collapse {% if section.is_expanded %}show{% endif %}" id="sidebar-section-{{ section.pk }}">
+                            {% for link in section.links.all %}
+                                <li>
+                                    <a href="{{ link.href }}" class="sidebar-sublink" {% if link.new_tab %}target="_blank" rel="noopener"{% endif %}>
+                                        {{ link.label }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="/admissions/" class="btn btn-primary-custom w-100">
+            <i class="bi bi-mortarboard me-2"></i>Вступ
+        </a>
+    </div>
+</aside>
+
+<!-- Overlay for mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>

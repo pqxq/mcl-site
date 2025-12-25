@@ -2,18 +2,27 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-<div class="person-header mb-5">
+<!-- Hero Section -->
+<section class="page-hero page-hero-sm">
+    <div class="hero-bg-pattern"></div>
     <div class="container">
         <nav aria-label="breadcrumb" class="mb-3">
             <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/" class="text-white-50"><i class="bi bi-house"></i></a></li>
                 <li class="breadcrumb-item"><a href="{{ page.get_parent.url }}" class="text-white-50">Колектив</a></li>
                 <li class="breadcrumb-item active text-white" aria-current="page">{{ page.title }}</li>
             </ol>
         </nav>
     </div>
-</div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+        </svg>
+    </div>
+</section>
 
-<div class="container mb-5">
+<section class="person-content-section">
+<div class="container">
     <div class="person-profile-card shadow-lg border-0 bg-white overflow-hidden">
         <div class="row g-0">
             <div class="col-lg-4 bg-white d-flex align-items-center justify-content-center p-4">
@@ -96,11 +105,7 @@
 
                     <div>
                         <a href="{{ page.get_parent.url }}" class="btn btn-primary-custom rounded-pill px-4 py-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-left me-2" viewBox="0 0 16 16" style="margin-bottom: 2px; display: inline-block;">
-                                <path fill-rule="evenodd"
-                                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
-                            </svg>
+                            <i class="bi bi-arrow-left me-2"></i>
                             До списку
                         </a>
                     </div>
@@ -109,21 +114,17 @@
         </div>
     </div>
 </div>
+</section>
 
 <style>
-    :root {
-        --primary: #1a3a5f;
-        --primary-rgb: 26, 58, 95;
-    }
-
-    .person-header {
-        background: linear-gradient(135deg, var(--primary) 0%, #1a3a5f 100%);
-        padding: 4rem 0 6rem 0;
-        margin-bottom: -6rem !important;
+    .person-content-section {
+        background: var(--gray-50);
+        padding: 3rem 0 5rem;
+        margin-top: -2px;
     }
 
     .person-profile-card {
-        border-radius: 30px;
+        border-radius: 20px;
         position: relative;
         z-index: 10;
         min-height: 500px;

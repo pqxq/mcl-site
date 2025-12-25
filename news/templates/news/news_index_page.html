@@ -4,80 +4,104 @@
 {% block title %}{{ page.title }} | Миколаївський ліцей №9{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold">{{ page.title }}</h1>
-        {% if page.intro %}
-        <div class="lead text-muted">{{ page.intro|richtext }}</div>
-        {% endif %}
+<!-- Hero Section -->
+<section class="page-hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <span class="hero-badge">
+                <i class="bi bi-newspaper me-2"></i>Новини ліцею
+            </span>
+            <h1 class="hero-title">{{ page.title }}</h1>
+            {% if page.intro %}
+            <div class="hero-subtitle">{{ page.intro|richtext }}</div>
+            {% endif %}
+        </div>
     </div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+        </svg>
+    </div>
+</section>
 
-    {% if all_tags %}
-    <div class="mb-4">
-        <div class="d-flex flex-wrap gap-2 justify-content-center">
-            <a href="{% pageurl page %}" 
-               class="badge {% if not current_tag %}bg-primary{% else %}bg-secondary{% endif %} text-decoration-none px-3 py-2">
-                Всі новини
-            </a>
-            {% for tag in all_tags %}
-            <a href="{% pageurl page %}?tag={{ tag.name }}" 
-               class="badge {% if current_tag == tag.name %}bg-primary{% else %}bg-secondary{% endif %} text-decoration-none px-3 py-2">
-                {{ tag.name }}
-            </a>
+<!-- Filter Section -->
+{% if all_tags %}
+<section class="filter-section">
+    <div class="container">
+        <div class="filter-card">
+            <div class="filter-wrapper">
+                <span class="filter-label">
+                    <i class="bi bi-funnel me-2"></i>Фільтр:
+                </span>
+                <div class="filter-chips">
+                    <a href="{% pageurl page %}" class="filter-chip {% if not current_tag %}active{% endif %}">
+                        <i class="bi bi-grid-3x3-gap me-1"></i>Всі
+                    </a>
+                    {% for tag in all_tags %}
+                    <a href="{% pageurl page %}?tag={{ tag.name }}" class="filter-chip {% if current_tag == tag.name %}active{% endif %}">
+                        {{ tag.name }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- News Grid -->
+<section class="news-grid-section">
+    <div class="container">
+        {% if news_items %}
+        <div class="row g-4">
+            {% for post in news_items %}
+            <div class="col-lg-4 col-md-6">
+                <article class="news-card h-100">
+                    <div class="news-card-image">
+                        {% if post.specific.image %}
+                        {% image post.specific.image fill-400x250 class="w-100 h-100 object-fit-cover" %}
+                        {% else %}
+                        <div class="news-placeholder">
+                            <i class="bi bi-newspaper"></i>
+                        </div>
+                        {% endif %}
+                        <div class="news-card-overlay"></div>
+                    </div>
+                    <div class="news-card-body">
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="bi bi-calendar3 me-1"></i>
+                                {{ post.specific.date|date:"d E Y" }}
+                            </span>
+                        </div>
+                        <h2 class="news-title">
+                            <a href="{% pageurl post %}">{{ post.title }}</a>
+                        </h2>
+                        <p class="news-excerpt">{{ post.specific.intro|truncatewords:18 }}</p>
+                        {% if post.specific.tags.all %}
+                        <div class="news-tags">
+                            {% for tag in post.specific.tags.all %}
+                            <span class="news-tag">{{ tag.name }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <a href="{% pageurl post %}" class="read-more">
+                            Читати далі
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
             {% endfor %}
         </div>
-    </div>
-    {% endif %}
-
-    {% if news_items %}
-    <div class="row g-4">
-        {% for post in news_items %}
-        <div class="col-lg-4 col-md-6">
-            <article class="news-card h-100">
-                <div class="news-card-image">
-                    {% if post.specific.image %}
-                    {% image post.specific.image fill-400x250 class="w-100 h-100 object-fit-cover" %}
-                    {% else %}
-                    <span class="news-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-                        </svg>
-                    </span>
-                    {% endif %}
-                </div>
-                <div class="news-card-body">
-                    <span class="news-date">{{ post.specific.date|date:"d E Y" }}</span>
-                    <h2 class="news-title h3">
-                        <a href="{% pageurl post %}">{{ post.title }}</a>
-                    </h2>
-                    <p class="news-excerpt">{{ post.specific.intro|truncatewords:20 }}</p>
-                    {% if post.specific.tags.all %}
-                    <div class="mb-2">
-                        {% for tag in post.specific.tags.all %}
-                        <span class="badge bg-light text-dark me-1">{{ tag.name }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                    <a href="{% pageurl post %}" class="read-more">Читати далі →</a>
-                </div>
-            </article>
+        {% else %}
+        <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <h4>Новин ще немає</h4>
+            <p>Скоро тут з'являться новини ліцею</p>
         </div>
-        {% endfor %}
+        {% endif %}
     </div>
-    {% else %}
-    <div class="text-center py-5">
-        <div class="mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
-                style="color: var(--gray-300);" viewBox="0 0 16 16">
-                <path
-                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Z" />
-            </svg>
-        </div>
-        <h4 class="text-muted">Новин ще немає</h4>
-        <p class="text-muted">Скоро тут з'являться новини ліцею</p>
-    </div>
-    {% endif %}
-</div>
+</section>
 {% endblock %}

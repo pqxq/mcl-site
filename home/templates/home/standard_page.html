@@ -4,15 +4,33 @@
 {% block title %}{{ page.title }} | Миколаївський ліцей №9{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <h1 class="display-4 fw-bold mb-4">{{ page.title }}</h1>
-            <div class="content-body">
-                {{ page.body|richtext }}
+<!-- Hero Section -->
+<section class="page-hero page-hero-sm">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">{{ page.title }}</h1>
+        </div>
+    </div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+        </svg>
+    </div>
+</section>
+
+<section class="standard-content-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <article class="content-article">
+                    <div class="article-content">
+                        {{ page.body|richtext }}
+                    </div>
+                </article>
             </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}
 

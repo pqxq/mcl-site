@@ -4,66 +4,84 @@
 {% block title %}{{ page.title }} | Новини{% endblock %}
 
 {% block content %}
-<article class="py-5">
+<!-- Hero Section -->
+<section class="page-hero">
+    <div class="hero-bg-pattern"></div>
     <div class="container">
-        <nav aria-label="breadcrumb" class="mb-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ page.get_parent.url }}">Новини</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ page.title|truncatewords:5 }}</li>
-            </ol>
-        </nav>
-
-        <header class="mb-5 pb-4 border-bottom">
-            <h1 class="display-5 fw-bold mb-3">{{ page.title }}</h1>
-            <div class="text-muted d-flex align-items-center gap-2 mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path
-                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                </svg>
-                <span>{{ page.date|date:"d E Y" }}</span>
-            </div>
-
-        </header>
-
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="lead mb-4 fw-medium text-dark">
-                    {{ page.intro }}
+        <div class="hero-content">
+            <nav aria-label="breadcrumb" class="hero-breadcrumb mb-3">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="/"><i class="bi bi-house"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ page.get_parent.url }}">Новини</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ page.title|truncatewords:5 }}</li>
+                </ol>
+            </nav>
+            
+            <div class="text-center">
+                <div class="hero-meta mb-3">
+                    <span class="hero-meta-item">
+                        <i class="bi bi-calendar3 me-1"></i>
+                        {{ page.date|date:"d E Y" }}
+                    </span>
+                    {% if page.tags.all %}
+                    {% for tag in page.tags.all %}
+                    <span class="hero-meta-tag">{{ tag.name }}</span>
+                    {% endfor %}
+                    {% endif %}
                 </div>
-                <div class="article-content">
-                    {{ page.body|richtext }}
-                </div>
+                <h1 class="hero-title">{{ page.title }}</h1>
+                {% if page.intro %}
+                <p class="hero-subtitle">{{ page.intro }}</p>
+                {% endif %}
             </div>
-        </div>
-
-        <div class="mt-5 pt-4 border-top">
-            <a href="{{ page.get_parent.url }}" class="btn btn-primary-custom">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-2"
-                    viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
-                </svg>
-                Всі новини
-            </a>
         </div>
     </div>
-</article>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+        </svg>
+    </div>
+</section>
 
-<style>
-    .article-content {
-        font-size: 1.1rem;
-        line-height: 1.8;
-    }
-
-    .article-content p {
-        margin-bottom: 1.5rem;
-    }
-
-    .article-content img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        margin: 1.5rem 0;
-    }
-</style>
+<!-- Article Content -->
+<section class="article-content-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                {% if page.image %}
+                <div class="article-featured-image">
+                    {% image page.image width-900 class="img-fluid" %}
+                </div>
+                {% endif %}
+                
+                <div class="article-body">
+                    {{ page.body|richtext }}
+                </div>
+                
+                <!-- Share & Navigation -->
+                <div class="article-footer">
+                    <div class="share-section">
+                        <span class="share-label">Поділитися:</span>
+                        <div class="share-buttons">
+                            <a href="#" class="share-btn" aria-label="Facebook">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" class="share-btn" aria-label="Telegram">
+                                <i class="bi bi-telegram"></i>
+                            </a>
+                            <a href="#" class="share-btn" aria-label="Twitter">
+                                <i class="bi bi-twitter-x"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <a href="{{ page.get_parent.url }}" class="btn btn-primary-custom">
+                        <i class="bi bi-arrow-left me-2"></i>
+                        Всі новини
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

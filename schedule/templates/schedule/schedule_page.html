@@ -4,148 +4,280 @@
 {% block title %}Розклад занять | Миколаївський ліцей №9{% endblock %}
 
 {% block content %}
-<div class="container-fluid py-4">
-    <div class="text-center mb-4">
-        <h1 class="display-5 fw-bold">Розклад занять</h1>
-        <p class="text-muted mb-1">Миколаївського ліцею №9</p>
-        <div class="alert alert-info d-inline-block py-1 px-4 small mb-0 fw-bold">
+<!-- Hero Section -->
+<section class="page-hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <span class="hero-badge">
+                <i class="bi bi-calendar-week me-2"></i>Розклад
+            </span>
+            <h1 class="hero-title">Розклад занять</h1>
+            <div class="hero-subtitle">Миколаївського ліцею №9</div>
+        </div>
+    </div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+        </svg>
+    </div>
+</section>
+
+<section class="schedule-section">
+    <div class="container">
+        <!-- Notice Banner -->
+        <div class="schedule-notice mb-4">
+            <i class="bi bi-bell-fill me-2"></i>
             9:00 — Загальнонаціональна хвилина мовчання
         </div>
-    </div>
 
-    <!-- Week Tabs -->
-    <div class="d-flex justify-content-center mb-4">
-        <div class="btn-group" role="group">
-            <a href="?week=1"
-                class="btn {% if current_week == '1' %}btn-primary{% else %}btn-outline-primary{% endif %}">I
-                тиждень</a>
-            <a href="?week=2"
-                class="btn {% if current_week == '2' %}btn-primary{% else %}btn-outline-primary{% endif %}">II
-                тиждень</a>
-            <a href="?week=3"
-                class="btn {% if current_week == '3' %}btn-primary{% else %}btn-outline-primary{% endif %}">III
-                тиждень</a>
-            <a href="?week=4"
-                class="btn {% if current_week == '4' %}btn-primary{% else %}btn-outline-primary{% endif %}">IV
-                тиждень</a>
-        </div>
-    </div>
+        <!-- Controls Row -->
+        <div class="schedule-controls">
+            <div class="row g-3 align-items-end">
+                <!-- Week Tabs -->
+                <div class="col-lg-8">
+                    <label class="control-label">Оберіть тиждень:</label>
+                    <div class="week-tabs">
+                        <a href="?week=1" class="week-tab {% if current_week == '1' %}active{% endif %}">
+                            <i class="bi bi-1-circle me-1"></i>I тиждень
+                        </a>
+                        <a href="?week=2" class="week-tab {% if current_week == '2' %}active{% endif %}">
+                            <i class="bi bi-2-circle me-1"></i>II тиждень
+                        </a>
+                        <a href="?week=3" class="week-tab {% if current_week == '3' %}active{% endif %}">
+                            <i class="bi bi-3-circle me-1"></i>III тиждень
+                        </a>
+                        <a href="?week=4" class="week-tab {% if current_week == '4' %}active{% endif %}">
+                            <i class="bi bi-4-circle me-1"></i>IV тиждень
+                        </a>
+                    </div>
+                </div>
 
-    <!-- Class Filter -->
-    <div class="d-flex justify-content-center mb-4">
-        <div class="col-md-4">
-            <label for="classFilter" class="form-label fw-bold">Фільтр за класом:</label>
-            <select id="classFilter" class="form-select">
-                <option value="">Всі класи</option>
-                {% for class_group in class_groups %}
-                <option value="{{ class_group.id }}">{{ class_group.name }} ({{ class_group.study_type }})</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-
-    {% if schedule_data %}
-    <div class="table-responsive">
-        <table class="schedule-table" id="scheduleTable">
-            <thead>
-                <tr>
-                    <th class="day-col">День</th>
-                    <th class="para-col">Пара</th>
-                    <th class="num-col">№</th>
-                    <th class="time-col">Час</th>
-                    {% for class_group in class_groups %}
-                    <th class="class-col" data-class-id="{{ class_group.id }}">{{ class_group.name }}<br><small>{{ class_group.study_type }}</small></th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for day_name, lessons_by_num in schedule_data.items %}
-                {% for lesson_num, lesson_row in lessons_by_num.items %}
-                <tr{% if forloop.first %} class="day-start" {% endif %}>
-                    {% if forloop.first %}
-                    <td class="day-cell" rowspan="{{ lessons_by_num|length }}">
-                        <div class="day-name">{{ day_name }}</div>
-                    </td>
-                    {% endif %}
-
-                    {% if lesson_row.show_para %}
-                    <td class="para-cell" rowspan="{{ lesson_row.para_rowspan }}">
-                        <div class="para-name">{{ lesson_row.para }}</div>
-                    </td>
-                    {% endif %}
-
-                    <td class="num-cell">{{ lesson_num }}</td>
-                    <td class="time-cell">{{ lesson_row.time }}</td>
-                    {% for class_group in class_groups %}
-                    {% with lesson_list=lesson_row.lessons|get_item:class_group.id %}
-                    {% if lesson_list %}
-                    {% if not lesson_list.0.skip %}
-                    <td class="lesson-cell" data-class-id="{{ class_group.id }}" rowspan="{{ lesson_list.0.rowspan }}">
-                        <div class="d-flex h-100 align-items-stretch">
-                            {% for lesson in lesson_list %}
-                            <div class="lesson-item flex-fill p-2 {% if not forloop.last %}border-end{% endif %}"
-                                style="min-width: 0;">
-                                <div class="lesson-subject">
-                                    {{ lesson.subject }}
-                                </div>
-                                {% if lesson.cabinet %}
-                                <div class="lesson-cabinet">{{ lesson.cabinet }}</div>
-                                {% endif %}
-                            </div>
+                <!-- Class Filter -->
+                <div class="col-lg-4">
+                    <label class="control-label">Фільтр за класом:</label>
+                    <div class="dropdown">
+                        <button class="class-filter-btn dropdown-toggle" type="button" id="classFilterDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-funnel me-2"></i>
+                            <span id="classFilterLabel">Всі класи</span>
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="classFilterDropdown">
+                            <li><a class="dropdown-item active" href="#" data-class-id="">Всі класи</a></li>
+                            {% for class_group in class_groups %}
+                            <li><a class="dropdown-item" href="#" data-class-id="{{ class_group.id }}">{{ class_group.name }} ({{ class_group.study_type }})</a></li>
                             {% endfor %}
-                        </div>
-                    </td>
-                    {% endif %}
-                    {% else %}
-                    <td class="lesson-cell" data-class-id="{{ class_group.id }}"></td>
-                    {% endif %}
-                    {% endwith %}
-                    {% endfor %}
-                    </tr>
-                    {% endfor %}
-                    {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% else %}
-    <div class="text-center py-5">
-        <div class="mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
-                style="color: var(--gray-300);" viewBox="0 0 16 16">
-                <path
-                    d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
-            </svg>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h4 class="text-muted">Розклад ще не додано</h4>
-        <p class="text-muted">Адміністратор може додати розклад через панель керування.</p>
+
+        {% if schedule_data %}
+        <div class="schedule-table-wrapper">
+            <table class="schedule-table" id="scheduleTable">
+                <thead>
+                    <tr>
+                        <th class="day-col">День</th>
+                        <th class="para-col">Пара</th>
+                        <th class="num-col">№</th>
+                        <th class="time-col">Час</th>
+                        {% for class_group in class_groups %}
+                        <th class="class-col" data-class-id="{{ class_group.id }}">{{ class_group.name }}<br><small>{{ class_group.study_type }}</small></th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for day_name, lessons_by_num in schedule_data.items %}
+                    {% for lesson_num, lesson_row in lessons_by_num.items %}
+                    <tr{% if forloop.first %} class="day-start" {% endif %}>
+                        {% if forloop.first %}
+                        <td class="day-cell" rowspan="{{ lessons_by_num|length }}">
+                            <div class="day-name">{{ day_name }}</div>
+                        </td>
+                        {% endif %}
+
+                        {% if lesson_row.show_para %}
+                        <td class="para-cell" rowspan="{{ lesson_row.para_rowspan }}">
+                            <div class="para-name">{{ lesson_row.para }}</div>
+                        </td>
+                        {% endif %}
+
+                        <td class="num-cell">{{ lesson_num }}</td>
+                        <td class="time-cell">{{ lesson_row.time }}</td>
+                        {% for class_group in class_groups %}
+                        {% with lesson_list=lesson_row.lessons|get_item:class_group.id %}
+                        {% if lesson_list %}
+                        {% if not lesson_list.0.skip %}
+                        <td class="lesson-cell" data-class-id="{{ class_group.id }}" rowspan="{{ lesson_list.0.rowspan }}">
+                            <div class="d-flex h-100 align-items-stretch">
+                                {% for lesson in lesson_list %}
+                                <div class="lesson-item flex-fill p-2 {% if not forloop.last %}border-end{% endif %}"
+                                    style="min-width: 0;">
+                                    <div class="lesson-subject">
+                                        {{ lesson.subject }}
+                                    </div>
+                                    {% if lesson.cabinet %}
+                                    <div class="lesson-cabinet">{{ lesson.cabinet }}</div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        {% endif %}
+                        {% else %}
+                        <td class="lesson-cell" data-class-id="{{ class_group.id }}"></td>
+                        {% endif %}
+                        {% endwith %}
+                        {% endfor %}
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <i class="bi bi-calendar2-x"></i>
+            <h4>Розклад ще не додано</h4>
+            <p>Адміністратор може додати розклад через панель керування.</p>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
+</section>
 
 <style>
+    /* Schedule Section */
+    .schedule-section {
+        padding: 2rem 0 4rem;
+        background: var(--gray-50);
+    }
+
+    .schedule-notice {
+        background: linear-gradient(135deg, #fffdf5 0%, #fff8e1 100%);
+        border-left: 4px solid var(--accent);
+        padding: 1rem 1.5rem;
+        border-radius: 0 12px 12px 0;
+        font-weight: 600;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(212, 175, 55, 0.15);
+    }
+
+    .schedule-notice i {
+        color: var(--accent);
+        font-size: 1.1rem;
+    }
+
+    /* Schedule Controls */
+    .schedule-controls {
+        background: var(--white);
+        padding: 1.5rem;
+        border-radius: 16px;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .control-label {
+        display: block;
+        font-weight: 600;
+        color: var(--gray-600);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+    }
+
+    .week-tabs {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .week-tab {
+        flex: 1;
+        text-align: center;
+        padding: 0.75rem 1rem;
+        background: var(--gray-100);
+        color: var(--gray-700);
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .week-tab:hover {
+        background: var(--gray-200);
+        color: var(--primary);
+    }
+
+    .week-tab.active {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: var(--white);
+    }
+
+    .week-tab i {
+        font-size: 0.8rem;
+    }
+
+    .class-filter-btn {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: var(--white);
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+    }
+
+    .class-filter-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(30, 58, 95, 0.3);
+    }
+
+    /* Table Card Wrapper */
+    .schedule-table-wrapper {
+        background: var(--white);
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
     .schedule-table {
         width: 100%;
         border-collapse: collapse;
         font-size: 0.85rem;
         background: var(--white);
-        border: 1px solid var(--gray-300);
+        border: none;
+        margin-bottom: 0;
     }
 
     .schedule-table th,
     .schedule-table td {
-        border: 1px solid var(--gray-300);
-        padding: 0.5rem;
+        border: 1px solid var(--gray-200);
+        padding: 0.625rem;
         text-align: center;
         vertical-align: middle;
     }
 
     .schedule-table thead th {
-        background: var(--primary);
+        background: linear-gradient(135deg, #1e3a5f 0%, #152c47 100%);
         color: var(--white);
         font-weight: 600;
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.03em;
+        border-color: #2d4a6f;
+        padding: 0.875rem 0.5rem;
     }
 
     .day-col {
@@ -165,19 +297,19 @@
     }
 
     .class-col {
-        min-width: 120px;
+        min-width: 130px;
+        font-size: 0.75rem;
     }
 
     .day-cell,
     .para-cell {
-        background: var(--gray-100);
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         font-weight: 600;
         vertical-align: middle;
     }
 
     .day-cell {
-        padding: 0.5rem;
-        background: var(--gray-100);
+        padding: 0.75rem 0.5rem;
         vertical-align: middle;
     }
 
@@ -185,82 +317,107 @@
         writing-mode: vertical-rl;
         text-orientation: mixed;
         transform: rotate(180deg);
-        font-size: 0.9rem;
-        color: var(--primary);
+        font-size: 0.85rem;
+        color: #1e3a5f;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
-        font-weight: 600;
+        letter-spacing: 0.08em;
+        font-weight: 700;
         margin: 0 auto;
-        padding: 5px 0;
+        padding: 8px 0;
     }
 
     .para-name {
-        font-size: 0.9rem;
-        color: var(--primary);
+        font-size: 0.8rem;
+        color: #1e3a5f;
         text-transform: uppercase;
         letter-spacing: 0.05em;
+        font-weight: 600;
     }
 
     .num-cell {
         font-weight: 700;
-        background: var(--gray-50);
-        color: var(--primary);
+        background: #f8f9fa;
+        color: #1e3a5f;
+        font-size: 0.9rem;
     }
 
     .time-cell {
         font-size: 0.75rem;
-        color: var(--gray-500);
+        color: var(--gray-600);
         white-space: nowrap;
+        background: #fafafa;
     }
 
     .lesson-cell {
         background: var(--white);
         min-height: 50px;
+        transition: background-color 0.15s ease;
     }
 
     .lesson-cell:hover {
-        background: var(--gray-50);
+        background: #f0f7ff;
     }
 
     .lesson-subject {
-        font-weight: 500;
-        color: var(--gray-900);
+        font-weight: 600;
+        color: #1e3a5f;
         font-size: 0.8rem;
+        line-height: 1.3;
     }
 
     .lesson-cabinet {
         font-size: 0.7rem;
-        color: var(--gray-500);
-        margin-top: 2px;
+        color: #6b7280;
+        margin-top: 3px;
+        background: #f3f4f6;
+        padding: 2px 6px;
+        border-radius: 4px;
+        display: inline-block;
     }
 
     .day-start td {
-        border-top: 5px solid var(--primary) !important;
+        border-top: 3px solid var(--accent) !important;
     }
 
-    .btn-primary {
-        background: var(--primary) !important;
-        border-color: var(--primary) !important;
-    }
-
-    .btn-outline-primary {
-        color: var(--primary);
-        border-color: var(--primary);
-    }
-
-    .btn-outline-primary:hover {
-        background: var(--primary);
-        color: var(--white);
+    @media (max-width: 992px) {
+        .week-tabs {
+            flex-wrap: wrap;
+        }
+        .week-tab {
+            flex: 1 1 45%;
+        }
     }
 
     @media (max-width: 768px) {
+        .schedule-section {
+            padding: 1.5rem 0 3rem;
+        }
+
         .schedule-table {
+            font-size: 0.7rem;
+        }
+
+        .day-name {
+            writing-mode: horizontal-tb;
+            transform: none;
             font-size: 0.75rem;
         }
 
-        .day-cell {
-            writing-mode: horizontal-tb;
-            transform: none;
+        .lesson-subject {
+            font-size: 0.7rem;
+        }
+
+        .class-col {
+            min-width: 90px;
+        }
+        
+        .week-tab {
+            padding: 0.6rem 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .week-tab i {
+            display: none;
         }
     }
 
@@ -272,37 +429,51 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const classFilter = document.getElementById('classFilter');
+    const classFilterDropdown = document.getElementById('classFilterDropdown');
+    const classFilterLabel = document.getElementById('classFilterLabel');
+    const dropdownItems = document.querySelectorAll('#classFilterDropdown + .dropdown-menu .dropdown-item');
     const scheduleTable = document.getElementById('scheduleTable');
     
-    if (classFilter && scheduleTable) {
-        classFilter.addEventListener('change', function() {
-            const selectedClassId = this.value;
-            const classCols = scheduleTable.querySelectorAll('.class-col');
-            const lessonCells = scheduleTable.querySelectorAll('.lesson-cell');
-            
-            if (selectedClassId === '') {
-                // Show all classes
-                classCols.forEach(col => col.classList.remove('hidden'));
-                lessonCells.forEach(cell => cell.classList.remove('hidden'));
-            } else {
-                // Hide all classes except selected
-                classCols.forEach(col => {
-                    if (col.getAttribute('data-class-id') === selectedClassId) {
-                        col.classList.remove('hidden');
-                    } else {
-                        col.classList.add('hidden');
-                    }
-                });
+    if (classFilterDropdown && scheduleTable) {
+        dropdownItems.forEach(function(item) {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const selectedClassId = this.getAttribute('data-class-id');
+                const selectedLabel = this.textContent;
                 
-                lessonCells.forEach(cell => {
-                    if (cell.getAttribute('data-class-id') === selectedClassId) {
-                        cell.classList.remove('hidden');
-                    } else {
-                        cell.classList.add('hidden');
-                    }
-                });
-            }
+                // Update button label
+                classFilterLabel.textContent = selectedLabel;
+                
+                // Update active state
+                dropdownItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                
+                const classCols = scheduleTable.querySelectorAll('.class-col');
+                const lessonCells = scheduleTable.querySelectorAll('.lesson-cell');
+                
+                if (selectedClassId === '') {
+                    // Show all classes
+                    classCols.forEach(col => col.classList.remove('hidden'));
+                    lessonCells.forEach(cell => cell.classList.remove('hidden'));
+                } else {
+                    // Hide all classes except selected
+                    classCols.forEach(col => {
+                        if (col.getAttribute('data-class-id') === selectedClassId) {
+                            col.classList.remove('hidden');
+                        } else {
+                            col.classList.add('hidden');
+                        }
+                    });
+                    
+                    lessonCells.forEach(cell => {
+                        if (cell.getAttribute('data-class-id') === selectedClassId) {
+                            cell.classList.remove('hidden');
+                        } else {
+                            cell.classList.add('hidden');
+                        }
+                    });
+                }
+            });
         });
     }
 });

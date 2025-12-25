@@ -2,247 +2,222 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-<div class="staff-hero">
-    <div class="container text-center py-5">
-        <h1 class="display-3 fw-bold text-white mb-3 fade-in">{{ page.title }}</h1>
-        {% if page.intro %}
-        <div class="lead text-white-50 mx-auto fade-in-delayed" style="max-width: 800px;">
-            {{ page.intro|richtext }}
-        </div>
-        {% endif %}
-    </div>
-</div>
-
-<div class="staff-content-wrapper">
-    <div class="container py-5">
-        {% if departments %}
-        <div class="department-filters mb-5">
-            <div class="filter-container">
-                <a href="{% pageurl page %}" 
-                   class="filter-btn {% if not current_department %}active{% endif %}">
-                    <i class="bi bi-people-fill me-2"></i>
-                    Всі кафедри
-                </a>
-                {% for dept in departments %}
-                <a href="{% pageurl page %}?department={{ dept }}" 
-                   class="filter-btn {% if current_department == dept %}active{% endif %}">
-                    <i class="bi bi-building me-2"></i>
-                    {{ dept }}
-                </a>
-                {% endfor %}
+<div class="staff-page">
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="hero-bg-pattern"></div>
+        <div class="container">
+            <div class="hero-content text-center">
+                <span class="hero-badge">
+                    <i class="bi bi-people me-2"></i>Колектив
+                </span>
+                <h1 class="hero-title">{{ page.title }}</h1>
+                {% if page.intro %}
+                <div class="hero-subtitle">
+                    {{ page.intro|striptags|truncatewords:25 }}
+                </div>
+                {% endif %}
             </div>
         </div>
-        {% endif %}
+        <div class="hero-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+            </svg>
+        </div>
+    </section>
 
-        {% if staff_members %}
-        {% regroup staff_members|dictsort:"department" by department as grouped_people %}
-
-        {% for group in grouped_people %}
-        <div class="department-section mb-5">
-            {% if group.grouper %}
-            <div class="department-header mb-4">
-                <h2 class="department-title">
-                    <i class="bi bi-building me-2"></i>
-                    {{ group.grouper }}
-                </h2>
-            </div>
-            {% else %}
-            <div class="department-header mb-4">
-                <h2 class="department-title">
-                    <i class="bi bi-people me-2"></i>
-                    Інші
-                </h2>
-            </div>
-            {% endif %}
-            
-            <div class="row g-4">
-                {% for person in group.list %}
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="teacher-card">
-                        <div class="teacher-card-inner">
-                            <div class="portrait-wrapper">
-                                {% if person.photo %}
-                                {% image person.photo fill-300x300 as photo %}
-                                <img src="{{ photo.url }}" class="teacher-photo" alt="{{ person.title }}">
-                                {% else %}
-                                <div class="photo-placeholder">
-                                    <i class="bi bi-person-circle"></i>
-                                </div>
-                                {% endif %}
-                            </div>
-                            
-                            <div class="teacher-details">
-                                <h3 class="teacher-name">{{ person.title }}</h3>
-                                <div class="teacher-position">{{ person.position }}</div>
-                                
-                                {% if person.department %}
-                                <div class="teacher-department">
-                                    <i class="bi bi-building"></i>
-                                    {{ person.department }}
-                                </div>
-                                {% endif %}
-                                
-                                {% if person.subjects.all %}
-                                <div class="teacher-subjects">
-                                    {% for item in person.subjects.all %}
-                                    <span class="subject-tag">{{ item.name }}</span>
-                                    {% endfor %}
-                                </div>
-                                {% endif %}
-                            </div>
-                            
-                            <div class="teacher-action">
-                                <a href="{% pageurl person %}" class="btn-biography">
-                                    <span>Біографія</span>
-                                    <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
+    <!-- Filters Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-card">
+                <div class="filter-wrapper">
+                    <span class="filter-label">
+                        <i class="bi bi-funnel me-2"></i>Фільтр:
+                    </span>
+                    <div class="filter-chips">
+                        <a href="{% pageurl page %}" 
+                           class="filter-chip {% if not current_department %}active{% endif %}">
+                            <i class="bi bi-grid-3x3-gap me-1"></i>Всі
+                        </a>
+                        {% for dept in departments %}
+                        <a href="{% pageurl page %}?department={{ dept }}" 
+                           class="filter-chip {% if current_department == dept %}active{% endif %}">
+                            {{ dept }}
+                        </a>
+                        {% endfor %}
                     </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
-        {% empty %}
-        <div class="empty-state text-center py-5">
-            <i class="bi bi-inbox empty-icon"></i>
-            <p class="empty-text">Співробітники ще не додані або не знайдено за обраним фільтром.</p>
+    </section>
+
+    <!-- Staff Grid -->
+    <section class="staff-grid-section">
+        <div class="container">
+            {% if staff_members %}
+            {% regroup staff_members|dictsort:"department" by department as grouped_people %}
+
+            {% for group in grouped_people %}
+            <div class="department-block">
+                <div class="department-header">
+                    <div class="department-icon">
+                        <i class="bi bi-building"></i>
+                    </div>
+                    <div class="department-info">
+                        <h2 class="department-name">{% if group.grouper %}{{ group.grouper }}{% else %}Адміністрація{% endif %}</h2>
+                        <span class="department-count">{{ group.list|length }} співробітник{{ group.list|length|pluralize:"ів,а,ів" }}</span>
+                    </div>
+                </div>
+                
+                <div class="staff-grid">
+                    {% for person in group.list %}
+                    <article class="staff-card">
+                        <div class="card-photo">
+                            {% if person.photo %}
+                            {% image person.photo fill-280x280 as photo %}
+                            <img src="{{ photo.url }}" alt="{{ person.title }}" loading="lazy">
+                            {% else %}
+                            <div class="photo-placeholder">
+                                <i class="bi bi-person"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h3 class="staff-name">{{ person.title }}</h3>
+                            <p class="staff-position">{{ person.position }}</p>
+                            
+                            {% if person.subjects.all %}
+                            <div class="staff-subjects">
+                                {% for item in person.subjects.all %}
+                                <span class="subject-badge">{{ item.name }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% pageurl person %}" class="profile-link">
+                                <span>Детальніше</span>
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h3>Співробітники не знайдені</h3>
+                <p>{% if current_department %}Немає співробітників у вибраній кафедрі.{% else %}Співробітники ще не додані.{% endif %}</p>
+                {% if current_department %}
+                <a href="{% pageurl page %}" class="btn-reset">
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Показати всіх
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
         </div>
-        {% endfor %}
-        {% else %}
-        <div class="empty-state text-center py-5">
-            <i class="bi bi-inbox empty-icon"></i>
-            <p class="empty-text">Співробітники ще не додані.</p>
-        </div>
-        {% endif %}
-    </div>
+    </section>
 </div>
 
 <style>
-.staff-content-wrapper {
-    position: relative;
-    z-index: 10;
-    background: var(--white);
-    margin-top: -5rem;
-    padding-top: 6rem;
+/* Staff Page Styles */
+.staff-page {
+    background: var(--gray-50);
+    min-height: 100vh;
 }
 
-.department-filters {
-    background: var(--white);
-    padding: 2rem 0;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    margin-bottom: 3rem;
+/* Staff Grid Section */
+.staff-grid-section {
+    padding: 2rem 0 5rem;
 }
 
-.filter-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    justify-content: center;
-    align-items: center;
-    padding: 0 1rem;
-}
-
-.filter-btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.75rem 1.5rem;
-    background: var(--gray-100);
-    color: var(--gray-700);
-    border: 2px solid transparent;
-    border-radius: 50px;
-    font-weight: 500;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.filter-btn:hover {
-    background: var(--primary);
-    color: var(--white);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(30, 58, 95, 0.2);
-    border-color: var(--primary);
-}
-
-.filter-btn.active {
-    background: var(--primary);
-    color: var(--white);
-    border-color: var(--primary);
-    box-shadow: 0 4px 12px rgba(30, 58, 95, 0.3);
-}
-
-.filter-btn.active:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-}
-
-.department-section {
+.department-block {
     margin-bottom: 4rem;
 }
 
+.department-block:last-child {
+    margin-bottom: 0;
+}
+
 .department-header {
-    padding-bottom: 1rem;
-    border-bottom: 3px solid var(--accent);
-    margin-bottom: 2rem;
-}
-
-.department-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-}
-
-.teacher-card {
-    height: 100%;
-    transition: transform 0.3s ease;
-}
-
-.teacher-card:hover {
-    transform: translateY(-8px);
-}
-
-.teacher-card-inner {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 16px;
-    padding: 2rem 1.5rem;
-    height: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--gray-200);
 }
 
-.teacher-card-inner:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    border-color: var(--primary);
-}
-
-.portrait-wrapper {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    background: var(--gray-100);
+.department-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--white);
+    font-size: 1.25rem;
 }
 
-.teacher-photo {
+.department-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+}
+
+.department-count {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+}
+
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Staff Card */
+.staff-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--gray-100);
+}
+
+.staff-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    border-color: var(--primary);
+}
+
+.card-photo {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--gray-100);
+}
+
+.card-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.staff-card:hover .card-photo img {
+    transform: scale(1.05);
 }
 
 .photo-placeholder {
@@ -251,135 +226,159 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-200) 100%);
     color: var(--gray-400);
     font-size: 4rem;
 }
 
-.teacher-details {
-    flex-grow: 1;
-    width: 100%;
-    margin-bottom: 1.5rem;
+.card-body {
+    padding: 1.25rem;
+    flex: 1;
 }
 
-.teacher-name {
+.staff-name {
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--primary);
-    margin-bottom: 0.5rem;
+    margin: 0 0 0.375rem;
     line-height: 1.3;
 }
 
-.teacher-position {
-    font-size: 0.9rem;
+.staff-position {
+    font-size: 0.875rem;
     color: var(--accent);
     font-weight: 600;
-    margin-bottom: 0.75rem;
+    margin: 0;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
 }
 
-.teacher-department {
-    font-size: 0.85rem;
-    color: var(--gray-600);
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.teacher-subjects {
+.staff-subjects {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
+    gap: 0.375rem;
     margin-top: 0.75rem;
 }
 
-.subject-tag {
+.subject-badge {
     font-size: 0.75rem;
-    padding: 0.25rem 0.75rem;
+    padding: 0.25rem 0.625rem;
     background: var(--gray-100);
-    color: var(--primary);
-    border-radius: 12px;
+    color: var(--gray-700);
+    border-radius: 6px;
     font-weight: 500;
-    border: 1px solid var(--gray-200);
 }
 
-.teacher-action {
-    width: 100%;
-    margin-top: auto;
+.card-footer {
+    padding: 0 1.25rem 1.25rem;
 }
 
-.btn-biography {
-    display: inline-flex;
+.profile-link {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    width: 100%;
-    padding: 0.875rem 1.5rem;
-    background: var(--primary);
-    color: var(--white);
-    border-radius: 50px;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: var(--gray-50);
+    border-radius: 8px;
+    color: var(--primary);
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.875rem;
     text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(30, 58, 95, 0.2);
+    transition: all 0.2s ease;
 }
 
-.btn-biography:hover {
-    background: var(--primary-dark);
-    color: var(--white);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(30, 58, 95, 0.3);
+.profile-link:hover {
+    background: var(--accent);
+    color: var(--primary);
 }
 
-.btn-biography i {
-    transition: transform 0.3s ease;
+.profile-link i {
+    transition: transform 0.2s ease;
 }
 
-.btn-biography:hover i {
+.profile-link:hover i {
     transform: translateX(4px);
 }
 
+/* Empty State */
 .empty-state {
-    padding: 4rem 2rem;
+    text-align: center;
+    padding: 5rem 2rem;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-.empty-icon {
-    font-size: 4rem;
-    color: var(--gray-300);
+.empty-state .empty-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--gray-100);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: var(--gray-400);
+}
+
+.empty-state h3 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: var(--gray-500);
     margin-bottom: 1.5rem;
 }
 
-.empty-text {
-    font-size: 1.1rem;
-    color: var(--gray-500);
-    margin: 0;
+.btn-reset {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
 }
 
+.btn-reset:hover {
+    background: var(--primary-dark);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .filter-container {
-        padding: 0 0.5rem;
+    .hero-title {
+        font-size: 2rem;
     }
     
-    .filter-btn {
-        padding: 0.625rem 1.25rem;
-        font-size: 0.875rem;
+    .hero-stats {
+        padding: 1rem 1.5rem;
+        gap: 1.5rem;
     }
     
-    .department-title {
-        font-size: 1.5rem;
+    .stat-number {
+        font-size: 1.75rem;
     }
     
-    .teacher-card-inner {
-        padding: 1.5rem 1rem;
+    .filters-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
     }
     
-    .portrait-wrapper {
-        width: 120px;
-        height: 120px;
+    .staff-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+    
+    .department-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
     }
 }
 </style>

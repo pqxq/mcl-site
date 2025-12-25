@@ -2,31 +2,57 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="row">
-        {% if page.rules_text %}
-        <div class="col-lg-4 mb-4 mb-lg-0">
-            <div class="card shadow-sm border-0 bg-light sticky-top" style="top: 80px;">
-                <div class="card-body p-4">
-                    <h3 class="h5 fw-bold mb-3">Правила вступу</h3>
+<!-- Hero Section -->
+<section class="page-hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <span class="hero-badge">
+                <i class="bi bi-mortarboard me-2"></i>Вступ
+            </span>
+            <h1 class="hero-title">{{ page.title }}</h1>
+            {% if page.intro %}
+            <div class="hero-subtitle">{{ page.intro|striptags|truncatewords:25 }}</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+        </svg>
+    </div>
+</section>
+
+<!-- Application Form Section -->
+<section class="application-section">
+    <div class="container">
+        <div class="row">
+            {% if page.rules_text %}
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="rules-card sticky-top" style="top: 100px;">
+                    <div class="rules-header">
+                        <i class="bi bi-info-circle"></i>
+                        <h3>Правила вступу</h3>
+                    </div>
                     <div class="rules-content">
                         {{ page.rules_text|richtext }}
                     </div>
                 </div>
             </div>
-        </div>
-        {% endif %}
-        
-        <div class="{% if page.rules_text %}col-lg-8{% else %}col-lg-8 mx-auto{% endif %}">
-            <div class="text-center mb-5">
-                <h1 class="display-4 fw-bold mb-3">{{ page.title }}</h1>
-                <div class="lead text-muted">
+            {% endif %}
+            
+            <div class="{% if page.rules_text %}col-lg-8{% else %}col-lg-8 mx-auto{% endif %}">
+                {% if page.intro %}
+                <div class="intro-text">
                     {{ page.intro|richtext }}
                 </div>
-            </div>
+                {% endif %}
 
-            <div class="card shadow-sm border-0 bg-white">
-                <div class="card-body p-5">
+                <div class="form-card">
+                    <div class="form-card-header">
+                        <i class="bi bi-pencil-square"></i>
+                        <span>Заповніть форму</span>
+                    </div>
                     <form action="{% pageurl page %}" method="POST">
                         {% csrf_token %}
 
@@ -39,10 +65,10 @@
                         {% endif %}
 
                         {% for field in form %}
-                        <div class="mb-4">
-                            <label for="{{ field.id_for_label }}" class="form-label fw-bold">{{ field.label }}</label>
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
                             {% if field.help_text %}
-                            <div class="form-text mb-2">{{ field.help_text }}</div>
+                            <div class="form-hint">{{ field.help_text }}</div>
                             {% endif %}
 
                             {{ field }}
@@ -57,35 +83,15 @@
                         </div>
                         {% endfor %}
 
-                        <div class="d-grid mt-5">
-                            <button type="submit" class="btn btn-primary-custom btn-lg">Надіслати заявку</button>
+                        <div class="form-submit">
+                            <button type="submit" class="btn btn-primary-custom btn-lg">
+                                <i class="bi bi-send me-2"></i>Надіслати заявку
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<style>
-    .card input,
-    .card select,
-    .card textarea {
-        display: block;
-        width: 100%;
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
-        border: 1px solid var(--gray-300);
-        border-radius: 6px;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .card input:focus,
-    .card select:focus,
-    .card textarea:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.1);
-    }
-</style>
+</section>
 {% endblock %}

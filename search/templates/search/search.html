@@ -3,36 +3,504 @@
 
 {% block body_class %}template-searchresults{% endblock %}
 
-{% block title %}Search{% endblock %}
+{% block title %}Пошук{% if search_query %}: {{ search_query }}{% endif %}{% endblock %}
 
 {% block content %}
-<h1>Search</h1>
+<div class="search-page">
+    <!-- Hero Section -->
+    <section class="page-hero search-hero">
+        <div class="hero-bg-pattern"></div>
+        <div class="container">
+            <div class="hero-content text-center">
+                <span class="hero-badge">
+                    <i class="bi bi-search me-2"></i>Пошук
+                </span>
+                <h1 class="hero-title">Пошук по сайту</h1>
+                <p class="hero-subtitle" style="font-style: normal; margin-top: 0.5rem;">Знайдіть потрібну інформацію на нашому сайті</p>
+                
+                <form action="{% url 'search' %}" method="get" class="search-form mt-4">
+                    <div class="search-input-wrapper">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" 
+                               name="query" 
+                               class="search-input" 
+                               placeholder="Введіть пошуковий запит..."
+                               {% if search_query %}value="{{ search_query }}"{% endif %}
+                               autocomplete="off"
+                               autofocus>
+                        <button type="submit" class="search-btn">
+                            <span>Шукати</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+            </svg>
+        </div>
+    </section>
 
-<form action="{% url 'search' %}" method="get">
-    <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-    <input type="submit" value="Search" class="button">
-</form>
+    <!-- Results Section -->
+    <section class="search-results-section">
+        <div class="container">
+            {% if search_query %}
+                <div class="results-header">
+                    <h2 class="results-title">
+                        {% if search_results %}
+                            Знайдено результатів: {{ search_results.paginator.count }}
+                        {% else %}
+                            Нічого не знайдено
+                        {% endif %}
+                    </h2>
+                    <p class="results-query">за запитом «<strong>{{ search_query }}</strong>»</p>
+                </div>
 
-{% if search_results %}
-<ul>
-    {% for result in search_results %}
-    <li>
-        <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-        {% if result.search_description %}
-        {{ result.search_description }}
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
+                {% if search_results %}
+                    <div class="results-list">
+                        {% for result in search_results %}
+                            <article class="result-card">
+                                <div class="result-icon">
+                                    <i class="bi bi-file-text"></i>
+                                </div>
+                                <div class="result-content">
+                                    <h3 class="result-title">
+                                        <a href="{% pageurl result %}">{{ result.title }}</a>
+                                    </h3>
+                                    {% if result.search_description %}
+                                        <p class="result-description">{{ result.search_description }}</p>
+                                    {% elif result.specific.intro %}
+                                        <p class="result-description">{{ result.specific.intro|striptags|truncatewords:25 }}</p>
+                                    {% endif %}
+                                    <div class="result-meta">
+                                        <span class="result-type">
+                                            <i class="bi bi-tag"></i>
+                                            {{ result.specific.verbose_name|default:"Сторінка" }}
+                                        </span>
+                                        <span class="result-url">
+                                            <i class="bi bi-link-45deg"></i>
+                                            {{ result.url }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <a href="{% pageurl result %}" class="result-link">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </article>
+                        {% endfor %}
+                    </div>
 
-{% if search_results.has_previous %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-{% endif %}
+                    <!-- Pagination -->
+                    {% if search_results.has_other_pages %}
+                        <nav class="search-pagination">
+                            <ul class="pagination-list">
+                                {% if search_results.has_previous %}
+                                    <li>
+                                        <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}" class="page-link prev">
+                                            <i class="bi bi-chevron-left"></i>
+                                            <span>Назад</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                
+                                <li class="page-info">
+                                    Сторінка {{ search_results.number }} з {{ search_results.paginator.num_pages }}
+                                </li>
+                                
+                                {% if search_results.has_next %}
+                                    <li>
+                                        <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}" class="page-link next">
+                                            <span>Далі</span>
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    {% endif %}
+                {% else %}
+                    <div class="no-results">
+                        <div class="no-results-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <h3>Нічого не знайдено</h3>
+                        <p>Спробуйте змінити пошуковий запит або перевірте правильність написання</p>
+                        <div class="suggestions">
+                            <p><strong>Поради:</strong></p>
+                            <ul>
+                                <li>Перевірте правильність написання</li>
+                                <li>Спробуйте використати інші ключові слова</li>
+                                <li>Спробуйте більш загальні терміни</li>
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="search-empty">
+                    <div class="empty-icon">
+                        <i class="bi bi-lightbulb"></i>
+                    </div>
+                    <h3>Введіть пошуковий запит</h3>
+                    <p>Почніть вводити текст у поле пошуку вище</p>
+                    <div class="popular-searches">
+                        <p><strong>Популярні запити:</strong></p>
+                        <div class="search-tags">
+                            <a href="{% url 'search' %}?query=новини" class="search-tag">Новини</a>
+                            <a href="{% url 'search' %}?query=розклад" class="search-tag">Розклад</a>
+                            <a href="{% url 'search' %}?query=документи" class="search-tag">Документи</a>
+                            <a href="{% url 'search' %}?query=вступ" class="search-tag">Вступ</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+</div>
 
-{% if search_results.has_next %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-{% endif %}
-{% elif search_query %}
-No results found
-{% endif %}
+<style>
+/* Search Page Styles */
+.search-page {
+    background: var(--gray-50);
+    min-height: 100vh;
+}
+
+/* Search Form */
+.search-form {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 0.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.search-icon {
+    padding: 0 1rem;
+    color: var(--gray-500);
+    font-size: 1.25rem;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: 1rem 0.5rem;
+    font-size: 1.1rem;
+    color: var(--gray-700);
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: var(--gray-500);
+}
+
+.search-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: var(--accent);
+    color: var(--primary);
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-btn:hover {
+    background: var(--accent-light);
+    transform: translateX(4px);
+}
+
+/* Results Section */
+.search-results-section {
+    padding: 3rem 0 5rem;
+}
+
+.results-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.results-title {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+}
+
+.results-query {
+    color: var(--gray-500);
+}
+
+/* Result Cards */
+.results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.result-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+    border: 1px solid var(--gray-100);
+}
+
+.result-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+    transform: translateX(4px);
+}
+
+.result-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--gray-100);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.result-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.result-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.result-title a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.result-title a:hover {
+    color: var(--accent);
+}
+
+.result-description {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.result-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--gray-500);
+}
+
+.result-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.result-link {
+    width: 40px;
+    height: 40px;
+    background: var(--gray-100);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.result-card:hover .result-link {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+/* Pagination */
+.search-pagination {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--white);
+    color: var(--primary);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.page-link:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.page-info {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+}
+
+/* No Results / Empty States */
+.no-results, .search-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.no-results-icon, .empty-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--gray-100);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: var(--gray-400);
+}
+
+.no-results h3, .search-empty h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.no-results p, .search-empty p {
+    color: var(--gray-500);
+    margin-bottom: 1.5rem;
+}
+
+.suggestions, .popular-searches {
+    text-align: left;
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.suggestions ul {
+    margin: 0.5rem 0 0 1.25rem;
+    color: var(--gray-600);
+}
+
+.suggestions li {
+    margin-bottom: 0.25rem;
+}
+
+.search-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.search-tag {
+    padding: 0.5rem 1rem;
+    background: var(--gray-100);
+    color: var(--primary);
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.search-tag:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .search-hero {
+        padding: 2rem 0;
+    }
+    
+    .search-title {
+        font-size: 1.75rem;
+    }
+    
+    .search-input-wrapper {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+    
+    .search-icon {
+        display: none;
+    }
+    
+    .search-input {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .search-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .result-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .result-meta {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .result-link {
+        display: none;
+    }
+    
+    .pagination-list {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+</style>
 {% endblock %}
