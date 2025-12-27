@@ -21,6 +21,7 @@
         padding: 2.5rem;
         box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         margin-bottom: 0;
+        border-left: 4px solid var(--accent);
     }
     
     .about-intro-card p {
@@ -198,9 +199,6 @@
     <div class="hero-bg-pattern"></div>
     <div class="container">
         <div class="hero-content text-center">
-            <span class="hero-badge">
-                <i class="bi bi-info-circle me-2"></i>Про нас
-            </span>
             <h1 class="hero-title">{{ page.title }}</h1>
             {% if page.subtitle %}
             <div class="hero-subtitle">« {{ page.subtitle }} »</div>

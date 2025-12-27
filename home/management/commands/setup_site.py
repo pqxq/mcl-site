@@ -57,7 +57,6 @@ class Command(BaseCommand):
             about_page = AboutPage(
                 title="Про ліцей",
                 subtitle="Миколаївський класичний ліцей №9 — сучасний освітній заклад для обдарованої молоді",
-                body="",
                 slug="about"
             )
             home.add_child(instance=about_page)
