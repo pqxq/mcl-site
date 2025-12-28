@@ -21,7 +21,7 @@ def get_sidebar_pages(root_page):
         return {'system': [], 'content': []}
     
     system_types = ['AboutPage', 'NewsIndexPage', 'StaffIndexPage', 
-                    'DocumentsIndexPage', 'ApplicationFormPage']
+                    'DocumentsIndexPage', 'ApplicationFormPage', 'GalleryIndexPage']
     
     system_pages = []
     content_pages = []
@@ -59,6 +59,8 @@ def page_icon(page):
         'ApplicationFormPage': 'bi-mortarboard',
         'EducationPage': 'bi-book',
         'SchedulePage': 'bi-calendar-week',
+        'GalleryIndexPage': 'bi-images',
+        'GalleryAlbumPage': 'bi-images',
     }
     
     return icon_map.get(class_name, 'bi-file-earmark-text')

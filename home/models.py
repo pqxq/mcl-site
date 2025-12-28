@@ -36,6 +36,7 @@ class HomePage(Page):
         'admissions.ApplicationFormPage',
         'staff.StaffIndexPage',
         'documents.DocumentsIndexPage',
+        'gallery.GalleryIndexPage',
     ]
 
     max_count = 1
@@ -44,6 +45,12 @@ class HomePage(Page):
         context = super().get_context(request)
         from news.models import NewsPage
         context['latest_news'] = NewsPage.objects.live().public().order_by('-date')[:3]
+        
+        # Get images for the ticker from gallery albums
+        from gallery.models import GalleryImage
+        ticker_images = GalleryImage.objects.select_related('image', 'page').order_by('-page__first_published_at')[:30]
+        context['ticker_images'] = ticker_images
+        
         return context
 
     class Meta:
@@ -94,7 +101,7 @@ class ContentPage(Page):
     """
     
     # Page type description shown in add subpage menu
-    page_description = "Універсальна сторінка длă будь-якого контенту"
+    page_description = "Універсальна сторінка для будь-якого контенту"
     
     subtitle = models.CharField("Підзаголовок", max_length=500, blank=True)
     body = RichTextField("Вміст", blank=True)
