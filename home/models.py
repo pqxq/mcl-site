@@ -49,7 +49,16 @@ class HomePage(Page):
         # Get images for the ticker from gallery albums
         from gallery.models import GalleryImage
         ticker_images = GalleryImage.objects.select_related('image', 'page').order_by('-page__first_published_at')[:30]
-        context['ticker_images'] = ticker_images
+        # Provide album and image IDs for linking
+        context['ticker_images'] = [
+            {
+                'image': img.image,
+                'caption': img.caption,
+                'album': img.page,
+                'image_id': img.id,
+            }
+            for img in ticker_images
+        ]
         
         return context
 

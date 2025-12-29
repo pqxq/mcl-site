@@ -18,7 +18,8 @@
                 <span class="highlight">світ знань!</span>
             </h1>
             <p class="hero-subtitle">
-                Від успіхів у ліцеї – до успіхів у житті! Поєднуємо традиції класичної освіти з інноваціями та сучасними підходами до навчання.
+                Від успіхів у ліцеї – до успіхів у житті! Поєднуємо традиції класичної освіти з інноваціями та сучасними
+                підходами до навчання.
             </p>
             <div class="hero-buttons">
                 <a href="/admissions/" class="btn btn-primary-custom btn-lg">
@@ -32,7 +33,9 @@
     </div>
     <div class="hero-wave">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+            <path
+                d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z"
+                fill="var(--gray-50)" />
         </svg>
     </div>
 </section>
@@ -111,7 +114,8 @@
                         <div class="feature-icon-bg"></div>
                     </div>
                     <h3 class="feature-title">Партнерство з ВНЗ</h3>
-                    <p class="feature-text">Співпраця з Миколаївським аграрним університетом відкриває нові можливості.</p>
+                    <p class="feature-text">Співпраця з Миколаївським аграрним університетом відкриває нові можливості.
+                    </p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -129,6 +133,117 @@
         </div>
     </div>
 </section>
+
+<!-- Gallery Marquee Section -->
+<section class="gallery-marquee-section py-4">
+    <div class="container">
+        <div class="gallery-marquee-wrapper position-relative overflow-hidden mb-4">
+            <div class="gallery-marquee-track d-flex align-items-center">
+                {% for img in ticker_images %}
+                <div class="gallery-marquee-image mx-2" data-src="{{ img.image.file.url }}"
+                    data-caption="{{ img.caption|default:'' }}" role="button" tabindex="0">
+                    {% image img.image fill-400x300 class="rounded shadow-sm" alt=img.caption %}
+                </div>
+                {% endfor %}
+                {# Duplicate for seamless loop #}
+                {% for img in ticker_images %}
+                <div class="gallery-marquee-image mx-2" data-src="{{ img.image.file.url }}"
+                    data-caption="{{ img.caption|default:'' }}" role="button" tabindex="0">
+                    {% image img.image fill-400x300 class="rounded shadow-sm" alt=img.caption %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="/gallery/" class="btn btn-outline-primary-custom rounded-pill px-4">
+                <i class="bi bi-images me-2"></i>Переглянути галерею
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div id="marqueeLightbox" class="marquee-lightbox-modal">
+    <span class="marquee-lightbox-close">&times;</span>
+    <div class="marquee-lightbox-content-wrapper">
+        <img class="marquee-lightbox-content" id="lightboxImg" alt="Gallery Image">
+        <div id="marqueeLightboxCaption"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Move modal to body to prevent z-index/transform issues
+        var modal = document.getElementById("marqueeLightbox");
+        if (modal && modal.parentNode !== document.body) {
+            document.body.appendChild(modal);
+        }
+
+        var modalImg = document.getElementById("lightboxImg");
+        var captionText = document.getElementById("marqueeLightboxCaption");
+        var closeBtn = document.querySelector("#marqueeLightbox .marquee-lightbox-close");
+        var images = document.querySelectorAll('.gallery-marquee-image');
+        var track = document.querySelector('.gallery-marquee-track');
+
+        function openLightbox(src, caption) {
+            modal.style.display = "block";
+            // Trigger reflow for transition
+            void modal.offsetWidth;
+            modal.classList.add("show");
+
+            modalImg.src = src;
+            captionText.innerText = caption; // Use innerText for safety
+        }
+
+        function closeLightboxFunc() {
+            modal.classList.remove("show");
+            setTimeout(function () {
+                modal.style.display = "none";
+                modalImg.src = ""; // Clear source
+            }, 300);
+        }
+
+        // Attach click handlers to images
+        images.forEach(function (img) {
+            img.addEventListener('click', function () {
+                var src = this.getAttribute('data-src');
+                var caption = this.getAttribute('data-caption');
+                openLightbox(src, caption);
+            });
+            // Add global click listener for accessibility (Enter key)
+            img.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    var src = this.getAttribute('data-src');
+                    var caption = this.getAttribute('data-caption');
+                    openLightbox(src, caption);
+                }
+            });
+        });
+
+        // Close button
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeLightboxFunc);
+        }
+
+        // Close on outside click
+        window.addEventListener('click', function (event) {
+            if (event.target == modal) {
+                closeLightboxFunc();
+            }
+        });
+
+        // Marquee pause on hover
+        if (track) {
+            track.addEventListener('mouseenter', function () {
+                track.style.animationPlayState = 'paused';
+            });
+            track.addEventListener('mouseleave', function () {
+                track.style.animationPlayState = 'running';
+            });
+        }
+    });
+</script>
 
 <!-- News Section -->
 <section class="news-section">
@@ -210,8 +325,7 @@
         <div class="row g-4 justify-content-center">
             {% for link in page.quick_links.all %}
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="{% if link.link %}{% pageurl link.link %}{% else %}#{% endif %}" 
-                   class="quick-link-card">
+                <a href="{% if link.link %}{% pageurl link.link %}{% else %}#{% endif %}" class="quick-link-card">
                     <div class="quick-link-icon">
                         {% if link.icon %}
                         <i class="{{ link.icon }}"></i>

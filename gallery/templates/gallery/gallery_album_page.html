@@ -56,7 +56,7 @@
         <div class="photos-grid">
             {% for item in page.gallery_images.all %}
             {% image item.image original as full_image %}
-            <a href="{{ full_image.url }}" class="photo-card" data-sub-html="{{ item.caption }}">
+            <a href="{{ full_image.url }}" class="photo-card" id="image-{{ item.id }}" data-sub-html="{{ item.caption }}">
                 <div class="photo-wrapper">
                     {% image item.image fill-400x400 class="photo-img" %}
                     <div class="photo-overlay">
@@ -68,6 +68,20 @@
                 </div>
             </a>
             {% endfor %}
+        <script>
+        // If URL has #image-XX, scroll to and open that image
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.location.hash.startsWith('#image-')) {
+                var el = document.querySelector(window.location.hash);
+                if (el) {
+                    el.scrollIntoView({behavior: 'smooth', block: 'center'});
+                    setTimeout(function() {
+                        el.click();
+                    }, 400);
+                }
+            }
+        });
+        </script>
         </div>
         {% else %}
         <div class="empty-state text-center py-5">

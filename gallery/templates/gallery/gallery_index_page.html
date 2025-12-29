@@ -7,7 +7,7 @@
 <!-- Hero Section -->
 <section class="page-hero">
     <div class="hero-bg-pattern"></div>
-    <div class="container">
+    <div class="container" style="padding-bottom: 4rem;">
         <div class="hero-content text-center">
             <h1 class="hero-title">{{ page.title }}</h1>
             {% if page.intro %}
@@ -78,7 +78,7 @@
         <div class="photos-masonry-grid">
             {% for photo in all_photos %}
             {% image photo.image original as full_image %}
-            <a href="{{ full_image.url }}" class="photo-card" data-sub-html="{{ photo.caption }}">
+            <a href="{{ full_image.url }}" class="photo-card" id="image-{{ photo.image.id }}" data-sub-html="{{ photo.caption }}">
                 <div class="photo-wrapper">
                     {% image photo.image fill-400x400 class="photo-img" %}
                     <div class="photo-overlay">
@@ -91,7 +91,7 @@
         {% else %}
         <div class="empty-state text-center">
             <i class="bi bi-images"></i>
-            <h4>Фото ще немає</h4>
+            <h2>Фото ще немає</h2>
             <p>Скоро тут з'являться фотографії ліцею</p>
         </div>
         {% endif %}
@@ -124,9 +124,9 @@
                             </span>
                         </div>
                         {% endif %}
-                        <h3 class="news-title">
+                        <h2 class="news-title">
                             <a href="{% pageurl album %}">{{ album.title }}</a>
-                        </h3>
+                        </h2>
                         {% if album.intro %}
                         <p class="news-excerpt">{{ album.intro|truncatewords:18 }}</p>
                         {% endif %}
@@ -149,7 +149,7 @@
         {% else %}
         <div class="empty-state text-center">
             <i class="bi bi-images"></i>
-            <h4>Альбомів ще немає</h4>
+            <h2>Альбомів ще немає</h2>
             <p>Скоро тут з'являться фотографії ліцею</p>
         </div>
         {% endif %}
@@ -160,6 +160,9 @@
 
 {% block extra_css %}
 <style>
+        .gallery-grid-section {
+            margin-bottom: 4rem;
+        }
     /* View Toggle */
     .view-toggle {
         display: flex;
@@ -352,6 +355,24 @@
         closeBtn.onclick = closeModal;
         modal.onclick = function (e) { if (e.target === modal) closeModal(); };
         document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
+        // Prevent default navigation for all photo-card anchors with hash on page load
+        if (window.location.hash.startsWith('#image-')) {
+            var el = document.querySelector(window.location.hash);
+            if (el) {
+                // Prevent default navigation for all anchors with id=image-*
+                document.querySelectorAll('.photo-card').forEach(function(anchor) {
+                    anchor.addEventListener('click', function(e) {
+                        if (window.location.hash === '#' + anchor.id) {
+                            e.preventDefault();
+                        }
+                    });
+                });
+                setTimeout(function() {
+                    el.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+                }, 200);
+            }
+        }
     });
 </script>
 {% endblock %}

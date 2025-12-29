@@ -59,8 +59,9 @@
                             <button type="submit" class="btn btn-primary-custom flex-grow-1">
                                 <i class="bi bi-search me-1"></i>Фільтрувати
                             </button>
-                            <a href="." class="btn btn-outline-secondary d-flex align-items-center justify-content-center" style="width: 42px;">
-                                <i class="bi bi-x-lg"></i>
+                            <a href="." class="btn btn-outline-secondary d-flex align-items-center justify-content-center" style="width: 42px;" aria-label="Скинути фільтри">
+                                <i class="bi bi-x-lg" aria-hidden="true"></i>
+                                <span class="visually-hidden">Скинути фільтри</span>
                             </a>
                         </div>
                     </div>
@@ -111,7 +112,7 @@
         {% else %}
             <div class="empty-state">
                 <i class="bi bi-folder2-open"></i>
-                <h4>Документів не знайдено</h4>
+                <h2>Документів не знайдено</h2>
                 <p>Спробуйте змінити параметри фільтрації</p>
                 <a href="." class="btn btn-primary-custom">Показати всі документи</a>
             </div>
