@@ -4,7 +4,7 @@ wagtail==7.2.1
 
 # Database drivers
 psycopg2-binary>=2.9
-dj-database-url>=2.1.0  # Додано для парсингу DATABASE_URL
+dj-database-url>=2.1.0
 
 # Wagtail dependencies
 django-modelcluster>=6.0
@@ -17,4 +17,4 @@ gunicorn>=20.0.0
 # Static & Media files
 whitenoise>=6.6.0
 django-storages>=1.14
-boto3>=1.34
+azure-storage-blob>=12.0.0  # Required for Azure Media Storage
