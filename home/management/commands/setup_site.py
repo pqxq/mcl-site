@@ -56,7 +56,7 @@ class Command(BaseCommand):
         if not AboutPage.objects.filter(slug='about').exists():
             about_page = AboutPage(
                 title="Про ліцей",
-                subtitle="Миколаївський класичний ліцей №9 — сучасний освітній заклад для обдарованої молоді",
+                subtitle="Миколаївський ліцей №9 — сучасний освітній заклад для обдарованої молоді",
                 slug="about"
             )
             home.add_child(instance=about_page)

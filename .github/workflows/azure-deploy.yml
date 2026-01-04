@@ -1,0 +1,86 @@
+# ==============================================
+# Azure DevOps / GitHub Actions CI/CD Pipeline
+# ==============================================
+# MCL Site - Django/Wagtail Deployment to Azure App Service
+# ==============================================
+
+name: Deploy to Azure App Service
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: mcl-mk
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run tests
+      run: |
+        python manage.py test --settings=mcl_site.settings.dev
+      env:
+        DJANGO_SETTINGS_MODULE: mcl_site.settings.dev
+    
+    - name: Collect static files
+      run: |
+        python manage.py collectstatic --noinput
+      env:
+        DJANGO_SETTINGS_MODULE: mcl_site.settings.dev
+    
+    - name: Create deployment package
+      run: |
+        zip -r deploy.zip . -x "*.git*" -x "*__pycache__*" -x "*.env" -x "db.sqlite3" -x "media/*" -x "venv/*"
+    
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: deploy.zip
+
+  # Alternative: Deploy using Docker
+  build-and-deploy-docker:
+    runs-on: ubuntu-latest
+    if: false  # Set to true if using container deployment
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Log in to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+    
+    - name: Build and push Docker image
+      run: |
+        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/mcl-site:${{ github.sha }} .
+        docker push ${{ secrets.ACR_LOGIN_SERVER }}/mcl-site:${{ github.sha }}
+    
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        images: ${{ secrets.ACR_LOGIN_SERVER }}/mcl-site:${{ github.sha }}

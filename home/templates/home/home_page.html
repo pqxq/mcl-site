@@ -135,27 +135,41 @@
 </section>
 
 <!-- Gallery Marquee Section -->
-<section class="gallery-marquee-section py-4">
+{% if ticker_images %}
+<section class="gallery-marquee-section py-5">
     <div class="container">
-        <div class="gallery-marquee-wrapper position-relative overflow-hidden mb-4">
-            <div class="gallery-marquee-track d-flex align-items-center">
-                {% for img in ticker_images %}
-                <div class="gallery-marquee-image mx-2" data-src="{{ img.image.file.url }}"
-                    data-caption="{{ img.caption|default:'' }}" role="button" tabindex="0">
-                    {% image img.image fill-400x300 class="rounded shadow-sm" alt=img.caption %}
-                </div>
-                {% endfor %}
-                {# Duplicate for seamless loop #}
-                {% for img in ticker_images %}
-                <div class="gallery-marquee-image mx-2" data-src="{{ img.image.file.url }}"
-                    data-caption="{{ img.caption|default:'' }}" role="button" tabindex="0">
-                    {% image img.image fill-400x300 class="rounded shadow-sm" alt=img.caption %}
-                </div>
-                {% endfor %}
-            </div>
+        <div class="section-header text-center mb-4">
+            <span class="section-tag">
+                <i class="bi bi-images me-1"></i>
+                Фотогалерея
+            </span>
+            <h2 class="section-title">Моменти з життя ліцею</h2>
+            <p class="section-subtitle">Найяскравіші події та досягнення наших учнів</p>
         </div>
+    </div>
+    
+    <div class="gallery-marquee-wrapper">
+        <div class="gallery-marquee-track" data-images-count="{{ ticker_images|length }}">
+            {% for img in ticker_images %}
+            <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
+                data-caption="{{ img.caption|default:'' }}" data-index="{{ forloop.counter0 }}" 
+                role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
+                {% image img.image fill-400x300 class="rounded" alt=img.caption %}
+            </div>
+            {% endfor %}
+            {# Duplicate for seamless loop #}
+            {% for img in ticker_images %}
+            <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
+                data-caption="{{ img.caption|default:'' }}" data-index="{{ forloop.counter0 }}"
+                role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
+                {% image img.image fill-400x300 class="rounded" alt=img.caption %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-        <div class="text-center">
+    <div class="container">
+        <div class="text-center mt-4">
             <a href="/gallery/" class="btn btn-outline-primary-custom rounded-pill px-4">
                 <i class="bi bi-images me-2"></i>Переглянути галерею
             </a>
@@ -164,11 +178,18 @@
 </section>
 
 <!-- Lightbox Modal -->
-<div id="marqueeLightbox" class="marquee-lightbox-modal">
-    <span class="marquee-lightbox-close">&times;</span>
+<div id="marqueeLightbox" class="marquee-lightbox-modal" role="dialog" aria-modal="true" aria-label="Перегляд зображення">
+    <button class="marquee-lightbox-close" aria-label="Закрити">&times;</button>
+    <button class="marquee-lightbox-nav marquee-lightbox-prev" aria-label="Попереднє зображення">
+        <i class="bi bi-chevron-left"></i>
+    </button>
+    <button class="marquee-lightbox-nav marquee-lightbox-next" aria-label="Наступне зображення">
+        <i class="bi bi-chevron-right"></i>
+    </button>
     <div class="marquee-lightbox-content-wrapper">
         <img class="marquee-lightbox-content" id="lightboxImg" alt="Gallery Image">
         <div id="marqueeLightboxCaption"></div>
+        <div class="marquee-lightbox-counter" id="lightboxCounter"></div>
     </div>
 </div>
 
@@ -182,41 +203,105 @@
 
         var modalImg = document.getElementById("lightboxImg");
         var captionText = document.getElementById("marqueeLightboxCaption");
+        var counterText = document.getElementById("lightboxCounter");
         var closeBtn = document.querySelector("#marqueeLightbox .marquee-lightbox-close");
-        var images = document.querySelectorAll('.gallery-marquee-image');
+        var prevBtn = document.querySelector(".marquee-lightbox-prev");
+        var nextBtn = document.querySelector(".marquee-lightbox-next");
         var track = document.querySelector('.gallery-marquee-track');
+        
+        // Build images array from unique sources
+        var allImageElements = document.querySelectorAll('.gallery-marquee-image');
+        var imagesData = [];
+        var seenSources = new Set();
+        
+        allImageElements.forEach(function(img) {
+            var src = img.getAttribute('data-src');
+            if (!seenSources.has(src)) {
+                seenSources.add(src);
+                imagesData.push({
+                    src: src,
+                    caption: img.getAttribute('data-caption') || ''
+                });
+            }
+        });
+        
+        var currentIndex = 0;
+        
+        function updateCounter() {
+            if (counterText && imagesData.length > 1) {
+                counterText.innerText = (currentIndex + 1) + ' / ' + imagesData.length;
+                counterText.style.display = 'block';
+            }
+        }
 
-        function openLightbox(src, caption) {
-            modal.style.display = "block";
+        function openLightbox(src, caption, index) {
+            currentIndex = index !== undefined ? index : imagesData.findIndex(function(img) { return img.src === src; });
+            if (currentIndex < 0) currentIndex = 0;
+            
+            modal.style.display = "flex";
             // Trigger reflow for transition
             void modal.offsetWidth;
             modal.classList.add("show");
+            document.body.style.overflow = 'hidden';
 
             modalImg.src = src;
-            captionText.innerText = caption; // Use innerText for safety
+            captionText.innerText = caption;
+            updateCounter();
+            
+            // Show/hide nav buttons
+            if (prevBtn && nextBtn) {
+                var showNav = imagesData.length > 1;
+                prevBtn.style.display = showNav ? 'flex' : 'none';
+                nextBtn.style.display = showNav ? 'flex' : 'none';
+            }
         }
 
         function closeLightboxFunc() {
             modal.classList.remove("show");
+            document.body.style.overflow = '';
             setTimeout(function () {
                 modal.style.display = "none";
-                modalImg.src = ""; // Clear source
+                modalImg.src = "";
             }, 300);
+        }
+        
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + imagesData.length) % imagesData.length;
+            modalImg.classList.add('lightbox-transition');
+            setTimeout(function() {
+                modalImg.src = imagesData[currentIndex].src;
+                captionText.innerText = imagesData[currentIndex].caption;
+                updateCounter();
+                modalImg.classList.remove('lightbox-transition');
+            }, 150);
+        }
+        
+        function showNext() {
+            currentIndex = (currentIndex + 1) % imagesData.length;
+            modalImg.classList.add('lightbox-transition');
+            setTimeout(function() {
+                modalImg.src = imagesData[currentIndex].src;
+                captionText.innerText = imagesData[currentIndex].caption;
+                updateCounter();
+                modalImg.classList.remove('lightbox-transition');
+            }, 150);
         }
 
         // Attach click handlers to images
-        images.forEach(function (img) {
+        allImageElements.forEach(function (img, idx) {
             img.addEventListener('click', function () {
                 var src = this.getAttribute('data-src');
                 var caption = this.getAttribute('data-caption');
-                openLightbox(src, caption);
+                var index = parseInt(this.getAttribute('data-index')) || 0;
+                openLightbox(src, caption, index);
             });
-            // Add global click listener for accessibility (Enter key)
-            img.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
+            img.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
                     var src = this.getAttribute('data-src');
                     var caption = this.getAttribute('data-caption');
-                    openLightbox(src, caption);
+                    var index = parseInt(this.getAttribute('data-index')) || 0;
+                    openLightbox(src, caption, index);
                 }
             });
         });
@@ -225,11 +310,38 @@
         if (closeBtn) {
             closeBtn.addEventListener('click', closeLightboxFunc);
         }
+        
+        // Navigation buttons
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                showPrev();
+            });
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                showNext();
+            });
+        }
 
         // Close on outside click
-        window.addEventListener('click', function (event) {
-            if (event.target == modal) {
+        modal.addEventListener('click', function (event) {
+            if (event.target === modal || event.target.classList.contains('marquee-lightbox-content-wrapper')) {
                 closeLightboxFunc();
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (modal.style.display !== 'none' && modal.classList.contains('show')) {
+                if (e.key === 'Escape') {
+                    closeLightboxFunc();
+                } else if (e.key === 'ArrowLeft') {
+                    showPrev();
+                } else if (e.key === 'ArrowRight') {
+                    showNext();
+                }
             }
         });
 
@@ -242,8 +354,29 @@
                 track.style.animationPlayState = 'running';
             });
         }
+        
+        // Touch swipe support for lightbox
+        var touchStartX = 0;
+        var touchEndX = 0;
+        
+        modal.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        modal.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            var diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    showNext();
+                } else {
+                    showPrev();
+                }
+            }
+        }, { passive: true });
     });
 </script>
+{% endif %}
 
 <!-- News Section -->
 <section class="news-section">

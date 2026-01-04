@@ -8,35 +8,32 @@
 <section class="page-hero">
     <div class="hero-bg-pattern"></div>
     <div class="container">
-        <div class="hero-content">
+        <div class="hero-content text-center">
             <nav aria-label="breadcrumb" class="hero-breadcrumb mb-3">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="/"><i class="bi bi-house"></i></a></li>
                     <li class="breadcrumb-item"><a href="{{ page.get_parent.url }}">Галерея</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ page.title|truncatewords:5 }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ page.title|truncatewords:3 }}</li>
                 </ol>
             </nav>
-
-            <div class="text-center">
-                <div class="hero-meta mb-3">
-                    {% if page.date %}
-                    <span class="hero-meta-item">
-                        <i class="bi bi-calendar3 me-1"></i>
-                        {{ page.date|date:"d E Y" }}
-                    </span>
-                    {% endif %}
-                    <span class="hero-meta-item">
-                        <i class="bi bi-images me-1"></i>
-                        {{ page.gallery_images.count }} фото
-                    </span>
-                    {% for tag in page.tags.all %}
-                    <span class="hero-meta-tag">{{ tag.name }}</span>
-                    {% endfor %}
-                </div>
-                <h1 class="hero-title">{{ page.title }}</h1>
-                {% if page.intro %}
-                <p class="hero-subtitle">{{ page.intro }}</p>
+            <h1 class="hero-title">{{ page.title }}</h1>
+            {% if page.intro %}
+            <p class="hero-subtitle">{{ page.intro }}</p>
+            {% endif %}
+            <div class="hero-meta mt-3">
+                {% if page.date %}
+                <span class="hero-meta-item">
+                    <i class="bi bi-calendar3 me-1"></i>
+                    {{ page.date|date:"d E Y" }}
+                </span>
                 {% endif %}
+                <span class="hero-meta-item">
+                    <i class="bi bi-images me-1"></i>
+                    {{ page.gallery_images.count }} фото
+                </span>
+                {% for tag in page.tags.all %}
+                <span class="hero-meta-tag">{{ tag.name }}</span>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -50,207 +47,166 @@
 </section>
 
 <!-- Photos Grid -->
-<section class="album-photos-section">
+<section class="news-grid-section">
     <div class="container">
         {% if page.gallery_images.all %}
-        <div class="photos-grid">
+        <div class="album-photos-grid" id="albumPhotosGrid">
             {% for item in page.gallery_images.all %}
             {% image item.image original as full_image %}
-            <a href="{{ full_image.url }}" class="photo-card" id="image-{{ item.id }}" data-sub-html="{{ item.caption }}">
-                <div class="photo-wrapper">
-                    {% image item.image fill-400x400 class="photo-img" %}
-                    <div class="photo-overlay">
-                        <i class="bi bi-zoom-in"></i>
+            <div class="album-photo-item" data-src="{{ full_image.url }}" data-caption="{{ item.caption }}" data-index="{{ forloop.counter0 }}" id="image-{{ item.id }}" tabindex="0" role="button">
+                <div class="album-photo-inner">
+                    {% image item.image fill-400x400 class="album-photo-img" %}
+                    <div class="album-photo-overlay">
+                        <div class="album-photo-icon">
+                            <i class="bi bi-arrows-fullscreen"></i>
+                        </div>
                     </div>
                     {% if item.caption %}
-                    <div class="photo-caption">{{ item.caption }}</div>
+                    <div class="album-photo-caption">{{ item.caption }}</div>
                     {% endif %}
                 </div>
-            </a>
+            </div>
             {% endfor %}
-        <script>
-        // If URL has #image-XX, scroll to and open that image
-        document.addEventListener('DOMContentLoaded', function() {
-            if (window.location.hash.startsWith('#image-')) {
-                var el = document.querySelector(window.location.hash);
-                if (el) {
-                    el.scrollIntoView({behavior: 'smooth', block: 'center'});
-                    setTimeout(function() {
-                        el.click();
-                    }, 400);
-                }
-            }
-        });
-        </script>
         </div>
-        {% else %}
-        <div class="empty-state text-center py-5">
-            <i class="bi bi-images display-1 text-muted mb-3"></i>
-            <h3>У цьому альбомі ще немає фото</h3>
-            <p class="text-muted">Завітайте пізніше</p>
-        </div>
-        {% endif %}
-
+        
         <div class="text-center mt-5 pt-3">
             <a href="{{ page.get_parent.url }}" class="btn btn-primary-custom btn-lg">
                 <i class="bi bi-grid-3x3-gap me-2"></i>
                 Усі альбоми
             </a>
         </div>
+        {% else %}
+        <div class="empty-state">
+            <i class="bi bi-images"></i>
+            <h4>У цьому альбомі ще немає фото</h4>
+            <p>Завітайте пізніше</p>
+            <a href="{{ page.get_parent.url }}" class="btn btn-outline-primary-custom mt-3">
+                <i class="bi bi-arrow-left me-2"></i>Повернутися до галереї
+            </a>
+        </div>
+        {% endif %}
     </div>
 </section>
+
+<!-- Lightbox Modal -->
+<div id="albumLightbox" class="album-lightbox" role="dialog" aria-modal="true" aria-label="Перегляд зображення">
+    <div class="album-lightbox-backdrop"></div>
+    <button class="album-lightbox-close" aria-label="Закрити">
+        <i class="bi bi-x-lg"></i>
+    </button>
+    <button class="album-lightbox-nav album-lightbox-prev" aria-label="Попереднє">
+        <i class="bi bi-chevron-left"></i>
+    </button>
+    <button class="album-lightbox-nav album-lightbox-next" aria-label="Наступне">
+        <i class="bi bi-chevron-right"></i>
+    </button>
+    <div class="album-lightbox-content">
+        <img class="album-lightbox-img" id="albumLightboxImg" alt="">
+        <div class="album-lightbox-info">
+            <div class="album-lightbox-caption" id="albumLightboxCaption"></div>
+            <div class="album-lightbox-counter" id="albumLightboxCounter"></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_css %}
 <style>
-    /* Album Hero with Background */
-    .album-hero {
-        position: relative;
-        min-height: 400px;
-    }
-
-    .album-hero-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 0;
-    }
-
-    .album-hero-bg-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .album-hero-bg-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(180deg, rgba(30, 58, 95, 0.85) 0%, rgba(15, 39, 68, 0.95) 100%);
-    }
-
-    /* Album Info Badges */
-    .album-info-badges {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.75rem;
-    }
-
-    .album-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        font-size: 0.9rem;
-        color: var(--white);
-        font-weight: 500;
-    }
-
-    .album-badge i {
-        color: var(--accent);
-    }
-
-    .album-badge-tag {
-        background: rgba(212, 175, 55, 0.2);
-        border-color: rgba(212, 175, 55, 0.3);
-    }
-
-    /* Photos Grid - Masonry-like */
-    .photos-grid {
+    /* Photos Grid */
+    .album-photos-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 1rem;
-        padding: 3rem 0 2rem;
     }
 
     @media (min-width: 768px) {
-        .photos-grid {
+        .album-photos-grid {
             grid-template-columns: repeat(3, 1fr);
             gap: 1.25rem;
         }
     }
 
     @media (min-width: 1200px) {
-        .photos-grid {
+        .album-photos-grid {
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
         }
     }
 
-    /* Photo Card Enhanced */
-    .photo-card {
-        display: block;
-        border-radius: 12px;
-        overflow: hidden;
-        position: relative;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    .album-photo-item {
         aspect-ratio: 1;
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        background: var(--white);
     }
 
-    .photo-card:hover {
-        transform: translateY(-6px) scale(1.02);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    .album-photo-item:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
         z-index: 2;
     }
 
-    .photo-wrapper {
+    .album-photo-item:focus {
+        outline: 3px solid var(--primary);
+        outline-offset: 3px;
+    }
+
+    .album-photo-inner {
         width: 100%;
         height: 100%;
         position: relative;
     }
 
-    .photo-img {
+    .album-photo-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .photo-card:hover .photo-img {
-        transform: scale(1.1);
+    .album-photo-item:hover .album-photo-img {
+        transform: scale(1.15);
     }
 
-    .photo-overlay {
+    .album-photo-overlay {
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 100%);
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         opacity: 0;
         transition: opacity 0.3s ease;
     }
 
-    .photo-overlay i {
+    .album-photo-item:hover .album-photo-overlay {
+        opacity: 1;
+    }
+
+    .album-photo-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: var(--white);
-        font-size: 2.5rem;
-        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+        font-size: 1.5rem;
         transform: scale(0.7);
         transition: transform 0.3s ease;
     }
 
-    .photo-card:hover .photo-overlay {
-        opacity: 1;
-    }
-
-    .photo-card:hover .photo-overlay i {
+    .album-photo-item:hover .album-photo-icon {
         transform: scale(1);
     }
 
-    .photo-caption {
+    .album-photo-caption {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -259,119 +215,296 @@
         background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
         color: var(--white);
         font-size: 0.85rem;
+        text-align: center;
         transform: translateY(100%);
         transition: transform 0.3s ease;
     }
 
-    .photo-card:hover .photo-caption {
+    .album-photo-item:hover .album-photo-caption {
         transform: translateY(0);
     }
 
-    /* Album Photos Section */
-    .album-photos-section {
-        background: var(--gray-50);
-        padding-bottom: 4rem;
-    }
-
-    /* Lightbox Styles */
-    .lightbox-modal {
-        display: none;
+    /* Lightbox */
+    .album-lightbox {
         position: fixed;
-        z-index: 2000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(10px);
+        inset: 0;
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
     }
 
-    .lightbox-content {
-        margin: auto;
-        display: block;
-        max-width: 90%;
-        max-height: 85vh;
-        object-fit: contain;
-        border-radius: 8px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    .album-lightbox.show {
+        display: flex;
     }
 
-    .lightbox-caption {
-        text-align: center;
-        color: rgba(255, 255, 255, 0.8);
-        padding: 1rem;
-        font-size: 0.95rem;
-    }
-
-    .lightbox-close {
+    .album-lightbox-backdrop {
         position: absolute;
-        top: 20px;
-        right: 30px;
-        color: #fff;
-        font-size: 2.5rem;
-        font-weight: 300;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+
+    .album-lightbox-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
         width: 50px;
         height: 50px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.25rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
     }
 
-    .lightbox-close:hover {
+    .album-lightbox-close:hover {
         background: rgba(255, 255, 255, 0.2);
+        color: var(--white);
         transform: rotate(90deg);
+    }
+
+    .album-lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .album-lightbox-nav:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: var(--white);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .album-lightbox-prev {
+        left: 1.5rem;
+    }
+
+    .album-lightbox-next {
+        right: 1.5rem;
+    }
+
+    .album-lightbox-content {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .album-lightbox-img {
+        max-width: 100%;
+        max-height: 80vh;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        animation: albumLightboxFadeIn 0.3s ease;
+        transition: opacity 0.15s ease;
+    }
+
+    @keyframes albumLightboxFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .album-lightbox-info {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+
+    .album-lightbox-caption {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1rem;
+        max-width: 600px;
+        line-height: 1.6;
+    }
+
+    .album-lightbox-counter {
+        margin-top: 0.75rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+    }
+
+    @media (max-width: 768px) {
+        .album-lightbox-nav {
+            width: 44px;
+            height: 44px;
+            font-size: 1.25rem;
+        }
+
+        .album-lightbox-prev {
+            left: 0.75rem;
+        }
+
+        .album-lightbox-next {
+            right: 0.75rem;
+        }
+
+        .album-lightbox-close {
+            top: 1rem;
+            right: 1rem;
+            width: 44px;
+            height: 44px;
+        }
+
+        .album-photos-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .album-photo-item {
+            border-radius: 12px;
+        }
     }
 </style>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const images = document.querySelectorAll('.photo-card');
-        if (images.length === 0) return;
-
-        // Create modal
-        const modal = document.createElement('div');
-        modal.className = 'lightbox-modal';
-        modal.style.cssText = 'display:flex;align-items:center;justify-content:center;flex-direction:column;';
-        modal.innerHTML = `
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-content" id="lightbox-img">
-        <div class="lightbox-caption"></div>
-    `;
-        modal.style.display = 'none';
-        document.body.appendChild(modal);
-
-        const modalImg = document.getElementById('lightbox-img');
-        const captionText = modal.querySelector('.lightbox-caption');
-        const closeBtn = modal.querySelector('.lightbox-close');
-
-        images.forEach(img => {
-            img.addEventListener('click', function (e) {
-                e.preventDefault();
-                modal.style.display = 'flex';
-                modalImg.src = this.href;
-                captionText.innerHTML = this.dataset.subHtml || '';
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
-        function closeModal() {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-
-        closeBtn.onclick = closeModal;
-        modal.onclick = function (e) {
-            if (e.target === modal) closeModal();
-        };
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeModal();
+document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = document.getElementById('albumLightbox');
+    const lightboxImg = document.getElementById('albumLightboxImg');
+    const lightboxCaption = document.getElementById('albumLightboxCaption');
+    const lightboxCounter = document.getElementById('albumLightboxCounter');
+    const closeBtn = document.querySelector('.album-lightbox-close');
+    const prevBtn = document.querySelector('.album-lightbox-prev');
+    const nextBtn = document.querySelector('.album-lightbox-next');
+    const backdrop = document.querySelector('.album-lightbox-backdrop');
+    
+    const photos = document.querySelectorAll('.album-photo-item');
+    if (photos.length === 0) return;
+    
+    let imagesData = [];
+    let currentIndex = 0;
+    
+    // Build images data array
+    photos.forEach(function(photo, idx) {
+        imagesData.push({
+            src: photo.getAttribute('data-src'),
+            caption: photo.getAttribute('data-caption') || ''
         });
     });
+    
+    function openLightbox(index) {
+        currentIndex = index;
+        updateLightbox();
+        lightbox.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        
+        // Show/hide nav buttons
+        const showNav = imagesData.length > 1;
+        prevBtn.style.display = showNav ? 'flex' : 'none';
+        nextBtn.style.display = showNav ? 'flex' : 'none';
+    }
+    
+    function closeLightbox() {
+        lightbox.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    
+    function updateLightbox() {
+        lightboxImg.style.opacity = '0';
+        setTimeout(function() {
+            lightboxImg.src = imagesData[currentIndex].src;
+            lightboxCaption.textContent = imagesData[currentIndex].caption;
+            lightboxCounter.textContent = (currentIndex + 1) + ' / ' + imagesData.length;
+            lightboxImg.style.opacity = '1';
+        }, 150);
+    }
+    
+    function showPrev() {
+        currentIndex = (currentIndex - 1 + imagesData.length) % imagesData.length;
+        updateLightbox();
+    }
+    
+    function showNext() {
+        currentIndex = (currentIndex + 1) % imagesData.length;
+        updateLightbox();
+    }
+    
+    // Event listeners
+    photos.forEach(function(photo, idx) {
+        photo.addEventListener('click', function() {
+            openLightbox(idx);
+        });
+        photo.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openLightbox(idx);
+            }
+        });
+    });
+    
+    closeBtn.addEventListener('click', closeLightbox);
+    backdrop.addEventListener('click', closeLightbox);
+    prevBtn.addEventListener('click', function(e) { e.stopPropagation(); showPrev(); });
+    nextBtn.addEventListener('click', function(e) { e.stopPropagation(); showNext(); });
+    
+    document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('show')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showPrev();
+        if (e.key === 'ArrowRight') showNext();
+    });
+    
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    lightbox.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    lightbox.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) showNext();
+            else showPrev();
+        }
+    }, { passive: true });
+    
+    // If URL has #image-XX, scroll to and open that image
+    if (window.location.hash.startsWith('#image-')) {
+        var el = document.querySelector(window.location.hash);
+        if (el) {
+            el.scrollIntoView({behavior: 'smooth', block: 'center'});
+            setTimeout(function() {
+                var idx = parseInt(el.getAttribute('data-index')) || 0;
+                openLightbox(idx);
+            }, 400);
+        }
+    }
+});
 </script>
 {% endblock %}
