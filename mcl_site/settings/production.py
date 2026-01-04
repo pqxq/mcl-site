@@ -142,6 +142,8 @@ WAGTAILADMIN_BASE_URL = os.environ.get(
 # LOGGING
 # --------------------------------------------------
 
+LOG_DIR = os.environ.get("DJANGO_LOG_DIR", "/home/LogFiles")
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -156,19 +158,26 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
+        "file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "formatter": "verbose",
+            "filename": os.path.join(LOG_DIR, "django.log"),
+            "maxBytes": 5 * 1024 * 1024,
+            "backupCount": 2,
+        },
     },
     "root": {
-        "handlers": ["console"],
+        "handlers": ["console", "file"],
         "level": "INFO",
     },
     "loggers": {
         "django": {
-            "handlers": ["console"],
+            "handlers": ["console", "file"],
             "level": os.environ.get("DJANGO_LOG_LEVEL", "INFO"),
             "propagate": False,
         },
         "wagtail": {
-            "handlers": ["console"],
+            "handlers": ["console", "file"],
             "level": "INFO",
             "propagate": False,
         },
