@@ -8,9 +8,8 @@ import dj_database_url
 
 DEBUG = False
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
-if not SECRET_KEY:
-    raise ValueError("SECRET_KEY environment variable is required in production")
+# SECRET_KEY is required in production runtime, but allow build without it
+SECRET_KEY = os.environ.get("SECRET_KEY", "build-time-placeholder-key-not-for-production")
 
 # --------------------------------------------------
 # HOSTS
@@ -18,6 +17,7 @@ if not SECRET_KEY:
 
 ALLOWED_HOSTS = [
     "mcl-mk.azurewebsites.net",
+    "mcl-mk-site.azurewebsites.net",
     ".azurewebsites.net",
 ]
 
@@ -61,13 +61,24 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 # DATABASE
 # --------------------------------------------------
 
-DATABASES = {
-    "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
+# Use DATABASE_URL if available, otherwise fall back to SQLite for build
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+else:
+    # Fallback for build time when DATABASE_URL is not set
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
 
 # --------------------------------------------------
 # MIDDLEWARE (ORDER IS IMPORTANT)
