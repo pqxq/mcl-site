@@ -1,13 +1,15 @@
 {% load static wagtailcore_tags core_menu %}
 
 <header class="top-header">
-    <div class="container-fluid px-4">
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-link sidebar-toggle d-lg-none p-0" id="sidebarToggle" aria-label="Відкрити меню">
-                    <i class="bi bi-list fs-4" aria-hidden="true"></i>
-                </button>
-            </div>
+    <div class="container-fluid px-3">
+        <div class="d-flex align-items-center justify-content-center position-relative">
+            <button class="btn btn-link sidebar-toggle d-lg-none p-0 position-absolute start-0" id="sidebarToggle" aria-label="Відкрити меню">
+                <i class="bi bi-list fs-4" aria-hidden="true"></i>
+            </button>
+            <a href="/" class="header-brand-mobile">
+                <img src="{% static 'images/emblem.png' %}" alt="Герб" class="header-logo-mobile">
+                <span class="header-title-mobile">Миколаївський ліцей №9</span>
+            </a>
         </div>
     </div>
 </header>
