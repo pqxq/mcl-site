@@ -52,17 +52,25 @@ class GalleryIndexPage(Page):
         
         # Get all photos for 'photos' view mode
         if view_mode == 'photos':
+            from datetime import datetime
             all_photos = []
             for album in self.get_children().live().specific():
                 for img in album.gallery_images.all():
+                    # Convert date to datetime for consistent comparison
+                    photo_date = album.date
+                    if photo_date and not isinstance(photo_date, datetime):
+                        photo_date = datetime.combine(photo_date, datetime.min.time())
+                    if not photo_date:
+                        photo_date = album.first_published_at
+                    
                     all_photos.append({
                         'image': img.image,
                         'caption': img.caption,
                         'album': album,
-                        'date': album.date or album.first_published_at
+                        'date': photo_date
                     })
             # Sort by date descending
-            all_photos.sort(key=lambda x: x['date'] if x['date'] else album.first_published_at, reverse=True)
+            all_photos.sort(key=lambda x: x['date'], reverse=True)
             context['all_photos'] = all_photos
         
         # Get all tags for filtering logic
