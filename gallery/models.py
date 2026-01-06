@@ -53,13 +53,16 @@ class GalleryIndexPage(Page):
         # Get all photos for 'photos' view mode
         if view_mode == 'photos':
             from datetime import datetime
+            from django.utils import timezone
             all_photos = []
             for album in self.get_children().live().specific():
                 for img in album.gallery_images.all():
                     # Convert date to datetime for consistent comparison
                     photo_date = album.date
                     if photo_date and not isinstance(photo_date, datetime):
+                        # Convert date to timezone-aware datetime
                         photo_date = datetime.combine(photo_date, datetime.min.time())
+                        photo_date = timezone.make_aware(photo_date)
                     if not photo_date:
                         photo_date = album.first_published_at
                     
