@@ -487,6 +487,15 @@ img {
     color: var(--accent);
 }
 
+.header-search-toggle {
+    color: #ffffff !important;
+    transition: color 0.2s ease;
+}
+
+.header-search-toggle:hover {
+    color: var(--accent) !important;
+}
+
 .header-brand img {
     border-radius: 4px;
 }
