@@ -37,7 +37,7 @@
                             <i class="bi bi-grid-3x3-gap me-1"></i>Всі
                         </a>
                         {% for dept in departments %}
-                        <a href="{% pageurl page %}?department={{ dept }}" 
+                        <a href="{% pageurl page %}?department={{ dept|urlencode }}" 
                            class="filter-chip {% if current_department == dept %}active{% endif %}">
                             {{ dept }}
                         </a>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="department-info">
                         <h2 class="department-name">{% if group.grouper %}{{ group.grouper }}{% else %}Адміністрація{% endif %}</h2>
-                        <span class="department-count">{{ group.list|length }} співробітник{{ group.list|length|pluralize:"ів,а,ів" }}</span>
+                        <span class="department-count">{{ group.list|length }} співробітників</span>
                     </div>
                 </div>
                 
@@ -108,7 +108,7 @@
                 <div class="empty-icon">
                     <i class="bi bi-people"></i>
                 </div>
-                <h2>Співробітники не знайдені</h2>
+                <h3>Співробітники не знайдені</h3>
                 <p>{% if current_department %}Немає співробітників у вибраній кафедрі.{% else %}Співробітники ще не додані.{% endif %}</p>
                 {% if current_department %}
                 <a href="{% pageurl page %}" class="btn-reset">

@@ -1,3 +1,1 @@
-from django.shortcuts import render
-
-# Create your views here.
+"""Admissions app relies on Wagtail page models and templates."""

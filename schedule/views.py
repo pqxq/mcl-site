@@ -1,78 +1,104 @@
+from collections import Counter
+
 from django.shortcuts import render
-from .models import Lesson, ClassGroup, Day, LESSON_TIMES
+
+from .models import LESSON_TIMES, ClassGroup, Day, Lesson, Week
+
+PARA_BY_LESSON_NUMBER = {
+    1: "I",
+    2: "I",
+    3: "II",
+    4: "II",
+    5: "III",
+    6: "III",
+    7: "IV",
+    8: "IV",
+}
+
+
+def normalize_week_filter(value):
+    valid_weeks = {str(number) for number, _ in Week.choices}
+    if value in valid_weeks:
+        return value
+    return "1"
+
+
+def get_lesson_numbers(para_number, para_part):
+    first_lesson = para_number * 2 - 1
+    second_lesson = para_number * 2
+    if para_part == 0:
+        return [first_lesson, second_lesson]
+    if para_part == 1:
+        return [first_lesson]
+    return [second_lesson]
+
+
+def annotate_para_headers(sorted_rows):
+    para_rowspans = Counter(row["para"] for row in sorted_rows.values())
+    last_para = None
+    for row in sorted_rows.values():
+        is_new_para = row["para"] != last_para
+        row["show_para"] = is_new_para
+        if is_new_para:
+            row["para_rowspan"] = para_rowspans[row["para"]]
+            last_para = row["para"]
+
+
+def build_schedule_data(lessons):
+    lessons_by_day = {}
+    for lesson in lessons:
+        lessons_by_day.setdefault(lesson.day, []).append(lesson)
+
+    schedule_data = {}
+    for day_number, day_name in Day.choices:
+        day_lessons = lessons_by_day.get(day_number, [])
+        if not day_lessons:
+            continue
+
+        lessons_by_number = {}
+        for lesson in day_lessons:
+            lesson_numbers = get_lesson_numbers(lesson.para_number, lesson.para_part)
+            for index, lesson_number in enumerate(lesson_numbers):
+                row = lessons_by_number.setdefault(
+                    lesson_number,
+                    {
+                        "time": LESSON_TIMES.get(lesson_number, ""),
+                        "para": PARA_BY_LESSON_NUMBER.get(lesson_number, ""),
+                        "lessons": {},
+                    },
+                )
+
+                class_lessons = row["lessons"].setdefault(lesson.class_group_id, [])
+                class_lessons.append(
+                    {
+                        "subject": lesson.subject,
+                        "cabinet": lesson.cabinet,
+                        "sub_group": lesson.sub_group,
+                        "rowspan": 2 if lesson.para_part == 0 and index == 0 else 1,
+                        "skip": lesson.para_part == 0 and index == 1,
+                    }
+                )
+
+        sorted_rows = dict(sorted(lessons_by_number.items()))
+        annotate_para_headers(sorted_rows)
+        schedule_data[day_name] = sorted_rows
+
+    return schedule_data
+
 
 def schedule_view(request):
-    """Display the schedule/timetable page"""
-    week_filter = request.GET.get('week', '1')  # Default to week 1
-    
-    # Get all class groups
-    class_groups = ClassGroup.objects.all()
-    
-    # Get lessons for the specific week
-    lessons = Lesson.objects.select_related('subject', 'class_group').order_by('day', 'para_number', 'para_part')
-    
-    if week_filter:
-        lessons = lessons.filter(week=int(week_filter))
-    
-    # Structure data: {day_name: {lesson_num: {time: X, lessons: {class_id: [lessons]}}}}
-    schedule_data = {}
-    
-    for day_choice in Day.choices:
-        day_value, day_name = day_choice
-        day_lessons = lessons.filter(day=day_value)
-        
-        if day_lessons.exists():
-            lessons_by_num = {}
-            for lesson in day_lessons:
-                # Map para and part to absolute lesson number 1-8
-                if lesson.para_part == 0: # Full
-                    nums = [lesson.para_number * 2 - 1, lesson.para_number * 2]
-                elif lesson.para_part == 1: # 1st half
-                    nums = [lesson.para_number * 2 - 1]
-                else: # 2nd half
-                    nums = [lesson.para_number * 2]
-                
-                for i, num in enumerate(nums):
-                    if num not in lessons_by_num:
-                        para_map = {1: 'I', 2: 'I', 3: 'II', 4: 'II', 5: 'III', 6: 'III', 7: 'IV', 8: 'IV'}
-                        para_label = para_map.get(num, '')
-                        
-                        lessons_by_num[num] = {
-                            'time': LESSON_TIMES.get(num, ''),
-                            'para': para_label,
-                            'lessons': {} # class_id -> list of lesson_info
-                        }
-                    
-                    if lesson.class_group_id not in lessons_by_num[num]['lessons']:
-                        lessons_by_num[num]['lessons'][lesson.class_group_id] = []
-                    
-                    lesson_info = {
-                        'subject': lesson.subject,
-                        'cabinet': lesson.cabinet,
-                        'sub_group': lesson.sub_group,
-                        'rowspan': 2 if lesson.para_part == 0 and i == 0 else 1,
-                        'skip': True if lesson.para_part == 0 and i == 1 else False
-                    }
-                    
-                    lessons_by_num[num]['lessons'][lesson.class_group_id].append(lesson_info)
-            
-            # Sort by lesson number and calculate rowspans for Para
-            sorted_lessons = dict(sorted(lessons_by_num.items()))
-            last_para = None
-            for num, row in sorted_lessons.items():
-                if row['para'] != last_para:
-                    row['show_para'] = True
-                    row['para_rowspan'] = sum(1 for r in sorted_lessons.values() if r['para'] == row['para'])
-                    last_para = row['para']
-                else:
-                    row['show_para'] = False
-            
-            schedule_data[day_name] = sorted_lessons
-    
+    """Display the schedule/timetable page."""
+    week_filter = normalize_week_filter(request.GET.get("week"))
+    class_groups = ClassGroup.objects.order_by("name", "study_type")
+    lessons = list(
+        Lesson.objects.select_related("subject", "class_group")
+        .filter(week=int(week_filter))
+        .order_by("day", "para_number", "para_part", "class_group__name")
+    )
+
     context = {
-        'schedule_data': schedule_data,
-        'class_groups': class_groups,
-        'current_week': week_filter,
+        "schedule_data": build_schedule_data(lessons),
+        "class_groups": class_groups,
+        "current_week": week_filter,
     }
-    
-    return render(request, 'schedule/schedule_page.html', context)
+    return render(request, "schedule/schedule_page.html", context)

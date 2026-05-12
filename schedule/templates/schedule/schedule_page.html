@@ -246,11 +246,14 @@
         background: var(--white);
         border-radius: 16px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
     }
 
     .schedule-table {
         width: 100%;
+        min-width: max-content;
         border-collapse: collapse;
         font-size: 0.85rem;
         background: var(--white);
@@ -390,6 +393,15 @@
             padding: 1.5rem 0 3rem;
         }
 
+        .schedule-table-wrapper {
+            cursor: grab;
+            touch-action: pan-y;
+        }
+
+        .schedule-table-wrapper.dragging {
+            cursor: grabbing;
+        }
+
         .schedule-table {
             font-size: 0.7rem;
         }
@@ -430,6 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const classFilterLabel = document.getElementById('classFilterLabel');
     const dropdownItems = document.querySelectorAll('#classFilterDropdown + .dropdown-menu .dropdown-item');
     const scheduleTable = document.getElementById('scheduleTable');
+    const scheduleTableWrapper = document.querySelector('.schedule-table-wrapper');
     
     if (classFilterDropdown && scheduleTable) {
         dropdownItems.forEach(function(item) {
@@ -471,6 +484,48 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
             });
+        });
+    }
+
+    if (scheduleTableWrapper && window.matchMedia('(max-width: 768px)').matches) {
+        let isDragging = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+
+        scheduleTableWrapper.addEventListener('pointerdown', function(e) {
+            if (e.pointerType === 'mouse' && e.button !== 0) {
+                return;
+            }
+            isDragging = true;
+            startX = e.clientX;
+            startScrollLeft = scheduleTableWrapper.scrollLeft;
+            scheduleTableWrapper.classList.add('dragging');
+            scheduleTableWrapper.setPointerCapture(e.pointerId);
+        });
+
+        scheduleTableWrapper.addEventListener('pointermove', function(e) {
+            if (!isDragging) {
+                return;
+            }
+            const deltaX = e.clientX - startX;
+            scheduleTableWrapper.scrollLeft = startScrollLeft - deltaX;
+        });
+
+        function stopDragging(e) {
+            if (!isDragging) {
+                return;
+            }
+            isDragging = false;
+            scheduleTableWrapper.classList.remove('dragging');
+            if (scheduleTableWrapper.hasPointerCapture(e.pointerId)) {
+                scheduleTableWrapper.releasePointerCapture(e.pointerId);
+            }
+        }
+
+        scheduleTableWrapper.addEventListener('pointerup', stopDragging);
+        scheduleTableWrapper.addEventListener('pointercancel', stopDragging);
+        scheduleTableWrapper.addEventListener('dragstart', function(e) {
+            e.preventDefault();
         });
     }
 });
