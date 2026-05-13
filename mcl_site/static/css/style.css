@@ -4039,6 +4039,11 @@ img {
         width: 272px;
     }
 
+    .has-sidebar .main-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+
     .home-hero.page-hero {
         padding: 3rem 0 4.5rem;
     }
