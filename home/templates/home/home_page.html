@@ -389,11 +389,11 @@
         var touchEndX = 0;
         
         modal.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches.screenX;
+            touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
         
         modal.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches.screenX;
+            touchEndX = e.changedTouches[0].screenX;
             var diff = touchStartX - touchEndX;
             if (Math.abs(diff) > 50) {
                 if (diff > 0) {
@@ -426,7 +426,7 @@
                         {% if post.image %}
                         {% image post.image fill-400x250 class="w-100 h-100 object-fit-cover" %}
                         {% else %}
-                        <div class="news-placeholder bg-secondary text-white d-flex align-items-center justify-content-center w-100 h-100" style="min-height: 250px;">
+                        <div class="news-placeholder bg-secondary text-white d-flex align-items-center justify-content-center w-100 h-100">
                             <i class="bi bi-newspaper fs-1"></i>
                         </div>
                         {% endif %}

@@ -386,6 +386,28 @@
             border-radius: 12px;
         }
     }
+
+    @media (max-width: 575.98px) {
+        .album-photos-grid {
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+    }
+
+    @media (hover: none) {
+        .album-photo-overlay {
+            opacity: 1;
+            background: linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.65) 100%);
+        }
+
+        .album-photo-icon {
+            transform: scale(1);
+        }
+
+        .album-photo-caption {
+            transform: translateY(0);
+        }
+    }
 </style>
 {% endblock %}
 

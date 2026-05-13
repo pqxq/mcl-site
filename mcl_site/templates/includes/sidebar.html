@@ -2,13 +2,13 @@
 {% wagtail_site as current_site %}
 {% get_sidebar_pages current_site.root_page as sidebar_pages %}
 
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar" id="sidebar" aria-label="Навігація сайту">
     <div class="sidebar-header">
         <a href="/" class="sidebar-brand">
             <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" width="56" height="56">
             <span>Миколаївський ліцей №9</span>
         </a>
-        <button class="sidebar-close d-lg-none" id="sidebarClose" aria-label="Закрити меню">
+        <button class="sidebar-close d-lg-none" id="sidebarClose" aria-label="Закрити меню" aria-controls="sidebar">
             <i class="bi bi-x-lg" aria-hidden="true"></i>
         </button>
     </div>
@@ -124,4 +124,4 @@
 </aside>
 
 <!-- Overlay for mobile -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>

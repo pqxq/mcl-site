@@ -188,12 +188,12 @@
     }
 
     .week-tabs {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 0.5rem;
     }
 
     .week-tab {
-        flex: 1;
         text-align: center;
         padding: 0.75rem 1rem;
         background: var(--gray-100);
@@ -206,6 +206,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        min-height: 44px;
     }
 
     .week-tab:hover {
@@ -252,9 +253,10 @@
     }
 
     .schedule-table {
-        width: 100%;
-        min-width: max-content;
+        width: max-content;
+        min-width: 100%;
         border-collapse: collapse;
+        table-layout: fixed;
         font-size: 0.85rem;
         background: var(--white);
         border: none;
@@ -297,7 +299,7 @@
     }
 
     .class-col {
-        min-width: 130px;
+        min-width: 110px;
         font-size: 0.75rem;
     }
 
@@ -363,6 +365,8 @@
         color: #1e3a5f;
         font-size: 0.8rem;
         line-height: 1.3;
+        overflow-wrap: anywhere;
+        word-break: break-word;
     }
 
     .lesson-cabinet {
@@ -373,6 +377,7 @@
         padding: 2px 6px;
         border-radius: 4px;
         display: inline-block;
+        white-space: normal;
     }
 
     .day-start td {
@@ -381,10 +386,7 @@
 
     @media (max-width: 992px) {
         .week-tabs {
-            flex-wrap: wrap;
-        }
-        .week-tab {
-            flex: 1 1 45%;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 
@@ -417,7 +419,7 @@
         }
 
         .class-col {
-            min-width: 90px;
+            min-width: 82px;
         }
         
         .week-tab {
@@ -427,6 +429,23 @@
         
         .week-tab i {
             display: none;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .schedule-notice {
+            justify-content: flex-start;
+            text-align: left;
+            padding: 0.75rem 1rem;
+        }
+
+        .schedule-controls {
+            padding: 1rem;
+        }
+
+        .week-tab {
+            font-size: 0.75rem;
+            min-height: 42px;
         }
     }
 

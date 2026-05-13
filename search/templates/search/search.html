@@ -322,6 +322,11 @@
     gap: 0.25rem;
 }
 
+.result-url {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
 .result-link {
     width: 40px;
     height: 40px;
@@ -483,11 +488,12 @@
     
     .result-card {
         flex-direction: column;
-        text-align: center;
+        align-items: flex-start;
+        text-align: left;
     }
     
     .result-meta {
-        justify-content: center;
+        justify-content: flex-start;
         flex-wrap: wrap;
     }
     

@@ -62,27 +62,57 @@
             const sidebarToggle = document.getElementById('sidebarToggle');
             const sidebarClose = document.getElementById('sidebarClose');
             const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const mobileBreakpoint = window.matchMedia('(max-width: 991.98px)');
+
+            const setSidebarState = function(isOpen) {
+                if (!sidebar || !sidebarOverlay) {
+                    return;
+                }
+
+                sidebar.classList.toggle('show', isOpen);
+                sidebarOverlay.classList.toggle('show', isOpen);
+                document.body.classList.toggle('sidebar-open', isOpen);
+
+                const shouldHideSidebar = mobileBreakpoint.matches ? !isOpen : false;
+
+                if (sidebarToggle) {
+                    sidebarToggle.setAttribute('aria-expanded', String(isOpen));
+                }
+                sidebar.setAttribute('aria-hidden', String(shouldHideSidebar));
+                sidebarOverlay.setAttribute('aria-hidden', String(!isOpen));
+            };
+
+            setSidebarState(false);
 
             if (sidebarToggle) {
                 sidebarToggle.addEventListener('click', function() {
-                    sidebar.classList.add('show');
-                    sidebarOverlay.classList.add('show');
+                    setSidebarState(true);
                 });
             }
 
             if (sidebarClose) {
                 sidebarClose.addEventListener('click', function() {
-                    sidebar.classList.remove('show');
-                    sidebarOverlay.classList.remove('show');
+                    setSidebarState(false);
                 });
             }
 
             if (sidebarOverlay) {
                 sidebarOverlay.addEventListener('click', function() {
-                    sidebar.classList.remove('show');
-                    sidebarOverlay.classList.remove('show');
+                    setSidebarState(false);
                 });
             }
+
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    setSidebarState(false);
+                }
+            });
+
+            window.addEventListener('resize', function() {
+                if (!mobileBreakpoint.matches) {
+                    setSidebarState(false);
+                }
+            });
         });
     </script>
     {% block extra_js %}{% endblock %}
