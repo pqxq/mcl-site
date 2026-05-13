@@ -1,33 +1,66 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags %}
 
+{% block body_class %}template-home{% endblock %}
+
 {% block content %}
-<!-- Hero Section -->
+<style>
+    .hero-buttons .btn {
+        width: 100%;
+    }
+    @media (min-width: 768px) {
+        .hero-buttons .btn {
+            width: auto;
+        }
+    }
+    .custom-emblem-scale {
+        transform: scale(1.3);
+        max-width: 250px;
+        margin: 0 auto;
+    }
+    @media (min-width: 1200px) {
+        .custom-emblem-scale {
+            transform: scale(1.5);
+            max-width: none;
+        }
+    }
+</style>
 <section class="page-hero home-hero">
     <div class="hero-bg-pattern"></div>
     <div class="container">
-        <div class="hero-content text-center">
-            <div class="hero-emblem-wrapper">
-                <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="hero-emblem">
+        <div class="home-hero-grid row align-items-center gx-4 gy-2 gy-xl-5">
+            <div class="col-12 col-xl-7">
+                <div class="hero-content home-hero-copy text-center">
+                    <span class="hero-badge">
+                        Миколаївський ліцей №9
+                    </span>
+                    <h1 class="hero-title">
+                        Ми відкриваємо для Вас
+                        <span class="highlight">світ знань!</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Від успіхів у ліцеї – до успіхів у житті! Поєднуємо традиції класичної освіти з інноваціями та сучасними
+                        підходами до навчання.
+                    </p>
+                    <div class="hero-buttons d-flex flex-column flex-md-row flex-wrap gap-3 mt-4 mt-md-5 justify-content-center">
+                        <a href="/admissions/" class="btn btn-primary-custom btn-lg d-inline-flex align-items-center justify-content-center">
+                            <i class="bi bi-arrow-right-circle me-2"></i>Вступити до ліцею
+                        </a>
+                        <a href="/schedule/" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center">
+                            <i class="bi bi-calendar-week me-2"></i>Розклад занять
+                        </a>
+                        <a href="/about/" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center">
+                            <i class="bi bi-info-circle me-2"></i>Дізнатися більше
+                        </a>
+                    </div>
+                </div>
             </div>
-            <span class="hero-badge">
-                Миколаївський ліцей №9
-            </span>
-            <h1 class="hero-title">
-                Ми відкриваємо для вас
-                <span class="highlight">світ знань!</span>
-            </h1>
-            <p class="hero-subtitle">
-                Від успіхів у ліцеї – до успіхів у житті! Поєднуємо традиції класичної освіти з інноваціями та сучасними
-                підходами до навчання.
-            </p>
-            <div class="hero-buttons">
-                <a href="/admissions/" class="btn btn-primary-custom btn-lg">
-                    <i class="bi bi-arrow-right-circle me-2"></i>Вступити до ліцею
-                </a>
-                <a href="/about/" class="btn btn-outline-light btn-lg">
-                    <i class="bi bi-info-circle me-2"></i>Дізнатися більше
-                </a>
+            <div class="col-8 col-sm-6 col-md-5 col-xl-5 mx-auto pt-0">
+                <div class="home-hero-visual h-100 d-flex align-items-center justify-content-center">
+                    <div class="hero-emblem-wrapper custom-emblem-scale">
+                        <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="hero-emblem img-fluid">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -40,7 +73,6 @@
     </div>
 </section>
 
-<!-- Stats Section -->
 <section class="home-stats-section">
     <div class="container">
         <div class="stats-row">
@@ -68,7 +100,6 @@
     </div>
 </section>
 
-<!-- Features Section -->
 <section class="features-section">
     <div class="container">
         <div class="section-header">
@@ -134,7 +165,6 @@
     </div>
 </section>
 
-<!-- Gallery Marquee Section -->
 {% if ticker_images %}
 <section class="gallery-marquee-section py-5">
     <div class="container">
@@ -177,7 +207,6 @@
     </div>
 </section>
 
-<!-- Lightbox Modal -->
 <div id="marqueeLightbox" class="marquee-lightbox-modal" role="dialog" aria-modal="true" aria-label="Перегляд зображення">
     <button class="marquee-lightbox-close" aria-label="Закрити">&times;</button>
     <button class="marquee-lightbox-nav marquee-lightbox-prev" aria-label="Попереднє зображення">
@@ -360,11 +389,11 @@
         var touchEndX = 0;
         
         modal.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
+            touchStartX = e.changedTouches.screenX;
         }, { passive: true });
         
         modal.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
+            touchEndX = e.changedTouches.screenX;
             var diff = touchStartX - touchEndX;
             if (Math.abs(diff) > 50) {
                 if (diff > 0) {
@@ -378,7 +407,6 @@
 </script>
 {% endif %}
 
-<!-- News Section -->
 <section class="news-section">
     <div class="container">
         <div class="section-header">
@@ -398,8 +426,8 @@
                         {% if post.image %}
                         {% image post.image fill-400x250 class="w-100 h-100 object-fit-cover" %}
                         {% else %}
-                        <div class="news-placeholder">
-                            <i class="bi bi-newspaper"></i>
+                        <div class="news-placeholder bg-secondary text-white d-flex align-items-center justify-content-center w-100 h-100" style="min-height: 250px;">
+                            <i class="bi bi-newspaper fs-1"></i>
                         </div>
                         {% endif %}
                         <div class="news-card-overlay"></div>
@@ -444,7 +472,6 @@
     </div>
 </section>
 
-<!-- Quick Links Section -->
 {% if page.quick_links.all %}
 <section class="quick-links-section">
     <div class="container">

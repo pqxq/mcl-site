@@ -95,7 +95,7 @@
             {# Custom sidebar sections #}
             {% for section in sidebar_sections %}
                 {% if section.links.all %}
-                    <li class="sidebar-item has-submenu">
+                    <li class="sidebar-item sidebar-item-secondary has-submenu">
                         <a href="#sidebar-section-{{ section.pk }}" class="sidebar-link" data-bs-toggle="collapse" {% if section.is_expanded %}aria-expanded="true"{% endif %}>
                             <i class="bi {{ section.icon }}"></i>
                             <span>{{ section.title }}</span>
