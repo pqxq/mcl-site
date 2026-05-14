@@ -1,113 +1,137 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 {% block title %}{{ page.title }} | Миколаївський ліцей №9{% endblock %}
 
 {% block extra_css %}
 <style>
+    /* Hero Emblem */
+    .about-hero-emblem-wrapper {
+        margin-bottom: 1.5rem;
+    }
+    
+    .about-hero-emblem {
+        height: clamp(90px, 12vw, 130px); /* Scales perfectly on mobile and desktop */
+        width: auto;
+        filter: drop-shadow(0 12px 25px rgba(0, 0, 0, 0.15));
+        animation: float-emblem 6s ease-in-out infinite; /* Premium floating effect */
+    }
+    
+    @keyframes float-emblem {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+        100% { transform: translateY(0px); }
+    }
+
+    /* Spacing & Rhythm */
     .page-hero + .about-content,
     .page-hero + .about-stats-section {
         margin-top: -2px;
     }
     
-    .about-content {
+    .about-content, .about-stats-section, .content-section {
         background: var(--gray-50);
-        padding: 3rem 0;
+        padding: clamp(3rem, 5vw, 4.5rem) 0;
     }
-    
+
+    /* Intro Card */
     .about-intro-card {
         background: white;
-        border-radius: 16px;
-        padding: 2.5rem;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        margin-bottom: 0;
-        border-left: 4px solid var(--accent);
+        border-radius: 20px;
+        padding: clamp(2rem, 4vw, 3.5rem);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        border-left: 5px solid var(--accent);
+        position: relative;
+        overflow: hidden;
     }
     
     .about-intro-card p {
         color: var(--gray-700);
-        line-height: 1.8;
+        line-height: 1.85;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    .about-intro-card p:last-child {
         margin-bottom: 0;
     }
     
-    .about-stats-section {
-        background: var(--gray-50);
-        padding: 3rem 0;
-    }
-    
+    /* Stats Section */
     .about-stats-row {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
         justify-content: center;
-        gap: 2rem;
-        flex-wrap: wrap;
     }
     
     .about-stat-item {
         text-align: center;
-        padding: 1.5rem 2rem;
+        padding: 2.5rem 2rem;
         background: white;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        min-width: 180px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    }
+
+    .about-stat-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     }
     
     .about-stat-icon {
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        border-radius: 12px;
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 1rem;
+        margin: 0 auto 1.25rem;
         color: white;
-        font-size: 1.25rem;
+        font-size: 1.75rem;
+        box-shadow: 0 8px 20px rgba(30, 58, 95, 0.2);
     }
     
     .about-stat-number {
-        font-size: 2.5rem;
-        font-weight: 700;
+        font-size: clamp(2.5rem, 4vw, 3.2rem);
+        font-weight: 800;
         line-height: 1;
         margin-bottom: 0.5rem;
         color: var(--primary);
+        font-family: var(--font-heading);
     }
     
     .about-stat-label {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 600;
-        color: var(--gray-600);
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        color: var(--gray-500);
     }
     
-    .content-section {
-        background: var(--gray-50);
-        padding: 0 0 3rem;
-    }
-    
+    /* Content Cards */
     .section-card {
         background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        border-radius: 20px;
+        padding: clamp(2rem, 4vw, 3rem);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         height: 100%;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
     }
     
     .section-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     }
     
     .section-icon {
         width: 60px;
         height: 60px;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark, #1e3a5f) 100%);
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 1.25rem;
+        margin-bottom: 1.5rem;
         color: white;
         font-size: 1.5rem;
         position: relative;
@@ -119,39 +143,52 @@
         width: 100%;
         height: 100%;
         background: var(--accent);
-        border-radius: 12px;
+        border-radius: 14px;
         z-index: -1;
-        top: 4px;
-        left: 4px;
+        top: 6px;
+        left: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .section-card:hover .section-icon::after {
+        top: 8px;
+        left: 8px;
     }
     
     .section-title {
         color: var(--primary);
-        font-size: 1.25rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-    }
-    
-    .section-content {
-        color: var(--gray-700);
-        line-height: 1.7;
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin-bottom: 1.25rem;
+        text-wrap: balance;
     }
     
     .section-content p {
         color: var(--gray-700);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+    }
+    .section-content p:last-child {
+        margin-bottom: 0;
     }
     
-    .building-section {
+    /* Building Section */
+    .building-wrapper {
         position: relative;
-        border-radius: 16px;
+        border-radius: 24px;
         overflow: hidden;
-        margin-top: 2rem;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.15);
     }
     
     .building-image {
         width: 100%;
-        height: 350px;
+        height: clamp(300px, 40vh, 500px);
         object-fit: cover;
+        transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .building-wrapper:hover .building-image {
+        transform: scale(1.05);
     }
     
     .building-overlay {
@@ -159,67 +196,54 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(to top, rgba(30,58,95,0.95) 0%, transparent 100%);
-        color: white;
-        padding: 4rem 2rem 2rem;
+        background: linear-gradient(to top, rgba(16, 33, 54, 0.95) 0%, rgba(16, 33, 54, 0.4) 50%, transparent 100%);
+        padding: 6rem 3rem 2.5rem;
+        pointer-events: none;
     }
     
     .building-overlay h3 {
         color: white;
+        font-size: clamp(1.5rem, 3vw, 2.25rem);
+        font-weight: 800;
+        margin: 0;
+        text-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     
+    /* Responsive */
     @media (max-width: 768px) {
-        .about-stat-number {
-            font-size: 2rem;
+        .about-content, .about-stats-section, .content-section {
+            padding: 2.5rem 0;
         }
-        
-        .about-stat-label {
-            font-size: 0.75rem;
+        .about-stats-row {
+            grid-template-columns: 1fr 1fr;
         }
-        
-        .about-stat-item {
-            min-width: 140px;
-            padding: 1rem 1.5rem;
-        }
-        
-        .section-card {
-            padding: 1.5rem;
-        }
-        
-        .building-image {
-            height: 250px;
+        .building-overlay {
+            padding: 4rem 1.5rem 1.5rem;
         }
     }
 
     @media (max-width: 575.98px) {
-        .about-intro-card {
-            padding: 1.5rem;
-        }
-
         .about-stats-row {
-            gap: 1rem;
+            grid-template-columns: 1fr;
         }
-
-        .about-stat-item {
-            width: 100%;
-            min-width: 0;
-            max-width: 260px;
-        }
-
-        .building-overlay {
-            padding: 2.5rem 1rem 1rem;
+        .section-icon.mx-auto {
+            margin-bottom: 1.5rem !important;
         }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
 <section class="page-hero">
     <div class="hero-bg-pattern"></div>
     <div class="container">
         <div class="hero-content text-center">
-            <h1 class="hero-title">{{ page.title }}</h1>
+            
+            <div class="about-hero-emblem-wrapper">
+                <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="about-hero-emblem">
+            </div>
+            
+            <h1 class="hero-title" style="text-wrap: balance;">{{ page.title }}</h1>
             {% if page.subtitle %}
             <div class="hero-subtitle">« {{ page.subtitle }} »</div>
             {% endif %}
@@ -232,10 +256,8 @@
     </div>
 </section>
 
-<!-- Intro Section -->
 {% if page.intro %}
-<section class="about-content">
-    <div class="container">
+<section class="about-content pt-0"> <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="about-intro-card">
@@ -247,7 +269,6 @@
 </section>
 {% endif %}
 
-<!-- Statistics Section -->
 {% if page.founded_year or page.students_count or page.teachers_count %}
 <section class="about-stats-section">
     <div class="container">
@@ -286,7 +307,6 @@
 </section>
 {% endif %}
 
-<!-- Main Content Cards -->
 <section class="content-section">
     <div class="container">
         <div class="row g-4">
@@ -321,7 +341,6 @@
     </div>
 </section>
 
-<!-- History Section -->
 {% if page.history %}
 <section class="content-section">
     <div class="container">
@@ -342,22 +361,22 @@
 </section>
 {% endif %}
 
-<!-- Building Image Section -->
 {% if page.building_image %}
-<section class="building-section">
-    {% image page.building_image width-1920 as building_img %}
-    <img src="{{ building_img.url }}" alt="Будівля закладу" class="building-image">
-    <div class="building-overlay">
-        <div class="container">
-            <h3 class="mb-0">Наш заклад</h3>
+<section class="content-section pb-5">
+    <div class="container">
+        <div class="building-wrapper">
+            {% image page.building_image width-1920 as building_img %}
+            <img src="{{ building_img.url }}" alt="Будівля закладу" class="building-image">
+            <div class="building-overlay">
+                <h3>Наш заклад</h3>
+            </div>
         </div>
     </div>
 </section>
 {% endif %}
 
-<!-- Achievements Section -->
 {% if page.achievements %}
-<section class="content-section">
+<section class="content-section pt-0">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">

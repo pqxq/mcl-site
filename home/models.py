@@ -146,15 +146,6 @@ class AboutPage(Page):
     page_description = "Головна сторінка про заклад (створюється один раз)"
     
     # Hero section
-    logo = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name="Логотип закладу",
-        help_text="Логотип для секції 'Про нас'"
-    )
     subtitle = models.CharField("Девіз/Слоган", max_length=500, blank=True,
                                help_text="Короткий слоган або девіз закладу")
     intro = RichTextField("Вступний текст", blank=True,
@@ -187,7 +178,6 @@ class AboutPage(Page):
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel('logo'),
         FieldPanel('subtitle'),
         FieldPanel('intro'),
         FieldPanel('mission'),
