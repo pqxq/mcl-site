@@ -2271,6 +2271,7 @@ img {
     margin: 0;
     font-size: 1.1rem;
     font-weight: 600;
+    color: var(--white);
 }
 
 .rules-card .rules-content {

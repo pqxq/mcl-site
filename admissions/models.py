@@ -20,6 +20,20 @@ class FormField(AbstractFormField):
 
 class ApplicationFormPage(AbstractEmailForm):
 
+    def get_template(self, request, *args, **kwargs):
+        # 1. Show the form ONLY if the user clicked the button (?form=1) 
+        # OR if they are actively submitting the form (POST request)
+        if request.GET.get('form') or request.method == 'POST':
+            return 'admissions/application_form_page.html'
+            
+        # 2. Otherwise, show the introduction page by default
+        return 'admissions/application_form_page_landing.html'
+
+    def get_landing_page_template(self, request, *args, **kwargs):
+        # 3. Wagtail calls the "Thank You" page the "landing page". 
+        # We need to point this to a separate success template so it doesn't loop back to the intro.
+        return 'admissions/application_form_page_success.html'
+
     page_description = "Форма вступу (створюється один раз)"
 
     intro = RichTextField(blank=True)

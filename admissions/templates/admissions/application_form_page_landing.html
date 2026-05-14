@@ -1,23 +1,270 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags static %}
+
+{% block title %}{{ page.title }} | Миколаївський ліцей №9{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Spacing & Rhythm */
+    .admissions-content {
+        padding: clamp(3rem, 5vw, 5rem) 0;
+        background-color: var(--gray-50);
+    }
+
+    /* Intro Card */
+    .intro-card {
+        background: white;
+        border-radius: 20px;
+        padding: clamp(2rem, 4vw, 3.5rem);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        margin-bottom: 3rem;
+    }
+
+    .intro-card p {
+        color: var(--gray-700);
+        line-height: 1.85;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .intro-card p:last-child {
+        margin-bottom: 0;
+    }
+
+/* Steps Grid */
+    .steps-section-title {
+        text-align: center;
+        color: var(--primary);
+        font-weight: 800;
+        font-size: clamp(1.75rem, 3vw, 2.25rem);
+        margin-bottom: 2.5rem;
+    }
+
+    .steps-grid {
+        display: flex;             /* Changed from grid to flex */
+        flex-wrap: wrap;           /* Allows cards to wrap to the next line */
+        justify-content: center;   /* Centers the bottom row */
+        gap: 2rem;
+        margin-bottom: 4rem;
+        counter-reset: step-counter; 
+    }
+
+    .step-card {
+        flex: 1 1 calc(50% - 1rem); /* Cards take up half the row minus the gap */
+        min-width: 280px;
+        max-width: 450px;          /* Prevents the 3rd card from stretching too wide */
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem 2rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        position: relative;
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+        border-top: 4px solid transparent;
+    }
+
+    .step-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        border-top-color: var(--accent);
+    }
+
+    /* The Number Badge */
+    .step-card::before {
+        counter-increment: step-counter;
+        content: counter(step-counter);
+        position: absolute;
+        top: -20px;
+        left: 2rem;
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+        color: white;
+        font-size: 1.25rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        box-shadow: 0 8px 15px rgba(30, 58, 95, 0.2);
+    }
+
+    .step-title {
+        font-size: 1.25rem;
+        color: var(--primary);
+        font-weight: 700;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .step-card p {
+        color: var(--gray-600);
+        line-height: 1.7;
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    /* Rules Section */
+    .rules-card {
+        background: linear-gradient(145deg, #ffffff 0%, var(--gray-50) 100%);
+        border: 1px solid var(--gray-200);
+        border-radius: 20px;
+        padding: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 4rem;
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+    }
+
+    .rules-icon {
+        width: 64px;
+        height: 64px;
+        min-width: 64px; /* Prevents shrinking */
+        background: rgba(255, 193, 7, 0.15); /* Soft accent background */
+        color: var(--accent);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+    }
+
+    .rules-content h3 {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .rules-content,
+    .rules-content p,
+    .rules-content ul,
+    .rules-content li {
+        color: var(--gray-700) !important;
+        line-height: 1.7;
+    }
+
+    .rules-content p:last-child {
+        margin-bottom: 0;
+    }
+    
+    .rules-content a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        border-bottom: 2px solid rgba(30, 58, 95, 0.2);
+        transition: border-color 0.2s ease;
+    }
+
+    .rules-content a:hover {
+        border-bottom-color: var(--primary);
+    }
+
+    /* Call to Action */
+    .cta-section {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid var(--gray-200);
+    }
+
+    /* CTA Button Fixes (Bulletproof) */
+    .cta-section .btn {
+        text-decoration: none !important;
+        border-bottom: none !important;
+        box-shadow: 0 8px 25px rgba(30, 58, 95, 0.15) !important; /* Overrides global link shadows */
+        transition: all 0.3s ease;
+    }
+    
+    /* 1. Kill global animated underlines (pseudo-elements) */
+    .cta-section .btn::after,
+    .cta-section .btn::before {
+        display: none !important;
+        content: none !important;
+    }
+
+    /* 2. Ensure hover state stays clean */
+    .cta-section .btn:hover {
+        transform: translateY(-3px);
+        text-decoration: none !important;
+        box-shadow: 0 15px 35px rgba(30, 58, 95, 0.25) !important;
+    }
+
+    @media (max-width: 768px) {
+        .rules-card {
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 text-center">
-            <div class="py-5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
-                    style="color: var(--accent);" viewBox="0 0 16 16">
-                    <path
-                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                </svg>
-                <h1 class="display-5 fw-bold mt-4 mb-3">Дякуємо!</h1>
-                <div class="lead text-muted mb-4">
-                    {{ page.thank_you_text|richtext }}
-                </div>
-                <a href="/" class="btn btn-primary-custom">Повернутися на головну</a>
+<section class="page-hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title" style="text-wrap: balance;">{{ page.title }}</h1>
+            <div class="hero-subtitle">
+                Зробіть перший крок до якісної класичної освіти
             </div>
         </div>
     </div>
-</div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+        </svg>
+    </div>
+</section>
+
+<section class="admissions-content pt-0"> <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                {% if page.intro %}
+                <div class="intro-card">
+                    {{ page.intro|richtext }}
+                </div>
+                {% endif %}
+
+                <h2 class="steps-section-title">Як стати ліцеїстом?</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <h3 class="step-title">Подати заяву</h3>
+                        <p>Заповніть електронну форму на нашому сайті, вказавши всі необхідні дані про дитину та батьків.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <h3 class="step-title">Пройти співбесіду</h3>
+                        <p>Ми зв'яжемося з вами для узгодження часу ознайомчої співбесіди з майбутнім ліцеїстом.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <h3 class="step-title">Надати документи</h3>
+                        <p>Після успішної співбесіди необхідно надати оригінали медичних довідок та особової справи.</p>
+                    </div>
+                </div>
+
+                {% if page.rules_text %}
+                <div class="rules-card">
+                    <div class="rules-icon">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <div class="rules-content">
+                        <h3>Правила прийому</h3>
+                        {{ page.rules_text|richtext }}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="cta-section">
+                    <a href="?form=1" class="btn btn-primary-custom btn-lg px-5 py-3 d-inline-flex align-items-center justify-content-center">
+                        Подати заяву
+                        <i class="bi bi-arrow-right ms-2 d-flex"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

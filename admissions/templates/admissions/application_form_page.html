@@ -8,9 +8,7 @@
     <div class="container">
         <div class="hero-content text-center">
             <h1 class="hero-title">{{ page.title }}</h1>
-            {% if page.intro %}
-            <div class="hero-subtitle">{{ page.intro|striptags|truncatewords:25 }}</div>
-            {% endif %}
+            <div class="hero-subtitle">Форма</div>
         </div>
     </div>
     <div class="hero-wave">
@@ -24,26 +22,8 @@
 <section class="application-section">
     <div class="container">
         <div class="row">
-            {% if page.rules_text %}
-            <div class="col-lg-4 mb-4 mb-lg-0">
-                <div class="rules-card sticky-top" style="top: 100px;">
-                    <div class="rules-header">
-                        <i class="bi bi-info-circle"></i>
-                        <h3>Правила вступу</h3>
-                    </div>
-                    <div class="rules-content">
-                        {{ page.rules_text|richtext }}
-                    </div>
-                </div>
-            </div>
-            {% endif %}
             
-            <div class="{% if page.rules_text %}col-lg-8{% else %}col-lg-8 mx-auto{% endif %}">
-                {% if page.intro %}
-                <div class="intro-text">
-                    {{ page.intro|richtext }}
-                </div>
-                {% endif %}
+            <div class="col-lg-8 mx-auto">
 
                 <div class="form-card">
                     <div class="form-card-header">
