@@ -7,7 +7,7 @@
 <style>
     /* Spacing & Rhythm */
     .admissions-content {
-        padding: clamp(3rem, 5vw, 5rem) 0;
+        padding: clamp(3rem, 5vw, 5rem) 0 clamp(3rem, 5vw, 5rem);
         background-color: var(--gray-50);
     }
 
@@ -41,18 +41,18 @@
     }
 
     .steps-grid {
-        display: flex;             /* Changed from grid to flex */
-        flex-wrap: wrap;           /* Allows cards to wrap to the next line */
-        justify-content: center;   /* Centers the bottom row */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 2rem;
         margin-bottom: 4rem;
         counter-reset: step-counter; 
     }
 
     .step-card {
-        flex: 1 1 calc(50% - 1rem); /* Cards take up half the row minus the gap */
+        flex: 1 1 calc(50% - 1rem);
         min-width: 280px;
-        max-width: 450px;          /* Prevents the 3rd card from stretching too wide */
+        max-width: 450px;
         background: white;
         border-radius: 20px;
         padding: 2.5rem 2rem;
@@ -118,8 +118,8 @@
     .rules-icon {
         width: 64px;
         height: 64px;
-        min-width: 64px; /* Prevents shrinking */
-        background: rgba(255, 193, 7, 0.15); /* Soft accent background */
+        min-width: 64px;
+        background: rgba(255, 193, 7, 0.15);
         color: var(--accent);
         border-radius: 16px;
         display: flex;
@@ -161,7 +161,7 @@
     /* Call to Action */
     .cta-section {
         text-align: center;
-        padding: 2rem 0 3rem;
+        padding: 2rem 0 0;
         border-top: 1px solid var(--gray-200);
     }
 
@@ -169,18 +169,18 @@
     .cta-section .btn {
         text-decoration: none !important;
         border-bottom: none !important;
-        box-shadow: 0 8px 25px rgba(30, 58, 95, 0.15) !important; /* Overrides global link shadows */
+        box-shadow: 0 8px 25px rgba(30, 58, 95, 0.15) !important;
         transition: all 0.3s ease;
     }
     
-    /* 1. Kill global animated underlines (pseudo-elements) */
+    /* Kill global animated underlines (pseudo-elements) */
     .cta-section .btn::after,
     .cta-section .btn::before {
         display: none !important;
         content: none !important;
     }
 
-    /* 2. Ensure hover state stays clean */
+    /* Ensure hover state stays clean */
     .cta-section .btn:hover {
         transform: translateY(-3px);
         text-decoration: none !important;
@@ -211,11 +211,13 @@
     </div>
     <div class="hero-wave">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>\n        </svg>
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="var(--gray-50)"/>
+        </svg>
     </div>
 </section>
 
-<section class="admissions-content pt-0"> <div class="container">
+<section class="admissions-content">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
 
