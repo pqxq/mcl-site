@@ -20,16 +20,13 @@
         mask-image: linear-gradient(to right, transparent, black 1%, black 99%, transparent) !important;
     }
     .gallery-marquee-track {
-        gap: 0.875rem !important;
         animation-duration: 35s !important;
     }
     .gallery-marquee-image {
         width: 260px !important;
         height: 180px !important;
         border-radius: 14px !important;
-    }
-    .gallery-marquee-image::after {
-        display: none !important;
+        margin-right: 0.875rem !important;
     }
     .page-hero.home-hero {
         padding: 2.5rem 0 3rem !important;
@@ -3540,7 +3537,6 @@ img {
     animation: marquee-scroll 60s linear infinite;
     align-items: center;
     height: 100%;
-    gap: 1rem;
     will-change: transform;
 }
 
@@ -3552,6 +3548,7 @@ img {
     flex: 0 0 auto;
     width: 400px;
     height: 280px;
+    margin-right: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3579,26 +3576,6 @@ img {
     opacity: 1;
 }
 
-.gallery-marquee-image::after {
-    content: '\F52D';
-    font-family: 'bootstrap-icons';
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    color: white;
-    font-size: 1.25rem;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    z-index: 2;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
-.gallery-marquee-image:hover::after {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 .gallery-marquee-image:hover {
     transform: scale(1.08) translateY(-5px);
     z-index: 2;
@@ -3623,11 +3600,11 @@ img {
 
 @keyframes marquee-scroll {
     0% {
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
     }
 
     100% {
-        transform: translateX(-50%);
+        transform: translate3d(-50%, 0, 0);
     }
 }
 
@@ -3640,6 +3617,7 @@ img {
         width: 300px;
         height: 220px;
         border-radius: 14px;
+        margin-right: 1rem;
     }
 
     .gallery-marquee-wrapper {
@@ -3649,7 +3627,6 @@ img {
     }
 
     .gallery-marquee-track {
-        gap: 1rem;
         animation-duration: 40s;
     }
 }
@@ -3941,14 +3918,16 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .home-hero .hero-badge {
+    display: inline-block;
     font-size: clamp(1rem, 1.8vw, 1.4rem); /* Slightly scaled down */
     letter-spacing: 0.05em;
     font-weight: 700;
     color: var(--accent);
-    margin-bottom: 0.5rem; /* Pulled tighter to the main title */
+    margin: 0 auto 0.5rem auto;
     white-space: nowrap;
 }
 
@@ -4118,6 +4097,9 @@ img {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 0.85rem;
+        width: 100%;
+        max-width: 500px; /* Keeps the buttons from stretching too wide */
+        margin: 0 auto;
     }
 
     .home-hero .hero-buttons .btn-full {
