@@ -133,9 +133,12 @@
                 </tbody>
             </table>
         </div>
+        <p class="schedule-scroll-hint" aria-hidden="true">← прокрутіть таблицю →</p>
         {% else %}
         <div class="empty-state">
-            <i class="bi bi-calendar2-x"></i>
+            <svg viewBox="0 0 24 24" width="48" height="48" aria-hidden="true">
+                <path fill="currentColor" d="M7 2h2v2h6V2h2v2h3v17H4V4h3V2zm11 7H6v10h12V9zm-3 2 1.4 1.4L13.8 15l2.6 2.6L15 19l-2.6-2.6L9.8 19 8.4 17.6 11 15l-2.6-2.6L9.8 11l2.6 2.6L15 11z"/>
+            </svg>
             <h4>Розклад ще не додано</h4>
             <p>Адміністратор може додати розклад через панель керування.</p>
         </div>
@@ -250,6 +253,14 @@
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
+    }
+
+    .schedule-scroll-hint {
+        display: none;
+        color: var(--gray-500);
+        text-align: center;
+        margin-top: 0.75rem;
+        font-size: 0.9rem;
     }
 
     .schedule-table {
@@ -398,6 +409,10 @@
         .schedule-table-wrapper {
             cursor: grab;
             touch-action: pan-y;
+        }
+
+        .schedule-scroll-hint {
+            display: block;
         }
 
         .schedule-table-wrapper.dragging {

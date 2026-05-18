@@ -17,6 +17,9 @@ class FormField(AbstractFormField):
         related_name="form_fields",
     )
 
+    def __str__(self) -> str:
+        return self.label
+
 
 class ApplicationFormPage(AbstractEmailForm):
 
@@ -69,3 +72,6 @@ class ApplicationFormPage(AbstractEmailForm):
     class Meta:
         verbose_name = "Вступ (системна)"
         verbose_name_plural = "Вступ (системна)"
+
+    def __str__(self) -> str:
+        return self.title

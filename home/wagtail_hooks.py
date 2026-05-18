@@ -3,7 +3,23 @@ Wagtail hooks to fix admin dashboard issues with IndexEntry workflow states
 and customize the page type chooser.
 """
 from django.utils.html import format_html
+from django.urls import reverse
 from wagtail import hooks
+from wagtail.admin.menu import MenuItem
+
+from .models import HomePage
+
+
+def _home_admin_url() -> str:
+    page = HomePage.objects.order_by("path").first()
+    if page:
+        return reverse("wagtailadmin_explore", args=[page.id])
+    return reverse("wagtailadmin_explore_root")
+
+
+@hooks.register("register_admin_menu_item")
+def register_home_menu_item() -> MenuItem:
+    return MenuItem("Головна", _home_admin_url(), icon_name="home", order=220)
 
 
 @hooks.register('insert_global_admin_css')
@@ -174,4 +190,3 @@ def fix_recently_edited_panel(request, panels):
         filtered_panels.append(panel)
     
     return filtered_panels
-

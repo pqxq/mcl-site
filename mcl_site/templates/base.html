@@ -1,4 +1,4 @@
-{% load static wagtailuserbar %}
+{% load static wagtailuserbar seo_tags %}
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -27,17 +27,11 @@
     <link rel="icon" type="image/png" href="{% static 'images/emblem.png' %}">
 
     {% block extra_css %}{% endblock %}
-    {% load wagtailsettings_tags %}
-    {% get_settings use_default_site=True %}
-    {% if settings.core.SEOSettings.meta_description_default %}
-        <meta name="description" content="{{ settings.core.SEOSettings.meta_description_default }}" />
-    {% endif %}
-    {% if settings.core.SEOSettings.opengraph_image %}
-        <meta property="og:image" content="{{ settings.core.SEOSettings.opengraph_image.file.url }}" />
-    {% endif %}
+    {% seo_head %}
 </head>
 
 <body class="{% block body_class %}{% endblock %} has-sidebar">
+    <a href="#main-content" class="skip-link">Перейти до змісту</a>
     {% wagtailuserbar %}
 
     {% include 'includes/sidebar.html' %}
@@ -45,7 +39,7 @@
     <div class="main-wrapper">
         {% include 'includes/header.html' %}
 
-        <main>
+        <main id="main-content">
             {% block content %}{% endblock %}
         </main>
 

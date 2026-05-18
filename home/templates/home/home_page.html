@@ -37,7 +37,7 @@
             <div class="col-8 col-sm-6 col-md-5 col-lg-5 col-xl-5 mx-auto pt-0 d-flex justify-content-center">
                 <div class="home-hero-visual d-flex align-items-center justify-content-center">
                     <div class="hero-emblem-wrapper custom-emblem-scale">
-                        <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="hero-emblem img-fluid">
+                        <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="hero-emblem img-fluid" width="220" height="220" loading="lazy" decoding="async">
                     </div>
                 </div>
             </div>
@@ -163,7 +163,8 @@
             <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
                 data-caption="{{ img.caption|default:'' }}" data-index="{{ forloop.counter0 }}" 
                 role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
-                {% image img.image fill-400x300 class="rounded" alt=img.caption %}
+                {% image img.image width-800 format-webp as ticker_img %}
+                <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" class="rounded" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
             </div>
             {% endfor %}
             {# Duplicate for seamless loop #}
@@ -171,7 +172,8 @@
             <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
                 data-caption="{{ img.caption|default:'' }}" data-index="{{ forloop.counter0 }}"
                 role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
-                {% image img.image fill-400x300 class="rounded" alt=img.caption %}
+                {% image img.image width-800 format-webp as ticker_img %}
+                <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" class="rounded" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
             </div>
             {% endfor %}
         </div>
@@ -195,7 +197,7 @@
         <i class="bi bi-chevron-right"></i>
     </button>
     <div class="marquee-lightbox-content-wrapper">
-        <img class="marquee-lightbox-content" id="lightboxImg" alt="Gallery Image">
+        <img class="marquee-lightbox-content" id="lightboxImg" alt="Gallery Image" width="1200" height="800" loading="lazy" decoding="async">
         <div id="marqueeLightboxCaption"></div>
         <div class="marquee-lightbox-counter" id="lightboxCounter"></div>
     </div>
@@ -403,7 +405,8 @@
                 <article class="news-card h-100">
                     <div class="news-card-image">
                         {% if post.image %}
-                        {% image post.image fill-400x250 class="w-100 h-100 object-fit-cover" %}
+                        {% image post.image width-800 format-webp as latest_news_image %}
+                        <img src="{{ latest_news_image.url }}" width="{{ latest_news_image.width }}" height="{{ latest_news_image.height }}" class="w-100 h-100 object-fit-cover" loading="lazy" decoding="async" alt="{{ latest_news_image.alt|default:post.title }}">
                         {% else %}
                         <div class="news-placeholder bg-secondary text-white d-flex align-items-center justify-content-center w-100 h-100">
                             <i class="bi bi-newspaper fs-1"></i>

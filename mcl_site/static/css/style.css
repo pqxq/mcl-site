@@ -89,7 +89,9 @@
     --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -97,6 +99,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
     overflow-x: hidden;
 }
 
@@ -136,6 +139,30 @@ a:hover {
 img {
     max-width: 100%;
     height: auto;
+    display: block;
+}
+
+:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -3rem;
+    z-index: 2000;
+    background: var(--white);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.skip-link:focus {
+    top: 1rem;
 }
 
 /* ==================== SIDEBAR LAYOUT ==================== */
@@ -268,9 +295,10 @@ img {
     text-decoration: none;
     font-size: 0.925rem;
     font-weight: 500;
-    transition: all 0.25s ease;
+    transition: all 180ms ease;
     border-radius: 10px;
     position: relative;
+    min-height: 44px;
 }
 
 .sidebar-link::before {
@@ -343,6 +371,9 @@ img {
     font-size: 0.875rem;
     transition: all 0.2s ease;
     position: relative;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
 
 .sidebar-sublink::before {
@@ -457,6 +488,11 @@ img {
 
     .sidebar-toggle {
         color: #ffffff !important;
+        min-width: 44px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .sidebar-toggle:hover {
@@ -902,7 +938,7 @@ img {
     border-radius: 8px;
     font-weight: 600;
     font-size: 0.95rem;
-    transition: all 0.3s ease;
+    transition: all 180ms ease;
     display: inline-block;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
@@ -940,7 +976,7 @@ img {
     border-radius: 8px;
     font-weight: 600;
     font-size: 0.95rem;
-    transition: all 0.3s ease;
+    transition: all 180ms ease;
     display: inline-block;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(30, 58, 95, 0.25);
@@ -991,7 +1027,7 @@ img {
     border-radius: 8px;
     font-weight: 600;
     font-size: 0.95rem;
-    transition: all 0.3s ease;
+    transition: all 180ms ease;
 }
 
 .btn-outline-light:hover {

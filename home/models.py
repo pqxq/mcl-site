@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, InlinePanel
@@ -39,10 +41,30 @@ class HomePage(Page):
 
     max_count = 1
 
+    @method_decorator(cache_page(60 * 15))
+    def serve(self, request, *args, **kwargs):
+        return super().serve(request, *args, **kwargs)
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         from news.models import NewsPage
-        context['latest_news'] = NewsPage.objects.live().public().order_by('-date')[:3]
+        context["latest_news"] = (
+            NewsPage.objects.live()
+            .public()
+            .select_related("owner")
+            .only(
+                "title",
+                "slug",
+                "first_published_at",
+                "search_description",
+                "live",
+                "owner",
+                "date",
+                "intro",
+                "image",
+            )
+            .order_by("-first_published_at")[:3]
+        )
         
         # Get images for the ticker from gallery albums
         from gallery.models import GalleryImage
@@ -63,6 +85,9 @@ class HomePage(Page):
     class Meta:
         verbose_name = "Головна сторінка"
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class HeroImage(Orderable):
     page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='hero_images')
@@ -75,6 +100,9 @@ class HeroImage(Orderable):
         FieldPanel('image'),
         FieldPanel('caption'),
     ]
+
+    def __str__(self) -> str:
+        return self.caption or self.image.title
 
 
 class QuickLink(Orderable):
@@ -96,6 +124,9 @@ class QuickLink(Orderable):
         FieldPanel('link'),
         FieldPanel('icon'),
     ]
+
+    def __str__(self) -> str:
+        return self.title
 
 
 class ContentPage(Page):
@@ -134,6 +165,9 @@ class ContentPage(Page):
     class Meta:
         verbose_name = "Сторінка контенту"
         verbose_name_plural = "Сторінки контенту"
+
+    def __str__(self) -> str:
+        return self.title
 
 
 # ============================================================
@@ -205,6 +239,9 @@ class AboutPage(Page):
     class Meta:
         verbose_name = "Про нас (системна)"
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class StandardPage(Page):
     """DEPRECATED: Use ContentPage instead"""
@@ -219,6 +256,9 @@ class StandardPage(Page):
 
     class Meta:
         verbose_name = "[Застаріла] Стандартна сторінка"
+
+    def __str__(self) -> str:
+        return self.title
 
 
 class DocumentPage(Page):
@@ -235,6 +275,9 @@ class DocumentPage(Page):
 
     class Meta:
         verbose_name = "[Застаріла] Сторінка документів"
+
+    def __str__(self) -> str:
+        return self.title
 
 
 class PageDocument(Orderable):
@@ -254,6 +297,9 @@ class PageDocument(Orderable):
         FieldPanel('document'),
     ]
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class EducationPage(Page):
     """DEPRECATED: Use ContentPage instead"""
@@ -268,3 +314,6 @@ class EducationPage(Page):
 
     class Meta:
         verbose_name = "[Застаріла] Сторінка навчання"
+
+    def __str__(self) -> str:
+        return self.title

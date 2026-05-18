@@ -52,7 +52,8 @@
             <div class="col-lg-8">
                 {% if page.image %}
                 <div class="article-featured-image">
-                    {% image page.image width-900 class="img-fluid" %}
+                    {% image page.image width-800 format-webp as page_image %}
+                    <img src="{{ page_image.url }}" width="{{ page_image.width }}" height="{{ page_image.height }}" class="img-fluid" loading="lazy" decoding="async" alt="{{ page_image.alt|default:page.title }}">
                 </div>
                 {% endif %}
 

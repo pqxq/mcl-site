@@ -28,11 +28,11 @@
             <div class="col-lg-4 bg-white d-flex align-items-center justify-content-center p-4">
                 <div class="profile-portrait-wrapper" style="width: 100%; max-width: 320px;">
                     {% if page.photo %}
-                    {% image page.photo fill-400x400 as photo %}
-                    <img src="{{ photo.url }}" class="profile-photo w-100" alt="{{ page.title }}">
+                    {% image page.photo width-800 format-webp as photo %}
+                    <img src="{{ photo.url }}" width="{{ photo.width }}" height="{{ photo.height }}" class="profile-photo w-100" loading="lazy" decoding="async" alt="{{ photo.alt|default:page.title }}">
                     {% else %}
                     <div class="profile-photo-placeholder d-flex align-items-center justify-content-center w-100" style="aspect-ratio: 1;">
-                        <span class="display-1">👤</span>
+                        <i class="bi bi-person display-1" aria-hidden="true"></i>
                     </div>
                     {% endif %}
                 </div>

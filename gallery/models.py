@@ -2,6 +2,8 @@ from datetime import datetime, time
 
 from django.db import models
 from django.utils import timezone
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -39,8 +41,20 @@ class GalleryIndexPage(Page):
             GalleryAlbumPage.objects.child_of(self)
             .live()
             .public()
+            .select_related("owner")
             .prefetch_related("tags", "gallery_images__image")
-            .order_by("-date", "-first_published_at")
+            .only(
+                "title",
+                "slug",
+                "first_published_at",
+                "search_description",
+                "live",
+                "owner",
+                "date",
+                "intro",
+                "cover_image",
+            )
+            .order_by("-first_published_at")
         )
 
     def _get_photo_date(self, album):
@@ -69,6 +83,13 @@ class GalleryIndexPage(Page):
 
     class Meta:
         verbose_name = "Галерея (системна)"
+
+    @method_decorator(cache_page(60 * 15))
+    def serve(self, request, *args, **kwargs):
+        return super().serve(request, *args, **kwargs)
+
+    def __str__(self) -> str:
+        return self.title
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -114,6 +135,9 @@ class GalleryAlbumTag(TaggedItemBase):
         on_delete=models.CASCADE,
     )
 
+    def __str__(self) -> str:
+        return str(self.tag)
+
 
 class GalleryAlbumPage(Page):
     """Specific event or album"""
@@ -148,6 +172,10 @@ class GalleryAlbumPage(Page):
     class Meta:
         verbose_name = "Альбом"
         verbose_name_plural = "Альбоми"
+        ordering = ["-first_published_at"]
+
+    def __str__(self) -> str:
+        return self.title
 
 
 class GalleryImage(Orderable):
@@ -164,3 +192,6 @@ class GalleryImage(Orderable):
         FieldPanel("image"),
         FieldPanel("caption"),
     ]
+
+    def __str__(self) -> str:
+        return self.caption or self.image.title

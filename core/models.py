@@ -62,10 +62,13 @@ class SidebarLink(Orderable):
     ]
 
     @property
-    def href(self):
+    def href(self) -> str:
         if self.page:
             return self.page.url
         return self.external_url
+
+    def __str__(self) -> str:
+        return self.label
 
     class Meta:
         verbose_name = "Посилання"
@@ -83,6 +86,37 @@ class SEOSettings(BaseSiteSetting):
         FieldPanel('meta_description_default'),
         FieldPanel('opengraph_image'),
     ]
+
+    def __str__(self) -> str:
+        return self.site.hostname
+
+
+@register_setting
+class SiteSettings(BaseSiteSetting):
+    site_name = models.CharField("Назва сайту", max_length=120)
+    default_og_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Зображення Open Graph за замовчуванням",
+    )
+    meta_description = models.CharField("Meta description", max_length=255, blank=True)
+    google_analytics_id = models.CharField("Google Analytics ID", max_length=64, blank=True)
+
+    panels = [
+        FieldPanel("site_name"),
+        FieldPanel("meta_description"),
+        FieldPanel("default_og_image"),
+        FieldPanel("google_analytics_id"),
+    ]
+
+    class Meta:
+        verbose_name = "Налаштування сайту"
+
+    def __str__(self) -> str:
+        return self.site_name or self.site.hostname
 
 
 class CTABlock(blocks.StructBlock):

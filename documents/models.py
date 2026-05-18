@@ -23,6 +23,9 @@ class PublicDocumentPageTag(TaggedItemBase):
         on_delete=models.CASCADE,
     )
 
+    def __str__(self) -> str:
+        return str(self.tag)
+
 
 @register_snippet
 class DocumentType(models.Model):
@@ -74,9 +77,22 @@ class DocumentsIndexPage(Page):
             PublicDocumentPage.objects.child_of(self)
             .live()
             .public()
-            .select_related("doc_type")
+            .select_related("doc_type", "owner")
             .prefetch_related("tags")
-            .order_by("-date", "-first_published_at")
+            .only(
+                "title",
+                "slug",
+                "first_published_at",
+                "search_description",
+                "live",
+                "owner",
+                "date",
+                "year",
+                "description",
+                "doc_type",
+                "doc_file",
+            )
+            .order_by("-first_published_at")
         )
 
         doc_type = request.GET.get("type", "").strip()
@@ -112,6 +128,9 @@ class DocumentsIndexPage(Page):
         context["doc_type_choices"] = DocumentType.objects.all()
         context["available_years"] = available_years
         return context
+
+    def __str__(self) -> str:
+        return self.title
 
 
 class PublicDocumentPage(Page):
@@ -157,3 +176,7 @@ class PublicDocumentPage(Page):
     class Meta:
         verbose_name = "Публічний документ"
         verbose_name_plural = "Публічні документи"
+        ordering = ["-first_published_at"]
+
+    def __str__(self) -> str:
+        return self.title
