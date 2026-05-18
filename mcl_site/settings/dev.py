@@ -15,6 +15,15 @@ SECRET_KEY = os.environ.get(
 ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+INTERNAL_IPS = ["127.0.0.1"]
+
+try:
+    import debug_toolbar  # noqa: F401
+
+    INSTALLED_APPS += ["debug_toolbar"]
+    MIDDLEWARE = ["debug_toolbar.middleware.DebugToolbarMiddleware", *MIDDLEWARE]
+except ImportError:
+    pass
 
 
 try:

@@ -240,7 +240,7 @@
         <div class="hero-content text-center">
             
             <div class="about-hero-emblem-wrapper">
-                <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="about-hero-emblem">
+                <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="about-hero-emblem" width="220" height="220" loading="lazy" decoding="async">
             </div>
             
             <h1 class="hero-title" style="text-wrap: balance;">{{ page.title }}</h1>
@@ -365,8 +365,8 @@
 <section class="content-section pb-5">
     <div class="container">
         <div class="building-wrapper">
-            {% image page.building_image width-1920 as building_img %}
-            <img src="{{ building_img.url }}" alt="Будівля закладу" class="building-image">
+            {% image page.building_image width-800 format-webp as building_img %}
+            <img src="{{ building_img.url }}" width="{{ building_img.width }}" height="{{ building_img.height }}" loading="lazy" decoding="async" alt="{{ building_img.alt|default:'Будівля закладу' }}" class="building-image">
             <div class="building-overlay">
                 <h3>Наш заклад</h3>
             </div>

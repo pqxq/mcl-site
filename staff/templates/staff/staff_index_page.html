@@ -71,8 +71,8 @@
                     <article class="staff-card">
                         <div class="card-photo">
                             {% if person.photo %}
-                            {% image person.photo fill-280x280 as photo %}
-                            <img src="{{ photo.url }}" alt="{{ person.title }}" loading="lazy">
+                            {% image person.photo width-800 format-webp as photo %}
+                            <img src="{{ photo.url }}" width="{{ photo.width }}" height="{{ photo.height }}" loading="lazy" decoding="async" alt="{{ photo.alt|default:person.title }}">
                             {% else %}
                             <div class="photo-placeholder">
                                 <i class="bi bi-person"></i>

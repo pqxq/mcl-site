@@ -75,10 +75,11 @@
         {% if all_photos %}
         <div class="gallery-photos-grid" id="galleryPhotosGrid">
             {% for photo in all_photos %}
-            {% image photo.image original as full_image %}
+            {% image photo.image width-800 format-webp as full_image %}
             <div class="gallery-photo-item" data-src="{{ full_image.url }}" data-caption="{{ photo.caption }}" data-index="{{ forloop.counter0 }}" tabindex="0" role="button">
                 <div class="gallery-photo-inner">
-                    {% image photo.image fill-400x400 class="gallery-photo-img" %}
+                    {% image photo.image width-800 format-webp as photo_thumb %}
+                    <img src="{{ photo_thumb.url }}" width="{{ photo_thumb.width }}" height="{{ photo_thumb.height }}" class="gallery-photo-img" loading="lazy" decoding="async" alt="{{ photo_thumb.alt|default:photo.caption|default:photo.album.title }}">
                     <div class="gallery-photo-overlay">
                         <div class="gallery-photo-icon">
                             <i class="bi bi-arrows-fullscreen"></i>
@@ -93,7 +94,9 @@
         </div>
         {% else %}
         <div class="empty-state">
-            <i class="bi bi-images"></i>
+            <svg viewBox="0 0 24 24" width="48" height="48" aria-hidden="true">
+                <path fill="currentColor" d="M4 5h16v14H4V5zm2 2v10h12V7H6zm2 8 2.5-3 2 2.5 3-4 2.5 4.5H8z"/>
+            </svg>
             <h4>Фото ще немає</h4>
             <p>Скоро тут з'являться фотографії ліцею</p>
         </div>
@@ -107,7 +110,8 @@
                 <article class="news-card h-100">
                     <div class="news-card-image">
                         {% if album.cover_image %}
-                        {% image album.cover_image fill-400x250 class="w-100 h-100 object-fit-cover" %}
+                        {% image album.cover_image width-800 format-webp as album_cover %}
+                        <img src="{{ album_cover.url }}" width="{{ album_cover.width }}" height="{{ album_cover.height }}" class="w-100 h-100 object-fit-cover" loading="lazy" decoding="async" alt="{{ album_cover.alt|default:album.title }}">
                         {% else %}
                         <div class="news-placeholder">
                             <i class="bi bi-images"></i>
@@ -151,7 +155,9 @@
         </div>
         {% else %}
         <div class="empty-state">
-            <i class="bi bi-collection"></i>
+            <svg viewBox="0 0 24 24" width="48" height="48" aria-hidden="true">
+                <path fill="currentColor" d="M3 5h18v4H3V5zm0 5h18v9H3v-9zm2 2v5h14v-5H5z"/>
+            </svg>
             <h4>Альбомів ще немає</h4>
             <p>Скоро тут з'являться фотоальбоми ліцею</p>
         </div>
@@ -173,7 +179,7 @@
         <i class="bi bi-chevron-right"></i>
     </button>
     <div class="gallery-lightbox-content">
-        <img class="gallery-lightbox-img" id="galleryLightboxImg" alt="">
+        <img class="gallery-lightbox-img" id="galleryLightboxImg" alt="" width="1200" height="800" loading="lazy" decoding="async">
         <div class="gallery-lightbox-info">
             <div class="gallery-lightbox-caption" id="galleryLightboxCaption"></div>
             <div class="gallery-lightbox-counter" id="galleryLightboxCounter"></div>
@@ -202,20 +208,20 @@
     /* Photos Grid */
     .gallery-photos-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-template-columns: 1fr;
         gap: 1rem;
     }
 
     @media (min-width: 768px) {
         .gallery-photos-grid {
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.25rem;
         }
     }
 
     @media (min-width: 1200px) {
         .gallery-photos-grid {
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(3, 1fr);
         }
     }
 

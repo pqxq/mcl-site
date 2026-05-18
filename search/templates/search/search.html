@@ -15,7 +15,7 @@
                 <h1 class="hero-title">Пошук по сайту</h1>
                 <p class="hero-subtitle" style="font-style: normal; margin-top: 0.5rem;">Знайдіть потрібну інформацію на нашому сайті</p>
                 
-                <form action="{% url 'search' %}" method="get" class="search-form mt-4">
+                <form action="{% url 'search' %}" method="get" class="search-form mt-4" id="searchForm">
                     <div class="search-input-wrapper">
                         <i class="bi bi-search search-icon"></i>
                         <input type="text" 
@@ -24,9 +24,11 @@
                                placeholder="Введіть пошуковий запит..."
                                {% if search_query %}value="{{ search_query }}"{% endif %}
                                autocomplete="off"
+                               aria-label="Пошуковий запит"
+                               minlength="3"
                                autofocus>
-                        <button type="submit" class="search-btn">
-                            <span>Шукати</span>
+                        <button type="submit" class="search-btn" id="searchSubmitBtn">
+                            <span class="search-btn-text">Шукати</span>
                             <i class="bi bi-arrow-right"></i>
                         </button>
                     </div>
@@ -43,7 +45,19 @@
     <!-- Results Section -->
     <section class="search-results-section">
         <div class="container">
-            {% if search_query %}
+            {% if min_query_error %}
+                <div class="no-results">
+                    <div class="no-results-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="12" cy="17" r="1" fill="currentColor"/>
+                            <path d="M10.29 3.86L1.82 18A2 2 0 0 0 3.53 21H20.47A2 2 0 0 0 22.18 18L13.71 3.86A2 2 0 0 0 10.29 3.86Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2>{{ min_query_error }}</h2>
+                    <p>Спробуйте уточнити запит одним або кількома словами.</p>
+                </div>
+            {% elif search_query %}
                 <div class="results-header">
                     <h2 class="results-title">
                         {% if search_results %}
@@ -193,6 +207,7 @@
     font-size: 1.1rem;
     color: var(--gray-700);
     outline: none;
+    min-height: 44px;
 }
 
 .search-input::placeholder {
@@ -211,12 +226,19 @@
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 180ms ease;
+    min-height: 44px;
 }
 
 .search-btn:hover {
     background: var(--accent-light);
     transform: translateX(4px);
+}
+
+.search-btn[disabled] {
+    opacity: 0.7;
+    cursor: wait;
+    transform: none;
 }
 
 /* Results Section */
@@ -478,7 +500,8 @@
     
     .search-input {
         width: 100%;
-        text-align: center;
+        text-align: left;
+        font-size: 1rem;
     }
     
     .search-btn {
@@ -507,4 +530,21 @@
     }
 }
 </style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const searchForm = document.getElementById('searchForm');
+    const submitButton = document.getElementById('searchSubmitBtn');
+    if (!searchForm || !submitButton) {
+        return;
+    }
+
+    searchForm.addEventListener('submit', function () {
+        const text = submitButton.querySelector('.search-btn-text');
+        submitButton.disabled = true;
+        if (text) {
+            text.textContent = 'Пошук...';
+        }
+    });
+});
+</script>
 {% endblock %}

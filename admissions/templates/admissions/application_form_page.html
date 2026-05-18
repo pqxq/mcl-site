@@ -30,7 +30,7 @@
                         <i class="bi bi-pencil-square"></i>
                         <span>Заповніть форму</span>
                     </div>
-                    <form action="{% pageurl page %}" method="POST">
+                    <form action="{% pageurl page %}" method="POST" id="applicationForm">
                         {% csrf_token %}
 
                         {% if form.non_field_errors %}
@@ -45,23 +45,23 @@
                         <div class="form-group">
                             <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
                             {% if field.help_text %}
-                            <div class="form-hint">{{ field.help_text }}</div>
+                            <div class="form-hint" id="{{ field.id_for_label }}-hint">{{ field.help_text }}</div>
                             {% endif %}
 
                             {{ field }}
 
-                            {% if field.errors %}
-                            <div class="invalid-feedback d-block">
+                            <div class="invalid-feedback d-block" id="{{ field.id_for_label }}-errors">
+                                {% if field.errors %}
                                 {% for error in field.errors %}
                                 {{ error }}
                                 {% endfor %}
+                                {% endif %}
                             </div>
-                            {% endif %}
                         </div>
                         {% endfor %}
 
                         <div class="form-submit">
-                            <button type="submit" class="btn btn-primary-custom btn-lg">
+                            <button type="submit" class="btn btn-primary-custom btn-lg" id="applicationSubmitBtn">
                                 <i class="bi bi-send me-2"></i>Надіслати заявку
                             </button>
                         </div>
@@ -71,4 +71,36 @@
         </div>
     </div>
 </section>
+<style>
+    .form-group input:focus-visible,
+    .form-group textarea:focus-visible,
+    .form-group select:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+        border-color: var(--primary);
+    }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('applicationForm');
+    const submitBtn = document.getElementById('applicationSubmitBtn');
+    if (!form || !submitBtn) {
+        return;
+    }
+
+    form.querySelectorAll('input, select, textarea').forEach(function (field) {
+        const hint = document.getElementById(field.id + '-hint');
+        const errors = document.getElementById(field.id + '-errors');
+        const describedBy = [hint, errors].filter(Boolean).map(function (el) { return el.id; }).join(' ');
+        if (describedBy) {
+            field.setAttribute('aria-describedby', describedBy);
+        }
+    });
+
+    form.addEventListener('submit', function () {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Надсилання...';
+    });
+});
+</script>
 {% endblock %}

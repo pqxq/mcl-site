@@ -14,16 +14,20 @@ from wagtail.models import Page
 def search(request):
     search_query = request.GET.get("query", "").strip()
     page_number = request.GET.get("page", 1)
+    min_query_error = ""
 
     # Search
-    if search_query:
-        search_results = Page.objects.live().search(search_query)
+    if search_query and len(search_query) >= 3:
+        search_results = Page.objects.live().public().search(search_query)
 
         # To log this query for use with the "Promoted search results" module:
 
         # query = Query.get(search_query)
         # query.add_hit()
 
+    elif search_query:
+        min_query_error = "Введіть щонайменше 3 символи"
+        search_results = Page.objects.none()
     else:
         search_results = Page.objects.none()
 
@@ -35,5 +39,6 @@ def search(request):
         {
             "search_query": search_query,
             "search_results": search_results,
+            "min_query_error": min_query_error,
         },
     )

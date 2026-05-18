@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag, TaggedItemBase
@@ -15,6 +17,9 @@ class NewsPageTag(TaggedItemBase):
         related_name="tagged_items",
         on_delete=models.CASCADE,
     )
+
+    def __str__(self) -> str:
+        return str(self.tag)
 
 
 class NewsIndexPage(Page):
@@ -36,14 +41,33 @@ class NewsIndexPage(Page):
         verbose_name = "Новини (системна)"
         verbose_name_plural = "Новини"
 
+    @method_decorator(cache_page(60 * 15))
+    def serve(self, request, *args, **kwargs):
+        return super().serve(request, *args, **kwargs)
+
+    def __str__(self) -> str:
+        return self.title
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         all_news_items = (
             NewsPage.objects.child_of(self)
             .live()
             .public()
+            .select_related("owner")
             .prefetch_related("tags")
-            .order_by("-date", "-first_published_at")
+            .only(
+                "title",
+                "slug",
+                "first_published_at",
+                "search_description",
+                "live",
+                "owner",
+                "date",
+                "intro",
+                "image",
+            )
+            .order_by("-first_published_at")
         )
 
         tag_filter = request.GET.get("tag", "").strip()
@@ -99,3 +123,7 @@ class NewsPage(Page):
     class Meta:
         verbose_name = "Новина"
         verbose_name_plural = "Новини"
+        ordering = ["-first_published_at"]
+
+    def __str__(self) -> str:
+        return self.title

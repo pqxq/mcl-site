@@ -30,7 +30,19 @@ class StaffIndexPage(Page):
             PersonPage.objects.child_of(self)
             .live()
             .public()
+            .select_related("owner")
             .prefetch_related("subjects")
+            .only(
+                "title",
+                "slug",
+                "first_published_at",
+                "search_description",
+                "live",
+                "owner",
+                "department",
+                "position",
+                "photo",
+            )
         )
         departments = (
             base_queryset.exclude(department="")
@@ -41,7 +53,7 @@ class StaffIndexPage(Page):
         departments = sorted(departments, key=str.casefold)
 
         dept_filter = request.GET.get("department", "").strip()
-        staff_members = base_queryset.order_by("department", "title")
+        staff_members = base_queryset.order_by("-first_published_at")
         if dept_filter:
             staff_members = staff_members.filter(department=dept_filter)
 
@@ -49,6 +61,9 @@ class StaffIndexPage(Page):
         context["staff_members"] = staff_members
         context["current_department"] = dept_filter
         return context
+
+    def __str__(self) -> str:
+        return self.title
 
 class PersonPage(Page):
     position = models.CharField("Посада", max_length=100)
@@ -95,6 +110,14 @@ class PersonPage(Page):
         index.SearchField("bio"),
     ]
 
+    class Meta:
+        verbose_name = "Співробітник"
+        verbose_name_plural = "Співробітники"
+        ordering = ["-first_published_at"]
+
+    def __str__(self) -> str:
+        return self.title
+
 
 class TeacherSubject(Orderable):
     page = ParentalKey(PersonPage, on_delete=models.CASCADE, related_name="subjects")
@@ -103,3 +126,10 @@ class TeacherSubject(Orderable):
     panels = [
         FieldPanel("name"),
     ]
+
+    def __str__(self) -> str:
+        return self.name
+
+    class Meta:
+        verbose_name = "Предмет викладача"
+        verbose_name_plural = "Предмети викладача"

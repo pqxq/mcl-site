@@ -1,27 +1,9 @@
-# Core Framework
 Django>=5.1,<5.2
 wagtail==7.2.1
-
-# Database drivers
 psycopg2-binary>=2.9
 dj-database-url>=2.1.0
-
-# Wagtail dependencies
 django-modelcluster>=6.0
 django-taggit>=5.0
 Pillow>=10.0
-
-# Production server
 gunicorn>=20.0.0
-
-# Static & Media files
 whitenoise>=6.6.0
-django-storages[azure]>=1.14
-
-# Azure-specific
-azure-storage-blob>=12.0.0
-azure-identity>=1.15.0
-
-# Monitoring & Logging (optional but recommended)
-opencensus-ext-azure>=1.1.0
-opencensus-ext-django>=0.8.0

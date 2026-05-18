@@ -57,7 +57,8 @@
                 <article class="news-card h-100">
                     <div class="news-card-image">
                         {% if post.image %}
-                        {% image post.image fill-400x250 class="w-100 h-100 object-fit-cover" %}
+                        {% image post.image width-800 format-webp as post_image %}
+                        <img src="{{ post_image.url }}" width="{{ post_image.width }}" height="{{ post_image.height }}" class="w-100 h-100 object-fit-cover" loading="lazy" decoding="async" alt="{{ post_image.alt|default:post.title }}">
                         {% else %}
                         <div class="news-placeholder">
                             <i class="bi bi-newspaper"></i>
@@ -94,7 +95,9 @@
         </div>
         {% else %}
         <div class="empty-state">
-            <i class="bi bi-inbox"></i>
+            <svg viewBox="0 0 24 24" width="48" height="48" aria-hidden="true">
+                <path fill="currentColor" d="M4 4h16v12h-4l-2 3h-4l-2-3H4V4zm2 2v8h3l2 3h2l2-3h3V6H6z"/>
+            </svg>
             <h4>Новин ще немає</h4>
             <p>Скоро тут з'являться новини ліцею</p>
         </div>
