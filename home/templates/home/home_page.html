@@ -144,6 +144,19 @@
     </div>
 </section>
 
+{% if page.body %}
+<section class="about-content pt-0"> <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="about-intro-card">
+                    {{ page.body|richtext }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
 {% if ticker_images %}
 <section class="gallery-marquee-section py-5">
     <div class="container">
