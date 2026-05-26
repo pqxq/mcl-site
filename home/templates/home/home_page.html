@@ -158,10 +158,10 @@
     </div>
     
     <div class="gallery-marquee-wrapper">
-        <div class="gallery-marquee-track" data-images-count="{{ ticker_images|length }}">
+        <div class="gallery-marquee-track">
             {% for img in ticker_images %}
             <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
-                data-caption="{{ img.caption|default:'' }}" data-index="{{ forloop.counter0 }}" 
+                data-caption="{{ img.caption|default:'' }}" 
                 role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
                 {% image img.image width-800 format-webp as ticker_img %}
                 <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" class="rounded" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
@@ -170,7 +170,7 @@
             {# Duplicate for seamless loop #}
             {% for img in ticker_images %}
             <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
-                data-caption="{{ img.caption|default:'' }}" data-index="{{ forloop.counter0 }}"
+                data-caption="{{ img.caption|default:'' }}"
                 role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
                 {% image img.image width-800 format-webp as ticker_img %}
                 <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" class="rounded" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
@@ -217,8 +217,6 @@
         var closeBtn = document.querySelector("#marqueeLightbox .marquee-lightbox-close");
         var prevBtn = document.querySelector(".marquee-lightbox-prev");
         var nextBtn = document.querySelector(".marquee-lightbox-next");
-        var track = document.querySelector('.gallery-marquee-track');
-        
         // Build images array from unique sources
         var allImageElements = document.querySelectorAll('.gallery-marquee-image');
         var imagesData = [];
@@ -244,8 +242,8 @@
             }
         }
 
-        function openLightbox(src, caption, index) {
-            currentIndex = index !== undefined ? index : imagesData.findIndex(function(img) { return img.src === src; });
+        function openLightbox(src, caption) {
+            currentIndex = imagesData.findIndex(function(img) { return img.src === src; });
             if (currentIndex < 0) currentIndex = 0;
             
             modal.style.display = "flex";
@@ -298,20 +296,18 @@
         }
 
         // Attach click handlers to images
-        allImageElements.forEach(function (img, idx) {
+        allImageElements.forEach(function (img) {
             img.addEventListener('click', function () {
                 var src = this.getAttribute('data-src');
                 var caption = this.getAttribute('data-caption');
-                var index = parseInt(this.getAttribute('data-index')) || 0;
-                openLightbox(src, caption, index);
+                openLightbox(src, caption);
             });
             img.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     var src = this.getAttribute('data-src');
                     var caption = this.getAttribute('data-caption');
-                    var index = parseInt(this.getAttribute('data-index')) || 0;
-                    openLightbox(src, caption, index);
+                    openLightbox(src, caption);
                 }
             });
         });
@@ -355,16 +351,6 @@
             }
         });
 
-        // Marquee pause on hover
-        if (track) {
-            track.addEventListener('mouseenter', function () {
-                track.style.animationPlayState = 'paused';
-            });
-            track.addEventListener('mouseleave', function () {
-                track.style.animationPlayState = 'running';
-            });
-        }
-        
         // Touch swipe support for lightbox
         var touchStartX = 0;
         var touchEndX = 0;

@@ -11,7 +11,7 @@
     }
     
     .about-hero-emblem {
-        height: clamp(90px, 12vw, 130px); /* Scales perfectly on mobile and desktop */
+        height: clamp(90px, 12vw, 130px);
         width: auto;
         filter: drop-shadow(0 12px 25px rgba(0, 0, 0, 0.15));
         animation: float-emblem 6s ease-in-out infinite;
@@ -26,34 +26,63 @@
         100% { transform: translateY(0px); }
     }
 
-    /* Spacing & Rhythm */
-    .page-hero + .about-content,
-    .page-hero + .about-stats-section {
-        margin-top: -2px;
+    /* Section Rhythm */
+    .about-section {
+        padding: clamp(4rem, 6vw, 6rem) 0;
+        position: relative;
+    }
+    .about-section-gray {
+        background-color: var(--gray-50);
+    }
+    .about-section-white {
+        background-color: var(--white);
     }
     
-    .about-content, .about-stats-section, .content-section {
-        background: var(--gray-50);
-        padding: clamp(3rem, 5vw, 4.5rem) 0;
+    .page-hero + .about-section {
+        margin-top: -2px;
+        padding-top: clamp(2rem, 4vw, 4rem);
     }
 
     /* Intro Card */
     .about-intro-card {
-        background: white;
-        border-radius: 20px;
-        padding: clamp(2rem, 4vw, 3.5rem);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-        border-left: 5px solid var(--accent);
+        background: var(--white);
+        border-radius: 24px;
+        padding: clamp(2.5rem, 5vw, 4rem);
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--gray-100);
+        border-left: 6px solid var(--accent);
         position: relative;
         overflow: hidden;
     }
     
+    .about-intro-card::after {
+        content: '"';
+        position: absolute;
+        top: 20px;
+        right: 40px;
+        font-size: 8rem;
+        color: var(--gray-100);
+        font-family: serif;
+        line-height: 1;
+        opacity: 0.6;
+        pointer-events: none;
+    }
+    
     .about-intro-card p {
         color: var(--gray-700);
-        line-height: 1.85;
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
+        line-height: 1.8;
+        font-size: 1.15rem;
+        margin-bottom: 1.25rem;
+        position: relative;
+        z-index: 1;
     }
+    
+    .about-intro-card p:first-child {
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: var(--primary);
+    }
+    
     .about-intro-card p:last-child {
         margin-bottom: 0;
     }
@@ -62,81 +91,85 @@
     .about-stats-row {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 1.5rem;
+        gap: 2rem;
         justify-content: center;
     }
     
     .about-stat-item {
         text-align: center;
-        padding: 2.5rem 2rem;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        padding: 3rem 2rem;
+        background: var(--white);
+        border-radius: 24px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-100);
         transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
     }
 
     .about-stat-item:hover {
         transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        box-shadow: var(--shadow-lg);
+        border-color: transparent;
     }
     
     .about-stat-icon {
-        width: 64px;
-        height: 64px;
-        background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
-        border-radius: 16px;
+        width: 72px;
+        height: 72px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        border-radius: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 1.25rem;
-        color: white;
-        font-size: 1.75rem;
-        box-shadow: 0 8px 20px rgba(30, 58, 95, 0.2);
+        margin: 0 auto 1.5rem;
+        color: var(--white);
+        font-size: 2rem;
+        box-shadow: 0 10px 25px rgba(30, 58, 95, 0.2);
     }
     
     .about-stat-number {
-        font-size: clamp(2.5rem, 4vw, 3.2rem);
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
         font-weight: 800;
         line-height: 1;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
         color: var(--primary);
         font-family: var(--font-heading);
     }
     
     .about-stat-label {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         text-transform: uppercase;
         letter-spacing: 1.5px;
         font-weight: 700;
         color: var(--gray-500);
     }
     
-    /* Content Cards */
+    /* Mission & Values Cards */
     .section-card {
-        background: white;
-        border-radius: 20px;
-        padding: clamp(2rem, 4vw, 3rem);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        background: var(--white);
+        border-radius: 24px;
+        padding: clamp(2.5rem, 5vw, 3.5rem);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-100);
         height: 100%;
         transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
     }
     
     .section-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        box-shadow: var(--shadow-lg);
+        border-color: transparent;
     }
     
     .section-icon {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark, #1e3a5f) 100%);
-        border-radius: 14px;
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 1.5rem;
-        color: white;
-        font-size: 1.5rem;
+        margin-bottom: 1.75rem;
+        color: var(--white);
+        font-size: 1.75rem;
         position: relative;
     }
     
@@ -146,7 +179,7 @@
         width: 100%;
         height: 100%;
         background: var(--accent);
-        border-radius: 14px;
+        border-radius: 16px;
         z-index: -1;
         top: 6px;
         left: 6px;
@@ -154,13 +187,13 @@
     }
 
     .section-card:hover .section-icon::after {
-        top: 8px;
-        left: 8px;
+        top: 10px;
+        left: 10px;
     }
     
     .section-title {
         color: var(--primary);
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         font-weight: 800;
         margin-bottom: 1.25rem;
         text-wrap: balance;
@@ -174,20 +207,71 @@
     .section-content p:last-child {
         margin-bottom: 0;
     }
+    .section-content ul {
+        padding-left: 1.2rem;
+        color: var(--gray-700);
+        line-height: 1.8;
+    }
+    .section-content li {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Editorial Layout (History & Achievements) */
+    .editorial-header {
+        text-align: center;
+        margin-bottom: 3.5rem;
+    }
+    .editorial-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 72px;
+        height: 72px;
+        background: var(--primary-light);
+        background: linear-gradient(135deg, rgba(30,58,95,0.05) 0%, rgba(30,58,95,0.15) 100%);
+        color: var(--primary);
+        border-radius: 50%;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    .editorial-title {
+        color: var(--primary);
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+    }
+    .editorial-content {
+        max-width: 800px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+        line-height: 1.85;
+        color: var(--gray-700);
+    }
+    .editorial-content h2, .editorial-content h3 {
+        color: var(--primary);
+        margin-top: 2.5rem;
+        margin-bottom: 1.25rem;
+        font-weight: 700;
+    }
+    .editorial-content p {
+        margin-bottom: 1.25rem;
+    }
     
     /* Building Section */
     .building-wrapper {
         position: relative;
-        border-radius: 24px;
+        border-radius: 28px;
         overflow: hidden;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        box-shadow: var(--shadow-lg);
+        max-width: 1000px;
+        margin: 0 auto;
     }
     
     .building-image {
         width: 100%;
-        height: clamp(300px, 40vh, 500px);
+        height: clamp(350px, 50vh, 600px);
         object-fit: cover;
-        transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+        transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
     .building-wrapper:hover .building-image {
@@ -199,26 +283,25 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(to top, rgba(16, 33, 54, 0.95) 0%, rgba(16, 33, 54, 0.4) 50%, transparent 100%);
+        background: linear-gradient(to top, rgba(16, 33, 54, 0.95) 0%, rgba(16, 33, 54, 0.4) 60%, transparent 100%);
         padding: 6rem 3rem 2.5rem;
         pointer-events: none;
+        display: flex;
+        align-items: flex-end;
     }
     
     .building-overlay h3 {
-        color: white;
-        font-size: clamp(1.5rem, 3vw, 2.25rem);
+        color: var(--white);
+        font-size: clamp(1.75rem, 3vw, 2.5rem);
         font-weight: 800;
         margin: 0;
-        text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        text-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
     
     /* Responsive */
     @media (max-width: 768px) {
-        .about-content, .about-stats-section, .content-section {
-            padding: 2.5rem 0;
-        }
-        .about-stats-row {
-            grid-template-columns: 1fr 1fr;
+        .about-intro-card::after {
+            display: none;
         }
         .building-overlay {
             padding: 4rem 1.5rem 1.5rem;
@@ -228,9 +311,6 @@
     @media (max-width: 575.98px) {
         .about-stats-row {
             grid-template-columns: 1fr;
-        }
-        .section-icon.mx-auto {
-            margin-bottom: 1.5rem !important;
         }
     }
 </style>
@@ -260,7 +340,8 @@
 </section>
 
 {% if page.intro %}
-<section class="about-content pt-0"> <div class="container">
+<section class="about-section about-section-gray">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="about-intro-card">
@@ -273,7 +354,7 @@
 {% endif %}
 
 {% if page.founded_year or page.students_count or page.teachers_count %}
-<section class="about-stats-section">
+<section class="about-section about-section-white">
     <div class="container">
         <div class="about-stats-row">
             {% if page.founded_year %}
@@ -310,7 +391,8 @@
 </section>
 {% endif %}
 
-<section class="content-section">
+{% if page.mission or page.values %}
+<section class="about-section about-section-gray">
     <div class="container">
         <div class="row g-4">
             {% if page.mission %}
@@ -331,7 +413,7 @@
             <div class="col-md-6">
                 <div class="section-card">
                     <div class="section-icon">
-                        <i class="bi bi-heart"></i>
+                        <i class="bi bi-heart-fill"></i>
                     </div>
                     <h2 class="section-title">Цінності</h2>
                     <div class="section-content">
@@ -343,32 +425,29 @@
         </div>
     </div>
 </section>
+{% endif %}
 
 {% if page.history %}
-<section class="content-section">
+<section class="about-section about-section-white">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="section-card">
-                    <div class="section-icon mx-auto" style="margin-bottom: 2rem;">
-                        <i class="bi bi-clock-history"></i>
-                    </div>
-                    <h2 class="section-title d-block text-center mx-auto">Історія</h2>
-                    <div class="section-content mt-4">
-                        {{ page.history|richtext }}
-                    </div>
-                </div>
+        <div class="editorial-header">
+            <div class="editorial-icon">
+                <i class="bi bi-clock-history"></i>
             </div>
+            <h2 class="editorial-title">Історія закладу</h2>
+        </div>
+        <div class="editorial-content">
+            {{ page.history|richtext }}
         </div>
     </div>
 </section>
 {% endif %}
 
 {% if page.building_image %}
-<section class="content-section pb-5">
+<section class="about-section about-section-gray">
     <div class="container">
         <div class="building-wrapper">
-            {% image page.building_image width-800 format-webp as building_img %}
+            {% image page.building_image width-1200 format-webp as building_img %}
             <img src="{{ building_img.url }}" width="{{ building_img.width }}" height="{{ building_img.height }}" loading="lazy" decoding="async" alt="{{ building_img.alt|default:'Будівля закладу' }}" class="building-image">
             <div class="building-overlay">
                 <h3>Наш заклад</h3>
@@ -379,20 +458,16 @@
 {% endif %}
 
 {% if page.achievements %}
-<section class="content-section pt-0">
+<section class="about-section about-section-white">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="section-card">
-                    <div class="section-icon mx-auto" style="margin-bottom: 2rem;">
-                        <i class="bi bi-trophy"></i>
-                    </div>
-                    <h2 class="section-title d-block text-center mx-auto">Досягнення</h2>
-                    <div class="section-content mt-4">
-                        {{ page.achievements|richtext }}
-                    </div>
-                </div>
+        <div class="editorial-header">
+            <div class="editorial-icon">
+                <i class="bi bi-trophy-fill"></i>
             </div>
+            <h2 class="editorial-title">Наші досягнення</h2>
+        </div>
+        <div class="editorial-content">
+            {{ page.achievements|richtext }}
         </div>
     </div>
 </section>
