@@ -54,7 +54,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             const sidebar = document.getElementById('sidebar');
             const sidebarToggle = document.getElementById('sidebarToggle');
-            const sidebarClose = document.getElementById('sidebarClose');
             const sidebarOverlay = document.getElementById('sidebarOverlay');
             const mobileBreakpoint = window.matchMedia('(max-width: 991.98px)');
 
@@ -81,12 +80,6 @@
             if (sidebarToggle) {
                 sidebarToggle.addEventListener('click', function() {
                     setSidebarState(true);
-                });
-            }
-
-            if (sidebarClose) {
-                sidebarClose.addEventListener('click', function() {
-                    setSidebarState(false);
                 });
             }
 
