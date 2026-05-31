@@ -9,6 +9,7 @@ from modelcluster.fields import ParentalKey
 
 class HomePage(Page):
     """Main landing page of the site"""
+
     body = RichTextField(blank=True)
     cta_text = models.CharField("Текст кнопки заклику", max_length=100, default="Приєднатися до нас")
     cta_link = models.ForeignKey(
@@ -19,7 +20,6 @@ class HomePage(Page):
         related_name='+',
         verbose_name="Посилання кнопки заклику"
     )
-
     content_panels = Page.content_panels + [
         FieldPanel('body'),
         InlinePanel('hero_images', label="Слайдер на головній"),
@@ -27,8 +27,6 @@ class HomePage(Page):
         FieldPanel('cta_text'),
         FieldPanel('cta_link'),
     ]
-
-    # HomePage can contain any page type
     subpage_types = [
         'home.AboutPage',
         'home.ContentPage',
@@ -38,7 +36,6 @@ class HomePage(Page):
         'documents.DocumentsIndexPage',
         'gallery.GalleryIndexPage',
     ]
-
     max_count = 1
 
     @method_decorator(cache_page(60 * 15))
@@ -47,6 +44,7 @@ class HomePage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
+
         from news.models import NewsPage
         context["latest_news"] = (
             NewsPage.objects.live()
@@ -65,11 +63,14 @@ class HomePage(Page):
             )
             .order_by("-first_published_at")[:3]
         )
-        
-        # Get images for the ticker from gallery albums
+
         from gallery.models import GalleryImage
-        ticker_images = GalleryImage.objects.select_related('image', 'page').order_by('-page__first_published_at')[:30]
-        # Provide album and image IDs for linking
+        ticker_images = (
+            GalleryImage.objects
+            .select_related("image", "page")
+            .filter(page__live=True)
+            [:30]
+        )
         context['ticker_images'] = [
             {
                 'image': img.image,
@@ -79,7 +80,6 @@ class HomePage(Page):
             }
             for img in ticker_images
         ]
-        
         return context
 
     class Meta:

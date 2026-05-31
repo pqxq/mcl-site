@@ -1,162 +1,191 @@
-{% extends "base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
-
-{% block body_class %}template-home{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% load static wagtailcore_tags wagtailimages_tags %}
+{% block body_class %}template-home{% endblock %} {% block content %}
 <section class="page-hero home-hero">
-    <div class="hero-bg-pattern"></div>
-    <div class="container h-100">
-        <div class="home-hero-grid row align-items-center justify-content-center h-100 gx-4 gy-2 gy-xl-5">
-            <div class="col-12 col-lg-7 col-xl-7">
-                <div class="hero-content home-hero-copy text-center">
-                    <span class="hero-badge">
-                        Миколаївський ліцей №9
-                    </span>
-                    <h1 class="hero-title">
-                        Ми відкриваємо для Вас
-                        <span class="highlight">світ знань!</span>
-                    </h1>
-                    <p class="hero-subtitle">
-                        Від успіхів у ліцеї – до успіхів у житті! Поєднуємо традиції класичної освіти з інноваціями та сучасними
-                        підходами до навчання.
-                    </p>
-                    <div class="hero-buttons d-flex flex-column flex-md-row flex-wrap gap-3 mt-3 justify-content-center">
-                        <a href="/admissions/" class="btn btn-primary-custom btn-lg d-inline-flex align-items-center justify-content-center">
-                            <i class="bi bi-arrow-right-circle me-2"></i>Вступити до ліцею
-                        </a>
-                        <a href="/schedule/" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center">
-                            <i class="bi bi-calendar-week me-2"></i>Розклад занять
-                        </a>
-                        <a href="/about/" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center btn-full">
-                            <i class="bi bi-info-circle me-2"></i>Дізнатися більше
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-8 col-sm-6 col-md-5 col-lg-5 col-xl-5 mx-auto pt-0 d-flex justify-content-center">
-                <div class="home-hero-visual d-flex align-items-center justify-content-center">
-                    <div class="hero-emblem-wrapper custom-emblem-scale">
-                        <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="hero-emblem img-fluid" width="220" height="220" loading="lazy" decoding="async">
-                    </div>
-                </div>
-            </div>
+  <div class="hero-bg-pattern"></div>
+  <div class="container h-100">
+    <div
+      class="home-hero-grid row align-items-center justify-content-center h-100 gx-4 gy-2 gy-xl-5"
+    >
+      <div class="col-12 col-lg-7 col-xl-7">
+        <div class="hero-content home-hero-copy text-center">
+          <span class="hero-badge"> Миколаївський ліцей №9 </span>
+          <h1 class="hero-title">
+            Ми відкриваємо для Вас
+            <span class="highlight">світ знань!</span>
+          </h1>
+          <p class="hero-subtitle">
+            Від успіхів у ліцеї – до успіхів у житті! Поєднуємо традиції
+            класичної освіти з інноваціями та сучасними підходами до навчання.
+          </p>
+          <div
+            class="hero-buttons d-flex flex-column flex-md-row flex-wrap gap-3 mt-3 justify-content-center"
+          >
+            <a
+              href="/admissions/"
+              class="btn btn-primary-custom btn-lg d-inline-flex align-items-center justify-content-center"
+            >
+              <i class="bi bi-arrow-right-circle me-2"></i>Вступити до ліцею
+            </a>
+            <a
+              href="/schedule/"
+              class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center"
+            >
+              <i class="bi bi-calendar-week me-2"></i>Розклад занять
+            </a>
+            <a
+              href="/about/"
+              class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center btn-full"
+            >
+              <i class="bi bi-info-circle me-2"></i>Дізнатися більше
+            </a>
+          </div>
         </div>
+      </div>
+      <div
+        class="col-8 col-sm-6 col-md-5 col-lg-5 col-xl-5 mx-auto pt-0 d-flex justify-content-center"
+      >
+        <div
+          class="home-hero-visual d-flex align-items-center justify-content-center"
+        >
+          <div class="hero-emblem-wrapper custom-emblem-scale">
+            <img
+              src="{% static 'images/emblem.png' %}"
+              alt="Герб ліцею"
+              class="hero-emblem img-fluid"
+              width="220"
+              height="220"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="hero-wave">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path
-                d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z"
-                fill="var(--gray-50)" />
-        </svg>
-    </div>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path
+        d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z"
+        fill="var(--gray-50)"
+      />
+    </svg>
+  </div>
 </section>
 
 <section class="home-stats-section">
-    <div class="container">
-        <div class="stats-row">
-            <div class="stat-item">
-                <i class="bi bi-calendar-check stat-icon"></i>
-                <span class="stat-number">30+</span>
-                <span class="stat-label">років досвіду</span>
-            </div>
-            <div class="stat-item">
-                <i class="bi bi-person-check stat-icon"></i>
-                <span class="stat-number">15+</span>
-                <span class="stat-label">педагогів</span>
-            </div>
-            <div class="stat-item">
-                <i class="bi bi-people stat-icon"></i>
-                <span class="stat-number">200+</span>
-                <span class="stat-label">учнів</span>
-            </div>
-            <div class="stat-item">
-                <i class="bi bi-award stat-icon"></i>
-                <span class="stat-number">100+</span>
-                <span class="stat-label">випускників на рік</span>
-            </div>
-        </div>
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-item">
+        <i class="bi bi-calendar-check stat-icon"></i>
+        <span class="stat-number">30+</span>
+        <span class="stat-label">років досвіду</span>
+      </div>
+      <div class="stat-item">
+        <i class="bi bi-person-check stat-icon"></i>
+        <span class="stat-number">15+</span>
+        <span class="stat-label">педагогів</span>
+      </div>
+      <div class="stat-item">
+        <i class="bi bi-people stat-icon"></i>
+        <span class="stat-number">200+</span>
+        <span class="stat-label">учнів</span>
+      </div>
+      <div class="stat-item">
+        <i class="bi bi-award stat-icon"></i>
+        <span class="stat-number">100+</span>
+        <span class="stat-label">випускників на рік</span>
+      </div>
     </div>
+  </div>
 </section>
 
 <section class="features-section">
-    <div class="container">
-        <div class="section-header text-center">
-            <span class="section-tag">
-                <i class="bi bi-stars me-1"></i>
-                Наші переваги
-            </span>
-            <h2 class="section-title">Чому обирають нас?</h2>
-            <p class="section-subtitle">Ми створюємо середовище, де кожен учень може розкрити свій потенціал</p>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <div class="feature-icon">
-                            <i class="bi bi-mortarboard-fill"></i>
-                        </div>
-                        <div class="feature-icon-bg"></div>
-                    </div>
-                    <h3 class="feature-title">Якісна освіта</h3>
-                    <p class="feature-text">Безкоштовна повна середня освіта найвищого рівня від кращих педагогів.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <div class="feature-icon">
-                            <i class="bi bi-laptop"></i>
-                        </div>
-                        <div class="feature-icon-bg"></div>
-                    </div>
-                    <h3 class="feature-title">Сучасні технології</h3>
-                    <p class="feature-text">Дистанційне навчання, інтерактивні методики та цифрові інструменти.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <div class="feature-icon">
-                            <i class="bi bi-people-fill"></i>
-                        </div>
-                        <div class="feature-icon-bg"></div>
-                    </div>
-                    <h3 class="feature-title">Партнерство з ВНЗ</h3>
-                    <p class="feature-text">Співпраця з Миколаївським аграрним університетом відкриває нові можливості.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <div class="feature-icon">
-                            <i class="bi bi-geo-alt-fill"></i>
-                        </div>
-                        <div class="feature-icon-bg"></div>
-                    </div>
-                    <h3 class="feature-title">Подорожі та досвід</h3>
-                    <p class="feature-text">Вивчення історії та культури через реальні подорожі Україною та Європою.</p>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-tag">
+        <i class="bi bi-stars me-1"></i>
+        Наші переваги
+      </span>
+      <h2 class="section-title">Чому обирають нас?</h2>
+      <p class="section-subtitle">
+        Ми створюємо середовище, де кожен учень може розкрити свій потенціал
+      </p>
     </div>
-</section>
 
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon">
+              <i class="bi bi-mortarboard-fill"></i>
+            </div>
+            <div class="feature-icon-bg"></div>
+          </div>
+          <h3 class="feature-title">Якісна освіта</h3>
+          <p class="feature-text">
+            Безкоштовна повна середня освіта найвищого рівня від кращих
+            педагогів.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon">
+              <i class="bi bi-laptop"></i>
+            </div>
+            <div class="feature-icon-bg"></div>
+          </div>
+          <h3 class="feature-title">Сучасні технології</h3>
+          <p class="feature-text">
+            Дистанційне навчання, інтерактивні методики та цифрові інструменти.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon">
+              <i class="bi bi-people-fill"></i>
+            </div>
+            <div class="feature-icon-bg"></div>
+          </div>
+          <h3 class="feature-title">Партнерство з ВНЗ</h3>
+          <p class="feature-text">
+            Співпраця з Миколаївським аграрним університетом відкриває нові
+            можливості.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon">
+              <i class="bi bi-geo-alt-fill"></i>
+            </div>
+            <div class="feature-icon-bg"></div>
+          </div>
+          <h3 class="feature-title">Подорожі та досвід</h3>
+          <p class="feature-text">
+            Вивчення історії та культури через реальні подорожі Україною та
+            Європою.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% if page.body %}
-<section class="about-content pt-0"> <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="about-intro-card">
-                    {{ page.body|richtext }}
-                </div>
-            </div>
-        </div>
+<section class="about-content pt-0">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="about-intro-card">{{ page.body|richtext }}</div>
+      </div>
     </div>
+  </div>
 </section>
-{% endif %}
-
+{% endif %} 
 {% if ticker_images %}
 <section class="gallery-marquee-section py-5">
     <div class="container">
@@ -171,10 +200,10 @@
     </div>
     
     <div class="gallery-marquee-wrapper">
-        <div class="gallery-marquee-track" data-images-count="{{ ticker_images|length }}">
+        <div class="gallery-marquee-track">
             {% for img in ticker_images %}
             <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
-                data-caption="{{ img.caption|default:'' }}" data-index="{{ forloop.counter0 }}" 
+                data-caption="{{ img.caption|default:'' }}" 
                 role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
                 {% image img.image width-800 format-webp as ticker_img %}
                 <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" class="rounded" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
@@ -183,7 +212,7 @@
             {# Duplicate for seamless loop #}
             {% for img in ticker_images %}
             <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
-                data-caption="{{ img.caption|default:'' }}" data-index="{{ forloop.counter0 }}"
+                data-caption="{{ img.caption|default:'' }}"
                 role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
                 {% image img.image width-800 format-webp as ticker_img %}
                 <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" class="rounded" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
@@ -230,8 +259,6 @@
         var closeBtn = document.querySelector("#marqueeLightbox .marquee-lightbox-close");
         var prevBtn = document.querySelector(".marquee-lightbox-prev");
         var nextBtn = document.querySelector(".marquee-lightbox-next");
-        var track = document.querySelector('.gallery-marquee-track');
-        
         // Build images array from unique sources
         var allImageElements = document.querySelectorAll('.gallery-marquee-image');
         var imagesData = [];
@@ -257,8 +284,8 @@
             }
         }
 
-        function openLightbox(src, caption, index) {
-            currentIndex = index !== undefined ? index : imagesData.findIndex(function(img) { return img.src === src; });
+        function openLightbox(src, caption) {
+            currentIndex = imagesData.findIndex(function(img) { return img.src === src; });
             if (currentIndex < 0) currentIndex = 0;
             
             modal.style.display = "flex";
@@ -311,20 +338,18 @@
         }
 
         // Attach click handlers to images
-        allImageElements.forEach(function (img, idx) {
+        allImageElements.forEach(function (img) {
             img.addEventListener('click', function () {
                 var src = this.getAttribute('data-src');
                 var caption = this.getAttribute('data-caption');
-                var index = parseInt(this.getAttribute('data-index')) || 0;
-                openLightbox(src, caption, index);
+                openLightbox(src, caption);
             });
             img.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     var src = this.getAttribute('data-src');
                     var caption = this.getAttribute('data-caption');
-                    var index = parseInt(this.getAttribute('data-index')) || 0;
-                    openLightbox(src, caption, index);
+                    openLightbox(src, caption);
                 }
             });
         });
@@ -368,16 +393,6 @@
             }
         });
 
-        // Marquee pause on hover
-        if (track) {
-            track.addEventListener('mouseenter', function () {
-                track.style.animationPlayState = 'paused';
-            });
-            track.addEventListener('mouseleave', function () {
-                track.style.animationPlayState = 'running';
-            });
-        }
-        
         // Touch swipe support for lightbox
         var touchStartX = 0;
         var touchEndX = 0;
@@ -402,101 +417,115 @@
 {% endif %}
 
 <section class="news-section">
-    <div class="container">
-        <div class="section-header text-center">
-            <span class="section-tag">
-                <i class="bi bi-newspaper me-1"></i>
-                Новини
-            </span>
-            <h2 class="section-title">Останні події</h2>
-            <p class="section-subtitle">Слідкуйте за життям нашого ліцею та важливими подіями</p>
-        </div>
-
-        <div class="row g-4">
-            {% for post in latest_news %}
-            <div class="col-lg-4 col-md-6">
-                <article class="news-card h-100">
-                    <div class="news-card-image">
-                        {% if post.image %}
-                        {% image post.image width-800 format-webp as latest_news_image %}
-                        <img src="{{ latest_news_image.url }}" width="{{ latest_news_image.width }}" height="{{ latest_news_image.height }}" class="w-100 h-100 object-fit-cover" loading="lazy" decoding="async" alt="{{ latest_news_image.alt|default:post.title }}">
-                        {% else %}
-                        <div class="news-placeholder bg-secondary text-white d-flex align-items-center justify-content-center w-100 h-100">
-                            <i class="bi bi-newspaper fs-1"></i>
-                        </div>
-                        {% endif %}
-                        <div class="news-card-overlay"></div>
-                    </div>
-                    <div class="news-card-body">
-                        <div class="news-meta">
-                            <span class="news-date">
-                                <i class="bi bi-calendar3 me-1"></i>
-                                {{ post.date|date:"d E Y" }}
-                            </span>
-                        </div>
-                        <h3 class="news-title">
-                            <a href="{% pageurl post %}">{{ post.title }}</a>
-                        </h3>
-                        <p class="news-excerpt">{{ post.intro|truncatewords:18 }}</p>
-                        <a href="{% pageurl post %}" class="read-more">
-                            Читати далі
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
-            {% empty %}
-            <div class="col-12">
-                <div class="empty-state">
-                    <i class="bi bi-inbox"></i>
-                    <h4>Новини ще не додані</h4>
-                    <p>Слідкуйте за оновленнями</p>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
-        {% if latest_news %}
-        <div class="text-center mt-5">
-            <a href="/news/" class="btn btn-primary-custom btn-lg px-5">
-                Всі новини
-                <i class="bi bi-arrow-right ms-2"></i>
-            </a>
-        </div>
-        {% endif %}
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-tag">
+        <i class="bi bi-newspaper me-1"></i>
+        Новини
+      </span>
+      <h2 class="section-title">Останні події</h2>
+      <p class="section-subtitle">
+        Слідкуйте за життям нашого ліцею та важливими подіями
+      </p>
     </div>
+
+    <div class="row g-4">
+      {% for post in latest_news %}
+      <div class="col-lg-4 col-md-6">
+        <article class="news-card h-100">
+          <div class="news-card-image">
+            {% if post.image %} {% image post.image width-800 format-webp as
+            latest_news_image %}
+            <img
+              src="{{ latest_news_image.url }}"
+              width="{{ latest_news_image.width }}"
+              height="{{ latest_news_image.height }}"
+              class="w-100 h-100 object-fit-cover"
+              loading="lazy"
+              decoding="async"
+              alt="{{ latest_news_image.alt|default:post.title }}"
+            />
+            {% else %}
+            <div
+              class="news-placeholder bg-secondary text-white d-flex align-items-center justify-content-center w-100 h-100"
+            >
+              <i class="bi bi-newspaper fs-1"></i>
+            </div>
+            {% endif %}
+            <div class="news-card-overlay"></div>
+          </div>
+          <div class="news-card-body">
+            <div class="news-meta">
+              <span class="news-date">
+                <i class="bi bi-calendar3 me-1"></i>
+                {{ post.date|date:"d E Y" }}
+              </span>
+            </div>
+            <h3 class="news-title">
+              <a href="{% pageurl post %}">{{ post.title }}</a>
+            </h3>
+            <p class="news-excerpt">{{ post.intro|truncatewords:18 }}</p>
+            <a href="{% pageurl post %}" class="read-more">
+              Читати далі
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+      {% empty %}
+      <div class="col-12">
+        <div class="empty-state">
+          <i class="bi bi-inbox"></i>
+          <h4>Новини ще не додані</h4>
+          <p>Слідкуйте за оновленнями</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% if latest_news %}
+    <div class="text-center mt-5">
+      <a href="/news/" class="btn btn-primary-custom btn-lg px-5">
+        Всі новини
+        <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+    </div>
+    {% endif %}
+  </div>
 </section>
 
 {% if page.quick_links.all %}
 <section class="quick-links-section">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-tag">
-                <i class="bi bi-link-45deg me-1"></i>
-                Швидкий доступ
-            </span>
-            <h2 class="section-title">Корисні посилання</h2>
-        </div>
-        <div class="row g-4 justify-content-center">
-            {% for link in page.quick_links.all %}
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="{% if link.link %}{% pageurl link.link %}{% else %}#{% endif %}" class="quick-link-card">
-                    <div class="quick-link-icon">
-                        {% if link.icon %}
-                        <i class="{{ link.icon }}"></i>
-                        {% else %}
-                        <i class="bi bi-link-45deg"></i>
-                        {% endif %}
-                    </div>
-                    <h3 class="quick-link-title">{{ link.title }}</h3>
-                    <span class="quick-link-arrow">
-                        <i class="bi bi-arrow-right"></i>
-                    </span>
-                </a>
-            </div>
-            {% endfor %}
-        </div>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">
+        <i class="bi bi-link-45deg me-1"></i>
+        Швидкий доступ
+      </span>
+      <h2 class="section-title">Корисні посилання</h2>
     </div>
+    <div class="row g-4 justify-content-center">
+      {% for link in page.quick_links.all %}
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <a
+          href="{% if link.link %}{% pageurl link.link %}{% else %}#{% endif %}"
+          class="quick-link-card"
+        >
+          <div class="quick-link-icon">
+            {% if link.icon %}
+            <i class="{{ link.icon }}"></i>
+            {% else %}
+            <i class="bi bi-link-45deg"></i>
+            {% endif %}
+          </div>
+          <h3 class="quick-link-title">{{ link.title }}</h3>
+          <span class="quick-link-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}
