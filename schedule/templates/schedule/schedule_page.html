@@ -29,47 +29,8 @@
         </div>
 
         <!-- Controls Row -->
-        <div class="schedule-controls">
-            <div class="row g-3 align-items-end">
-                <!-- Week Tabs -->
-                <div class="col-lg-8">
-                    <label class="control-label">Оберіть тиждень:</label>
-                    <div class="week-tabs">
-                        <a href="?week=1" class="week-tab {% if current_week == '1' %}active{% endif %}">
-                            I тиждень
-                        </a>
-                        <a href="?week=2" class="week-tab {% if current_week == '2' %}active{% endif %}">
-                            II тиждень
-                        </a>
-                        <a href="?week=3" class="week-tab {% if current_week == '3' %}active{% endif %}">
-                            III тиждень
-                        </a>
-                        <a href="?week=4" class="week-tab {% if current_week == '4' %}active{% endif %}">
-                            IV тиждень
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Class Filter -->
-                <div class="col-lg-4">
-                    <label class="control-label">Фільтр за класом:</label>
-                    <div class="dropdown">
-                        <button class="class-filter-btn dropdown-toggle" type="button" id="classFilterDropdown"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-funnel me-2"></i>
-                            <span id="classFilterLabel">Всі класи</span>
-                        </button>
-                        <ul class="dropdown-menu w-100" aria-labelledby="classFilterDropdown">
-                            <li><a class="dropdown-item active" href="#" data-class-id="">Всі класи</a></li>
-                            {% for class_group in class_groups %}
-                            <li><a class="dropdown-item" href="#" data-class-id="{{ class_group.id }}">{{ class_group.name }} ({{ class_group.study_type }})</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        {% include "schedule/schedule_controls.html" %}
+        
         {% if schedule_data %}
         <div class="schedule-table-wrapper">
             <table class="schedule-table" id="scheduleTable">
@@ -283,7 +244,7 @@
     }
 
     .schedule-table thead th {
-        background: linear-gradient(135deg, #1e3a5f 0%, #152c47 100%);
+        background: var(--primary);
         color: var(--white);
         font-weight: 600;
         font-size: 0.8rem;
