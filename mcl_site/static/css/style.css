@@ -4201,10 +4201,44 @@ img {
 }
 
 .template-home .home-stats-section .stat-item {
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    padding: 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.template-home .home-stats-section .stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(15, 39, 68, 0.15);
+    border-color: var(--accent);
+}
+
+.template-home .home-stats-section .stat-item a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     height: 100%;
-    padding: 1.5rem 1.75rem;
-    border-radius: 18px;
-    box-shadow: 0 12px 30px rgba(15, 39, 68, 0.08);
+    text-decoration: none;
+}
+
+/* Constrain the images so they are uniform in size and don't stretch */
+.template-home .home-stats-section .stat-item img,
+.template-home .home-stats-section .stat-item svg {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain; /* Prevents stretching */
+    transition: transform 0.3s ease;
+}
+
+/* Slight zoom effect on the logo when hovering */
+.template-home .home-stats-section .stat-item:hover img,
+.template-home .home-stats-section .stat-item:hover svg {
+    transform: scale(1.08);
 }
 
 .template-home .home-stats-section .stat-number {
