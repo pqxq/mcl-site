@@ -8,7 +8,7 @@ from wagtail.search import index
 
 class StaffIndexPage(Page):
 
-    page_description = "Розділ колективу (створюється один раз)"
+    page_description = "Розділ колективу"
 
     intro = RichTextField("Вступ", blank=True)
 
@@ -16,13 +16,12 @@ class StaffIndexPage(Page):
         FieldPanel("intro"),
     ]
 
-    max_count = 1
     subpage_types = ["staff.PersonPage"]
-    parent_page_types = ["home.HomePage"]
+    parent_page_types = ["home.HomePage", "home.AboutPage", "home.ContentPage"]
 
     class Meta:
-        verbose_name = "Колектив (системна)"
-        verbose_name_plural = "Колектив (системна)"
+        verbose_name = "Колектив"
+        verbose_name_plural = "Колектив"
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)

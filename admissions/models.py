@@ -37,7 +37,7 @@ class ApplicationFormPage(AbstractEmailForm):
         # We need to point this to a separate success template so it doesn't loop back to the intro.
         return 'admissions/application_form_page_success.html'
 
-    page_description = "Форма вступу (створюється один раз)"
+    page_description = "Форма вступу"
 
     intro = RichTextField(blank=True)
     rules_text = RichTextField(
@@ -66,12 +66,11 @@ class ApplicationFormPage(AbstractEmailForm):
         ),
     ]
 
-    max_count = 1
-    parent_page_types = ["home.HomePage"]
+    parent_page_types = ["home.HomePage", "home.ContentPage"]
 
     class Meta:
-        verbose_name = "Вступ (системна)"
-        verbose_name_plural = "Вступ (системна)"
+        verbose_name = "Вступ"
+        verbose_name_plural = "Вступ"
 
     def __str__(self) -> str:
         return self.title

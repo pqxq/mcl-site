@@ -9,7 +9,7 @@
     <div class="container h-100">
         <div class="home-hero-grid row align-items-center justify-content-center h-100 gx-4 gy-2 gy-xl-5">
             <div class="col-12 col-lg-7 col-xl-7">
-                <div class="hero-content home-hero-copy text-center">
+                <div class="hero-content home-hero-copy text-center" data-aos="fade-up">
                     <span class="hero-badge">
                         Миколаївський ліцей №9
                     </span>
@@ -22,20 +22,20 @@
                         підходами до навчання.
                     </p>
                     <div class="hero-buttons d-flex flex-column flex-md-row flex-wrap gap-3 mt-3 justify-content-center">
-                        <a href="/admissions/" class="btn btn-primary-custom btn-lg d-inline-flex align-items-center justify-content-center">
+                        <a href="/publichna-informatsiia/vstup-do-litseiu/" class="btn btn-primary-custom btn-lg d-inline-flex align-items-center justify-content-center">
                             <i class="bi bi-arrow-right-circle me-2"></i>Вступити до ліцею
                         </a>
                         <a href="/schedule/" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center">
                             <i class="bi bi-calendar-week me-2"></i>Розклад занять
                         </a>
-                        <a href="/about/" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center btn-full">
+                        <a href="/pro-litsei/" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center btn-full">
                             <i class="bi bi-info-circle me-2"></i>Дізнатися більше
                         </a>
                     </div>
                 </div>
             </div>
             <div class="col-8 col-sm-6 col-md-5 col-lg-5 col-xl-5 mx-auto pt-0 d-flex justify-content-center">
-                <div class="home-hero-visual d-flex align-items-center justify-content-center">
+                <div class="home-hero-visual d-flex align-items-center justify-content-center" data-aos="zoom-in" data-aos-delay="200">
                     <div class="hero-emblem-wrapper custom-emblem-scale">
                         <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="hero-emblem img-fluid" width="220" height="220" loading="lazy" decoding="async">
                     </div>
@@ -48,22 +48,22 @@
 <section class="home-stats-section">
     <div class="container">
         <div class="stats-row">
-            <div class="stat-item">
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="0">
                 <a href="https://mon.gov.ua/" target="_blank" rel="noopener noreferrer">
                         <img src="{% static 'images/mon.png' %}" alt="MON">
                     </a>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
                 <a href="https://sqe.gov.ua/" target="_blank" rel="noopener noreferrer">
                         <img src="{% static 'images/sqe.svg' %}" alt="SQE">
                     </a>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
                 <a href="https://oblosvita.mk.gov.ua/" target="_blank" rel="noopener noreferrer">
                         <img src="{% static 'images/oblosvita.svg' %}" alt="Oblosvita">
                     </a>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
                 <a href="https://legalaid.gov.ua/" target="_blank" rel="noopener noreferrer">
                         <img src="{% static 'images/legalaid.svg' %}" alt="Legalaid">
                     </a>
@@ -74,7 +74,7 @@
 
 <section class="features-section">
     <div class="container">
-        <div class="section-header text-center">
+        <div class="section-header text-center" data-aos="fade-up">
             <span class="section-tag">
                 <i class="bi bi-stars me-1"></i>
                 Наші переваги
@@ -84,7 +84,7 @@
         </div>
 
         <div class="row g-4">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
                         <div class="feature-icon">
@@ -96,7 +96,7 @@
                     <p class="feature-text">Безкоштовна повна середня освіта найвищого рівня від кращих педагогів.</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
                         <div class="feature-icon">
@@ -108,7 +108,7 @@
                     <p class="feature-text">Власна корпоративна пратформа, інтерактивні методики та цифрові інструменти.</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
                         <div class="feature-icon">
@@ -120,7 +120,7 @@
                     <p class="feature-text">Співпраця з МНАУ та ЧНУ імені Петра Могили відкриває нові можливості.</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
                         <div class="feature-icon">
@@ -137,6 +137,8 @@
 </section>
 
 {% if ticker_images %}
+{% load cache %}
+{% cache 3600 home_gallery_ticker %}
 <section class="gallery-marquee-section py-5">
     <div class="container">
         <div class="section-header text-center">
@@ -170,7 +172,8 @@
             {% endfor %}
         </div>
     </div>
-
+</section>
+{% endcache %}
     <div class="container">
         <div class="text-center mt-4">
             <a href="/gallery/" class="btn btn-outline-primary-custom rounded-pill px-4">
@@ -423,7 +426,7 @@
 
         {% if latest_news %}
         <div class="text-center mt-5">
-            <a href="/news/" class="btn btn-primary-custom btn-lg px-5">
+            <a href="/novyny/" class="btn btn-primary-custom btn-lg px-5">
                 Всі новини
                 <i class="bi bi-arrow-right ms-2"></i>
             </a>

@@ -1,6 +1,4 @@
-{% load static wagtailcore_tags core_menu %}
-{% wagtail_site as current_site %}
-{% get_sidebar_pages current_site.root_page as sidebar_pages %}
+{% load static wagtailcore_tags core_menu cache %}
 
 <aside class="sidebar" id="sidebar" aria-label="Навігація сайту">
     <div class="sidebar-header">
@@ -12,87 +10,14 @@
 
     <nav class="sidebar-nav">
         <ul class="sidebar-menu">
-            {# Home page link #}
-            <li class="sidebar-item">
-                <a href="/" class="sidebar-link {% if request.path == '/' %}active{% endif %}">
-                    <i class="bi bi-house-door"></i>
-                    <span>Головна</span>
-                </a>
-            </li>
-
-            {# System pages (About, News, Staff, Documents, Admissions) #}
-            {% for page in sidebar_pages.system %}
-                <li class="sidebar-item">
-                    <a href="{% pageurl page %}" class="sidebar-link {% if request.path == page.url %}active{% endif %}">
-                        <i class="bi {{ page|page_icon }}"></i>
-                        <span>{{ page.title }}</span>
-                    </a>
-                </li>
-            {% endfor %}
-
-            {# Static schedule link #}
-            <li class="sidebar-item">
-                <a href="/schedule/" class="sidebar-link {% if '/schedule/' in request.path %}active{% endif %}">
-                    <i class="bi bi-calendar-week"></i>
-                    <span>Розклад</span>
-                </a>
-            </li>
-
-            {# Search link #}
-            <li class="sidebar-item">
-                <a href="/search/" class="sidebar-link {% if '/search/' in request.path %}active{% endif %}">
-                    <i class="bi bi-search"></i>
-                    <span>Пошук</span>
-                </a>
-            </li>
-
-            {# Divider before content pages #}
-            {% if sidebar_pages.content %}
-                <li class="sidebar-divider"></li>
-            {% endif %}
-
-            {# Content pages (custom pages created by admin) #}
-            {% for page in sidebar_pages.content %}
-                <li class="sidebar-item {% if page.get_children.live.public.in_menu %}has-submenu{% endif %}">
-                    {% if page.get_children.live.public.in_menu %}
-                        <a href="#submenu-{{ page.pk }}" class="sidebar-link" data-bs-toggle="collapse">
-                            <i class="bi {{ page|page_icon }}"></i>
-                            <span>{{ page.title }}</span>
-                            <i class="bi bi-chevron-down submenu-arrow"></i>
-                        </a>
-                        <ul class="sidebar-submenu collapse" id="submenu-{{ page.pk }}">
-                            <li>
-                                <a href="{% pageurl page %}" class="sidebar-sublink">
-                                    {{ page.title }}
-                                </a>
-                            </li>
-                            {% for child in page.get_children.live.public.in_menu %}
-                                <li>
-                                    <a href="{% pageurl child %}" class="sidebar-sublink">
-                                        {{ child.title }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <a href="{% pageurl page %}" class="sidebar-link {% if request.path == page.url %}active{% endif %}">
-                            <i class="bi {{ page|page_icon }}"></i>
-                            <span>{{ page.title }}</span>
-                        </a>
-                    {% endif %}
-                </li>
-            {% endfor %}
-
-            {# Divider before sidebar sections #}
+            {% cache 86400 sidebar_navigation %}
+            {# Display only custom sidebar sections #}
             {% get_sidebar_sections as sidebar_sections %}
-            {% if sidebar_sections %}
-                <li class="sidebar-divider"></li>
-            {% endif %}
-
-            {# Custom sidebar sections #}
+            
             {% for section in sidebar_sections %}
-                {% if section.links.all %}
-                    <li class="sidebar-item sidebar-item-secondary has-submenu">
+                <li class="sidebar-item {% if section.links.count > 1 %}has-submenu{% endif %}">
+                    {% if section.links.count > 1 %}
+                        {# Section with submenu #}
                         <a href="#sidebar-section-{{ section.pk }}" class="sidebar-link" data-bs-toggle="collapse" {% if section.is_expanded %}aria-expanded="true"{% endif %}>
                             <i class="bi {{ section.icon }}"></i>
                             <span>{{ section.title }}</span>
@@ -107,14 +32,23 @@
                                 </li>
                             {% endfor %}
                         </ul>
-                    </li>
-                {% endif %}
+                    {% else %}
+                        {# Single link without submenu #}
+                        {% for link in section.links.all %}
+                            <a href="{{ link.href }}" class="sidebar-link" {% if link.new_tab %}target="_blank" rel="noopener"{% endif %}>
+                                <i class="bi {{ section.icon }}"></i>
+                                <span>{{ section.title }}</span>
+                            </a>
+                        {% endfor %}
+                    {% endif %}
+                </li>
             {% endfor %}
+            {% endcache %}
         </ul>
     </nav>
 
     <div class="sidebar-footer">
-        <a href="/admissions/" class="btn btn-primary-custom w-100">
+        <a href="/publichna-informatsiia/vstup-do-litseiu/" class="btn btn-primary-custom w-100">
             <i class="bi bi-mortarboard me-2"></i>Вступ
         </a>
     </div>

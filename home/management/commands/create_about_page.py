@@ -8,11 +8,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         from home.models import AboutPage, HomePage
         
-        # Check if AboutPage already exists
-        if AboutPage.objects.exists():
-            self.stdout.write(self.style.WARNING('About page already exists'))
-            return
-        
         # Get the home page
         try:
             site = Site.objects.get(is_default_site=True)
@@ -25,16 +20,29 @@ class Command(BaseCommand):
         if not home_page:
             self.stdout.write(self.style.ERROR('No HomePage found. Please create one first.'))
             return
-        
-        # Create the About page
+
+        about_page = AboutPage.objects.first()
+        if about_page:
+            about_page.title = "Про нас"
+            about_page.slug = "about"
+            about_page.subtitle = "Освіта для майбутнього"
+            about_page.show_in_menus = True
+
+            if about_page.get_parent().id != home_page.id:
+                about_page.move(home_page, pos="last-child")
+
+            about_page.save_revision().publish()
+            self.stdout.write(self.style.SUCCESS('Successfully updated About page at /about/'))
+            return
+
         about_page = AboutPage(
             title="Про нас",
             slug="about",
             subtitle="Освіта для майбутнього",
             show_in_menus=True,
         )
-        
+
         home_page.add_child(instance=about_page)
         about_page.save_revision().publish()
-        
-        self.stdout.write(self.style.SUCCESS(f'Successfully created About page at /about/'))
+
+        self.stdout.write(self.style.SUCCESS('Successfully created About page at /about/'))

@@ -1,5 +1,6 @@
-{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags cache %}
 
+{% cache 86400 site_footer %}
 <footer class="site-footer">
     <div class="footer-main">
         <div class="container">
@@ -46,11 +47,11 @@
                         <h3 class="footer-title">Навігація</h3>
                         <ul class="footer-nav">
                             <li><a href="/"><i class="bi bi-chevron-right"></i> Головна</a></li>
-                            <li><a href="/about/"><i class="bi bi-chevron-right"></i> Про ліцей</a></li>
-                            <li><a href="/news/"><i class="bi bi-chevron-right"></i> Новини</a></li>
+                            <li><a href="/pro-litsei/"><i class="bi bi-chevron-right"></i> Про ліцей</a></li>
+                            <li><a href="/novyny/"><i class="bi bi-chevron-right"></i> Новини</a></li>
                             <li><a href="/gallery/"><i class="bi bi-chevron-right"></i> Галерея</a></li>
-                            <li><a href="/staff/"><i class="bi bi-chevron-right"></i> Колектив</a></li>
-                            <li><a href="/documents/"><i class="bi bi-chevron-right"></i> Документи</a></li>
+                            <li><a href="/pro-litsei/pedahohichnyi-kolektyv/"><i class="bi bi-chevron-right"></i> Колектив</a></li>
+                            <li><a href="/kontakty/"><i class="bi bi-chevron-right"></i> Контакти</a></li>
                         </ul>
                     </div>
                 </div>
@@ -61,7 +62,7 @@
                         <h3 class="footer-title">Ресурси</h3>
                         <ul class="footer-nav">
                             <li><a href="/schedule/"><i class="bi bi-chevron-right"></i> Розклад</a></li>
-                            <li><a href="/admissions/"><i class="bi bi-chevron-right"></i> Вступ</a></li>
+                            <li><a href="/publichna-informatsiia/vstup-do-litseiu/"><i class="bi bi-chevron-right"></i> Вступ</a></li>
                             <li><a href="/search/"><i class="bi bi-chevron-right"></i> Пошук</a></li>
                         </ul>
                     </div>
@@ -120,3 +121,4 @@
         </div>
     </div>
 </footer>
+{% endcache %}

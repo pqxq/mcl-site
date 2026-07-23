@@ -55,7 +55,7 @@ class DocumentType(models.Model):
 class DocumentsIndexPage(Page):
     """Index page for public documents with filtering"""
 
-    page_description = "Розділ документів (створюється один раз)"
+    page_description = "Розділ документів"
 
     intro = RichTextField("Вступний текст", blank=True)
 
@@ -63,12 +63,11 @@ class DocumentsIndexPage(Page):
         FieldPanel("intro"),
     ]
 
-    max_count = 1
-    parent_page_types = ["home.HomePage"]
+    parent_page_types = ["home.HomePage", "home.ContentPage"]
     subpage_types = ["documents.PublicDocumentPage"]
 
     class Meta:
-        verbose_name = "Документи (системна)"
+        verbose_name = "Документи"
         verbose_name_plural = "Документи"
 
     def get_context(self, request, *args, **kwargs):

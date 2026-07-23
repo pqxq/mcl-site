@@ -25,7 +25,7 @@ class NewsPageTag(TaggedItemBase):
 class NewsIndexPage(Page):
     """Index page listing all news articles"""
 
-    page_description = "Розділ новин (створюється один раз)"
+    page_description = "Розділ новин"
 
     intro = RichTextField("Вступний текст", blank=True)
 
@@ -33,12 +33,11 @@ class NewsIndexPage(Page):
         FieldPanel("intro"),
     ]
 
-    max_count = 1
     parent_page_types = ["home.HomePage"]
     subpage_types = ["news.NewsPage"]
 
     class Meta:
-        verbose_name = "Новини (системна)"
+        verbose_name = "Новини"
         verbose_name_plural = "Новини"
 
     @method_decorator(cache_page(60 * 15))

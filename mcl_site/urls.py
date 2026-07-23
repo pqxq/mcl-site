@@ -3,6 +3,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.contrib import admin
 from django.http import HttpResponse
+from django.views.generic import RedirectView
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
@@ -22,6 +23,11 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
     path("schedule/", schedule_views.schedule_view, name="schedule"),
+    path("admissions/", RedirectView.as_view(url="/publichna-informatsiia/vstup-do-litseiu/", permanent=True)),
+    path("about/", RedirectView.as_view(url="/pro-litsei/", permanent=True)),
+    path("news/", RedirectView.as_view(url="/novyny/", permanent=True)),
+    path("staff/", RedirectView.as_view(url="/pro-litsei/pedahohichnyi-kolektyv/", permanent=True)),
+    path("documents/", RedirectView.as_view(url="/publichna-informatsiia/", permanent=True)),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path(
         "robots.txt",

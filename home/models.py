@@ -88,7 +88,6 @@ class HomePage(Page):
     def __str__(self) -> str:
         return self.title
 
-
 class HeroImage(Orderable):
     page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='hero_images')
     image = models.ForeignKey(
@@ -158,9 +157,18 @@ class ContentPage(Page):
         FieldPanel('body'),
     ]
 
-    # ContentPage can be nested under HomePage or other ContentPages
-    parent_page_types = ['home.HomePage', 'home.ContentPage']
-    subpage_types = ['home.ContentPage']
+    # ContentPage can be nested under HomePage, AboutPage, or other ContentPages
+    parent_page_types = [
+        'home.HomePage',
+        'home.AboutPage',
+        'home.ContentPage',
+    ]
+    subpage_types = [
+        'home.ContentPage',
+        'staff.StaffIndexPage',
+        'documents.DocumentsIndexPage',
+        'admissions.ApplicationFormPage',
+    ]
 
     class Meta:
         verbose_name = "Сторінка контенту"
@@ -170,22 +178,15 @@ class ContentPage(Page):
         return self.title
 
 
-# ============================================================
-# SPECIAL PAGE TYPES
-# ============================================================
-
 class AboutPage(Page):
-    """Special About page with unique design, logo and structured content"""
-    
-    page_description = "Головна сторінка про заклад (створюється один раз)"
-    
-    # Hero section
+    """Special About page with unique design and structured content"""
+
+    page_description = "Сторінка про заклад"
+
     subtitle = models.CharField("Девіз/Слоган", max_length=500, blank=True,
                                help_text="Короткий слоган або девіз закладу")
     intro = RichTextField("Вступний текст", blank=True,
                          help_text="Коротке представлення закладу")
-    
-    # Main content sections
     mission = RichTextField("Місія", blank=True,
                            help_text="Місія та цілі закладу")
     history = RichTextField("Історія", blank=True,
@@ -194,13 +195,9 @@ class AboutPage(Page):
                           help_text="Основні цінності та принципи")
     achievements = RichTextField("Досягнення", blank=True,
                                 help_text="Ключові досягнення закладу")
-    
-    # Statistics
     founded_year = models.PositiveIntegerField("Рік заснування", null=True, blank=True)
     students_count = models.PositiveIntegerField("Кількість учнів", null=True, blank=True)
     teachers_count = models.PositiveIntegerField("Кількість вчителів", null=True, blank=True)
-    
-    # Additional image
     building_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -224,96 +221,13 @@ class AboutPage(Page):
         FieldPanel('building_image'),
     ]
 
-    max_count = 1
     parent_page_types = ['home.HomePage']
-    subpage_types = ['home.ContentPage']
-    
-    # Fixed slug for the about page
-    slug = 'about'
-    
-    def full_clean(self, *args, **kwargs):
-        # Force the slug to always be 'about'
-        self.slug = 'about'
-        super().full_clean(*args, **kwargs)
+    subpage_types = ['home.ContentPage', 'staff.StaffIndexPage']
 
     class Meta:
-        verbose_name = "Про нас (системна)"
+        verbose_name = "Про нас"
 
     def __str__(self) -> str:
         return self.title
 
 
-class StandardPage(Page):
-    """DEPRECATED: Use ContentPage instead"""
-    body = RichTextField("Вміст", blank=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel('body'),
-    ]
-
-    parent_page_types = ['home.HomePage', 'home.AboutPage', 'home.EducationPage', 'home.ContentPage']
-    subpage_types = []
-
-    class Meta:
-        verbose_name = "[Застаріла] Стандартна сторінка"
-
-    def __str__(self) -> str:
-        return self.title
-
-
-class DocumentPage(Page):
-    """DEPRECATED: Use documents.DocumentsIndexPage instead"""
-    intro = RichTextField("Вступний текст", blank=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel('intro'),
-        InlinePanel('documents', label="Документи"),
-    ]
-
-    parent_page_types = ['home.HomePage', 'home.AboutPage']
-    subpage_types = []
-
-    class Meta:
-        verbose_name = "[Застаріла] Сторінка документів"
-
-    def __str__(self) -> str:
-        return self.title
-
-
-class PageDocument(Orderable):
-    page = ParentalKey(DocumentPage, on_delete=models.CASCADE, related_name='documents')
-    document = models.ForeignKey(
-        'wagtaildocs.Document',
-        on_delete=models.CASCADE,
-        related_name='+',
-        verbose_name="Документ"
-    )
-    title = models.CharField("Назва", max_length=255)
-    description = models.TextField("Опис", blank=True)
-
-    panels = [
-        FieldPanel('title'),
-        FieldPanel('description'),
-        FieldPanel('document'),
-    ]
-
-    def __str__(self) -> str:
-        return self.title
-
-
-class EducationPage(Page):
-    """DEPRECATED: Use ContentPage instead"""
-    intro = RichTextField("Вступний текст", blank=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel('intro'),
-    ]
-
-    parent_page_types = ['home.HomePage']
-    subpage_types = ['home.StandardPage', 'home.ContentPage']
-
-    class Meta:
-        verbose_name = "[Застаріла] Сторінка навчання"
-
-    def __str__(self) -> str:
-        return self.title
