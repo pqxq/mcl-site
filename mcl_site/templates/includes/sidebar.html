@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags core_menu cache %}
+{% load static wagtailcore_tags core_menu %}
 
 <aside class="sidebar" id="sidebar" aria-label="Навігація сайту">
     <div class="sidebar-header">
@@ -10,7 +10,6 @@
 
     <nav class="sidebar-nav">
         <ul class="sidebar-menu">
-            {% cache 86400 sidebar_nav_v2 %}
             {# Display only custom sidebar sections #}
             {% get_sidebar_sections as sidebar_sections %}
             
@@ -43,7 +42,6 @@
                     {% endif %}
                 </li>
             {% endfor %}
-            {% endcache %}
         </ul>
     </nav>
 
