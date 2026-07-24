@@ -21,6 +21,7 @@ SECRET_KEY = secret
 ALLOWED_HOSTS = [
     "ml9.mk.ua",
     "www.ml9.mk.ua",
+    "healthcheck.railway.app",
 ]
 
 # Allow Railway's auto-generated domain
