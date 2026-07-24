@@ -53,6 +53,12 @@ if settings.DEBUG:
         urlpatterns += [path("__debug__/", include("debug_toolbar.urls"))]
     except ImportError:
         pass
+else:
+    from django.urls import re_path
+    from django.views.static import serve
+    urlpatterns += [
+        re_path(r"^%s(?P<path>.*)$" % settings.MEDIA_URL.lstrip("/"), serve, {"document_root": settings.MEDIA_ROOT}),
+    ]
 
 urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to
