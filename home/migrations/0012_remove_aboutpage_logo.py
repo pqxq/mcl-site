@@ -10,8 +10,13 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='aboutpage',
-            name='logo',
-        ),
+        migrations.SeparateDatabaseAndState(
+            state_operations=[
+                migrations.RemoveField(
+                    model_name='aboutpage',
+                    name='logo',
+                ),
+            ],
+            database_operations=[],
+        )
     ]
