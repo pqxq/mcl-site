@@ -10,7 +10,7 @@
 
     <nav class="sidebar-nav">
         <ul class="sidebar-menu">
-            {% cache 86400 sidebar_navigation %}
+            {% cache 86400 sidebar_nav_v2 %}
             {# Display only custom sidebar sections #}
             {% get_sidebar_sections as sidebar_sections %}
             
