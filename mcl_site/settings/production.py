@@ -22,6 +22,7 @@ ALLOWED_HOSTS = [
     "ml9.mk.ua",
     "www.ml9.mk.ua",
     "healthcheck.railway.app",
+    "ml9-website-production.up.railway.app",
 ]
 
 # Allow Railway's auto-generated domain
