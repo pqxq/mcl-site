@@ -32,7 +32,7 @@ urlpatterns = [
     path(
         "robots.txt",
         lambda request: HttpResponse(
-            "User-agent: *\nDisallow: /admin/\nDisallow: /django-admin/\nSitemap: https://velychko.pythonanywhere.com/sitemap.xml\n",
+            f"User-agent: *\nDisallow: /admin/\nDisallow: /django-admin/\nSitemap: https://{request.get_host()}/sitemap.xml\n",
             content_type="text/plain",
         ),
         name="robots_txt",

@@ -19,18 +19,39 @@ SECRET_KEY = secret
 # --------------------------------------------------
 
 ALLOWED_HOSTS = [
-    "velychko.pythonanywhere.com",
+    "ml9.mk.ua",
+    "www.ml9.mk.ua",
 ]
+
+# Allow Railway's auto-generated domain
+railway_domain = os.environ.get("RAILWAY_PUBLIC_DOMAIN")
+if railway_domain:
+    ALLOWED_HOSTS.append(railway_domain)
+
+# Allow additional custom hosts via env var
+extra_host = os.environ.get("ALLOWED_HOST")
+if extra_host:
+    ALLOWED_HOSTS.append(extra_host)
 
 # --------------------------------------------------
 # CSRF / HTTPS
 # --------------------------------------------------
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://velychko.pythonanywhere.com",
+    "https://ml9.mk.ua",
+    "https://www.ml9.mk.ua",
 ]
 
-SECURE_SSL_REDIRECT = True
+if railway_domain:
+    CSRF_TRUSTED_ORIGINS.append(f"https://{railway_domain}")
+
+# Railway terminates TLS at the proxy level and forwards
+# requests over HTTP internally. We must NOT redirect to HTTPS
+# ourselves or it will cause an infinite redirect loop.
+SECURE_SSL_REDIRECT = False
+
+# Trust Railway's proxy header so request.is_secure() works correctly.
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -42,7 +63,7 @@ SECURE_HSTS_PRELOAD = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # --------------------------------------------------
-# DATABASE
+# DATABASE (PostgreSQL via Railway)
 # --------------------------------------------------
 
 if os.environ.get("DATABASE_URL"):
@@ -91,23 +112,26 @@ MEDIA_URL = "/media/"
 # WAGTAIL
 # --------------------------------------------------
 
-WAGTAILADMIN_BASE_URL = os.environ.get(
-    "WAGTAILADMIN_BASE_URL", 
-    "https://velychko.pythonanywhere.com"
-)
+if railway_domain:
+    WAGTAILADMIN_BASE_URL = f"https://{railway_domain}"
+else:
+    WAGTAILADMIN_BASE_URL = "https://ml9.mk.ua"
+
+# Override with explicit env var if set
+_base_url = os.environ.get("WAGTAILADMIN_BASE_URL")
+if _base_url:
+    WAGTAILADMIN_BASE_URL = _base_url
 
 # --------------------------------------------------
-# LOGGING
+# LOGGING (console-only for Railway)
 # --------------------------------------------------
-
-LOG_DIR = os.environ.get("DJANGO_LOG_DIR", "/home/LogFiles")
 
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
         "verbose": {
-            "format": "[{levelname}] {asctime} {module} {process:d} {thread:d} {message}",
+            "format": "[{levelname}] {asctime} {module} {message}",
             "style": "{",
         },
     },
@@ -116,26 +140,19 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
-        "file": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "formatter": "verbose",
-            "filename": os.path.join(LOG_DIR, "django.log"),
-            "maxBytes": 5 * 1024 * 1024,
-            "backupCount": 2,
-        },
     },
     "root": {
-        "handlers": ["console", "file"],
+        "handlers": ["console"],
         "level": "INFO",
     },
     "loggers": {
         "django": {
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "level": os.environ.get("DJANGO_LOG_LEVEL", "INFO"),
             "propagate": False,
         },
         "wagtail": {
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "level": "INFO",
             "propagate": False,
         },

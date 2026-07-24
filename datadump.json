@@ -1,0 +1,7423 @@
+[
+{
+  "model": "documents.documenttype",
+  "pk": 1,
+  "fields": {
+    "name": "Політика та нормативні акти",
+    "slug": "policy"
+  }
+},
+{
+  "model": "documents.documenttype",
+  "pk": 2,
+  "fields": {
+    "name": "Розклад та дзвінки",
+    "slug": "schedule"
+  }
+},
+{
+  "model": "documents.documenttype",
+  "pk": 3,
+  "fields": {
+    "name": "Безпека і рекомендації",
+    "slug": "safety"
+  }
+},
+{
+  "model": "documents.documenttype",
+  "pk": 4,
+  "fields": {
+    "name": "Вступ",
+    "slug": "admissions"
+  }
+},
+{
+  "model": "documents.documenttype",
+  "pk": 5,
+  "fields": {
+    "name": "Інше",
+    "slug": "other"
+  }
+},
+{
+  "model": "core.sidebarsection",
+  "pk": 21,
+  "fields": {
+    "title": "Головна",
+    "icon": "bi-house",
+    "order": 10,
+    "is_expanded": false
+  }
+},
+{
+  "model": "core.sidebarsection",
+  "pk": 22,
+  "fields": {
+    "title": "Про ліцей",
+    "icon": "bi-info-circle",
+    "order": 20,
+    "is_expanded": true
+  }
+},
+{
+  "model": "core.sidebarsection",
+  "pk": 23,
+  "fields": {
+    "title": "Публічна інформація",
+    "icon": "bi-file-text",
+    "order": 30,
+    "is_expanded": true
+  }
+},
+{
+  "model": "core.sidebarsection",
+  "pk": 24,
+  "fields": {
+    "title": "Освітній процес",
+    "icon": "bi-book",
+    "order": 40,
+    "is_expanded": true
+  }
+},
+{
+  "model": "core.sidebarsection",
+  "pk": 25,
+  "fields": {
+    "title": "Виховна робота",
+    "icon": "bi-people",
+    "order": 50,
+    "is_expanded": true
+  }
+},
+{
+  "model": "core.sidebarsection",
+  "pk": 26,
+  "fields": {
+    "title": "Батькам",
+    "icon": "bi-heart",
+    "order": 60,
+    "is_expanded": false
+  }
+},
+{
+  "model": "core.sidebarsection",
+  "pk": 27,
+  "fields": {
+    "title": "Педагогам",
+    "icon": "bi-mortarboard",
+    "order": 70,
+    "is_expanded": false
+  }
+},
+{
+  "model": "core.sidebarsection",
+  "pk": 28,
+  "fields": {
+    "title": "Новини",
+    "icon": "bi-newspaper",
+    "order": 80,
+    "is_expanded": false
+  }
+},
+{
+  "model": "core.sidebarsection",
+  "pk": 29,
+  "fields": {
+    "title": "Контакти",
+    "icon": "bi-telephone",
+    "order": 90,
+    "is_expanded": false
+  }
+},
+{
+  "model": "core.sidebarsection",
+  "pk": 30,
+  "fields": {
+    "title": "Галерея",
+    "icon": "bi-images",
+    "order": 100,
+    "is_expanded": false
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 1,
+  "fields": {
+    "content_type": [
+      "home",
+      "aboutpage"
+    ],
+    "object_id": "4",
+    "title_norm": 1.2222222222222223,
+    "autocomplete": "Про ліцей",
+    "title": "Про ліцей",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 2,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "5",
+    "title_norm": 0.8461538461538461,
+    "autocomplete": "Історія ліцею",
+    "title": "Історія ліцею",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 3,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "6",
+    "title_norm": 0.7647058823529411,
+    "autocomplete": "Керівництво ліцею",
+    "title": "Керівництво ліцею",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 4,
+  "fields": {
+    "content_type": [
+      "staff",
+      "staffindexpage"
+    ],
+    "object_id": "7",
+    "title_norm": 0.7142857142857143,
+    "autocomplete": "Педагогічний колектив",
+    "title": "Педагогічний колектив",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 5,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "8",
+    "title_norm": 0.6137931034482759,
+    "autocomplete": "Соціально-психологічна служба",
+    "title": "Соціально-психологічна служба",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 6,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "9",
+    "title_norm": 0.9473684210526315,
+    "autocomplete": "Публічна інформація",
+    "title": "Публічна інформація",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 7,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "10",
+    "title_norm": 0.9548872180451128,
+    "autocomplete": "Установчі документи",
+    "title": "Установчі документи",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 8,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "11",
+    "title_norm": 0.91875,
+    "autocomplete": "Нормативні документи",
+    "title": "Нормативні документи",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 9,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "12",
+    "title_norm": 0.9277777777777778,
+    "autocomplete": "Фінансова діяльність",
+    "title": "Фінансова діяльність",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 10,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "13",
+    "title_norm": 1.9555555555555557,
+    "autocomplete": "Положення",
+    "title": "Положення",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 11,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "14",
+    "title_norm": 1.3216783216783219,
+    "autocomplete": "Якість освіти",
+    "title": "Якість освіти",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 12,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "15",
+    "title_norm": 0.7681159420289856,
+    "autocomplete": "Безпека життєдіяльності",
+    "title": "Безпека життєдіяльності",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 13,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "16",
+    "title_norm": 0.4393162393162393,
+    "autocomplete": "Профілактика булінгу та жорстокого поводження",
+    "title": "Профілактика булінгу та жорстокого поводження",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 14,
+  "fields": {
+    "content_type": [
+      "admissions",
+      "applicationformpage"
+    ],
+    "object_id": "17",
+    "title_norm": 1.3826530612244898,
+    "autocomplete": "Вступ до ліцею",
+    "title": "Вступ до ліцею",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 15,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "18",
+    "title_norm": 2.325,
+    "autocomplete": "Інклюзія",
+    "title": "Інклюзія",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 16,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "19",
+    "title_norm": 1.225,
+    "autocomplete": "Освітній процес",
+    "title": "Освітній процес",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 17,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "20",
+    "title_norm": 2.5294117647058827,
+    "autocomplete": "Розклад",
+    "title": "Розклад",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 18,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "21",
+    "title_norm": 0.5949820788530465,
+    "autocomplete": "Критерії оцінювання з предметів",
+    "title": "Критерії оцінювання з предметів",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 19,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "22",
+    "title_norm": 1.8,
+    "autocomplete": "Досягнення",
+    "title": "Досягнення",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 20,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "23",
+    "title_norm": 1.0558823529411765,
+    "autocomplete": "Все про НМТ (ЗНО)",
+    "title": "Все про НМТ (ЗНО)",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 21,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "24",
+    "title_norm": 1.2687074829931972,
+    "autocomplete": "Виховна робота",
+    "title": "Виховна робота",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 22,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "25",
+    "title_norm": 0.7518939393939394,
+    "autocomplete": "Учнівське самоврядування",
+    "title": "Учнівське самоврядування",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 23,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "26",
+    "title_norm": 0.865424430641822,
+    "autocomplete": "Патріотичне виховання",
+    "title": "Патріотичне виховання",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 24,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "27",
+    "title_norm": 1.2857142857142858,
+    "autocomplete": "Безбар'єрність",
+    "title": "Безбар'єрність",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 25,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "28",
+    "title_norm": 2.5085714285714285,
+    "autocomplete": "Батькам",
+    "title": "Батькам",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 26,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "29",
+    "title_norm": 1.9145299145299144,
+    "autocomplete": "Педагогам",
+    "title": "Педагогам",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 27,
+  "fields": {
+    "content_type": [
+      "news",
+      "newsindexpage"
+    ],
+    "object_id": "30",
+    "title_norm": 2.8024691358024687,
+    "autocomplete": "Новини",
+    "title": "Новини",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 28,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "31",
+    "title_norm": 2.0625,
+    "autocomplete": "Контакти",
+    "title": "Контакти",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 29,
+  "fields": {
+    "content_type": [
+      "gallery",
+      "galleryindexpage"
+    ],
+    "object_id": "32",
+    "title_norm": 2.310344827586207,
+    "autocomplete": "Галерея",
+    "title": "Галерея",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 30,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "33",
+    "title_norm": 0.6586666666666666,
+    "autocomplete": "Політика конфіденційності",
+    "title": "Політика конфіденційності",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 31,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "object_id": "34",
+    "title_norm": 0.9175627240143369,
+    "autocomplete": "Умови користування",
+    "title": "Умови користування",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 32,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "object_id": "3",
+    "title_norm": 4.03125,
+    "autocomplete": "Головна",
+    "title": "Головна",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 1,
+  "fields": {
+    "autocomplete": "Про ліцей",
+    "title": "Про ліцей",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 2,
+  "fields": {
+    "autocomplete": "Історія ліцею",
+    "title": "Історія ліцею",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 3,
+  "fields": {
+    "autocomplete": "Керівництво ліцею",
+    "title": "Керівництво ліцею",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 4,
+  "fields": {
+    "autocomplete": "Педагогічний колектив",
+    "title": "Педагогічний колектив",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 5,
+  "fields": {
+    "autocomplete": "Соціально-психологічна служба",
+    "title": "Соціально-психологічна служба",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 6,
+  "fields": {
+    "autocomplete": "Публічна інформація",
+    "title": "Публічна інформація",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 7,
+  "fields": {
+    "autocomplete": "Установчі документи",
+    "title": "Установчі документи",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 8,
+  "fields": {
+    "autocomplete": "Нормативні документи",
+    "title": "Нормативні документи",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 9,
+  "fields": {
+    "autocomplete": "Фінансова діяльність",
+    "title": "Фінансова діяльність",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 10,
+  "fields": {
+    "autocomplete": "Положення",
+    "title": "Положення",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 11,
+  "fields": {
+    "autocomplete": "Якість освіти",
+    "title": "Якість освіти",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 12,
+  "fields": {
+    "autocomplete": "Безпека життєдіяльності",
+    "title": "Безпека життєдіяльності",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 13,
+  "fields": {
+    "autocomplete": "Профілактика булінгу та жорстокого поводження",
+    "title": "Профілактика булінгу та жорстокого поводження",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 14,
+  "fields": {
+    "autocomplete": "Вступ до ліцею",
+    "title": "Вступ до ліцею",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 15,
+  "fields": {
+    "autocomplete": "Інклюзія",
+    "title": "Інклюзія",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 16,
+  "fields": {
+    "autocomplete": "Освітній процес",
+    "title": "Освітній процес",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 17,
+  "fields": {
+    "autocomplete": "Розклад",
+    "title": "Розклад",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 18,
+  "fields": {
+    "autocomplete": "Критерії оцінювання з предметів",
+    "title": "Критерії оцінювання з предметів",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 19,
+  "fields": {
+    "autocomplete": "Досягнення",
+    "title": "Досягнення",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 20,
+  "fields": {
+    "autocomplete": "Все про НМТ (ЗНО)",
+    "title": "Все про НМТ (ЗНО)",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 21,
+  "fields": {
+    "autocomplete": "Виховна робота",
+    "title": "Виховна робота",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 22,
+  "fields": {
+    "autocomplete": "Учнівське самоврядування",
+    "title": "Учнівське самоврядування",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 23,
+  "fields": {
+    "autocomplete": "Патріотичне виховання",
+    "title": "Патріотичне виховання",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 24,
+  "fields": {
+    "autocomplete": "Безбар'єрність",
+    "title": "Безбар'єрність",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 25,
+  "fields": {
+    "autocomplete": "Батькам",
+    "title": "Батькам",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 26,
+  "fields": {
+    "autocomplete": "Педагогам",
+    "title": "Педагогам",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 27,
+  "fields": {
+    "autocomplete": "Новини",
+    "title": "Новини",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 28,
+  "fields": {
+    "autocomplete": "Контакти",
+    "title": "Контакти",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 29,
+  "fields": {
+    "autocomplete": "Галерея",
+    "title": "Галерея",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 30,
+  "fields": {
+    "autocomplete": "Політика конфіденційності",
+    "title": "Політика конфіденційності",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 31,
+  "fields": {
+    "autocomplete": "Умови користування",
+    "title": "Умови користування",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.sqliteftsindexentry",
+  "pk": 32,
+  "fields": {
+    "autocomplete": "Головна",
+    "title": "Головна",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailcore.locale",
+  "pk": 1,
+  "fields": {
+    "language_code": "uk"
+  }
+},
+{
+  "model": "wagtailcore.collection",
+  "fields": {
+    "path": "0001",
+    "depth": 1,
+    "numchild": 0,
+    "name": "Root"
+  }
+},
+{
+  "model": "wagtailcore.workflow",
+  "pk": 1,
+  "fields": {
+    "name": "Moderators approval",
+    "active": true
+  }
+},
+{
+  "model": "wagtailcore.workflowtask",
+  "pk": 1,
+  "fields": {
+    "sort_order": 0,
+    "workflow": 1,
+    "task": 1
+  }
+},
+{
+  "model": "wagtailcore.task",
+  "pk": 1,
+  "fields": {
+    "name": "Moderators approval",
+    "content_type": [
+      "wagtailcore",
+      "groupapprovaltask"
+    ],
+    "active": true
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 52,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "21",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "3",
+    "model_path": "links.item.page",
+    "content_path": "links.52.page",
+    "content_path_hash": "5f425b97-acf6-527d-a0d8-ee87d8086fb1"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 53,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "22",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "5",
+    "model_path": "links.item.page",
+    "content_path": "links.53.page",
+    "content_path_hash": "d80f56c9-39bf-596b-a7b2-0512f8855258"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 54,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "22",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "6",
+    "model_path": "links.item.page",
+    "content_path": "links.54.page",
+    "content_path_hash": "331e3451-0862-54b2-a748-037472505979"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 55,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "22",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "7",
+    "model_path": "links.item.page",
+    "content_path": "links.55.page",
+    "content_path_hash": "fe74e9a7-2366-553a-af61-61f74090d602"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 56,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "22",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "8",
+    "model_path": "links.item.page",
+    "content_path": "links.56.page",
+    "content_path_hash": "526bb7ff-6666-5a94-affb-1454090991f6"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 57,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "23",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "10",
+    "model_path": "links.item.page",
+    "content_path": "links.57.page",
+    "content_path_hash": "92db610a-7a72-5212-9f98-b4a0abd1f534"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 58,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "23",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "11",
+    "model_path": "links.item.page",
+    "content_path": "links.58.page",
+    "content_path_hash": "caf765be-c3e7-5de5-b72d-60ddcada7f43"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 59,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "23",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "12",
+    "model_path": "links.item.page",
+    "content_path": "links.59.page",
+    "content_path_hash": "b58b0718-ba99-5b49-955b-bda97ad9e244"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 60,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "23",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "13",
+    "model_path": "links.item.page",
+    "content_path": "links.60.page",
+    "content_path_hash": "8cea3e03-efb8-53bd-b2c4-c9ae0d9125db"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 61,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "23",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "14",
+    "model_path": "links.item.page",
+    "content_path": "links.61.page",
+    "content_path_hash": "a920eaa4-cc93-503a-b79f-4ff2eb0bc48c"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 62,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "23",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "15",
+    "model_path": "links.item.page",
+    "content_path": "links.62.page",
+    "content_path_hash": "2d13b35b-728d-59b8-af10-2cda7ffc2da6"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 63,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "23",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "16",
+    "model_path": "links.item.page",
+    "content_path": "links.63.page",
+    "content_path_hash": "84293a5c-7e92-51a1-8b49-67e08d1f62ab"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 64,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "23",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "17",
+    "model_path": "links.item.page",
+    "content_path": "links.64.page",
+    "content_path_hash": "4edb99fc-2219-54a7-ac9c-55e70e055ab0"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 65,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "23",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "18",
+    "model_path": "links.item.page",
+    "content_path": "links.65.page",
+    "content_path_hash": "4ddfbd32-6423-50e6-914b-64f20957fe74"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 66,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "24",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "21",
+    "model_path": "links.item.page",
+    "content_path": "links.67.page",
+    "content_path_hash": "82a7946b-f10c-5a81-985a-8511fcd24b78"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 67,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "24",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "22",
+    "model_path": "links.item.page",
+    "content_path": "links.68.page",
+    "content_path_hash": "3edd6962-5bfc-53bb-a8a0-806caa7d02c5"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 68,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "24",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "23",
+    "model_path": "links.item.page",
+    "content_path": "links.69.page",
+    "content_path_hash": "c7154d5b-367d-5fc6-9830-989bdd2ed61f"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 69,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "25",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "25",
+    "model_path": "links.item.page",
+    "content_path": "links.70.page",
+    "content_path_hash": "a2ac0b2b-5d0b-56ff-9b40-8454503eca3e"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 70,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "25",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "26",
+    "model_path": "links.item.page",
+    "content_path": "links.71.page",
+    "content_path_hash": "aa98981e-9d21-5fa9-81ab-ee4573b16c92"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 71,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "25",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "27",
+    "model_path": "links.item.page",
+    "content_path": "links.72.page",
+    "content_path_hash": "5a045e82-9395-5edc-b632-b2e6a8f8c85c"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 72,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "26",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "28",
+    "model_path": "links.item.page",
+    "content_path": "links.73.page",
+    "content_path_hash": "e34d7b09-7dd7-545c-86a5-8b6ef2dc350f"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 73,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "27",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "29",
+    "model_path": "links.item.page",
+    "content_path": "links.74.page",
+    "content_path_hash": "d170dfaf-0470-5f40-ac7a-61186ed41343"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 74,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "28",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "30",
+    "model_path": "links.item.page",
+    "content_path": "links.75.page",
+    "content_path_hash": "dcb548aa-1289-57ec-8340-7b3597cee194"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 75,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "29",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "31",
+    "model_path": "links.item.page",
+    "content_path": "links.76.page",
+    "content_path_hash": "4706f85f-1bdd-5cdb-a2f0-8435b7fcd98e"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 76,
+  "fields": {
+    "content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "base_content_type": [
+      "core",
+      "sidebarsection"
+    ],
+    "object_id": "30",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "32",
+    "model_path": "links.item.page",
+    "content_path": "links.77.page",
+    "content_path_hash": "138c1d03-2923-5b51-8246-bc608c7b075c"
+  }
+},
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "Moderators",
+    "permissions": [
+      [
+        "access_admin",
+        "wagtailadmin",
+        "admin"
+      ],
+      [
+        "add_document",
+        "wagtaildocs",
+        "document"
+      ],
+      [
+        "change_document",
+        "wagtaildocs",
+        "document"
+      ],
+      [
+        "choose_document",
+        "wagtaildocs",
+        "document"
+      ],
+      [
+        "delete_document",
+        "wagtaildocs",
+        "document"
+      ],
+      [
+        "add_image",
+        "wagtailimages",
+        "image"
+      ],
+      [
+        "change_image",
+        "wagtailimages",
+        "image"
+      ],
+      [
+        "choose_image",
+        "wagtailimages",
+        "image"
+      ],
+      [
+        "delete_image",
+        "wagtailimages",
+        "image"
+      ]
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "Editors",
+    "permissions": [
+      [
+        "access_admin",
+        "wagtailadmin",
+        "admin"
+      ],
+      [
+        "add_document",
+        "wagtaildocs",
+        "document"
+      ],
+      [
+        "change_document",
+        "wagtaildocs",
+        "document"
+      ],
+      [
+        "choose_document",
+        "wagtaildocs",
+        "document"
+      ],
+      [
+        "delete_document",
+        "wagtaildocs",
+        "document"
+      ],
+      [
+        "add_image",
+        "wagtailimages",
+        "image"
+      ],
+      [
+        "change_image",
+        "wagtailimages",
+        "image"
+      ],
+      [
+        "choose_image",
+        "wagtailimages",
+        "image"
+      ],
+      [
+        "delete_image",
+        "wagtailimages",
+        "image"
+      ]
+    ]
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ew5pjyAICrQasUXMVc9f3Y$kaHz5bAU3lZG1dN78XFNNzz0i/H5pytrZeKh1qv1Wz8=",
+    "last_login": "2026-07-22T15:01:30.839Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-07-22T14:55:15.181Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001",
+    "depth": 1,
+    "numchild": 1,
+    "translation_key": "ed429da0-2a1b-4344-91a2-da6c0a977f4f",
+    "locale": 1,
+    "latest_revision": null,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "live_revision": null,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Root",
+    "draft_title": "Root",
+    "slug": "root",
+    "content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "url_path": "/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": null,
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "00010001",
+    "depth": 2,
+    "numchild": 11,
+    "translation_key": "ddfb45f1-9f2c-4756-aca3-66ba436f3fae",
+    "locale": 1,
+    "latest_revision": 33,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T15:46:48.458Z",
+    "last_published_at": "2026-07-22T15:46:48.458Z",
+    "live_revision": 33,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Головна",
+    "draft_title": "Головна",
+    "slug": "home",
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "url_path": "/home/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T15:46:47.275Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "000100010001",
+    "depth": 3,
+    "numchild": 4,
+    "translation_key": "12b4eb4a-5710-4322-9575-e92f028b40ca",
+    "locale": 1,
+    "latest_revision": 1,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:52:41.632Z",
+    "last_published_at": "2026-07-22T14:52:41.632Z",
+    "live_revision": 1,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Про ліцей",
+    "draft_title": "Про ліцей",
+    "slug": "pro-litsei",
+    "content_type": [
+      "home",
+      "aboutpage"
+    ],
+    "url_path": "/home/pro-litsei/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:52:40.882Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100010001",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "dc6a0edd-3d4c-4af0-b224-4f5d11694729",
+    "locale": 1,
+    "latest_revision": 2,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:52:44.246Z",
+    "last_published_at": "2026-07-22T14:52:44.246Z",
+    "live_revision": 2,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Історія ліцею",
+    "draft_title": "Історія ліцею",
+    "slug": "istoriia-litseiu",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/pro-litsei/istoriia-litseiu/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:52:43.531Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100010002",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "8814a23a-7a3c-44b8-8957-c8c913731cb4",
+    "locale": 1,
+    "latest_revision": 3,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:52:46.322Z",
+    "last_published_at": "2026-07-22T14:52:46.322Z",
+    "live_revision": 3,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Керівництво ліцею",
+    "draft_title": "Керівництво ліцею",
+    "slug": "kerivnytstvo-litseiu",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/pro-litsei/kerivnytstvo-litseiu/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:52:45.615Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100010003",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "b7a67441-6c3d-47de-bdea-210fee7e1656",
+    "locale": 1,
+    "latest_revision": 4,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:52:48.362Z",
+    "last_published_at": "2026-07-22T14:52:48.362Z",
+    "live_revision": 4,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Педагогічний колектив",
+    "draft_title": "Педагогічний колектив",
+    "slug": "pedahohichnyi-kolektyv",
+    "content_type": [
+      "staff",
+      "staffindexpage"
+    ],
+    "url_path": "/home/pro-litsei/pedahohichnyi-kolektyv/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:52:47.677Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100010004",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "b3fceb2f-0ca2-42cd-83a1-188b60910703",
+    "locale": 1,
+    "latest_revision": 5,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:52:50.510Z",
+    "last_published_at": "2026-07-22T14:52:50.510Z",
+    "live_revision": 5,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Соціально-психологічна служба",
+    "draft_title": "Соціально-психологічна служба",
+    "slug": "sotsialno-psykholohichna-sluzhba",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/pro-litsei/sotsialno-psykholohichna-sluzhba/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:52:49.785Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "000100010002",
+    "depth": 3,
+    "numchild": 9,
+    "translation_key": "6826892e-59da-40d1-9a09-d85a2a035bf4",
+    "locale": 1,
+    "latest_revision": 6,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:52:52.682Z",
+    "last_published_at": "2026-07-22T14:52:52.682Z",
+    "live_revision": 6,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Публічна інформація",
+    "draft_title": "Публічна інформація",
+    "slug": "publichna-informatsiia",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/publichna-informatsiia/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:52:52.053Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100020001",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "18ba8682-813c-493b-ae99-230db6b044ce",
+    "locale": 1,
+    "latest_revision": 7,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:52:54.962Z",
+    "last_published_at": "2026-07-22T14:52:54.962Z",
+    "live_revision": 7,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Установчі документи",
+    "draft_title": "Установчі документи",
+    "slug": "ustanovchi-dokumenty",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/publichna-informatsiia/ustanovchi-dokumenty/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:52:54.194Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100020002",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "42d98062-3c1f-43c7-b060-c41d379738cb",
+    "locale": 1,
+    "latest_revision": 8,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:52:56.942Z",
+    "last_published_at": "2026-07-22T14:52:56.942Z",
+    "live_revision": 8,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Нормативні документи",
+    "draft_title": "Нормативні документи",
+    "slug": "normatyvni-dokumenty",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/publichna-informatsiia/normatyvni-dokumenty/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:52:56.306Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100020003",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "41193a46-4fdb-45e4-9dcc-7d681456c336",
+    "locale": 1,
+    "latest_revision": 9,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:52:59.367Z",
+    "last_published_at": "2026-07-22T14:52:59.367Z",
+    "live_revision": 9,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Фінансова діяльність",
+    "draft_title": "Фінансова діяльність",
+    "slug": "finansova-diialnist",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/publichna-informatsiia/finansova-diialnist/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:52:58.654Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100020004",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "d8b528ad-b463-4d6e-b6c7-9b522ce56679",
+    "locale": 1,
+    "latest_revision": 10,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:01.654Z",
+    "last_published_at": "2026-07-22T14:53:01.654Z",
+    "live_revision": 10,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Положення",
+    "draft_title": "Положення",
+    "slug": "polozhennia",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/publichna-informatsiia/polozhennia/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:00.981Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100020005",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "06d60a9d-f0d1-4597-a42b-45360aa0ba95",
+    "locale": 1,
+    "latest_revision": 11,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:03.951Z",
+    "last_published_at": "2026-07-22T14:53:03.951Z",
+    "live_revision": 11,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Якість освіти",
+    "draft_title": "Якість освіти",
+    "slug": "yakist-osvity",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/publichna-informatsiia/yakist-osvity/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:02.981Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100020006",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "8b78fb68-ae54-4d39-9c55-aa2e1ce65c7f",
+    "locale": 1,
+    "latest_revision": 12,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:06.279Z",
+    "last_published_at": "2026-07-22T14:53:06.279Z",
+    "live_revision": 12,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Безпека життєдіяльності",
+    "draft_title": "Безпека життєдіяльності",
+    "slug": "bezpeka-zhyttiediialnisti",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/publichna-informatsiia/bezpeka-zhyttiediialnisti/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:05.510Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100020007",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "0d12bce0-626d-46f0-b2b8-48306717ba87",
+    "locale": 1,
+    "latest_revision": 13,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:08.210Z",
+    "last_published_at": "2026-07-22T14:53:08.210Z",
+    "live_revision": 13,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Профілактика булінгу та жорстокого поводження",
+    "draft_title": "Профілактика булінгу та жорстокого поводження",
+    "slug": "profilaktyka-bulinhu",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/publichna-informatsiia/profilaktyka-bulinhu/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:07.591Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100020008",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "bf1c8ccf-1f94-4033-953e-b0f540f46911",
+    "locale": 1,
+    "latest_revision": 14,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:10.239Z",
+    "last_published_at": "2026-07-22T14:53:10.239Z",
+    "live_revision": 14,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Вступ до ліцею",
+    "draft_title": "Вступ до ліцею",
+    "slug": "vstup-do-litseiu",
+    "content_type": [
+      "admissions",
+      "applicationformpage"
+    ],
+    "url_path": "/home/publichna-informatsiia/vstup-do-litseiu/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:09.498Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100020009",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "c81f6f51-47b5-42e5-96ab-875aac04c33e",
+    "locale": 1,
+    "latest_revision": 15,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:12.493Z",
+    "last_published_at": "2026-07-22T14:53:12.493Z",
+    "live_revision": 15,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Інклюзія",
+    "draft_title": "Інклюзія",
+    "slug": "inkliuziia",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/publichna-informatsiia/inkliuziia/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:11.846Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "000100010003",
+    "depth": 3,
+    "numchild": 4,
+    "translation_key": "32c6193d-4ed4-45d8-9c4a-f98df3e253ba",
+    "locale": 1,
+    "latest_revision": 16,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:14.389Z",
+    "last_published_at": "2026-07-22T14:53:14.389Z",
+    "live_revision": 16,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Освітній процес",
+    "draft_title": "Освітній процес",
+    "slug": "osvitnii-protses",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/osvitnii-protses/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:13.783Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100030001",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "e2ed4256-aac1-4257-9766-72632bd517b5",
+    "locale": 1,
+    "latest_revision": 17,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:17.102Z",
+    "last_published_at": "2026-07-22T14:53:17.102Z",
+    "live_revision": 17,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Розклад",
+    "draft_title": "Розклад",
+    "slug": "rozklad",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/osvitnii-protses/rozklad/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:16.314Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100030002",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "11279b75-42cc-4dbb-82cf-844b8e787ab0",
+    "locale": 1,
+    "latest_revision": 18,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:19.165Z",
+    "last_published_at": "2026-07-22T14:53:19.165Z",
+    "live_revision": 18,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Критерії оцінювання з предметів",
+    "draft_title": "Критерії оцінювання з предметів",
+    "slug": "kryterii-otsiniuvannia",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/osvitnii-protses/kryterii-otsiniuvannia/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:18.505Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100030003",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "65b0b484-cc49-4d8f-a008-889c9d89778a",
+    "locale": 1,
+    "latest_revision": 19,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:21.445Z",
+    "last_published_at": "2026-07-22T14:53:21.445Z",
+    "live_revision": 19,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Досягнення",
+    "draft_title": "Досягнення",
+    "slug": "dosiahnennia",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/osvitnii-protses/dosiahnennia/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:20.695Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100030004",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "7e5e8613-7ddd-47d8-bdfe-5263a887ade7",
+    "locale": 1,
+    "latest_revision": 20,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:23.569Z",
+    "last_published_at": "2026-07-22T14:53:23.569Z",
+    "live_revision": 20,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Все про НМТ (ЗНО)",
+    "draft_title": "Все про НМТ (ЗНО)",
+    "slug": "vse-pro-nmt-zno",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/osvitnii-protses/vse-pro-nmt-zno/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:22.908Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "000100010004",
+    "depth": 3,
+    "numchild": 3,
+    "translation_key": "eacb8e4f-9579-4644-8995-4f71270b9c24",
+    "locale": 1,
+    "latest_revision": 21,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:25.574Z",
+    "last_published_at": "2026-07-22T14:53:25.574Z",
+    "live_revision": 21,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Виховна робота",
+    "draft_title": "Виховна робота",
+    "slug": "vykhovna-robota",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/vykhovna-robota/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:24.956Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100040001",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "62ad6074-7922-47e9-a2a2-01d7238691fd",
+    "locale": 1,
+    "latest_revision": 22,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:28.137Z",
+    "last_published_at": "2026-07-22T14:53:28.137Z",
+    "live_revision": 22,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Учнівське самоврядування",
+    "draft_title": "Учнівське самоврядування",
+    "slug": "uchnivske-samovriaduvannia",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/vykhovna-robota/uchnivske-samovriaduvannia/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:27.156Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100040002",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "a1cacc38-7dd3-417d-abda-a6f3851d3c65",
+    "locale": 1,
+    "latest_revision": 23,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:30.314Z",
+    "last_published_at": "2026-07-22T14:53:30.314Z",
+    "live_revision": 23,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Патріотичне виховання",
+    "draft_title": "Патріотичне виховання",
+    "slug": "patriotychne-vykhovannia",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/vykhovna-robota/patriotychne-vykhovannia/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:29.694Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "0001000100040003",
+    "depth": 4,
+    "numchild": 0,
+    "translation_key": "2be9bd42-762b-4a15-b3e6-eeef65717188",
+    "locale": 1,
+    "latest_revision": 24,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:32.589Z",
+    "last_published_at": "2026-07-22T14:53:32.589Z",
+    "live_revision": 24,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Безбар'єрність",
+    "draft_title": "Безбар'єрність",
+    "slug": "bezbar-iernist",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/vykhovna-robota/bezbar-iernist/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:31.689Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "000100010005",
+    "depth": 3,
+    "numchild": 0,
+    "translation_key": "cbfd4a14-90ee-4443-a398-40ed90946976",
+    "locale": 1,
+    "latest_revision": 25,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:34.646Z",
+    "last_published_at": "2026-07-22T14:53:34.646Z",
+    "live_revision": 25,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Батькам",
+    "draft_title": "Батькам",
+    "slug": "batkam",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/batkam/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:33.972Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "000100010006",
+    "depth": 3,
+    "numchild": 0,
+    "translation_key": "866c5c9e-ffaf-4755-bcb3-9cc95fd0905f",
+    "locale": 1,
+    "latest_revision": 26,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:36.590Z",
+    "last_published_at": "2026-07-22T14:53:36.590Z",
+    "live_revision": 26,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Педагогам",
+    "draft_title": "Педагогам",
+    "slug": "pedahoham",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/pedahoham/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:35.959Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "000100010008",
+    "depth": 3,
+    "numchild": 0,
+    "translation_key": "16353561-8e29-4a97-b6f0-125f91d88ddc",
+    "locale": 1,
+    "latest_revision": 27,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:39.405Z",
+    "last_published_at": "2026-07-22T14:53:39.405Z",
+    "live_revision": 27,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Новини",
+    "draft_title": "Новини",
+    "slug": "novyny",
+    "content_type": [
+      "news",
+      "newsindexpage"
+    ],
+    "url_path": "/home/novyny/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:38.660Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "00010001000A",
+    "depth": 3,
+    "numchild": 0,
+    "translation_key": "2d3a43ec-23a8-4da4-b801-944f4514000d",
+    "locale": 1,
+    "latest_revision": 30,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:41.678Z",
+    "last_published_at": "2026-07-22T14:55:34.066Z",
+    "live_revision": 30,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Контакти",
+    "draft_title": "Контакти",
+    "slug": "kontakty",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/kontakty/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": true,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:55:33.007Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "000100010009",
+    "depth": 3,
+    "numchild": 0,
+    "translation_key": "8bd7d01c-d5c6-441f-ab5e-88166973ce8c",
+    "locale": 1,
+    "latest_revision": 29,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T14:53:43.848Z",
+    "last_published_at": "2026-07-22T14:53:43.848Z",
+    "live_revision": 29,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Галерея",
+    "draft_title": "Галерея",
+    "slug": "gallery",
+    "content_type": [
+      "gallery",
+      "galleryindexpage"
+    ],
+    "url_path": "/home/gallery/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T14:53:43.149Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "00010001000B",
+    "depth": 3,
+    "numchild": 0,
+    "translation_key": "31690a2d-6370-4b05-b138-2a2a3655864d",
+    "locale": 1,
+    "latest_revision": 31,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T15:17:25.555Z",
+    "last_published_at": "2026-07-22T15:17:25.555Z",
+    "live_revision": 31,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Політика конфіденційності",
+    "draft_title": "Політика конфіденційності",
+    "slug": "privacy",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/privacy/",
+    "owner": [
+      "admin"
+    ],
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T15:17:24.260Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "fields": {
+    "path": "00010001000C",
+    "depth": 3,
+    "numchild": 0,
+    "translation_key": "70d1321a-92e1-468e-b5e3-11efd58c922b",
+    "locale": 1,
+    "latest_revision": 32,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2026-07-22T15:17:44.010Z",
+    "last_published_at": "2026-07-22T15:17:44.010Z",
+    "live_revision": 32,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Умови користування",
+    "draft_title": "Умови користування",
+    "slug": "terms",
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "url_path": "/home/terms/",
+    "owner": [
+      "admin"
+    ],
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "latest_revision_created_at": "2026-07-22T15:17:42.740Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.groupapprovaltask",
+  "pk": 1,
+  "fields": {
+    "task_ptr": 1,
+    "groups": [
+      [
+        "Moderators"
+      ]
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "add_image",
+      "wagtailimages",
+      "image"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "add_image",
+      "wagtailimages",
+      "image"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "change_image",
+      "wagtailimages",
+      "image"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "change_image",
+      "wagtailimages",
+      "image"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "choose_image",
+      "wagtailimages",
+      "image"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "choose_image",
+      "wagtailimages",
+      "image"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "add_document",
+      "wagtaildocs",
+      "document"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "add_document",
+      "wagtaildocs",
+      "document"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "change_document",
+      "wagtaildocs",
+      "document"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "change_document",
+      "wagtaildocs",
+      "document"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "choose_document",
+      "wagtaildocs",
+      "document"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "collection": [
+      "Root"
+    ],
+    "permission": [
+      "choose_document",
+      "wagtaildocs",
+      "document"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 1,
+  "fields": {
+    "content_type": [
+      "home",
+      "aboutpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "4",
+    "created_at": "2026-07-22T14:52:40.882Z",
+    "user": null,
+    "object_str": "Про ліцей",
+    "content": {
+      "pk": 4,
+      "path": "000100010001",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "12b4eb4a-5710-4322-9575-e92f028b40ca",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Про ліцей",
+      "draft_title": "Про ліцей",
+      "slug": "pro-litsei",
+      "content_type": 31,
+      "url_path": "/home/pro-litsei/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "intro": "",
+      "mission": "",
+      "history": "",
+      "values": "",
+      "achievements": "",
+      "founded_year": null,
+      "students_count": null,
+      "teachers_count": null,
+      "building_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 2,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "5",
+    "created_at": "2026-07-22T14:52:43.531Z",
+    "user": null,
+    "object_str": "Історія ліцею",
+    "content": {
+      "pk": 5,
+      "path": "0001000100010001",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "dc6a0edd-3d4c-4af0-b224-4f5d11694729",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Історія ліцею",
+      "draft_title": "Історія ліцею",
+      "slug": "istoriia-litseiu",
+      "content_type": 37,
+      "url_path": "/home/pro-litsei/istoriia-litseiu/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 3,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "6",
+    "created_at": "2026-07-22T14:52:45.615Z",
+    "user": null,
+    "object_str": "Керівництво ліцею",
+    "content": {
+      "pk": 6,
+      "path": "0001000100010002",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "8814a23a-7a3c-44b8-8957-c8c913731cb4",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Керівництво ліцею",
+      "draft_title": "Керівництво ліцею",
+      "slug": "kerivnytstvo-litseiu",
+      "content_type": 37,
+      "url_path": "/home/pro-litsei/kerivnytstvo-litseiu/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 4,
+  "fields": {
+    "content_type": [
+      "staff",
+      "staffindexpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "7",
+    "created_at": "2026-07-22T14:52:47.677Z",
+    "user": null,
+    "object_str": "Педагогічний колектив",
+    "content": {
+      "pk": 7,
+      "path": "0001000100010003",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "b7a67441-6c3d-47de-bdea-210fee7e1656",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Педагогічний колектив",
+      "draft_title": "Педагогічний колектив",
+      "slug": "pedahohichnyi-kolektyv",
+      "content_type": 58,
+      "url_path": "/home/pro-litsei/pedahohichnyi-kolektyv/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "intro": "",
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 5,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "8",
+    "created_at": "2026-07-22T14:52:49.785Z",
+    "user": null,
+    "object_str": "Соціально-психологічна служба",
+    "content": {
+      "pk": 8,
+      "path": "0001000100010004",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "b3fceb2f-0ca2-42cd-83a1-188b60910703",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Соціально-психологічна служба",
+      "draft_title": "Соціально-психологічна служба",
+      "slug": "sotsialno-psykholohichna-sluzhba",
+      "content_type": 37,
+      "url_path": "/home/pro-litsei/sotsialno-psykholohichna-sluzhba/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 6,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "9",
+    "created_at": "2026-07-22T14:52:52.053Z",
+    "user": null,
+    "object_str": "Публічна інформація",
+    "content": {
+      "pk": 9,
+      "path": "000100010002",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "6826892e-59da-40d1-9a09-d85a2a035bf4",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Публічна інформація",
+      "draft_title": "Публічна інформація",
+      "slug": "publichna-informatsiia",
+      "content_type": 37,
+      "url_path": "/home/publichna-informatsiia/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 7,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "10",
+    "created_at": "2026-07-22T14:52:54.194Z",
+    "user": null,
+    "object_str": "Установчі документи",
+    "content": {
+      "pk": 10,
+      "path": "0001000100020001",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "18ba8682-813c-493b-ae99-230db6b044ce",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Установчі документи",
+      "draft_title": "Установчі документи",
+      "slug": "ustanovchi-dokumenty",
+      "content_type": 37,
+      "url_path": "/home/publichna-informatsiia/ustanovchi-dokumenty/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 8,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "11",
+    "created_at": "2026-07-22T14:52:56.306Z",
+    "user": null,
+    "object_str": "Нормативні документи",
+    "content": {
+      "pk": 11,
+      "path": "0001000100020002",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "42d98062-3c1f-43c7-b060-c41d379738cb",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Нормативні документи",
+      "draft_title": "Нормативні документи",
+      "slug": "normatyvni-dokumenty",
+      "content_type": 37,
+      "url_path": "/home/publichna-informatsiia/normatyvni-dokumenty/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 9,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "12",
+    "created_at": "2026-07-22T14:52:58.654Z",
+    "user": null,
+    "object_str": "Фінансова діяльність",
+    "content": {
+      "pk": 12,
+      "path": "0001000100020003",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "41193a46-4fdb-45e4-9dcc-7d681456c336",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Фінансова діяльність",
+      "draft_title": "Фінансова діяльність",
+      "slug": "finansova-diialnist",
+      "content_type": 37,
+      "url_path": "/home/publichna-informatsiia/finansova-diialnist/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 10,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "13",
+    "created_at": "2026-07-22T14:53:00.981Z",
+    "user": null,
+    "object_str": "Положення",
+    "content": {
+      "pk": 13,
+      "path": "0001000100020004",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "d8b528ad-b463-4d6e-b6c7-9b522ce56679",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Положення",
+      "draft_title": "Положення",
+      "slug": "polozhennia",
+      "content_type": 37,
+      "url_path": "/home/publichna-informatsiia/polozhennia/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 11,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "14",
+    "created_at": "2026-07-22T14:53:02.981Z",
+    "user": null,
+    "object_str": "Якість освіти",
+    "content": {
+      "pk": 14,
+      "path": "0001000100020005",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "06d60a9d-f0d1-4597-a42b-45360aa0ba95",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Якість освіти",
+      "draft_title": "Якість освіти",
+      "slug": "yakist-osvity",
+      "content_type": 37,
+      "url_path": "/home/publichna-informatsiia/yakist-osvity/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 12,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "15",
+    "created_at": "2026-07-22T14:53:05.510Z",
+    "user": null,
+    "object_str": "Безпека життєдіяльності",
+    "content": {
+      "pk": 15,
+      "path": "0001000100020006",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "8b78fb68-ae54-4d39-9c55-aa2e1ce65c7f",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Безпека життєдіяльності",
+      "draft_title": "Безпека життєдіяльності",
+      "slug": "bezpeka-zhyttiediialnisti",
+      "content_type": 37,
+      "url_path": "/home/publichna-informatsiia/bezpeka-zhyttiediialnisti/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 13,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "16",
+    "created_at": "2026-07-22T14:53:07.591Z",
+    "user": null,
+    "object_str": "Профілактика булінгу та жорстокого поводження",
+    "content": {
+      "pk": 16,
+      "path": "0001000100020007",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "0d12bce0-626d-46f0-b2b8-48306717ba87",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Профілактика булінгу та жорстокого поводження",
+      "draft_title": "Профілактика булінгу та жорстокого поводження",
+      "slug": "profilaktyka-bulinhu",
+      "content_type": 37,
+      "url_path": "/home/publichna-informatsiia/profilaktyka-bulinhu/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 14,
+  "fields": {
+    "content_type": [
+      "admissions",
+      "applicationformpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "17",
+    "created_at": "2026-07-22T14:53:09.498Z",
+    "user": null,
+    "object_str": "Вступ до ліцею",
+    "content": {
+      "pk": 17,
+      "path": "0001000100020008",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "bf1c8ccf-1f94-4033-953e-b0f540f46911",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Вступ до ліцею",
+      "draft_title": "Вступ до ліцею",
+      "slug": "vstup-do-litseiu",
+      "content_type": 55,
+      "url_path": "/home/publichna-informatsiia/vstup-do-litseiu/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "to_address": "",
+      "from_address": "",
+      "subject": "",
+      "intro": "",
+      "rules_text": "",
+      "thank_you_text": "",
+      "wagtail_admin_comments": [],
+      "form_fields": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 15,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "18",
+    "created_at": "2026-07-22T14:53:11.846Z",
+    "user": null,
+    "object_str": "Інклюзія",
+    "content": {
+      "pk": 18,
+      "path": "0001000100020009",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "c81f6f51-47b5-42e5-96ab-875aac04c33e",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Інклюзія",
+      "draft_title": "Інклюзія",
+      "slug": "inkliuziia",
+      "content_type": 37,
+      "url_path": "/home/publichna-informatsiia/inkliuziia/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 16,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "19",
+    "created_at": "2026-07-22T14:53:13.783Z",
+    "user": null,
+    "object_str": "Освітній процес",
+    "content": {
+      "pk": 19,
+      "path": "000100010003",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "32c6193d-4ed4-45d8-9c4a-f98df3e253ba",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Освітній процес",
+      "draft_title": "Освітній процес",
+      "slug": "osvitnii-protses",
+      "content_type": 37,
+      "url_path": "/home/osvitnii-protses/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 17,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "20",
+    "created_at": "2026-07-22T14:53:16.314Z",
+    "user": null,
+    "object_str": "Розклад",
+    "content": {
+      "pk": 20,
+      "path": "0001000100030001",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "e2ed4256-aac1-4257-9766-72632bd517b5",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Розклад",
+      "draft_title": "Розклад",
+      "slug": "rozklad",
+      "content_type": 37,
+      "url_path": "/home/osvitnii-protses/rozklad/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 18,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "21",
+    "created_at": "2026-07-22T14:53:18.505Z",
+    "user": null,
+    "object_str": "Критерії оцінювання з предметів",
+    "content": {
+      "pk": 21,
+      "path": "0001000100030002",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "11279b75-42cc-4dbb-82cf-844b8e787ab0",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Критерії оцінювання з предметів",
+      "draft_title": "Критерії оцінювання з предметів",
+      "slug": "kryterii-otsiniuvannia",
+      "content_type": 37,
+      "url_path": "/home/osvitnii-protses/kryterii-otsiniuvannia/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 19,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "22",
+    "created_at": "2026-07-22T14:53:20.695Z",
+    "user": null,
+    "object_str": "Досягнення",
+    "content": {
+      "pk": 22,
+      "path": "0001000100030003",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "65b0b484-cc49-4d8f-a008-889c9d89778a",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Досягнення",
+      "draft_title": "Досягнення",
+      "slug": "dosiahnennia",
+      "content_type": 37,
+      "url_path": "/home/osvitnii-protses/dosiahnennia/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 20,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "23",
+    "created_at": "2026-07-22T14:53:22.908Z",
+    "user": null,
+    "object_str": "Все про НМТ (ЗНО)",
+    "content": {
+      "pk": 23,
+      "path": "0001000100030004",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "7e5e8613-7ddd-47d8-bdfe-5263a887ade7",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Все про НМТ (ЗНО)",
+      "draft_title": "Все про НМТ (ЗНО)",
+      "slug": "vse-pro-nmt-zno",
+      "content_type": 37,
+      "url_path": "/home/osvitnii-protses/vse-pro-nmt-zno/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 21,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "24",
+    "created_at": "2026-07-22T14:53:24.956Z",
+    "user": null,
+    "object_str": "Виховна робота",
+    "content": {
+      "pk": 24,
+      "path": "000100010004",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "eacb8e4f-9579-4644-8995-4f71270b9c24",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Виховна робота",
+      "draft_title": "Виховна робота",
+      "slug": "vykhovna-robota",
+      "content_type": 37,
+      "url_path": "/home/vykhovna-robota/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 22,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "25",
+    "created_at": "2026-07-22T14:53:27.156Z",
+    "user": null,
+    "object_str": "Учнівське самоврядування",
+    "content": {
+      "pk": 25,
+      "path": "0001000100040001",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "62ad6074-7922-47e9-a2a2-01d7238691fd",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Учнівське самоврядування",
+      "draft_title": "Учнівське самоврядування",
+      "slug": "uchnivske-samovriaduvannia",
+      "content_type": 37,
+      "url_path": "/home/vykhovna-robota/uchnivske-samovriaduvannia/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 23,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "26",
+    "created_at": "2026-07-22T14:53:29.694Z",
+    "user": null,
+    "object_str": "Патріотичне виховання",
+    "content": {
+      "pk": 26,
+      "path": "0001000100040002",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "a1cacc38-7dd3-417d-abda-a6f3851d3c65",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Патріотичне виховання",
+      "draft_title": "Патріотичне виховання",
+      "slug": "patriotychne-vykhovannia",
+      "content_type": 37,
+      "url_path": "/home/vykhovna-robota/patriotychne-vykhovannia/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 24,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "27",
+    "created_at": "2026-07-22T14:53:31.689Z",
+    "user": null,
+    "object_str": "Безбар'єрність",
+    "content": {
+      "pk": 27,
+      "path": "0001000100040003",
+      "depth": 4,
+      "numchild": 0,
+      "translation_key": "2be9bd42-762b-4a15-b3e6-eeef65717188",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Безбар'єрність",
+      "draft_title": "Безбар'єрність",
+      "slug": "bezbar-iernist",
+      "content_type": 37,
+      "url_path": "/home/vykhovna-robota/bezbar-iernist/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 25,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "28",
+    "created_at": "2026-07-22T14:53:33.972Z",
+    "user": null,
+    "object_str": "Батькам",
+    "content": {
+      "pk": 28,
+      "path": "000100010005",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "cbfd4a14-90ee-4443-a398-40ed90946976",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Батькам",
+      "draft_title": "Батькам",
+      "slug": "batkam",
+      "content_type": 37,
+      "url_path": "/home/batkam/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 26,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "29",
+    "created_at": "2026-07-22T14:53:35.959Z",
+    "user": null,
+    "object_str": "Педагогам",
+    "content": {
+      "pk": 29,
+      "path": "000100010006",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "866c5c9e-ffaf-4755-bcb3-9cc95fd0905f",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Педагогам",
+      "draft_title": "Педагогам",
+      "slug": "pedahoham",
+      "content_type": 37,
+      "url_path": "/home/pedahoham/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 27,
+  "fields": {
+    "content_type": [
+      "news",
+      "newsindexpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "30",
+    "created_at": "2026-07-22T14:53:38.660Z",
+    "user": null,
+    "object_str": "Новини",
+    "content": {
+      "pk": 30,
+      "path": "000100010007",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "16353561-8e29-4a97-b6f0-125f91d88ddc",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Новини",
+      "draft_title": "Новини",
+      "slug": "novyny",
+      "content_type": 50,
+      "url_path": "/home/novyny/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "intro": "",
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 28,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "31",
+    "created_at": "2026-07-22T14:53:41.007Z",
+    "user": null,
+    "object_str": "Контакти",
+    "content": {
+      "pk": 31,
+      "path": "000100010008",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "2d3a43ec-23a8-4da4-b801-944f4514000d",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Контакти",
+      "draft_title": "Контакти",
+      "slug": "kontakty",
+      "content_type": 37,
+      "url_path": "/home/kontakty/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 29,
+  "fields": {
+    "content_type": [
+      "gallery",
+      "galleryindexpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "32",
+    "created_at": "2026-07-22T14:53:43.149Z",
+    "user": null,
+    "object_str": "Галерея",
+    "content": {
+      "pk": 32,
+      "path": "000100010009",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "8bd7d01c-d5c6-441f-ab5e-88166973ce8c",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Галерея",
+      "draft_title": "Галерея",
+      "slug": "gallery",
+      "content_type": 45,
+      "url_path": "/home/gallery/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "intro": "",
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 30,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "31",
+    "created_at": "2026-07-22T14:55:33.007Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "Контакти",
+    "content": {
+      "pk": 31,
+      "path": "000100010008",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "2d3a43ec-23a8-4da4-b801-944f4514000d",
+      "locale": 1,
+      "latest_revision": 28,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": "2026-07-22T14:53:41.678Z",
+      "last_published_at": "2026-07-22T14:53:41.678Z",
+      "live_revision": 28,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Контакти",
+      "draft_title": "Контакти",
+      "slug": "kontakty",
+      "content_type": 37,
+      "url_path": "/home/kontakty/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": true,
+      "search_description": "",
+      "latest_revision_created_at": "2026-07-22T14:53:41.007Z",
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 31,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "33",
+    "created_at": "2026-07-22T15:17:24.260Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "Політика конфіденційності",
+    "content": {
+      "pk": 33,
+      "path": "00010001000A",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "31690a2d-6370-4b05-b138-2a2a3655864d",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Політика конфіденційності",
+      "draft_title": "Політика конфіденційності",
+      "slug": "privacy",
+      "content_type": 37,
+      "url_path": "/home/privacy/",
+      "owner": 1,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 32,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "34",
+    "created_at": "2026-07-22T15:17:42.740Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "Умови користування",
+    "content": {
+      "pk": 34,
+      "path": "00010001000B",
+      "depth": 3,
+      "numchild": 0,
+      "translation_key": "70d1321a-92e1-468e-b5e3-11efd58c922b",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Умови користування",
+      "draft_title": "Умови користування",
+      "slug": "terms",
+      "content_type": 37,
+      "url_path": "/home/terms/",
+      "owner": 1,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "subtitle": "",
+      "body": "",
+      "featured_image": null,
+      "wagtail_admin_comments": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 33,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "3",
+    "created_at": "2026-07-22T15:46:47.275Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "Головна",
+    "content": {
+      "pk": 3,
+      "path": "00010001",
+      "depth": 2,
+      "numchild": 11,
+      "translation_key": "ddfb45f1-9f2c-4756-aca3-66ba436f3fae",
+      "locale": 1,
+      "latest_revision": null,
+      "live": true,
+      "has_unpublished_changes": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "live_revision": null,
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "title": "Головна",
+      "draft_title": "Home",
+      "slug": "home",
+      "content_type": 3,
+      "url_path": "/home/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "latest_revision_created_at": null,
+      "alias_of": null,
+      "body": "",
+      "cta_text": "Приєднатися до нас",
+      "cta_link": null,
+      "wagtail_admin_comments": [],
+      "hero_images": [],
+      "quick_links": []
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.site",
+  "fields": {
+    "hostname": "localhost",
+    "port": 80,
+    "site_name": "",
+    "root_page": [
+      "/home/"
+    ],
+    "is_default_site": true
+  }
+},
+{
+  "model": "wagtailusers.userprofile",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "submitted_notifications": true,
+    "approved_notifications": true,
+    "rejected_notifications": true,
+    "updated_comments_notifications": true,
+    "preferred_language": "",
+    "current_time_zone": "",
+    "avatar": "",
+    "dismissibles": {},
+    "theme": "system",
+    "contrast": "system",
+    "density": "default",
+    "keyboard_shortcuts": true
+  }
+},
+{
+  "model": "core.sitesettings",
+  "pk": 1,
+  "fields": {
+    "site": [
+      "localhost",
+      80
+    ],
+    "site_name": "",
+    "default_og_image": null,
+    "meta_description": "",
+    "google_analytics_id": ""
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 52,
+  "fields": {
+    "sort_order": 0,
+    "section": 21,
+    "label": "Головна",
+    "page": [
+      "/home/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 53,
+  "fields": {
+    "sort_order": 0,
+    "section": 22,
+    "label": "Історія ліцею",
+    "page": [
+      "/home/pro-litsei/istoriia-litseiu/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 54,
+  "fields": {
+    "sort_order": 1,
+    "section": 22,
+    "label": "Керівництво ліцею",
+    "page": [
+      "/home/pro-litsei/kerivnytstvo-litseiu/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 55,
+  "fields": {
+    "sort_order": 2,
+    "section": 22,
+    "label": "Педагогічний колектив",
+    "page": [
+      "/home/pro-litsei/pedahohichnyi-kolektyv/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 56,
+  "fields": {
+    "sort_order": 3,
+    "section": 22,
+    "label": "Соціально-психологічна служба",
+    "page": [
+      "/home/pro-litsei/sotsialno-psykholohichna-sluzhba/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 57,
+  "fields": {
+    "sort_order": 0,
+    "section": 23,
+    "label": "Установчі документи",
+    "page": [
+      "/home/publichna-informatsiia/ustanovchi-dokumenty/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 58,
+  "fields": {
+    "sort_order": 1,
+    "section": 23,
+    "label": "Нормативні документи",
+    "page": [
+      "/home/publichna-informatsiia/normatyvni-dokumenty/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 59,
+  "fields": {
+    "sort_order": 2,
+    "section": 23,
+    "label": "Фінансова діяльність",
+    "page": [
+      "/home/publichna-informatsiia/finansova-diialnist/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 60,
+  "fields": {
+    "sort_order": 3,
+    "section": 23,
+    "label": "Положення",
+    "page": [
+      "/home/publichna-informatsiia/polozhennia/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 61,
+  "fields": {
+    "sort_order": 4,
+    "section": 23,
+    "label": "Якість освіти",
+    "page": [
+      "/home/publichna-informatsiia/yakist-osvity/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 62,
+  "fields": {
+    "sort_order": 5,
+    "section": 23,
+    "label": "Безпека життєдіяльності",
+    "page": [
+      "/home/publichna-informatsiia/bezpeka-zhyttiediialnisti/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 63,
+  "fields": {
+    "sort_order": 6,
+    "section": 23,
+    "label": "Профілактика булінгу та жорстокого поводження",
+    "page": [
+      "/home/publichna-informatsiia/profilaktyka-bulinhu/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 64,
+  "fields": {
+    "sort_order": 7,
+    "section": 23,
+    "label": "Вступ до ліцею",
+    "page": [
+      "/home/publichna-informatsiia/vstup-do-litseiu/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 65,
+  "fields": {
+    "sort_order": 8,
+    "section": 23,
+    "label": "Інклюзія",
+    "page": [
+      "/home/publichna-informatsiia/inkliuziia/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 66,
+  "fields": {
+    "sort_order": 0,
+    "section": 24,
+    "label": "Розклад",
+    "page": null,
+    "external_url": "/schedule/",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 67,
+  "fields": {
+    "sort_order": 1,
+    "section": 24,
+    "label": "Критерії оцінювання з предметів",
+    "page": [
+      "/home/osvitnii-protses/kryterii-otsiniuvannia/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 68,
+  "fields": {
+    "sort_order": 2,
+    "section": 24,
+    "label": "Досягнення",
+    "page": [
+      "/home/osvitnii-protses/dosiahnennia/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 69,
+  "fields": {
+    "sort_order": 3,
+    "section": 24,
+    "label": "Все про НМТ (ЗНО)",
+    "page": [
+      "/home/osvitnii-protses/vse-pro-nmt-zno/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 70,
+  "fields": {
+    "sort_order": 0,
+    "section": 25,
+    "label": "Учнівське самоврядування",
+    "page": [
+      "/home/vykhovna-robota/uchnivske-samovriaduvannia/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 71,
+  "fields": {
+    "sort_order": 1,
+    "section": 25,
+    "label": "Патріотичне виховання",
+    "page": [
+      "/home/vykhovna-robota/patriotychne-vykhovannia/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 72,
+  "fields": {
+    "sort_order": 2,
+    "section": 25,
+    "label": "Безбар'єрність",
+    "page": [
+      "/home/vykhovna-robota/bezbar-iernist/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 73,
+  "fields": {
+    "sort_order": 0,
+    "section": 26,
+    "label": "Батькам",
+    "page": [
+      "/home/batkam/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 74,
+  "fields": {
+    "sort_order": 0,
+    "section": 27,
+    "label": "Педагогам",
+    "page": [
+      "/home/pedahoham/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 75,
+  "fields": {
+    "sort_order": 0,
+    "section": 28,
+    "label": "Новини",
+    "page": [
+      "/home/novyny/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 76,
+  "fields": {
+    "sort_order": 0,
+    "section": 29,
+    "label": "Контакти",
+    "page": [
+      "/home/kontakty/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "core.sidebarlink",
+  "pk": 77,
+  "fields": {
+    "sort_order": 0,
+    "section": 30,
+    "label": "Галерея",
+    "page": [
+      "/home/gallery/"
+    ],
+    "external_url": "",
+    "new_tab": false
+  }
+},
+{
+  "model": "staff.staffindexpage",
+  "fields": {
+    "page_ptr": [
+      "/home/pro-litsei/pedahohichnyi-kolektyv/"
+    ],
+    "intro": ""
+  }
+},
+{
+  "model": "admissions.applicationformpage",
+  "fields": {
+    "page_ptr": [
+      "/home/publichna-informatsiia/vstup-do-litseiu/"
+    ],
+    "to_address": "",
+    "from_address": "",
+    "subject": "",
+    "intro": "",
+    "rules_text": "",
+    "thank_you_text": ""
+  }
+},
+{
+  "model": "news.newsindexpage",
+  "fields": {
+    "page_ptr": [
+      "/home/novyny/"
+    ],
+    "intro": ""
+  }
+},
+{
+  "model": "gallery.galleryindexpage",
+  "fields": {
+    "page_ptr": [
+      "/home/gallery/"
+    ],
+    "intro": ""
+  }
+},
+{
+  "model": "home.aboutpage",
+  "fields": {
+    "page_ptr": [
+      "/home/pro-litsei/"
+    ],
+    "subtitle": "",
+    "intro": "",
+    "mission": "",
+    "history": "",
+    "values": "",
+    "achievements": "",
+    "founded_year": null,
+    "students_count": null,
+    "teachers_count": null,
+    "building_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/pro-litsei/istoriia-litseiu/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/pro-litsei/kerivnytstvo-litseiu/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/pro-litsei/sotsialno-psykholohichna-sluzhba/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/publichna-informatsiia/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/publichna-informatsiia/ustanovchi-dokumenty/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/publichna-informatsiia/normatyvni-dokumenty/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/publichna-informatsiia/finansova-diialnist/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/publichna-informatsiia/polozhennia/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/publichna-informatsiia/yakist-osvity/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/publichna-informatsiia/bezpeka-zhyttiediialnisti/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/publichna-informatsiia/profilaktyka-bulinhu/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/publichna-informatsiia/inkliuziia/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/osvitnii-protses/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/osvitnii-protses/rozklad/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/osvitnii-protses/kryterii-otsiniuvannia/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/osvitnii-protses/dosiahnennia/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/osvitnii-protses/vse-pro-nmt-zno/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/vykhovna-robota/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/vykhovna-robota/uchnivske-samovriaduvannia/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/vykhovna-robota/patriotychne-vykhovannia/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/vykhovna-robota/bezbar-iernist/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/batkam/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/pedahoham/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/kontakty/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/privacy/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.contentpage",
+  "fields": {
+    "page_ptr": [
+      "/home/terms/"
+    ],
+    "subtitle": "",
+    "body": "",
+    "featured_image": null
+  }
+},
+{
+  "model": "home.homepage",
+  "fields": {
+    "page_ptr": [
+      "/home/"
+    ],
+    "body": "",
+    "cta_text": "Приєднатися до нас",
+    "cta_link": null
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 1,
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "page": [
+      "/"
+    ],
+    "permission": [
+      "add_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 2,
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "page": [
+      "/"
+    ],
+    "permission": [
+      "change_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 3,
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "page": [
+      "/"
+    ],
+    "permission": [
+      "publish_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 4,
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "page": [
+      "/"
+    ],
+    "permission": [
+      "add_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 5,
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "page": [
+      "/"
+    ],
+    "permission": [
+      "change_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 6,
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "page": [
+      "/"
+    ],
+    "permission": [
+      "lock_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 7,
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "page": [
+      "/"
+    ],
+    "permission": [
+      "unlock_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.workflowpage",
+  "pk": 1,
+  "fields": {
+    "workflow": 1
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 1,
+  "fields": {
+    "content_type": [
+      "home",
+      "aboutpage"
+    ],
+    "label": "Про ліцей",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:40.170Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pro-litsei/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 2,
+  "fields": {
+    "content_type": [
+      "home",
+      "aboutpage"
+    ],
+    "label": "Про ліцей",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:42.244Z",
+    "uuid": null,
+    "user": null,
+    "revision": 1,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pro-litsei/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 3,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Історія ліцею",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:42.660Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pro-litsei/istoriia-litseiu/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 4,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Історія ліцею",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:44.623Z",
+    "uuid": null,
+    "user": null,
+    "revision": 2,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pro-litsei/istoriia-litseiu/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 5,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Керівництво ліцею",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:44.977Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pro-litsei/kerivnytstvo-litseiu/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 6,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Керівництво ліцею",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:46.686Z",
+    "uuid": null,
+    "user": null,
+    "revision": 3,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pro-litsei/kerivnytstvo-litseiu/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 7,
+  "fields": {
+    "content_type": [
+      "staff",
+      "staffindexpage"
+    ],
+    "label": "Педагогічний колектив",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:47.017Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pro-litsei/pedahohichnyi-kolektyv/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 8,
+  "fields": {
+    "content_type": [
+      "staff",
+      "staffindexpage"
+    ],
+    "label": "Педагогічний колектив",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:48.785Z",
+    "uuid": null,
+    "user": null,
+    "revision": 4,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pro-litsei/pedahohichnyi-kolektyv/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 9,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Соціально-психологічна служба",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:49.175Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pro-litsei/sotsialno-psykholohichna-sluzhba/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 10,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Соціально-психологічна служба",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:50.885Z",
+    "uuid": null,
+    "user": null,
+    "revision": 5,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pro-litsei/sotsialno-psykholohichna-sluzhba/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 11,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Публічна інформація",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:51.312Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 12,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Публічна інформація",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:53.027Z",
+    "uuid": null,
+    "user": null,
+    "revision": 6,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 13,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Установчі документи",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:53.411Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/ustanovchi-dokumenty/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 14,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Установчі документи",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:55.357Z",
+    "uuid": null,
+    "user": null,
+    "revision": 7,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/ustanovchi-dokumenty/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 15,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Нормативні документи",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:55.679Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/normatyvni-dokumenty/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 16,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Нормативні документи",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:57.360Z",
+    "uuid": null,
+    "user": null,
+    "revision": 8,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/normatyvni-dokumenty/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 17,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Фінансова діяльність",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:57.732Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/finansova-diialnist/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 18,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Фінансова діяльність",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:52:59.940Z",
+    "uuid": null,
+    "user": null,
+    "revision": 9,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/finansova-diialnist/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 19,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Положення",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:00.394Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/polozhennia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 20,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Положення",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:02.058Z",
+    "uuid": null,
+    "user": null,
+    "revision": 10,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/polozhennia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 21,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Якість освіти",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:02.388Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/yakist-osvity/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 22,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Якість освіти",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:04.398Z",
+    "uuid": null,
+    "user": null,
+    "revision": 11,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/yakist-osvity/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 23,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Безпека життєдіяльності",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:04.836Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/bezpeka-zhyttiediialnisti/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 24,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Безпека життєдіяльності",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:06.644Z",
+    "uuid": null,
+    "user": null,
+    "revision": 12,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/bezpeka-zhyttiediialnisti/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 25,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Профілактика булінгу та жорстокого поводження",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:06.996Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/profilaktyka-bulinhu/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 26,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Профілактика булінгу та жорстокого поводження",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:08.587Z",
+    "uuid": null,
+    "user": null,
+    "revision": 13,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/profilaktyka-bulinhu/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 27,
+  "fields": {
+    "content_type": [
+      "admissions",
+      "applicationformpage"
+    ],
+    "label": "Вступ до ліцею",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:08.953Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/vstup-do-litseiu/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 28,
+  "fields": {
+    "content_type": [
+      "admissions",
+      "applicationformpage"
+    ],
+    "label": "Вступ до ліцею",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:10.669Z",
+    "uuid": null,
+    "user": null,
+    "revision": 14,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/vstup-do-litseiu/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 29,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Інклюзія",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:11.066Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/inkliuziia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 30,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Інклюзія",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:12.874Z",
+    "uuid": null,
+    "user": null,
+    "revision": 15,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/publichna-informatsiia/inkliuziia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 31,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Освітній процес",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:13.235Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/osvitnii-protses/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 32,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Освітній процес",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:14.837Z",
+    "uuid": null,
+    "user": null,
+    "revision": 16,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/osvitnii-protses/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 33,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Розклад",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:15.241Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/osvitnii-protses/rozklad/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 34,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Розклад",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:17.483Z",
+    "uuid": null,
+    "user": null,
+    "revision": 17,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/osvitnii-protses/rozklad/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 35,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Критерії оцінювання з предметів",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:17.847Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/osvitnii-protses/kryterii-otsiniuvannia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 36,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Критерії оцінювання з предметів",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:19.603Z",
+    "uuid": null,
+    "user": null,
+    "revision": 18,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/osvitnii-protses/kryterii-otsiniuvannia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 37,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Досягнення",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:19.968Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/osvitnii-protses/dosiahnennia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 38,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Досягнення",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:21.875Z",
+    "uuid": null,
+    "user": null,
+    "revision": 19,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/osvitnii-protses/dosiahnennia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 39,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Все про НМТ (ЗНО)",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:22.236Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/osvitnii-protses/vse-pro-nmt-zno/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 40,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Все про НМТ (ЗНО)",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:23.923Z",
+    "uuid": null,
+    "user": null,
+    "revision": 20,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/osvitnii-protses/vse-pro-nmt-zno/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 41,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Виховна робота",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:24.336Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/vykhovna-robota/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 42,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Виховна робота",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:25.974Z",
+    "uuid": null,
+    "user": null,
+    "revision": 21,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/vykhovna-robota/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 43,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Учнівське самоврядування",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:26.367Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/vykhovna-robota/uchnivske-samovriaduvannia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 44,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Учнівське самоврядування",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:28.670Z",
+    "uuid": null,
+    "user": null,
+    "revision": 22,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/vykhovna-robota/uchnivske-samovriaduvannia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 45,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Патріотичне виховання",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:29.041Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/vykhovna-robota/patriotychne-vykhovannia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 46,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Патріотичне виховання",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:30.692Z",
+    "uuid": null,
+    "user": null,
+    "revision": 23,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/vykhovna-robota/patriotychne-vykhovannia/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 47,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Безбар'єрність",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:31.080Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/vykhovna-robota/bezbar-iernist/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 48,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Безбар'єрність",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:33.002Z",
+    "uuid": null,
+    "user": null,
+    "revision": 24,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/vykhovna-robota/bezbar-iernist/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 49,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Батькам",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:33.359Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/batkam/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 50,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Батькам",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:35.065Z",
+    "uuid": null,
+    "user": null,
+    "revision": 25,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/batkam/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 51,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Педагогам",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:35.412Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pedahoham/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 52,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Педагогам",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:37.319Z",
+    "uuid": null,
+    "user": null,
+    "revision": 26,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/pedahoham/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 53,
+  "fields": {
+    "content_type": [
+      "news",
+      "newsindexpage"
+    ],
+    "label": "Новини",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:37.958Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/novyny/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 54,
+  "fields": {
+    "content_type": [
+      "news",
+      "newsindexpage"
+    ],
+    "label": "Новини",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:39.797Z",
+    "uuid": null,
+    "user": null,
+    "revision": 27,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/novyny/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 55,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Контакти",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:40.284Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/kontakty/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 56,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Контакти",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:42.112Z",
+    "uuid": null,
+    "user": null,
+    "revision": 28,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/kontakty/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 57,
+  "fields": {
+    "content_type": [
+      "gallery",
+      "galleryindexpage"
+    ],
+    "label": "Галерея",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:42.526Z",
+    "uuid": null,
+    "user": null,
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/gallery/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 58,
+  "fields": {
+    "content_type": [
+      "gallery",
+      "galleryindexpage"
+    ],
+    "label": "Галерея",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:53:44.290Z",
+    "uuid": null,
+    "user": null,
+    "revision": 29,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/gallery/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 59,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Контакти",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2026-07-22T14:55:33.687Z",
+    "uuid": "6149abcc-5687-4946-aed6-0ba54ac9cca8",
+    "user": [
+      "admin"
+    ],
+    "revision": 30,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/kontakty/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 60,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Контакти",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T14:55:34.673Z",
+    "uuid": "6149abcc-5687-4946-aed6-0ba54ac9cca8",
+    "user": [
+      "admin"
+    ],
+    "revision": 30,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/kontakty/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 61,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Політика конфіденційності",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T15:17:23.523Z",
+    "uuid": "3432a959-9a84-421a-a073-6b610b7868d4",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/privacy/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 62,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Політика конфіденційності",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2026-07-22T15:17:24.940Z",
+    "uuid": "3432a959-9a84-421a-a073-6b610b7868d4",
+    "user": [
+      "admin"
+    ],
+    "revision": 31,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/privacy/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 63,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Політика конфіденційності",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T15:17:25.986Z",
+    "uuid": "3432a959-9a84-421a-a073-6b610b7868d4",
+    "user": [
+      "admin"
+    ],
+    "revision": 31,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/privacy/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 64,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Умови користування",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2026-07-22T15:17:41.984Z",
+    "uuid": "8f110044-b0f6-4474-8387-f00cc25ba05c",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/terms/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 65,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Умови користування",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2026-07-22T15:17:43.389Z",
+    "uuid": "8f110044-b0f6-4474-8387-f00cc25ba05c",
+    "user": [
+      "admin"
+    ],
+    "revision": 32,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/terms/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 66,
+  "fields": {
+    "content_type": [
+      "home",
+      "contentpage"
+    ],
+    "label": "Умови користування",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T15:17:44.482Z",
+    "uuid": "8f110044-b0f6-4474-8387-f00cc25ba05c",
+    "user": [
+      "admin"
+    ],
+    "revision": 32,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/terms/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 67,
+  "fields": {
+    "content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "label": "Галерея",
+    "action": "wagtail.reorder",
+    "data": {
+      "source": {
+        "id": 3,
+        "title": "Home"
+      },
+      "destination": {
+        "id": 3,
+        "title": "Home"
+      }
+    },
+    "timestamp": "2026-07-22T15:32:27.203Z",
+    "uuid": "b588e2be-2923-4edf-b6c1-9cddabfcb06a",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": false,
+    "deleted": false,
+    "page": [
+      "/home/gallery/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 68,
+  "fields": {
+    "content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "label": "Галерея",
+    "action": "wagtail.reorder",
+    "data": {
+      "source": {
+        "id": 3,
+        "title": "Home"
+      },
+      "destination": {
+        "id": 3,
+        "title": "Home"
+      }
+    },
+    "timestamp": "2026-07-22T15:32:32.382Z",
+    "uuid": "6978f2df-051a-459b-a729-572bb43988c9",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": false,
+    "deleted": false,
+    "page": [
+      "/home/gallery/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 69,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "label": "Home",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2026-07-22T15:46:48.057Z",
+    "uuid": "fe16363e-921b-458f-a4ba-15a8c4354d1e",
+    "user": [
+      "admin"
+    ],
+    "revision": 33,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 70,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "label": "Головна",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2026-07-22T15:46:48.937Z",
+    "uuid": "fe16363e-921b-458f-a4ba-15a8c4354d1e",
+    "user": [
+      "admin"
+    ],
+    "revision": 33,
+    "content_changed": true,
+    "deleted": false,
+    "page": [
+      "/home/"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.pagesubscription",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "page": [
+      "/home/kontakty/"
+    ],
+    "comment_notifications": false
+  }
+},
+{
+  "model": "wagtailcore.pagesubscription",
+  "pk": 2,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "page": [
+      "/home/publichna-informatsiia/"
+    ],
+    "comment_notifications": false
+  }
+},
+{
+  "model": "wagtailcore.pagesubscription",
+  "pk": 3,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "page": [
+      "/home/pedahoham/"
+    ],
+    "comment_notifications": false
+  }
+},
+{
+  "model": "wagtailcore.pagesubscription",
+  "pk": 4,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "page": [
+      "/home/pro-litsei/"
+    ],
+    "comment_notifications": false
+  }
+},
+{
+  "model": "wagtailcore.pagesubscription",
+  "pk": 5,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "page": [
+      "/home/gallery/"
+    ],
+    "comment_notifications": false
+  }
+},
+{
+  "model": "wagtailcore.pagesubscription",
+  "pk": 6,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "page": [
+      "/home/privacy/"
+    ],
+    "comment_notifications": true
+  }
+},
+{
+  "model": "wagtailcore.pagesubscription",
+  "pk": 7,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "page": [
+      "/home/terms/"
+    ],
+    "comment_notifications": true
+  }
+},
+{
+  "model": "wagtailcore.pagesubscription",
+  "pk": 8,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "page": [
+      "/home/"
+    ],
+    "comment_notifications": false
+  }
+}
+]

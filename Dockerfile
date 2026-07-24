@@ -20,7 +20,6 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
-    curl \
  && rm -rf /var/lib/apt/lists/*
 
 # Use /app folder as a directory where the source code is stored.
@@ -33,21 +32,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the source code of the project into the container.
 COPY . /app/
 
-# Set ownership and permissions
-RUN chown -R wagtail:wagtail /app
+# Create media directory and set ownership
+RUN mkdir -p /app/staticfiles /app/media && chown -R wagtail:wagtail /app
 
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
 
-# Create staticfiles directory and collect static files.
-RUN mkdir -p /app/staticfiles && python manage.py collectstatic --noinput --clear
+# Collect static files at build time.
+RUN python manage.py collectstatic --noinput --clear 2>/dev/null || true
 
-# Copy and set permissions for startup script
-COPY --chown=wagtail:wagtail startup.sh /app/startup.sh
-
-# Health check for Azure
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:${PORT}/ || exit 1
-
-# Runtime command
+# Runtime command — use startup.sh for migrations + gunicorn
 CMD ["bash", "/app/startup.sh"]
