@@ -50,7 +50,7 @@ if railway_domain:
 # Railway terminates TLS at the proxy level and forwards
 # requests over HTTP internally. We must NOT redirect to HTTPS
 # ourselves or it will cause an infinite redirect loop.
-SECURE_SSL_REDIRECT = False
+SECURE_SSL_REDIRECT = True
 
 # Trust Railway's proxy header so request.is_secure() works correctly.
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
