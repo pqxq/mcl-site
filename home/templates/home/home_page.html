@@ -12,43 +12,73 @@
         <div class="hero-shape hero-shape-3"></div>
     </div>
     <div class="container h-100">
-        <div class="home-hero-grid row align-items-center justify-content-center h-100 gx-4 gy-2 gy-xl-5">
-            <div class="col-12 col-lg-7 col-xl-7">
-                <div class="hero-content home-hero-copy text-center" data-aos="fade-up">
-                    <span class="hero-badge">
-                        Миколаївський ліцей №9
-                    </span>
-                    <h1 class="hero-title">
-                        Ми відкриваємо для Вас
-                        <span class="highlight">світ знань!</span>
-                    </h1>
-                    <p class="hero-subtitle">
-                        Від успіхів у ліцеї – до успіхів у житті! Поєднуємо традиції класичної освіти з інноваціями та сучасними
-                        підходами до навчання.
-                    </p>
-                    <div class="hero-buttons d-flex flex-column flex-md-row flex-wrap gap-3 mt-3 justify-content-center">
-                        <a href="/publichna-informatsiia/vstup-do-litseiu/" class="btn btn-primary-custom btn-lg d-inline-flex align-items-center justify-content-center">
-                            <i class="bi bi-arrow-right-circle me-2"></i>Вступити до ліцею
-                        </a>
-                        <a href="/schedule/" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center">
-                            <i class="bi bi-calendar-week me-2"></i>Розклад занять
-                        </a>
-                        <a href="/pro-litsei/" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center btn-full">
-                            <i class="bi bi-info-circle me-2"></i>Дізнатися більше
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-8 col-sm-6 col-md-5 col-lg-5 col-xl-5 mx-auto pt-0 d-flex justify-content-center">
-                <div class="home-hero-visual d-flex align-items-center justify-content-center" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="hero-emblem-wrapper custom-emblem-scale">
-                        <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="hero-emblem img-fluid" width="220" height="220" loading="lazy" decoding="async">
+        <div class="home-hero-grid row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-11 col-xl-10 mx-auto">
+                <!-- Single Unified Hero Card (Same background for both text and emblem) -->
+                <div class="hero-content home-hero-card" data-aos="fade-up">
+                    <div class="row align-items-center justify-content-center g-4 g-lg-5 gx-xl-5">
+                        
+                        <!-- Mobile-only Emblem Logo (Centered at top of card on Mobile < 992px) -->
+                        <div class="col-12 d-lg-none text-center">
+                            <div class="hero-mobile-emblem">
+                                <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="hero-emblem-mobile" width="220" height="220" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+
+                        <!-- Hero Text Column (Centered on Desktop & Mobile) -->
+                        <div class="col-12 col-lg-7 text-center">
+                            <span class="hero-badge">
+                                Миколаївський ліцей №9
+                            </span>
+                            <h1 class="hero-title">
+                                Ми відкриваємо для Вас
+                                <span class="highlight">світ знань!</span>
+                            </h1>
+                            <p class="hero-subtitle">
+                                Від успіхів у ліцеї – до успіхів у житті! Поєднуємо традиції класичної освіти з інноваціями та сучасними
+                                підходами до навчання.
+                            </p>
+                            <div class="hero-buttons d-flex flex-column flex-md-row flex-wrap gap-3 mt-3 justify-content-center">
+                                <a href="/publichna-informatsiia/vstup-do-litseiu/" class="btn btn-primary-custom btn-lg d-inline-flex align-items-center justify-content-center">
+                                    <i class="bi bi-arrow-right-circle me-2"></i>Вступити до ліцею
+                                </a>
+                                <a href="/schedule/" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center">
+                                    <i class="bi bi-calendar-week me-2"></i>Розклад занять
+                                </a>
+                                <a href="/pro-litsei/" class="btn btn-outline-light btn-lg d-inline-flex align-items-center justify-content-center btn-full">
+                                    <i class="bi bi-info-circle me-2"></i>Дізнатися більше
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Desktop Emblem Column (Right side INSIDE the SAME card >= 992px, with extra left padding) -->
+                        <div class="col-12 col-lg-5 d-none d-lg-flex justify-content-center align-items-center ps-lg-4 ps-xl-5">
+                            <div class="home-hero-visual d-flex align-items-center justify-content-center" data-aos="zoom-in" data-aos-delay="200">
+                                <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="hero-emblem-desktop img-fluid" width="340" height="340" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+{% if page.announcement %}
+<section class="announcement-section" data-aos="fade-up">
+    <div class="container">
+        <div class="announcement-banner">
+            <div class="announcement-icon-wrapper">
+                <i class="bi bi-megaphone-fill"></i>
+            </div>
+            <div class="announcement-content">
+                {{ page.announcement|richtext }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
 
 <section class="home-stats-section">
     <div class="container">

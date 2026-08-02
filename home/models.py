@@ -19,13 +19,15 @@ class HomePage(Page):
         related_name='+',
         verbose_name="Посилання кнопки заклику"
     )
+    announcement = RichTextField(
+        "Оголошення",
+        blank=True,
+        help_text="Текст оголошення, що відображається на головній сторінці під шапкою. Залиште порожнім, щоб приховати."
+    )
 
     content_panels = Page.content_panels + [
-        FieldPanel('body'),
-        InlinePanel('hero_images', label="Слайдер на головній"),
+        FieldPanel('announcement'),
         InlinePanel('quick_links', label="Швидкі посилання"),
-        FieldPanel('cta_text'),
-        FieldPanel('cta_link'),
     ]
 
     # HomePage can contain any page type
@@ -41,7 +43,6 @@ class HomePage(Page):
 
     max_count = 1
 
-    @method_decorator(cache_page(60 * 15))
     def serve(self, request, *args, **kwargs):
         return super().serve(request, *args, **kwargs)
 
@@ -84,6 +85,12 @@ class HomePage(Page):
 
     class Meta:
         verbose_name = "Головна сторінка"
+
+    def save(self, *args, **kwargs):
+        # Clear page cache so announcement changes are visible immediately
+        from django.core.cache import cache
+        cache.clear()
+        return super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.title
@@ -153,7 +160,6 @@ class ContentPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
-        FieldPanel('featured_image'),
         FieldPanel('body'),
     ]
 
