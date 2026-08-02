@@ -9,6 +9,12 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
 
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+from wagtail.models import Page
+
+
+
 @register_snippet
 class SidebarSection(ClusterableModel):
     """A collapsible section in the sidebar with custom page links"""
@@ -29,6 +35,11 @@ class SidebarSection(ClusterableModel):
         FieldPanel('is_expanded'),
         InlinePanel('links', label="Посилання"),
     ]
+
+    @property
+    def valid_links(self):
+        """Returns only valid, live links for this section"""
+        return [link for link in self.links.all() if link.is_valid]
 
     def __str__(self) -> str:
         return self.title
@@ -62,17 +73,53 @@ class SidebarLink(Orderable):
     ]
 
     @property
+    def is_valid(self) -> bool:
+        """Check if link points to an active live page or valid external URL"""
+        if self.page_id:
+            try:
+                page = self.page
+                if page is None or not page.live:
+                    return False
+                return True
+            except Exception:
+                return False
+        return bool(self.external_url and self.external_url.strip())
+
+    @property
     def href(self) -> str:
-        if self.page:
-            return self.page.url
-        return self.external_url
+        if self.page_id:
+            try:
+                page = self.page
+                if page and page.live:
+                    return page.url or ""
+            except Exception:
+                pass
+        return self.external_url or ""
+
+    @property
+    def display_label(self) -> str:
+        if self.page_id:
+            try:
+                page = self.page
+                if page:
+                    return page.title
+            except Exception:
+                pass
+        return self.label
 
     def __str__(self) -> str:
-        return self.label
+        return self.display_label
 
     class Meta:
         verbose_name = "Посилання"
         verbose_name_plural = "Посилання"
+
+
+@receiver(post_delete, sender=Page)
+def cleanup_orphaned_sidebar_links_on_post_delete(sender, instance, **kwargs):
+    SidebarLink.objects.filter(models.Q(page__isnull=True) | models.Q(page_id=instance.pk), external_url="").delete()
+
+
 
 
 @register_setting

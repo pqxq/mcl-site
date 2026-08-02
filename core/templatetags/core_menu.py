@@ -31,8 +31,11 @@ PAGE_ICON_MAP = {
 
 @register.simple_tag
 def get_sidebar_sections():
-    """Get all sidebar sections with their links"""
-    return SidebarSection.objects.prefetch_related("links", "links__page")
+    """Get all sidebar sections with their valid live links"""
+    sections = SidebarSection.objects.prefetch_related("links", "links__page").all()
+    return [section for section in sections if section.valid_links]
+
+
 
 
 @register.simple_tag
