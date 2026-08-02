@@ -39,7 +39,8 @@ class Command(BaseCommand):
             self.stdout.write("News Index already exists")
 
         # 3. Create Admissions Page
-        if not ApplicationFormPage.objects.descendant_of(home).exists():
+        admissions_page = ApplicationFormPage.objects.descendant_of(home).first()
+        if not admissions_page:
             admissions_page = ApplicationFormPage(
                 title="Вступ",
                 intro="<p>Заповніть анкету для вступу до ліцею.</p>",
@@ -51,6 +52,31 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS("Created Admissions Page (admissions)"))
         else:
             self.stdout.write("Admissions Page already exists")
+
+        if admissions_page and admissions_page.form_fields.count() == 0:
+            from admissions.models import FormField
+            default_fields = [
+                ("ПІБ дитини", "singleline", True, "Прізвище, ім'я та по батькові дитини"),
+                ("Дата народження дитини", "date", True, "Дата народження майбутнього ліцеїста"),
+                ("Клас, до якого вступає дитина", "dropdown", True, ""),
+                ("ПІБ одного з батьків / опікуна", "singleline", True, "Прізвище, ім'я та по батькові батьків"),
+                ("Контактний телефон", "singleline", True, "Номер телефону для зв'язку (+380...)"),
+                ("Електронна пошта", "email", False, "Адреса електронної пошти"),
+                ("Фото або скан підписаної заяви", "file", True, "Завантажте фото або скан-копію заповненої та підписаної заяви за зразком (JPG, PNG, PDF)"),
+            ]
+            for label, ftype, req, help_txt in default_fields:
+                choices = "1 клас, 5 клас, 10 клас" if ftype == "dropdown" else ""
+                FormField.objects.create(
+                    page=admissions_page,
+                    label=label,
+                    field_type=ftype,
+                    required=req,
+                    choices=choices,
+                    help_text=help_txt
+                )
+            admissions_page.save_revision().publish()
+            self.stdout.write(self.style.SUCCESS("Populated default form fields for Admissions Page"))
+
 
         # 4. Create About Page
         if not AboutPage.objects.filter(slug='about').exists():

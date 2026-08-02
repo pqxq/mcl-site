@@ -1,5 +1,137 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}{{ page.title }} | Миколаївський ліцей №9{% endblock %}
+
+{% block extra_css %}
+<style>
+    .application-section {
+        padding: clamp(2.5rem, 5vw, 4.5rem) 0;
+        background-color: var(--gray-50, #f8fafc);
+    }
+
+    /* Google Forms Style Card for Fields */
+    .form-group-card {
+        background: #ffffff;
+        border: 1px solid var(--gray-200, #e2e8f0);
+        border-radius: 16px;
+        padding: 1.75rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .form-group-card:focus-within {
+        border-color: var(--primary, #1e3a5f);
+        box-shadow: 0 6px 20px rgba(30, 58, 95, 0.08);
+    }
+
+    .form-group-card label {
+        font-size: 1.05rem;
+        color: var(--primary, #1e3a5f);
+    }
+
+    /* Google Forms Style Attached Media / Sample Box */
+    .google-forms-sample-box {
+        background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+        border: 2px dashed var(--primary-light, #cbd5e1);
+        border-radius: 14px;
+        padding: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+
+    /* Realistic Paper Document Mockup */
+    .paper-sample {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        padding: 1.25rem;
+        font-family: 'Times New Roman', Times, serif;
+        color: #1e293b;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.02), 0 3px 8px rgba(0,0,0,0.04);
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .paper-sample .paper-head {
+        text-align: right;
+        margin-bottom: 1.25rem;
+        font-style: italic;
+    }
+
+    .paper-sample .paper-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        margin: 1rem 0;
+    }
+
+    .paper-sample .paper-body {
+        text-indent: 1.5rem;
+        text-align: justify;
+    }
+
+    .paper-sample .paper-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.5rem;
+    }
+
+    /* Upload Dropzone UI */
+    .file-upload-box {
+        background: #ffffff;
+        border: 2px dashed #94a3b8;
+        border-radius: 14px;
+        padding: 1.75rem 1.25rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .file-upload-box:hover, .file-upload-box.dragover {
+        border-color: var(--primary, #1e3a5f);
+        background: #f1f5f9;
+    }
+
+    .file-upload-box input[type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .file-upload-icon {
+        font-size: 2.5rem;
+        color: var(--primary, #1e3a5f);
+        margin-bottom: 0.5rem;
+    }
+
+    .file-preview-area {
+        display: none;
+        margin-top: 1rem;
+        padding: 0.875rem;
+        background: #f8fafc;
+        border-radius: 10px;
+        border: 1px solid #cbd5e1;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .file-preview-img {
+        max-width: 90px;
+        max-height: 90px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 1px solid #cbd5e1;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -8,29 +140,23 @@
     <div class="container">
         <div class="hero-content text-center">
             <h1 class="hero-title">{{ page.title }}</h1>
-            <div class="hero-subtitle">Форма</div>
+            <div class="hero-subtitle">Електронна форма подачі заяви</div>
         </div>
     </div>
-
 </section>
 
 <!-- Application Form Section -->
 <section class="application-section">
     <div class="container">
         <div class="row">
-            
             <div class="col-lg-8 mx-auto">
 
-                <div class="form-card">
-                    <div class="form-card-header">
-                        <i class="bi bi-pencil-square"></i>
-                        <span>Заповніть форму</span>
-                    </div>
-                    <form action="{% pageurl page %}" method="POST" id="applicationForm">
+                <div class="form-card p-0 bg-transparent border-0 shadow-none">
+                    <form action="{% pageurl page %}" method="POST" enctype="multipart/form-data" id="applicationForm">
                         {% csrf_token %}
 
                         {% if form.non_field_errors %}
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger mb-4" role="alert">
                             {% for error in form.non_field_errors %}
                             {{ error }}
                             {% endfor %}
@@ -38,15 +164,100 @@
                         {% endif %}
 
                         {% for field in form %}
-                        <div class="form-group">
-                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        <div class="form-group-card">
+                            <label for="{{ field.id_for_label }}" class="form-label font-weight-bold mb-2">
+                                {{ field.label }}
+                                {% if field.field.required %}<span class="text-danger">*</span>{% endif %}
+                            </label>
+
                             {% if field.help_text %}
-                            <div class="form-hint" id="{{ field.id_for_label }}-hint">{{ field.help_text }}</div>
+                            <div class="form-hint text-muted small mb-3" id="{{ field.id_for_label }}-hint">{{ field.help_text }}</div>
                             {% endif %}
 
-                            {{ field }}
+                            {% if 'file' in field.field_type or 'image' in field.field_type or 'file' in field.name or 'file' in field.id_for_label or 'заяв' in field.label|lower %}
+                            
+                            <!-- Google Forms Style Question Sample Attachment Block -->
+                            <div class="google-forms-sample-box">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <i class="bi bi-file-earmark-check fs-4 text-primary"></i>
+                                    <strong class="text-primary fs-6">Зразок заяви для написання від руки</strong>
+                                </div>
 
-                            <div class="invalid-feedback d-block" id="{{ field.id_for_label }}-errors">
+                                {% if page.sample_application_description %}
+                                <div class="small text-muted mb-3">
+                                    {{ page.sample_application_description|richtext }}
+                                </div>
+                                {% else %}
+                                <p class="small text-muted mb-3">
+                                    Напишіть заяву від руки за зразком нижче, підпишіть та зробіть фото або скан для завантаження:
+                                </p>
+                                {% endif %}
+
+                                {% if page.sample_application_image %}
+                                <!-- Uploaded Sample Image directly inside the question box -->
+                                <div class="text-center mb-3">
+                                    {% image page.sample_application_image max-800x600 class="img-fluid rounded border shadow-sm" alt="Зразок заяви" %}
+                                </div>
+                                {% else %}
+                                <!-- Interactive Paper Sample Mockup directly inside the question box -->
+                                <div class="paper-sample">
+                                    <div class="paper-head">
+                                        Директору Миколаївського ліцею №9<br>
+                                        ___________________________________<br>
+                                        <small class="text-muted">(ПІБ одного з батьків / опікуна)</small><br>
+                                        прож.: ____________________________<br>
+                                        тел.: _____________________________
+                                    </div>
+                                    <div class="paper-title">ЗАЯВА</div>
+                                    <div class="paper-body">
+                                        Прошу зарахувати мого(мою) сина/доньку __________________________________________________,<br>
+                                        "____" ____________ 20___ року народження, до ______ класу Миколаївського ліцею №9 з "____" ____________ 20___ року.
+                                    </div>
+                                    <div class="paper-footer">
+                                        <span>"____" ____________ 20___ р.</span>
+                                        <span>Підпис: ______________</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% if page.sample_application_document %}
+                                    <a href="{{ page.sample_application_document.url }}" download class="btn btn-sm btn-primary-custom">
+                                        <i class="bi bi-download me-1"></i>Завантажити бланк (.pdf/.docx)
+                                    </a>
+                                    {% endif %}
+
+                                    {% if page.sample_application_image %}
+                                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#sampleImageModal">
+                                        <i class="bi bi-fullscreen me-1"></i>Переглянути зразок у повному розмірі
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Dropzone File Upload Input for User Photo -->
+                            <div class="file-upload-box" id="dropzone-{{ field.id_for_label }}">
+                                <i class="bi bi-camera file-upload-icon"></i>
+                                <div>
+                                    <strong class="d-block text-primary fs-6">Прикріпити фото або скан вашої заяви</strong>
+                                    <span class="small text-muted">Натисніть або перетягніть файл сюди (JPG, PNG, PDF до 10 МБ)</span>
+                                </div>
+                                {{ field }}
+                            </div>
+
+                            <div class="file-preview-area mt-2" id="preview-{{ field.id_for_label }}">
+                                <img src="" alt="Прев'ю" class="file-preview-img d-none" id="img-preview-{{ field.id_for_label }}">
+                                <div class="file-info">
+                                    <strong id="filename-{{ field.id_for_label }}" class="d-block text-truncate" style="max-width: 250px;"></strong>
+                                    <span class="small text-muted" id="filesize-{{ field.id_for_label }}"></span>
+                                </div>
+                            </div>
+
+                            {% else %}
+                            {{ field }}
+                            {% endif %}
+
+                            <div class="invalid-feedback d-block mt-2" id="{{ field.id_for_label }}-errors">
                                 {% if field.errors %}
                                 {% for error in field.errors %}
                                 {{ error }}
@@ -56,33 +267,75 @@
                         </div>
                         {% endfor %}
 
-                        <div class="form-submit">
-                            <button type="submit" class="btn btn-primary-custom btn-lg" id="applicationSubmitBtn">
+                        <div class="form-submit mt-4">
+                            <button type="submit" class="btn btn-primary-custom btn-lg w-100 py-3 font-weight-bold" id="applicationSubmitBtn">
                                 <i class="bi bi-send me-2"></i>Надіслати заявку
                             </button>
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
 </section>
-<style>
-    .form-group input:focus-visible,
-    .form-group textarea:focus-visible,
-    .form-group select:focus-visible {
-        outline: 2px solid currentColor;
-        outline-offset: 2px;
-        border-color: var(--primary);
-    }
-</style>
+
+{% if page.sample_application_image %}
+<!-- Modal for Full Image View -->
+<div class="modal fade" id="sampleImageModal" tabindex="-1" aria-labelledby="sampleImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sampleImageModalLabel"><i class="bi bi-file-earmark-text me-2"></i>Зразок заяви на вступ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+            </div>
+            <div class="modal-body text-center p-3">
+                {% image page.sample_application_image max-1200x1200 class="img-fluid rounded" alt="Зразок заяви у повному розмірі" %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('applicationForm');
     const submitBtn = document.getElementById('applicationSubmitBtn');
-    if (!form || !submitBtn) {
-        return;
-    }
+    if (!form || !submitBtn) return;
+
+    // Handle File inputs preview
+    const fileInputs = form.querySelectorAll('input[type="file"]');
+    fileInputs.forEach(function (input) {
+        const fieldId = input.id;
+        const previewArea = document.getElementById('preview-' + fieldId);
+        const imgPreview = document.getElementById('img-preview-' + fieldId);
+        const filenameEl = document.getElementById('filename-' + fieldId);
+        const filesizeEl = document.getElementById('filesize-' + fieldId);
+
+        input.addEventListener('change', function () {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (filenameEl) filenameEl.textContent = file.name;
+                if (filesizeEl) filesizeEl.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' МБ';
+
+                if (file.type.startsWith('image/') && imgPreview) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        imgPreview.src = e.target.result;
+                        imgPreview.classList.remove('d-none');
+                    };
+                    reader.readAsDataURL(file);
+                } else if (imgPreview) {
+                    imgPreview.classList.add('d-none');
+                }
+
+                if (previewArea) previewArea.style.display = 'flex';
+            }
+        });
+    });
 
     form.querySelectorAll('input, select, textarea').forEach(function (field) {
         const hint = document.getElementById(field.id + '-hint');
@@ -95,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     form.addEventListener('submit', function () {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Надсилання...';
+        submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Надсилання заявки...';
     });
 });
 </script>
