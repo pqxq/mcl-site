@@ -8,7 +8,7 @@ from .models import ApplicationFormPage
 def _admissions_admin_url() -> str:
     page = ApplicationFormPage.objects.order_by("path").first()
     if page:
-        return reverse("wagtailadmin_explore", args=[page.id])
+        return reverse("wagtailadmin_pages:edit", args=[page.id])
     return reverse("wagtailadmin_explore_root")
 
 
