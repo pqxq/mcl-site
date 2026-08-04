@@ -2578,6 +2578,34 @@ img {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
+/* Rich text content inline formatting */
+u, .richtext-content u {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Rich text & text content links */
+.richtext-content a,
+.rich-text a,
+.article-content a,
+.article-body a,
+.page-content a:not(.btn):not(.card),
+p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not(.logo) {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+}
+
+.richtext-content a:hover,
+.rich-text a:hover,
+.article-content a:hover,
+.article-body a:hover,
+.page-content a:not(.btn):not(.card):hover,
+p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not(.logo):hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
 /* Rich text embedded images — Wagtail alignment classes */
 .article-content img,
 .richtext-image {
