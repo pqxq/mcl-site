@@ -2636,6 +2636,41 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     border-radius: 14px;
 }
 
+/* Rich text embedded videos */
+.responsive-object {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 2rem auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.responsive-object iframe,
+.responsive-object object,
+.responsive-object embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+/* Fallback for standalone iframes without responsive-object */
+.article-content iframe:not(.responsive-object iframe),
+.rich-text iframe:not(.responsive-object iframe) {
+    width: 100%;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin: 2rem auto;
+    display: block;
+}
+
 /* Clearfix for floated images */
 .article-content::after {
     content: '';
