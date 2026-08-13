@@ -49,12 +49,29 @@ class StaffIndexPage(Page):
             .values_list("department", flat=True)
             .distinct()
         )
-        departments = sorted(departments, key=str.casefold)
+
+        def department_sort_key(d):
+            if not d:
+                return (2, "")
+            d_lower = d.lower()
+            if "керівництво" in d_lower or "адміністрація" in d_lower:
+                return (0, d.casefold())
+            return (1, d.casefold())
+
+        departments = sorted(departments, key=department_sort_key)
 
         dept_filter = request.GET.get("department", "").strip()
         staff_members = base_queryset.order_by("-first_published_at")
         if dept_filter:
             staff_members = staff_members.filter(department=dept_filter)
+        else:
+            staff_members = sorted(
+                staff_members,
+                key=lambda p: (
+                    department_sort_key(p.department),
+                    -p.first_published_at.timestamp() if p.first_published_at else 0,
+                ),
+            )
 
         context["departments"] = departments
         context["staff_members"] = staff_members

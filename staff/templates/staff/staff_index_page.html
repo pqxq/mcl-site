@@ -47,7 +47,7 @@
     <section class="staff-grid-section">
         <div class="container">
             {% if staff_members %}
-            {% regroup staff_members|dictsort:"department" by department as grouped_people %}
+            {% regroup staff_members by department as grouped_people %}
 
             {% for group in grouped_people %}
             <div class="department-block">
