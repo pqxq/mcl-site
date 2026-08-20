@@ -113,6 +113,25 @@ a:hover {
     color: var(--accent);
 }
 
+.share-btn {
+    align-items: center;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    color: var(--gray-600);
+    font-size: 1.05rem;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.share-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 31, 51, 0.2);
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -1087,15 +1106,19 @@ img {
 
 /* ==================== FEATURE CARDS ==================== */
 .feature-card {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 16px;
     padding: 2rem;
     height: 100%;
-    transition: all 0.4s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
+
+
 
 .feature-card::before {
     content: '';
@@ -1111,8 +1134,8 @@ img {
 }
 
 .feature-card:hover {
-    border-color: transparent;
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: var(--shadow-lg), 0 10px 25px rgba(212, 175, 55, 0.15);
     transform: translateY(-8px);
 }
 
@@ -1363,18 +1386,21 @@ img {
 
 /* ==================== NEWS CARDS ==================== */
 .news-card {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
     border-radius: 16px;
     overflow: hidden;
     height: 100%;
-    transition: all 0.4s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    border: 1px solid var(--gray-100);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    cursor: pointer;
 }
 
 .news-card:hover {
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-lg), 0 10px 25px rgba(212, 175, 55, 0.15);
     transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.9);
 }
 
 .news-card-image {
@@ -1519,16 +1545,19 @@ img {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: var(--white);
-    border: 1px solid var(--gray-200);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 16px;
     padding: 2rem 1.5rem;
     text-align: center;
     text-decoration: none;
     height: 100%;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
 }
 
 .quick-link-card::before {
@@ -1545,8 +1574,8 @@ img {
 
 .quick-link-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-    border-color: transparent;
+    box-shadow: var(--shadow-lg), 0 8px 20px rgba(212, 175, 55, 0.15);
+    border-color: rgba(255, 255, 255, 0.9);
 }
 
 .quick-link-card:hover::before {
@@ -2013,27 +2042,33 @@ img {
 .filter-chip {
     display: inline-flex;
     align-items: center;
-    padding: 0.5rem 1rem;
-    background: var(--white);
-    border: 1px solid var(--gray-300);
+    padding: 0.5rem 1.25rem;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 50px;
     color: var(--gray-700);
     font-size: 0.875rem;
     font-weight: 500;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    cursor: pointer;
 }
 
 .filter-chip:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    background: rgba(30, 58, 95, 0.05);
+    border-color: var(--accent);
+    color: var(--primary-dark);
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
 }
 
 .filter-chip.active {
-    background: var(--primary);
-    border-color: var(--primary);
+    background: linear-gradient(135deg, var(--accent), #c4981e);
+    border-color: transparent;
     color: var(--white);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
 /* ==================== NEWS GRID SECTION ==================== */
@@ -2052,11 +2087,12 @@ img {
 .news-tag {
     display: inline-block;
     padding: 0.25rem 0.75rem;
-    background: rgba(30, 58, 95, 0.08);
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.3);
     border-radius: 50px;
     font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--primary);
+    font-weight: 600;
+    color: var(--primary-dark);
 }
 
 /* ==================== ARTICLE HERO ==================== */
@@ -2175,28 +2211,37 @@ img {
 
 /* ==================== ARTICLE CONTENT ==================== */
 .article-content-section {
-    padding: 3rem 0 5rem;
+    padding: 0 0 5rem;
     background: var(--gray-50);
-    margin-top: -2px;
+    position: relative;
+}
+
+.article-content-section > .container {
+    position: relative;
+    z-index: 2;
+    margin-top: -1.5rem;
 }
 
 .article-featured-image {
-    margin-bottom: 2.5rem;
-    border-radius: 16px;
+    margin-bottom: 2rem;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+    position: relative;
 }
 
 .article-featured-image img {
     width: 100%;
     height: auto;
+    display: block;
 }
 
 .article-body {
     background: var(--white);
-    border-radius: 16px;
-    padding: 2.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    padding: 2.75rem;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--gray-100);
     font-size: 1.1rem;
     line-height: 1.9;
     color: var(--gray-700);
@@ -2216,9 +2261,13 @@ img {
 
 .article-body img {
     max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
     height: auto;
-    border-radius: 12px;
-    margin: 2rem 0;
+    border-radius: 16px;
+    margin: 2rem auto;
+    display: block;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 .article-body blockquote {
@@ -2247,11 +2296,11 @@ img {
     flex-wrap: wrap;
     gap: 1.5rem;
     margin-top: 2rem;
-    padding-top: 2rem;
-    background: var(--white);
-    border-radius: 16px;
     padding: 1.5rem 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--gray-100);
 }
 
 .share-section {
@@ -2274,18 +2323,23 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: var(--gray-100);
-    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
     color: var(--gray-600);
-    font-size: 1rem;
-    transition: all 0.2s ease;
+    font-size: 1.05rem;
+    transition: all 0.25s ease;
+    cursor: pointer;
 }
 
 .share-btn:hover {
     background: var(--primary);
+    border-color: var(--primary);
     color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 31, 51, 0.2);
 }
 
 /* ==================== DOCUMENTS GRID ==================== */
@@ -2958,9 +3012,10 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 /* ==================== FOOTER ==================== */
 .site-footer {
     position: relative;
-    background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(180deg, var(--primary-dark) 0%, #08121f 100%);
     color: var(--white);
     margin-top: auto;
+    border-top: 2px solid var(--accent);
 }
 
 .footer-main {
@@ -3020,19 +3075,24 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     color: var(--white);
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
+    font-size: 1.25rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
 }
 
 .social-btn:hover {
-    background: var(--accent);
-    color: var(--primary-dark);
-    transform: translateY(-3px);
+    background: linear-gradient(135deg, var(--accent), #c4981e);
+    border-color: transparent;
+    color: var(--white);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
 /* Footer Sections */
@@ -3080,6 +3140,21 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.footer-nav a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent);
+    transform-origin: bottom left;
+    transition: transform 0.3s ease-out;
 }
 
 .footer-nav a i {
@@ -3090,12 +3165,18 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 }
 
 .footer-nav a:hover {
-    color: var(--accent);
+    color: var(--white);
+}
+
+.footer-nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }
 
 .footer-nav a:hover i {
     opacity: 1;
     transform: translateX(0);
+    color: var(--accent);
 }
 
 /* Contact List */
@@ -4617,13 +4698,17 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     max-width: 95%;
     max-height: 95%;
     object-fit: contain; /* Prevents stretching */
-    transition: transform 0.3s ease;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Slight zoom effect on the logo when hovering */
+/* Slight zoom and color effect on the logo when hovering */
 .template-home .home-stats-section .stat-item:hover img,
 .template-home .home-stats-section .stat-item:hover svg {
     transform: scale(1.08);
+    filter: grayscale(0%);
+    opacity: 1;
 }
 
 .template-home .home-stats-section .stat-number {
