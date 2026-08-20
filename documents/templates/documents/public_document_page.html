@@ -15,7 +15,8 @@
                 </ol>
             </nav>
             
-            <div class="hero-meta mb-3">
+            <h1 class="hero-title">{{ page.title }}</h1>
+            <div class="hero-meta mt-3">
                 <span class="hero-meta-item">
                     <i class="bi bi-calendar3 me-1"></i>
                     {{ page.date|date:"d.m.Y" }}
@@ -23,7 +24,6 @@
                 <span class="hero-meta-tag">{{ page.doc_type.name|default:"Інше" }}</span>
                 <span class="hero-meta-tag">{{ page.year }} рік</span>
             </div>
-            <h1 class="hero-title">{{ page.title }}</h1>
         </div>
     </div>
 

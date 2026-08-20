@@ -17,7 +17,11 @@
                 </ol>
             </nav>
 
-            <div class="hero-meta mb-3">
+            <h1 class="hero-title">{{ page.title }}</h1>
+            {% if page.intro %}
+            <p class="hero-subtitle">{{ page.intro }}</p>
+            {% endif %}
+            <div class="hero-meta mt-3">
                 <span class="hero-meta-item">
                     <i class="bi bi-calendar3 me-1"></i>
                     {{ page.date|date:"d E Y" }}
@@ -28,10 +32,6 @@
                 {% endfor %}
                 {% endif %}
             </div>
-            <h1 class="hero-title">{{ page.title }}</h1>
-            {% if page.intro %}
-            <p class="hero-subtitle">{{ page.intro }}</p>
-            {% endif %}
         </div>
     </div>
 </section>
