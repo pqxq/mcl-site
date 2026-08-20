@@ -1892,7 +1892,10 @@ img {
 
 /* Hero Breadcrumb — Glassmorphic pill */
 .hero-breadcrumb {
-    display: inline-flex;
+    display: flex;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -3300,7 +3303,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     }
 
     .footer-main {
-        padding: 3rem 0 2rem;
+        padding: 2rem 0 1.5rem;
     }
 
     .footer-emblem {
