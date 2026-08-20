@@ -594,7 +594,7 @@ img {
     .staff-hero,
     .news-hero,
     .documents-hero {
-        padding: 1.5rem 0 3rem;
+        padding: 1.25rem 0 2rem;
     }
 
     .page-hero h1,
@@ -1601,14 +1601,33 @@ img {
 /* ==================== PAGE HERO ==================== */
 .page-hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    padding: 4rem 0 5rem;
+    padding: 2.5rem 0 3rem;
     position: relative;
     overflow: hidden;
 }
 
+/* Decorative accent glow at bottom of hero */
+.page-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 120px;
+    background: radial-gradient(ellipse, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Exclude glow from home-hero (it has its own styling) */
+.home-hero.page-hero::after {
+    display: none;
+}
+
 /* Home Hero - larger variant */
 .home-hero.page-hero {
-    padding: 4rem 0 7rem;
+    padding: 3rem 0 5.5rem;
 }
 
 .home-hero .hero-emblem-wrapper {
@@ -1787,18 +1806,35 @@ img {
 }
 
 .page-hero .hero-title {
-    font-size: 2.75rem;
+    font-size: 2.5rem;
     color: var(--white);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     font-weight: 700;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+    position: relative;
+    display: inline-block;
+}
+
+/* Decorative gold accent underline */
+.page-hero:not(.home-hero) .hero-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    border-radius: 2px;
+    margin: 0.75rem auto 0;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
 }
 
 .page-hero .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: rgba(255, 255, 255, 0.85);
     max-width: 600px;
-    margin: 0 auto 2rem;
+    margin: 0 auto 1rem;
     line-height: 1.7;
+    letter-spacing: 0.01em;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
 }
 
 .page-hero.home-hero .hero-subtitle {
@@ -1825,7 +1861,17 @@ img {
     height: 62px;
 }
 
-/* Hero Breadcrumb */
+/* Hero Breadcrumb — Glassmorphic pill */
+.hero-breadcrumb {
+    display: inline-flex;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50px;
+    padding: 0.4rem 1.25rem;
+}
+
 .hero-breadcrumb .breadcrumb {
     background: none;
     padding: 0;
@@ -1833,9 +1879,10 @@ img {
 }
 
 .hero-breadcrumb .breadcrumb-item a {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.25s ease;
+    font-size: 0.9rem;
 }
 
 .hero-breadcrumb .breadcrumb-item a:hover {
@@ -1843,38 +1890,60 @@ img {
 }
 
 .hero-breadcrumb .breadcrumb-item.active {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
 }
 
 .hero-breadcrumb .breadcrumb-item+.breadcrumb-item::before {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.35);
 }
 
-/* Hero Meta */
+/* Hero Meta — Glassmorphic badges */
 .hero-meta {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.6rem;
 }
 
 .hero-meta-item {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     color: var(--accent);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 500;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 0.3rem 0.85rem;
+    transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.hero-meta-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(212, 175, 55, 0.25);
 }
 
 .hero-meta-tag {
     display: inline-block;
-    padding: 0.25rem 0.75rem;
-    background: rgba(255, 255, 255, 0.15);
+    padding: 0.3rem 0.85rem;
+    background: rgba(212, 175, 55, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: 50px;
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 500;
+    transition: background 0.25s ease;
+}
+
+.hero-meta-tag:hover {
+    background: rgba(212, 175, 55, 0.2);
 }
 
 /* ==================== FILTER SECTION ==================== */
@@ -2558,11 +2627,25 @@ img {
 /* ==================== CONTENT PAGES ==================== */
 /* Smaller page-hero variant */
 .page-hero-sm {
-    padding: 4rem 0 5rem;
+    padding: 2rem 0 2.25rem;
 }
 
 .page-hero-sm .hero-title {
     font-size: 2.25rem;
+}
+
+/* Accent glow dot for minimal hero */
+.page-hero-sm::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .standard-content-section,
@@ -2771,7 +2854,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     }
 
     .page-hero-sm {
-        padding: 3rem 0 4rem;
+        padding: 1.5rem 0 1.75rem;
     }
 
     .page-hero-sm .hero-title {
@@ -4812,5 +4895,37 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 
     .template-home .home-hero .hero-title {
         max-width: none;
+    }
+}
+
+/* ==================== HERO ENTRANCE ANIMATION ==================== */
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes accentGlow {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Apply entrance animation only when user allows motion */
+@media (prefers-reduced-motion: no-preference) {
+    .page-hero:not(.home-hero) .hero-content {
+        animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .page-hero:not(.home-hero) .hero-breadcrumb {
+        animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    }
+
+    .page-hero:not(.home-hero) .hero-title::after {
+        animation: accentGlow 3s ease-in-out infinite;
     }
 }

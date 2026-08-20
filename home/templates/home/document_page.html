@@ -4,15 +4,21 @@
 {% block title %}{{ page.title }} | Миколаївський ліцей №9{% endblock %}
 
 {% block content %}
+<section class="page-hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">{{ page.title }}</h1>
+            {% if page.intro %}
+            <div class="hero-subtitle">{{ page.intro|richtext }}</div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <h1 class="display-4 fw-bold mb-4">{{ page.title }}</h1>
-            {% if page.intro %}
-            <div class="lead text-muted mb-5">
-                {{ page.intro|richtext }}
-            </div>
-            {% endif %}
 
             {% if page.documents.all %}
             <div class="list-group">
