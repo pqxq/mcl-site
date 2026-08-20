@@ -6,7 +6,7 @@
 <section class="page-hero">
     <div class="hero-bg-pattern"></div>
     <div class="container">
-        <div class="hero-content">
+        <div class="hero-content text-center">
             <nav aria-label="breadcrumb" class="hero-breadcrumb mb-3">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="/"><i class="bi bi-house"></i></a></li>
@@ -15,17 +15,15 @@
                 </ol>
             </nav>
             
-            <div class="text-center">
-                <div class="hero-meta mb-3">
-                    <span class="hero-meta-item">
-                        <i class="bi bi-calendar3 me-1"></i>
-                        {{ page.date|date:"d.m.Y" }}
-                    </span>
-                    <span class="hero-meta-tag">{{ page.doc_type.name|default:"Інше" }}</span>
-                    <span class="hero-meta-tag">{{ page.year }} рік</span>
-                </div>
-                <h1 class="hero-title">{{ page.title }}</h1>
+            <div class="hero-meta mb-3">
+                <span class="hero-meta-item">
+                    <i class="bi bi-calendar3 me-1"></i>
+                    {{ page.date|date:"d.m.Y" }}
+                </span>
+                <span class="hero-meta-tag">{{ page.doc_type.name|default:"Інше" }}</span>
+                <span class="hero-meta-tag">{{ page.year }} рік</span>
             </div>
+            <h1 class="hero-title">{{ page.title }}</h1>
         </div>
     </div>
 

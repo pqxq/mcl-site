@@ -8,7 +8,7 @@
 <section class="page-hero">
     <div class="hero-bg-pattern"></div>
     <div class="container">
-        <div class="hero-content">
+        <div class="hero-content text-center">
             <nav aria-label="breadcrumb" class="hero-breadcrumb mb-3">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="/"><i class="bi bi-house"></i></a></li>
@@ -17,23 +17,21 @@
                 </ol>
             </nav>
 
-            <div class="text-center">
-                <div class="hero-meta mb-3">
-                    <span class="hero-meta-item">
-                        <i class="bi bi-calendar3 me-1"></i>
-                        {{ page.date|date:"d E Y" }}
-                    </span>
-                    {% if page.tags.all %}
-                    {% for tag in page.tags.all %}
-                    <span class="hero-meta-tag">{{ tag.name }}</span>
-                    {% endfor %}
-                    {% endif %}
-                </div>
-                <h1 class="hero-title">{{ page.title }}</h1>
-                {% if page.intro %}
-                <p class="hero-subtitle">{{ page.intro }}</p>
+            <div class="hero-meta mb-3">
+                <span class="hero-meta-item">
+                    <i class="bi bi-calendar3 me-1"></i>
+                    {{ page.date|date:"d E Y" }}
+                </span>
+                {% if page.tags.all %}
+                {% for tag in page.tags.all %}
+                <span class="hero-meta-tag">{{ tag.name }}</span>
+                {% endfor %}
                 {% endif %}
             </div>
+            <h1 class="hero-title">{{ page.title }}</h1>
+            {% if page.intro %}
+            <p class="hero-subtitle">{{ page.intro }}</p>
+            {% endif %}
         </div>
     </div>
 </section>
