@@ -4701,17 +4701,13 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     max-width: 95%;
     max-height: 95%;
     object-fit: contain; /* Prevents stretching */
-    filter: grayscale(100%);
-    opacity: 0.6;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Slight zoom and color effect on the logo when hovering */
+/* Slight zoom effect on the logo when hovering */
 .template-home .home-stats-section .stat-item:hover img,
 .template-home .home-stats-section .stat-item:hover svg {
     transform: scale(1.08);
-    filter: grayscale(0%);
-    opacity: 1;
 }
 
 .template-home .home-stats-section .stat-number {
