@@ -62,7 +62,7 @@
 
                     {% if page.announcement %}
                     <div class="hero-announcement mt-4 pt-3 pt-lg-4 border-top border-white border-opacity-10">
-                        <div class="hero-announcement-banner d-flex align-items-center gap-3">
+                        <div class="hero-announcement-banner d-flex align-items-start gap-3">
                             <div class="hero-announcement-icon-wrapper flex-shrink-0">
                                 <i class="bi bi-megaphone-fill"></i>
                             </div>
@@ -78,33 +78,33 @@
     </div>
 </section>
 
-<section class="home-stats-section">
+<section class="home-stats-section" aria-label="Партнери та офіційні ресурси">
     <div class="container">
         <div class="stats-row">
             <div class="stat-item" data-aos="fade-up" data-aos-delay="0">
-                <a href="https://mon.gov.ua/" target="_blank" rel="noopener noreferrer">
-                        <img src="{% static 'images/mon.png' %}" alt="MON">
-                    </a>
+                <a href="https://mon.gov.ua/" target="_blank" rel="noopener noreferrer" title="Міністерство освіти і науки України" aria-label="Міністерство освіти і науки України">
+                    <img src="{% static 'images/mon.png' %}" alt="Міністерство освіти і науки України" loading="lazy" decoding="async">
+                </a>
             </div>
             <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-                <a href="https://sqe.gov.ua/" target="_blank" rel="noopener noreferrer">
-                        <img src="{% static 'images/sqe.svg' %}" alt="SQE">
-                    </a>
+                <a href="https://sqe.gov.ua/" target="_blank" rel="noopener noreferrer" title="Державна служба якості освіти України" aria-label="Державна служба якості освіти України">
+                    <img src="{% static 'images/sqe.svg' %}" alt="Державна служба якості освіти України" loading="lazy" decoding="async">
+                </a>
             </div>
             <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-                <a href="https://oblosvita.mk.gov.ua/" target="_blank" rel="noopener noreferrer">
-                        <img src="{% static 'images/oblosvita.svg' %}" alt="Oblosvita">
-                    </a>
+                <a href="https://oblosvita.mk.gov.ua/" target="_blank" rel="noopener noreferrer" title="Департамент освіти і науки Миколаївської ОДА" aria-label="Департамент освіти і науки Миколаївської ОДА">
+                    <img src="{% static 'images/oblosvita.svg' %}" alt="Департамент освіти і науки Миколаївської ОДА" loading="lazy" decoding="async">
+                </a>
             </div>
             <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-                <a href="https://osvita.mkrada.gov.ua/" target="_blank" rel="noopener noreferrer">
-                        <img src="{% static 'images/mkrada.png' %}" alt="Управління освіти Миколаївської міської ради">
-                    </a>
+                <a href="https://osvita.mkrada.gov.ua/" target="_blank" rel="noopener noreferrer" title="Управління освіти Миколаївської міської ради" aria-label="Управління освіти Миколаївської міської ради">
+                    <img src="{% static 'images/mkrada.png' %}" alt="Управління освіти Миколаївської міської ради" loading="lazy" decoding="async">
+                </a>
             </div>
             <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
-                <a href="https://legalaid.gov.ua/" target="_blank" rel="noopener noreferrer">
-                        <img src="{% static 'images/legalaid.svg' %}" alt="Legalaid">
-                    </a>
+                <a href="https://legalaid.gov.ua/" target="_blank" rel="noopener noreferrer" title="Безоплатна правнича допомога" aria-label="Безоплатна правнича допомога">
+                    <img src="{% static 'images/legalaid.svg' %}" alt="Безоплатна правнича допомога" loading="lazy" decoding="async">
+                </a>
             </div>
         </div>
     </div>

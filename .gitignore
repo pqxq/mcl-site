@@ -55,3 +55,5 @@ Thumbs.db
 *.tmp
 
 db.sqlite3
+
+.agent/
