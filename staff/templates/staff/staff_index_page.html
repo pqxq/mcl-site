@@ -82,10 +82,11 @@
                             {% if person.subjects.all %}
                             <div class="staff-subjects">
                                 {% for item in person.subjects.all %}
-                                <span class="subject-badge">{{ item.name }}</span>
+                                <span class="subject-badge">{{ item.name|capfirst }}</span>
                                 {% endfor %}
                             </div>
                             {% endif %}
+
                         </div>
                         <div class="card-footer">
                             <a href="{% pageurl person %}" class="profile-link">

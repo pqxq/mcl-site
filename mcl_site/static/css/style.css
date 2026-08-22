@@ -6043,29 +6043,42 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--gray-500);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.65rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 
 .person-subject-chip {
     display: inline-flex;
     align-items: center;
-    padding: 0.4rem 0.85rem;
+    gap: 0.5rem;
+    padding: 0.45rem 1rem;
     background: #f8fafc;
     color: var(--primary);
     border: 1px solid var(--gray-200);
-    border-radius: 8px;
-    font-size: 0.875rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
     font-weight: 500;
+    text-transform: capitalize;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     transition: all 0.2s ease;
+}
+
+.person-subject-chip i {
+    color: var(--accent);
+    font-size: 0.95rem;
+    flex-shrink: 0;
 }
 
 .person-subject-chip:hover {
     background: var(--white);
     border-color: var(--accent);
     color: #946f0e;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
     transform: translateY(-1px);
 }
+
 
 .person-info-tile {
     padding: 1.25rem;

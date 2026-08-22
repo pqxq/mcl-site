@@ -54,17 +54,19 @@
                     {% if page.subjects.all %}
                     <div class="mb-4">
                         <div class="person-section-label">
-                            <i class="bi bi-book-half me-1"></i> Предмети
+                            <i class="bi bi-book-half" style="color: var(--accent);"></i> Предмети викладання
                         </div>
                         <div class="d-flex flex-wrap gap-2">
                             {% for item in page.subjects.all %}
                             <span class="person-subject-chip">
-                                <i class="bi bi-journal-check me-1.5"></i>{{ item.name }}
+                                <i class="bi bi-mortarboard-fill"></i>
+                                <span>{{ item.name|capfirst }}</span>
                             </span>
                             {% endfor %}
                         </div>
                     </div>
                     {% endif %}
+
 
                     {% if page.education or page.category or page.experience %}
                     <div class="row mb-4 g-3">
