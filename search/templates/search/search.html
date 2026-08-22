@@ -148,20 +148,33 @@
             {% else %}
                 <div class="search-empty">
                     <div class="empty-icon">
-                        <i class="bi bi-lightbulb"></i>
+                        <i class="bi bi-lightbulb-fill"></i>
                     </div>
                     <h2>Введіть пошуковий запит</h2>
-                    <p>Почніть вводити текст у поле пошуку вище</p>
+                    <p>Почніть вводити ключові слова у поле пошуку вище</p>
                     <div class="popular-searches">
-                        <p><strong>Популярні запити:</strong></p>
+                        <p>Популярні запити:</p>
                         <div class="search-tags">
-                            <a href="{% url 'search' %}?query=новини" class="search-tag">Новини</a>
-                            <a href="{% url 'search' %}?query=розклад" class="search-tag">Розклад</a>
-                            <a href="{% url 'search' %}?query=документи" class="search-tag">Документи</a>
-                            <a href="{% url 'search' %}?query=вступ" class="search-tag">Вступ</a>
+                            <a href="{% url 'search' %}?query=новини" class="search-tag">
+                                <i class="bi bi-newspaper"></i>
+                                <span>Новини</span>
+                            </a>
+                            <a href="{% url 'search' %}?query=розклад" class="search-tag">
+                                <i class="bi bi-calendar3"></i>
+                                <span>Розклад</span>
+                            </a>
+                            <a href="{% url 'search' %}?query=документи" class="search-tag">
+                                <i class="bi bi-file-earmark-text"></i>
+                                <span>Документи</span>
+                            </a>
+                            <a href="{% url 'search' %}?query=вступ" class="search-tag">
+                                <i class="bi bi-mortarboard"></i>
+                                <span>Вступ</span>
+                            </a>
                         </div>
                     </div>
                 </div>
+
             {% endif %}
         </div>
     </section>
