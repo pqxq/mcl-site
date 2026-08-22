@@ -6000,6 +6000,123 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     object-fit: cover;
 }
 
+.person-name {
+    font-size: clamp(1.6rem, 2.5vw, 2.25rem);
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+}
+
+.person-position-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: rgba(212, 175, 55, 0.12);
+    color: #946f0e;
+    border: 1px solid rgba(212, 175, 55, 0.28);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.925rem;
+    line-height: 1.4;
+    transition: all 0.2s ease;
+}
+
+.person-department-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: rgba(13, 31, 51, 0.05);
+    color: var(--primary);
+    border: 1px solid rgba(13, 31, 51, 0.12);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    transition: all 0.2s ease;
+}
+
+.person-section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-500);
+    margin-bottom: 0.5rem;
+}
+
+.person-subject-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.85rem;
+    background: #f8fafc;
+    color: var(--primary);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.person-subject-chip:hover {
+    background: var(--white);
+    border-color: var(--accent);
+    color: #946f0e;
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+}
+
+.person-info-tile {
+    padding: 1.25rem;
+    background: #f8fafc;
+    border-radius: 14px;
+    border: 1px solid var(--gray-200);
+    border-top: 3px solid var(--accent);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease;
+}
+
+.person-info-tile:hover {
+    background: var(--white);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--gray-300);
+    border-top-color: var(--accent);
+}
+
+.person-info-tile .tile-icon {
+    font-size: 1.25rem;
+    color: var(--accent-dark, #b8860b);
+    margin-bottom: 0.5rem;
+}
+
+.person-info-tile .tile-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-500);
+    margin-bottom: 0.35rem;
+}
+
+.person-info-tile .tile-value {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 0.95rem;
+    line-height: 1.4;
+    flex-grow: 1;
+}
+
+.person-bio-text {
+    line-height: 1.8;
+    color: var(--gray-700);
+    font-size: 1rem;
+}
+
+
 /* ==================== SCHEDULE COMPONENTS ==================== */
 .schedule-section {
     padding: 2rem 0 4rem;
