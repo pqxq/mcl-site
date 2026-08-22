@@ -276,15 +276,6 @@
         line-height: 1;
         pointer-events: none;
     }
-    .about-intro-lead {
-        font-size: clamp(1.15rem, 1.5vw, 1.3rem);
-        font-weight: 600;
-        color: var(--primary, #0d1f33);
-        line-height: 1.7;
-        margin-bottom: 1.25rem;
-        position: relative;
-        z-index: 1;
-    }
     .about-intro-body {
         font-size: 1.05rem;
         line-height: 1.85;
@@ -865,56 +856,75 @@
                 <div class="about-breadcrumb">
                     <a href="/"><i class="bi bi-house-door me-1"></i>Головна</a>
                     <span class="separator"><i class="bi bi-chevron-right"></i></span>
-                    <span class="active">Про ліцей</span>
+                    <span class="active">{{ page.title }}</span>
                 </div>
             </nav>
             
             <!-- Emblem with Halo Effect -->
             <div class="about-hero-emblem-wrapper">
                 <div class="about-hero-emblem-halo"></div>
-                <img src="{% static 'images/emblem.png' %}" alt="Герб Миколаївського ліцею №9" class="about-hero-emblem" width="220" height="220" loading="eager" decoding="async">
+                <img src="{% static 'images/emblem.png' %}" alt="Герб закладу" class="about-hero-emblem" width="220" height="220" loading="eager" decoding="async">
             </div>
             
+            {% if page.hero_badge %}
             <div class="mb-2">
                 <span class="hero-badge">
                     <i class="bi bi-patch-check-fill me-1" style="color: var(--accent);"></i>
-                    Миколаївський ліцей №9
+                    {{ page.hero_badge }}
                 </span>
             </div>
+            {% endif %}
             
             <h1 class="hero-title" style="text-wrap: balance;">{{ page.title }}</h1>
             
+            {% if page.subtitle %}
             <p class="hero-subtitle">
-                {{ page.subtitle|default:"Сучасний освітній заклад для обдарованої молоді — поєднуємо академічні традиції, інноваційні методики та європейські стандарти освіти." }}
+                {{ page.subtitle }}
             </p>
+            {% endif %}
 
-            <!-- Quick Jump Anchor Links -->
+            <!-- Quick Jump Anchor Links (Dynamic based on available sections) -->
             <div class="about-quick-nav-wrapper">
+                {% if page.intro %}
                 <a href="#about-intro" class="about-quick-nav-item">
                     <i class="bi bi-info-circle"></i> Про нас
                 </a>
+                {% endif %}
+                {% if page.mission or page.values or page.value_pillars.all %}
                 <a href="#about-values" class="about-quick-nav-item">
                     <i class="bi bi-bullseye"></i> Місія та цінності
                 </a>
+                {% endif %}
+                {% if page.academic_profiles.all %}
                 <a href="#about-profiles" class="about-quick-nav-item">
                     <i class="bi bi-mortarboard"></i> Напрями навчання
                 </a>
+                {% endif %}
                 {% if about_subpages %}
                 <a href="#about-subpages" class="about-quick-nav-item">
                     <i class="bi bi-diagram-3"></i> Структура
                 </a>
                 {% endif %}
+                {% if page.building_image or page.facilities.all %}
                 <a href="#about-facilities" class="about-quick-nav-item">
                     <i class="bi bi-shield-check"></i> Освітній простір
                 </a>
+                {% endif %}
                 {% if page.history %}
                 <a href="#about-history" class="about-quick-nav-item">
                     <i class="bi bi-clock-history"></i> Історія
                 </a>
                 {% endif %}
+                {% if page.achievements %}
+                <a href="#about-achievements" class="about-quick-nav-item">
+                    <i class="bi bi-award-fill"></i> Досягнення
+                </a>
+                {% endif %}
+                {% if page.faqs.all %}
                 <a href="#about-faq" class="about-quick-nav-item">
                     <i class="bi bi-question-circle"></i> Запитання
                 </a>
+                {% endif %}
             </div>
 
         </div>
@@ -922,51 +932,29 @@
 </section>
 
 <!-- ==================== KEY STATS & METRICS ==================== -->
+{% if page.stats.all %}
 <section class="about-section about-section-white">
     <div class="container">
         <div class="about-stats-grid" data-aos="fade-up">
-            
+            {% for stat in page.stats.all %}
             <div class="about-stat-card">
                 <div class="about-stat-icon-box">
-                    <i class="bi bi-calendar-check"></i>
+                    <i class="bi {{ stat.icon|default:'bi-calendar-check' }}"></i>
                 </div>
-                <div class="about-stat-val">{{ page.founded_year|default:"1991" }}</div>
-                <div class="about-stat-title">Рік заснування</div>
-                <p class="about-stat-desc">Понад 30 років академічних традицій</p>
+                <div class="about-stat-val">{{ stat.number }}</div>
+                <div class="about-stat-title">{{ stat.title }}</div>
+                {% if stat.description %}
+                <p class="about-stat-desc">{{ stat.description }}</p>
+                {% endif %}
             </div>
-            
-            <div class="about-stat-card">
-                <div class="about-stat-icon-box">
-                    <i class="bi bi-people-fill"></i>
-                </div>
-                <div class="about-stat-val">{{ page.students_count|default:"500" }}+</div>
-                <div class="about-stat-title">Учнів ліцею</div>
-                <p class="about-stat-desc">Дружня ліцейна родина однодумців</p>
-            </div>
-            
-            <div class="about-stat-card">
-                <div class="about-stat-icon-box">
-                    <i class="bi bi-person-badge-fill"></i>
-                </div>
-                <div class="about-stat-val">{{ page.teachers_count|default:"45+" }}</div>
-                <div class="about-stat-title">Педагогів</div>
-                <p class="about-stat-desc">Вчителі вищої категорії та методисти</p>
-            </div>
-            
-            <div class="about-stat-card">
-                <div class="about-stat-icon-box">
-                    <i class="bi bi-trophy-fill"></i>
-                </div>
-                <div class="about-stat-val">100%</div>
-                <div class="about-stat-title">Вступ до ЗВО</div>
-                <p class="about-stat-desc">Успішне складання НМТ та ДПА</p>
-            </div>
-            
+            {% endfor %}
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- ==================== EXECUTIVE INTRODUCTION ==================== -->
+{% if page.intro %}
 <section id="about-intro" class="about-section about-section-gray">
     <div class="container">
         <div class="row justify-content-center">
@@ -976,40 +964,29 @@
                         <i class="bi bi-stars"></i> Простір можливостей
                     </div>
                     
-                    {% if page.intro %}
-                        <div class="about-intro-body">
-                            {{ page.intro|richtext }}
-                        </div>
-                    {% else %}
-                        <p class="about-intro-lead">
-                            Миколаївський ліцей №9 — це сучасний, відкритий та інноваційний освітній простір, спрямований на всебічний розвиток інтелектуальних, творчих та лідерських здібностей кожної дитини.
-                        </p>
-                        <p class="about-intro-body">
-                            Ми створюємо умови, за яких навчання стає захоплюючим процесом відкриття знань. Наш заклад поєднує фундаментальну академічну підготовку з формуванням практичних компетенцій XXI століття: критичного мислення, цифрової грамотності, командної взаємодії та креативності.
-                        </p>
-                    {% endif %}
-
-                    <div class="about-intro-highlights">
-                        <div class="about-intro-pill">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>Поглиблене вивчення предметів</span>
-                        </div>
-                        <div class="about-intro-pill">
-                            <i class="bi bi-shield-lock-fill"></i>
-                            <span>Безпечне освітнє середовище</span>
-                        </div>
-                        <div class="about-intro-pill">
-                            <i class="bi bi-laptop"></i>
-                            <span>Сучасні цифрові інструменти</span>
-                        </div>
+                    <div class="about-intro-body">
+                        {{ page.intro|richtext }}
                     </div>
+
+                    {% if page.highlights.all %}
+                    <div class="about-intro-highlights">
+                        {% for hl in page.highlights.all %}
+                        <div class="about-intro-pill">
+                            <i class="bi {{ hl.icon|default:'bi-check-circle-fill' }}"></i>
+                            <span>{{ hl.title }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- ==================== MISSION, VISION & CORE VALUES ==================== -->
+{% if page.mission or page.values or page.value_pillars.all %}
 <section id="about-values" class="about-section about-section-white">
     <div class="container">
         <div class="about-section-header" data-aos="fade-up">
@@ -1023,157 +1000,96 @@
         <div class="row g-4 align-items-stretch">
             
             <!-- Mission Card -->
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            {% if page.mission %}
+            <div class="{% if page.values or page.value_pillars.all %}col-lg-6{% else %}col-12{% endif %}" data-aos="fade-up" data-aos-delay="100">
                 <div class="bento-card">
                     <div class="bento-icon-wrapper">
                         <i class="bi bi-bullseye"></i>
                     </div>
-                    <h3 class="bento-title">Наша місія</h3>
+                    <h3 class="bento-title">{{ page.mission_title|default:"Наша місія" }}</h3>
                     <div class="bento-content">
-                        {% if page.mission %}
-                            {{ page.mission|richtext }}
-                        {% else %}
-                            <p>
-                                Формування високоосвіченої, національно свідомої, творчої та всебічно розвиненої особистості, здатної до самореалізації в сучасному динамічному світі.
-                            </p>
-                            <p>
-                                Ми прагнемо забезпечити рівний доступ до якісної профільної освіти, розвивати лідерські якості, наукову допитливість та готовність до викликів майбутнього.
-                            </p>
-                        {% endif %}
+                        {{ page.mission|richtext }}
                     </div>
                 </div>
             </div>
+            {% endif %}
 
             <!-- Values Card -->
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            {% if page.values or page.value_pillars.all %}
+            <div class="{% if page.mission %}col-lg-6{% else %}col-12{% endif %}" data-aos="fade-up" data-aos-delay="200">
                 <div class="bento-card">
                     <div class="bento-icon-wrapper">
                         <i class="bi bi-heart-fill"></i>
                     </div>
-                    <h3 class="bento-title">Цінності ліцею</h3>
+                    <h3 class="bento-title">{{ page.values_title|default:"Цінності ліцею" }}</h3>
                     <div class="bento-content">
                         {% if page.values %}
                             {{ page.values|richtext }}
-                        {% else %}
-                            <ul class="bento-pillars-list">
+                        {% endif %}
+
+                        {% if page.value_pillars.all %}
+                            <ul class="bento-pillars-list {% if page.values %}mt-3 pt-3 border-top{% endif %}">
+                                {% for pillar in page.value_pillars.all %}
                                 <li class="bento-pillar-item">
-                                    <i class="bi bi-mortarboard-fill bento-pillar-icon"></i>
+                                    <i class="bi {{ pillar.icon|default:'bi-mortarboard-fill' }} bento-pillar-icon"></i>
                                     <div class="bento-pillar-text">
-                                        <strong>Академічна якість та доброчесність</strong>
-                                        <span>Глибокі знання, чесність у навчанні та прагнення до самовдосконалення.</span>
+                                        <strong>{{ pillar.title }}</strong>
+                                        <span>{{ pillar.description }}</span>
                                     </div>
                                 </li>
-                                <li class="bento-pillar-item">
-                                    <i class="bi bi-people-fill bento-pillar-icon"></i>
-                                    <div class="bento-pillar-text">
-                                        <strong>Партнерство та взаємоповага</strong>
-                                        <span>Довіра і відкритий діалог між учнями, педагогами та батьками.</span>
-                                    </div>
-                                </li>
-                                <li class="bento-pillar-item">
-                                    <i class="bi bi-lightbulb-fill bento-pillar-icon"></i>
-                                    <div class="bento-pillar-text">
-                                        <strong>Інновації та творчість</strong>
-                                        <span>Впровадження сучасних методик, STEM-освіти та підтримка креативних ідей.</span>
-                                    </div>
-                                </li>
-                                <li class="bento-pillar-item">
-                                    <i class="bi bi-shield-fill-check bento-pillar-icon"></i>
-                                    <div class="bento-pillar-text">
-                                        <strong>Безпека та психологічний комфорт</strong>
-                                        <span>Турбота про фізичне і ментальне здоров'я кожної дитини.</span>
-                                    </div>
-                                </li>
+                                {% endfor %}
                             </ul>
                         {% endif %}
                     </div>
                 </div>
             </div>
+            {% endif %}
 
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- ==================== ACADEMIC PROFILES & PRIORITIES ==================== -->
+{% if page.academic_profiles.all %}
 <section id="about-profiles" class="about-section about-section-gray">
     <div class="container">
         <div class="about-section-header" data-aos="fade-up">
             <span class="about-section-badge">
                 <i class="bi bi-book"></i> Профільне навчання
             </span>
-            <h2 class="about-section-title">Освітні напрями та пріоритети</h2>
-            <p class="about-section-subtitle">Обирайте напрям, який відповідає талантам і прагненням майбутнього ліцеїста</p>
+            <h2 class="about-section-title">{{ page.profiles_title|default:"Освітні напрями та пріоритети" }}</h2>
+            {% if page.profiles_subtitle %}
+            <p class="about-section-subtitle">{{ page.profiles_subtitle }}</p>
+            {% endif %}
         </div>
 
         <div class="row g-4">
-            
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
+            {% for profile in page.academic_profiles.all %}
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
                 <div class="profile-card">
-                    <span class="profile-badge">Точні науки</span>
+                    {% if profile.badge %}
+                    <span class="profile-badge">{{ profile.badge }}</span>
+                    {% endif %}
                     <div class="profile-icon">
-                        <i class="bi bi-cpu-fill"></i>
+                        <i class="bi {{ profile.icon|default:'bi-cpu-fill' }}"></i>
                     </div>
-                    <h3 class="profile-title">Математика & IT</h3>
-                    <p class="profile-desc">Поглиблене вивчення алгебри, геометрії, інформатики, алгоритмізації та комп'ютерного моделювання.</p>
+                    <h3 class="profile-title">{{ profile.title }}</h3>
+                    <p class="profile-desc">{{ profile.description }}</p>
+                    {% if profile.get_tag_list %}
                     <div class="profile-tags">
-                        <span class="profile-tag">Математика</span>
-                        <span class="profile-tag">Інформатика</span>
-                        <span class="profile-tag">Алгоритми</span>
+                        {% for tag in profile.get_tag_list %}
+                        <span class="profile-tag">{{ tag }}</span>
+                        {% endfor %}
                     </div>
+                    {% endif %}
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="profile-card">
-                    <span class="profile-badge">Мови та світ</span>
-                    <div class="profile-icon">
-                        <i class="bi bi-translate"></i>
-                    </div>
-                    <h3 class="profile-title">Філологічний напрям</h3>
-                    <p class="profile-desc">Академічна українська та англійська мови, розвиток мовлення, дебатні практики та зарубіжна література.</p>
-                    <div class="profile-tags">
-                        <span class="profile-tag">Англійська мова</span>
-                        <span class="profile-tag">Українська мова</span>
-                        <span class="profile-tag">Література</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="profile-card">
-                    <span class="profile-badge">Дослідження</span>
-                    <div class="profile-icon">
-                        <i class="bi bi-flask-fill"></i>
-                    </div>
-                    <h3 class="profile-title">STEM & Природничі</h3>
-                    <p class="profile-desc">Практичні лабораторні роботи з фізики, хімії та біології, участь у наукових дослідженнях Малої академії наук.</p>
-                    <div class="profile-tags">
-                        <span class="profile-tag">Фізика</span>
-                        <span class="profile-tag">Хімія</span>
-                        <span class="profile-tag">Біологія</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="profile-card">
-                    <span class="profile-badge">Суспільство</span>
-                    <div class="profile-icon">
-                        <i class="bi bi-bank"></i>
-                    </div>
-                    <h3 class="profile-title">Суспільно-гуманітарний</h3>
-                    <p class="profile-desc">Історія України, правознавство, основи економіки, громадянська освіта та лідерські проєкти.</p>
-                    <div class="profile-tags">
-                        <span class="profile-tag">Історія</span>
-                        <span class="profile-tag">Право</span>
-                        <span class="profile-tag">Лідерство</span>
-                    </div>
-                </div>
-            </div>
-
+            {% endfor %}
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- ==================== SUBPAGE DIRECTORY HUB ==================== -->
 {% if about_subpages %}
@@ -1183,8 +1099,10 @@
             <span class="about-section-badge">
                 <i class="bi bi-diagram-3"></i> Структура закладу
             </span>
-            <h2 class="about-section-title">Розділи про наш ліцей</h2>
-            <p class="about-section-subtitle">Ознайомтеся з історією, адміністрацією, педагогічним колективом та службами ліцею</p>
+            <h2 class="about-section-title">{{ page.subpages_title|default:"Розділи про наш ліцей" }}</h2>
+            {% if page.subpages_subtitle %}
+            <p class="about-section-subtitle">{{ page.subpages_subtitle }}</p>
+            {% endif %}
         </div>
 
         <div class="row g-4">
@@ -1212,14 +1130,17 @@
 {% endif %}
 
 <!-- ==================== CAMPUS, ENVIRONMENT & SAFETY ==================== -->
+{% if page.building_image or page.facilities.all %}
 <section id="about-facilities" class="about-section about-section-gray">
     <div class="container">
         <div class="about-section-header" data-aos="fade-up">
             <span class="about-section-badge">
                 <i class="bi bi-building"></i> Інфраструктура
             </span>
-            <h2 class="about-section-title">Сучасний освітній простір</h2>
-            <p class="about-section-subtitle">Створюємо комфортні, безпечні та високотехнологічні умови для кожного ліцеїста</p>
+            <h2 class="about-section-title">{{ page.facilities_title|default:"Сучасний освітній простір" }}</h2>
+            {% if page.facilities_subtitle %}
+            <p class="about-section-subtitle">{{ page.facilities_subtitle }}</p>
+            {% endif %}
         </div>
 
         <div class="facility-box" data-aos="fade-up">
@@ -1227,56 +1148,28 @@
             {% if page.building_image %}
             <div class="facility-hero-img-wrap">
                 {% image page.building_image width-1400 format-webp as building_img %}
-                <img src="{{ building_img.url }}" width="{{ building_img.width }}" height="{{ building_img.height }}" loading="lazy" decoding="async" alt="{{ building_img.alt|default:'Будівля Миколаївського ліцею №9' }}" class="facility-hero-img">
+                <img src="{{ building_img.url }}" width="{{ building_img.width }}" height="{{ building_img.height }}" loading="lazy" decoding="async" alt="{{ building_img.alt|default:page.title }}" class="facility-hero-img">
                 <div class="facility-overlay">
-                    <h3>Миколаївський ліцей №9</h3>
+                    <h3>{{ page.title }}</h3>
                 </div>
             </div>
             {% endif %}
 
+            {% if page.facilities.all %}
             <div class="facility-features-grid">
-                
+                {% for facility in page.facilities.all %}
                 <div class="facility-feature-item">
                     <div class="facility-feature-icon">
-                        <i class="bi bi-shield-check"></i>
+                        <i class="bi {{ facility.icon|default:'bi-shield-check' }}"></i>
                     </div>
                     <div class="facility-feature-text">
-                        <h4>Сертифіковане укриття</h4>
-                        <p>Обладнане захисне приміщення з вентиляцією, автономним освітленням, Wi-Fi та запасами води.</p>
+                        <h4>{{ facility.title }}</h4>
+                        <p>{{ facility.description }}</p>
                     </div>
                 </div>
-
-                <div class="facility-feature-item">
-                    <div class="facility-feature-icon">
-                        <i class="bi bi-display"></i>
-                    </div>
-                    <div class="facility-feature-text">
-                        <h4>Мультимедійні класи</h4>
-                        <p>Інтерактивні дошки, комп'ютерні лабораторії та швидкісний інтернет для сучасного навчання.</p>
-                    </div>
-                </div>
-
-                <div class="facility-feature-item">
-                    <div class="facility-feature-icon">
-                        <i class="bi bi-trophy"></i>
-                    </div>
-                    <div class="facility-feature-text">
-                        <h4>Спортивний комплекс</h4>
-                        <p>Облаштований спортивний зал, тренажерна зона та спортивний майданчик для активного відпочинку.</p>
-                    </div>
-                </div>
-
-                <div class="facility-feature-item">
-                    <div class="facility-feature-icon">
-                        <i class="bi bi-journal-bookmark"></i>
-                    </div>
-                    <div class="facility-feature-text">
-                        <h4>Бібліотека & Медіатека</h4>
-                        <p>Багатий книжковий фонд, художня література та комфортний простір для самопідготовки.</p>
-                    </div>
-                </div>
-
+                {% endfor %}
             </div>
+            {% endif %}
 
         </div>
 
@@ -1289,6 +1182,7 @@
         {% endif %}
     </div>
 </section>
+{% endif %}
 
 <!-- ==================== HISTORY SECTION (IF PROVIDED) ==================== -->
 {% if page.history %}
@@ -1337,100 +1231,87 @@
 {% endif %}
 
 <!-- ==================== FAQ / QUICK FACTS ACCORDION ==================== -->
+{% if page.faqs.all %}
 <section id="about-faq" class="about-section about-section-white">
     <div class="container">
         <div class="about-section-header" data-aos="fade-up">
             <span class="about-section-badge">
                 <i class="bi bi-question-circle"></i> Запитання та відповіді
             </span>
-            <h2 class="about-section-title">Часті запитання батьків та учнів</h2>
-            <p class="about-section-subtitle">Основна інформація про організацію освітнього процесу та вступ до ліцею</p>
+            <h2 class="about-section-title">{{ page.faq_title|default:"Часті запитання батьків та учнів" }}</h2>
+            {% if page.faq_subtitle %}
+            <p class="about-section-subtitle">{{ page.faq_subtitle }}</p>
+            {% endif %}
         </div>
 
         <div class="row justify-content-center">
             <div class="col-lg-9 col-xl-8" data-aos="fade-up">
                 <div class="accordion about-accordion" id="aboutFaqAccordion">
-                    
+                    {% for faq in page.faqs.all %}
                     <div class="accordion-item">
-                        <h3 class="accordion-header" id="faqHeadingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
-                                <i class="bi bi-pencil-square me-2" style="color: var(--accent);"></i>
-                                Як вступити до Миколаївського ліцею №9?
+                        <h3 class="accordion-header" id="faqHeading{{ forloop.counter }}">
+                            <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse{{ forloop.counter }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="faqCollapse{{ forloop.counter }}">
+                                <i class="bi bi-question-circle-fill me-2" style="color: var(--accent);"></i>
+                                {{ faq.question }}
                             </button>
                         </h3>
-                        <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#aboutFaqAccordion">
+                        <div id="faqCollapse{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="faqHeading{{ forloop.counter }}" data-bs-parent="#aboutFaqAccordion">
                             <div class="accordion-body">
-                                Прийом заяв на вступ здійснюється через наш онлайн-сервіс у розділі <a href="/publichna-informatsiia/vstup-do-litseiu/" class="fw-semibold text-primary">«Вступ до ліцею»</a> або безпосередньо в закладі. Для зарахування необхідно надати заяву батьків, копію свідоцтва про народження / паспорта та особову справу з попереднього закладу освіти.
+                                {{ faq.answer|richtext }}
                             </div>
                         </div>
                     </div>
-
-                    <div class="accordion-item">
-                        <h3 class="accordion-header" id="faqHeadingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
-                                <i class="bi bi-shield-check me-2" style="color: var(--accent);"></i>
-                                Як організовано безпеку учнів під час тривог?
-                            </button>
-                        </h3>
-                        <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#aboutFaqAccordion">
-                            <div class="accordion-body">
-                                Ліцей має власне сертифіковане укриття, перевірене всіма державними службами. Під час повітряної тривоги всі учасники освітнього процесу оперативно переходять до захисного простору, де облаштовано навчальні місця, Wi-Fi зв'язок, вентиляцію та санітарні зони.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h3 class="accordion-header" id="faqHeadingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
-                                <i class="bi bi-laptop me-2" style="color: var(--accent);"></i>
-                                Які форми навчання підтримуються в ліцеї?
-                            </button>
-                        </h3>
-                        <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#aboutFaqAccordion">
-                            <div class="accordion-body">
-                                Освітній процес організовано в очному, змішаному та дистанційному форматах відповідно до безпекової ситуації в регіоні. Ліцей використовує сучасну електронну платформу, інтерактивні журнали та хмарні сервіси для зручної взаємодії.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h3 class="accordion-header" id="faqHeadingFour">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
-                                <i class="bi bi-stars me-2" style="color: var(--accent);"></i>
-                                Чи є можливість відвідувати позакласні гуртки та секції?
-                            </button>
-                        </h3>
-                        <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#aboutFaqAccordion">
-                            <div class="accordion-body">
-                                Так, для учнів діють спортивні секції, дебатний клуб, наукове товариство МАН, мовні клуби та студії творчості. Усі заняття спрямовані на розкриття індивідуальних талантів ліцеїстів.
-                            </div>
-                        </div>
-                    </div>
-
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- ==================== ADMISSIONS CTA BANNER ==================== -->
+{% if page.cta_title or page.cta_text or page.cta_primary_text %}
 <section class="about-section about-section-gray">
     <div class="container">
         <div class="about-cta-card" data-aos="zoom-in">
-            <h2 class="about-cta-title">Готові приєднатися до нашої ліцейної родини?</h2>
+            {% if page.cta_title %}
+            <h2 class="about-cta-title">{{ page.cta_title }}</h2>
+            {% endif %}
+            
+            {% if page.cta_text %}
             <p class="about-cta-text">
-                Миколаївський ліцей №9 відкриває двері для допитливих, талановитих та вмотивованих учнів. Оберіть якісну освіту та впевнений старт у майбутнє!
+                {{ page.cta_text }}
             </p>
+            {% endif %}
+            
             <div class="about-cta-buttons">
-                <a href="/publichna-informatsiia/vstup-do-litseiu/" class="btn btn-accent-custom btn-lg">
-                    <i class="bi bi-arrow-right-circle-fill me-2"></i>Подати заяву на вступ
-                </a>
-                <a href="/kontakty/" class="btn btn-outline-custom btn-lg">
-                    <i class="bi bi-geo-alt-fill me-2"></i>Контакти та адреса
-                </a>
+                {% if page.cta_primary_text %}
+                    {% if page.cta_primary_link %}
+                        <a href="{% pageurl page.cta_primary_link %}" class="btn btn-accent-custom btn-lg">
+                            <i class="bi bi-arrow-right-circle-fill me-2"></i>{{ page.cta_primary_text }}
+                        </a>
+                    {% else %}
+                        <a href="{% if admissions_page %}{% pageurl admissions_page %}{% else %}/publichna-informatsiia/vstup-do-litseiu/{% endif %}" class="btn btn-accent-custom btn-lg">
+                            <i class="bi bi-arrow-right-circle-fill me-2"></i>{{ page.cta_primary_text }}
+                        </a>
+                    {% endif %}
+                {% endif %}
+
+                {% if page.cta_secondary_text %}
+                    {% if page.cta_secondary_link %}
+                        <a href="{% pageurl page.cta_secondary_link %}" class="btn btn-outline-custom btn-lg">
+                            <i class="bi bi-geo-alt-fill me-2"></i>{{ page.cta_secondary_text }}
+                        </a>
+                    {% else %}
+                        <a href="/kontakty/" class="btn btn-outline-custom btn-lg">
+                            <i class="bi bi-geo-alt-fill me-2"></i>{{ page.cta_secondary_text }}
+                        </a>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>
 </section>
+{% endif %}
 
 {% endblock %}

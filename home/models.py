@@ -3,7 +3,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from modelcluster.fields import ParentalKey
 
 
@@ -214,17 +214,172 @@ class AboutPage(Page):
         help_text="Фото будівлі або території закладу"
     )
 
+    # Hero & General section custom headers
+    hero_badge = models.CharField(
+        "Бейдж у шапці",
+        max_length=100,
+        blank=True,
+        default="Миколаївський ліцей №9",
+        help_text="Текст бейджа над заголовком у шапці"
+    )
+    mission_title = models.CharField(
+        "Заголовок блоку місії",
+        max_length=150,
+        blank=True,
+        default="Наша місія",
+        help_text="Заголовок картки місії"
+    )
+    values_title = models.CharField(
+        "Заголовок блоку цінностей",
+        max_length=150,
+        blank=True,
+        default="Цінності ліцею",
+        help_text="Заголовок картки цінностей"
+    )
+    profiles_title = models.CharField(
+        "Заголовок блоку профілів",
+        max_length=150,
+        blank=True,
+        default="Освітні напрями та пріоритети"
+    )
+    profiles_subtitle = models.CharField(
+        "Підзаголовок блоку профілів",
+        max_length=255,
+        blank=True,
+        default="Обирайте напрям, який відповідає талантам і прагненням майбутнього ліцеїста"
+    )
+    subpages_title = models.CharField(
+        "Заголовок блоку підрозділів",
+        max_length=150,
+        blank=True,
+        default="Розділи про наш ліцей"
+    )
+    subpages_subtitle = models.CharField(
+        "Підзаголовок блоку підрозділів",
+        max_length=255,
+        blank=True,
+        default="Ознайомтеся з історією, адміністрацією, педагогічним колективом та службами ліцею"
+    )
+    facilities_title = models.CharField(
+        "Заголовок блоку інфраструктури",
+        max_length=150,
+        blank=True,
+        default="Сучасний освітній простір"
+    )
+    facilities_subtitle = models.CharField(
+        "Підзаголовок блоку інфраструктури",
+        max_length=255,
+        blank=True,
+        default="Створюємо комфортні, безпечні та високотехнологічні умови для кожного ліцеїста"
+    )
+    faq_title = models.CharField(
+        "Заголовок блоку FAQ",
+        max_length=150,
+        blank=True,
+        default="Часті запитання батьків та учнів"
+    )
+    faq_subtitle = models.CharField(
+        "Підзаголовок блоку FAQ",
+        max_length=255,
+        blank=True,
+        default="Основна інформація про організацію освітнього процесу та вступ до ліцею"
+    )
+
+    # CTA Banner fields
+    cta_title = models.CharField(
+        "Заголовок заклику (CTA)",
+        max_length=255,
+        blank=True,
+        default="Готові приєднатися до нашої ліцейної родини?",
+        help_text="Головний заголовок блоку заклику до дії внизу сторінки"
+    )
+    cta_text = models.TextField(
+        "Текст заклику (CTA)",
+        blank=True,
+        default="Миколаївський ліцей №9 відкриває двері для допитливих, талановитих та вмотивованих учнів. Оберіть якісну освіту та впевнений старт у майбутнє!",
+        help_text="Опис під заголовком заклику"
+    )
+    cta_primary_text = models.CharField(
+        "Текст основної кнопки",
+        max_length=100,
+        blank=True,
+        default="Подати заяву на вступ"
+    )
+    cta_primary_link = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name="Посилання основної кнопки"
+    )
+    cta_secondary_text = models.CharField(
+        "Текст другорядної кнопки",
+        max_length=100,
+        blank=True,
+        default="Контакти та адреса"
+    )
+    cta_secondary_link = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name="Посилання другорядної кнопки"
+    )
+
     content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
-        FieldPanel('intro'),
-        FieldPanel('mission'),
-        FieldPanel('history'),
-        FieldPanel('values'),
-        FieldPanel('achievements'),
-        FieldPanel('founded_year'),
-        FieldPanel('students_count'),
-        FieldPanel('teachers_count'),
-        FieldPanel('building_image'),
+        MultiFieldPanel([
+            FieldPanel('hero_badge'),
+            FieldPanel('subtitle'),
+            FieldPanel('intro'),
+            InlinePanel('highlights', label="Ключові тези / пігулки"),
+        ], heading="Головний огляд та вступ"),
+        InlinePanel('stats', label="Статистичні показники"),
+        MultiFieldPanel([
+            FieldPanel('mission_title'),
+            FieldPanel('mission'),
+            FieldPanel('values_title'),
+            FieldPanel('values'),
+        ], heading="Місія та цінності (текст)"),
+        InlinePanel('value_pillars', label="Картки цінностей"),
+        MultiFieldPanel([
+            FieldPanel('profiles_title'),
+            FieldPanel('profiles_subtitle'),
+        ], heading="Заголовки освітніх профілів"),
+        InlinePanel('academic_profiles', label="Освітні профілі та напрями"),
+        MultiFieldPanel([
+            FieldPanel('subpages_title'),
+            FieldPanel('subpages_subtitle'),
+        ], heading="Заголовки навігації підрозділами"),
+        MultiFieldPanel([
+            FieldPanel('facilities_title'),
+            FieldPanel('facilities_subtitle'),
+            FieldPanel('building_image'),
+        ], heading="Фото та інфраструктура"),
+        InlinePanel('facilities', label="Елементи освітнього простору (укриття, лабораторії тощо)"),
+        MultiFieldPanel([
+            FieldPanel('history'),
+            FieldPanel('achievements'),
+        ], heading="Історія та досягнення"),
+        MultiFieldPanel([
+            FieldPanel('faq_title'),
+            FieldPanel('faq_subtitle'),
+        ], heading="Заголовки блоку FAQ"),
+        InlinePanel('faqs', label="Часті запитання (FAQ)"),
+        MultiFieldPanel([
+            FieldPanel('cta_title'),
+            FieldPanel('cta_text'),
+            FieldPanel('cta_primary_text'),
+            FieldPanel('cta_primary_link'),
+            FieldPanel('cta_secondary_text'),
+            FieldPanel('cta_secondary_link'),
+        ], heading="Заклик до дії (CTA банер)"),
+        MultiFieldPanel([
+            FieldPanel('founded_year'),
+            FieldPanel('students_count'),
+            FieldPanel('teachers_count'),
+        ], heading="Базові показники (застарілі)", classname="collapsed"),
     ]
 
     parent_page_types = ['home.HomePage']
@@ -300,5 +455,110 @@ class AboutPage(Page):
 
     def __str__(self) -> str:
         return self.title
+
+
+class AboutPageStat(Orderable):
+    page = ParentalKey(AboutPage, on_delete=models.CASCADE, related_name='stats')
+    number = models.CharField("Показник / Число", max_length=50, help_text="Наприклад: 1991, 500+, 100%, 45")
+    title = models.CharField("Назва показника", max_length=100, help_text="Наприклад: Рік заснування, Учнів ліцею, Вчителів")
+    description = models.CharField("Короткий підпис", max_length=200, blank=True, help_text="Наприклад: Понад 30 років академічних традицій")
+    icon = models.CharField("Іконка (Bootstrap Icons)", max_length=50, default="bi-calendar-check", help_text="Наприклад: bi-calendar-check, bi-people-fill, bi-person-badge-fill, bi-trophy-fill")
+
+    panels = [
+        FieldPanel('number'),
+        FieldPanel('title'),
+        FieldPanel('description'),
+        FieldPanel('icon'),
+    ]
+
+    def __str__(self) -> str:
+        return f"{self.title}: {self.number}"
+
+
+class AboutPageValuePillar(Orderable):
+    page = ParentalKey(AboutPage, on_delete=models.CASCADE, related_name='value_pillars')
+    title = models.CharField("Назва цінності", max_length=150, help_text="Наприклад: Академічна якість та доброчесність")
+    description = models.TextField("Опис цінності", help_text="Коротке пояснення суті цієї цінності для учнів та педагогів")
+    icon = models.CharField("Іконка (Bootstrap Icons)", max_length=50, default="bi-mortarboard-fill", help_text="Наприклад: bi-mortarboard-fill, bi-people-fill, bi-lightbulb-fill, bi-shield-fill-check")
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('description'),
+        FieldPanel('icon'),
+    ]
+
+    def __str__(self) -> str:
+        return self.title
+
+
+class AboutPageProfile(Orderable):
+    page = ParentalKey(AboutPage, on_delete=models.CASCADE, related_name='academic_profiles')
+    badge = models.CharField("Категорія / Бейдж", max_length=100, default="Профіль", help_text="Наприклад: Точні науки, Мови та світ, Дослідження, Суспільство")
+    title = models.CharField("Назва профілю / напряму", max_length=150, help_text="Наприклад: Математика & IT, Філологічний напрям")
+    description = models.TextField("Опис напряму", help_text="Що вивчають учні на цьому напрямі та які навички здобувають")
+    tags = models.CharField("Теги предметів (через кому)", max_length=255, blank=True, help_text="Наприклад: Математика, Інформатика, Алгоритми")
+    icon = models.CharField("Іконка (Bootstrap Icons)", max_length=50, default="bi-cpu-fill", help_text="Наприклад: bi-cpu-fill, bi-translate, bi-flask-fill, bi-bank")
+
+    panels = [
+        FieldPanel('badge'),
+        FieldPanel('title'),
+        FieldPanel('description'),
+        FieldPanel('tags'),
+        FieldPanel('icon'),
+    ]
+
+    def get_tag_list(self):
+        if not self.tags:
+            return []
+        return [t.strip() for t in self.tags.split(',') if t.strip()]
+
+    def __str__(self) -> str:
+        return self.title
+
+
+class AboutPageFacility(Orderable):
+    page = ParentalKey(AboutPage, on_delete=models.CASCADE, related_name='facilities')
+    title = models.CharField("Назва елемента простору", max_length=150, help_text="Наприклад: Сертифіковане укриття, Мультимедійні класи")
+    description = models.TextField("Опис оснащення та можливостей", help_text="Короткий опис облаштування та переваг для учнів")
+    icon = models.CharField("Іконка (Bootstrap Icons)", max_length=50, default="bi-shield-check", help_text="Наприклад: bi-shield-check, bi-display, bi-trophy, bi-journal-bookmark")
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('description'),
+        FieldPanel('icon'),
+    ]
+
+    def __str__(self) -> str:
+        return self.title
+
+
+class AboutPageFAQ(Orderable):
+    page = ParentalKey(AboutPage, on_delete=models.CASCADE, related_name='faqs')
+    question = models.CharField("Запитання", max_length=300, help_text="Наприклад: Як вступити до Миколаївського ліцею №9?")
+    answer = RichTextField("Відповідь", help_text="Розгорнута відповідь з можливістю додавати посилання та форматування")
+
+    panels = [
+        FieldPanel('question'),
+        FieldPanel('answer'),
+    ]
+
+    def __str__(self) -> str:
+        return self.question
+
+
+class AboutPageHighlight(Orderable):
+    page = ParentalKey(AboutPage, on_delete=models.CASCADE, related_name='highlights')
+    title = models.CharField("Текст тези/переваги", max_length=150, help_text="Наприклад: Поглиблене вивчення предметів")
+    icon = models.CharField("Іконка (Bootstrap Icons)", max_length=50, default="bi-check-circle-fill", help_text="Наприклад: bi-check-circle-fill, bi-shield-lock-fill, bi-laptop, bi-stars")
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('icon'),
+    ]
+
+    def __str__(self) -> str:
+        return self.title
+
+
 
 
