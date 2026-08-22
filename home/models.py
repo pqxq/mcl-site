@@ -233,6 +233,71 @@ class AboutPage(Page):
     class Meta:
         verbose_name = "Про нас"
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        
+        # 1. Child subpages under AboutPage
+        child_pages = list(self.get_children().live().specific())
+        
+        # Map known page slugs to specific icons and badges
+        subpages_data = []
+        icon_mapping = {
+            'istoriia-litseiu': ('bi-hourglass-split', 'Історія та спадщина', 'Шлях становлення, досягнення та традиції нашого навчального закладу від заснування до сьогодення.'),
+            'kerivnytstvo-litseiu': ('bi-award-fill', 'Адміністрація', 'Керівний склад ліцею, що спрямовує освітній процес та втілює стратегію розвитку закладу.'),
+            'pedahohichnyi-kolektyv': ('bi-people-fill', 'Педагогічний склад', 'Команда висококваліфікованих вчителів-новаторів, науковців та наставників.'),
+            'sotsialno-psykholohichna-sluzhba': ('bi-heart-pulse-fill', 'Підтримка та турбота', 'Професійний психологічний супровід, профорієнтація та створення безпечного освітнього простору.'),
+        }
+        for child in child_pages:
+            default_icon, default_tag, default_desc = icon_mapping.get(
+                child.slug,
+                ('bi-file-earmark-text-fill', 'Розділ ліцею', 'Докладна інформація про діяльність та структуру нашого освітнього закладу.')
+            )
+            subtitle = getattr(child, 'subtitle', '') or getattr(child, 'search_description', '')
+            if not subtitle and hasattr(child, 'intro') and child.intro:
+                from django.utils.html import strip_tags
+                subtitle = strip_tags(str(child.intro))[:140]
+            if not subtitle and hasattr(child, 'body') and child.body:
+                from django.utils.html import strip_tags
+                subtitle = strip_tags(str(child.body))[:140]
+            
+            subpages_data.append({
+                'page': child,
+                'title': child.title,
+                'url': child.url,
+                'slug': child.slug,
+                'icon': default_icon,
+                'tag': default_tag,
+                'description': subtitle or default_desc,
+            })
+        context['about_subpages'] = subpages_data
+
+        # 2. Admissions page link
+        try:
+            from admissions.models import ApplicationFormPage
+            context['admissions_page'] = ApplicationFormPage.objects.live().first()
+        except Exception:
+            context['admissions_page'] = None
+
+        # 3. Staff count / index page
+        try:
+            from staff.models import StaffIndexPage, PersonPage
+            context['staff_index_page'] = StaffIndexPage.objects.live().first()
+            context['live_staff_count'] = PersonPage.objects.live().count()
+        except Exception:
+            context['staff_index_page'] = None
+            context['live_staff_count'] = 0
+
+        # 4. Gallery page link & preview images
+        try:
+            from gallery.models import GalleryIndexPage, GalleryImage
+            context['gallery_index_page'] = GalleryIndexPage.objects.live().first()
+            context['campus_gallery_images'] = GalleryImage.objects.select_related('image', 'page').order_by('-id')[:4]
+        except Exception:
+            context['gallery_index_page'] = None
+            context['campus_gallery_images'] = []
+
+        return context
+
     def __str__(self) -> str:
         return self.title
 

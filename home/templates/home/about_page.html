@@ -5,311 +5,847 @@
 
 {% block extra_css %}
 <style>
-    /* Hero Emblem */
-    .about-hero-emblem-wrapper {
+    /* ==================== ABOUT PAGE STYLES (UI/UX DESIGN SYSTEM) ==================== */
+    
+    /* Breadcrumb */
+    .about-breadcrumb-nav {
         margin-bottom: 1.5rem;
+    }
+    .about-breadcrumb {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1.25rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 50px;
+        backdrop-filter: blur(8px);
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.85);
+    }
+    .about-breadcrumb a {
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+    .about-breadcrumb a:hover {
+        color: var(--accent-light, #e8c65f);
+    }
+    .about-breadcrumb .separator {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.75rem;
+    }
+    .about-breadcrumb .active {
+        color: var(--accent-light, #e8c65f);
+        font-weight: 600;
+    }
+
+    /* Hero Emblem & Visuals */
+    .about-hero-emblem-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 1.75rem;
+    }
+    
+    .about-hero-emblem-halo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: clamp(140px, 18vw, 200px);
+        height: clamp(140px, 18vw, 200px);
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.35) 0%, rgba(212, 175, 55, 0.08) 55%, transparent 75%);
+        border-radius: 50%;
+        filter: blur(12px);
+        z-index: 0;
+        pointer-events: none;
+        animation: pulse-halo 4s ease-in-out infinite alternate;
     }
     
     .about-hero-emblem {
-        height: clamp(90px, 12vw, 130px);
+        position: relative;
+        z-index: 1;
+        height: clamp(95px, 13vw, 135px);
         width: auto;
-        filter: drop-shadow(0 12px 25px rgba(0, 0, 0, 0.15));
+        filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.25));
         animation: float-emblem 6s ease-in-out infinite;
         display: block;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 auto;
     }
     
     @keyframes float-emblem {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-8px); }
-        100% { transform: translateY(0px); }
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-7px); }
+    }
+
+    @keyframes pulse-halo {
+        0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.6; }
+        100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .about-hero-emblem,
+        .about-hero-emblem-halo {
+            animation: none !important;
+        }
+    }
+
+    /* Quick Jump Navigation */
+    .about-quick-nav-wrapper {
+        margin-top: 2.25rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.625rem;
+        justify-content: center;
+    }
+    .about-quick-nav-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 50px;
+        color: #ffffff;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-decoration: none;
+        backdrop-filter: blur(6px);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+    }
+    .about-quick-nav-item i {
+        color: var(--accent-light, #e8c65f);
+        font-size: 0.9rem;
+    }
+    .about-quick-nav-item:hover {
+        background: var(--accent, #d4af37);
+        border-color: var(--accent, #d4af37);
+        color: #0d1f33;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+    .about-quick-nav-item:hover i {
+        color: #0d1f33;
     }
 
     /* Section Rhythm */
     .about-section {
-        padding: clamp(4rem, 6vw, 6rem) 0;
+        padding: clamp(3.75rem, 5.5vw, 5.5rem) 0;
         position: relative;
     }
     .about-section-gray {
-        background-color: var(--gray-50);
+        background-color: var(--gray-50, #f8fafc);
     }
     .about-section-white {
-        background-color: var(--white);
-    }
-    
-    .page-hero + .about-section {
-        margin-top: -2px;
-        padding-top: clamp(2rem, 4vw, 4rem);
+        background-color: var(--white, #ffffff);
     }
 
-    /* Intro Card */
-    .about-intro-card {
-        background: var(--white);
-        border-radius: 24px;
-        padding: clamp(2.5rem, 5vw, 4rem);
-        box-shadow: var(--shadow-md);
-        border: 1px solid var(--gray-100);
-        border-left: 6px solid var(--accent);
+    /* Section Header within About */
+    .about-section-header {
+        text-align: center;
+        margin-bottom: clamp(2.5rem, 4vw, 3.5rem);
+    }
+    .about-section-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.35rem 0.9rem;
+        background: rgba(212, 175, 55, 0.12);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 50px;
+        color: #926a05;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.85rem;
+    }
+    .about-section-title {
+        font-size: clamp(1.85rem, 2.75vw, 2.4rem);
+        color: var(--primary, #0d1f33);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.75rem;
+        text-wrap: balance;
+    }
+    .about-section-subtitle {
+        color: var(--gray-500, #6b7280);
+        font-size: clamp(1rem, 1.2vw, 1.125rem);
+        max-width: 680px;
+        margin: 0 auto;
+        line-height: 1.7;
+    }
+
+    /* Stats Grid */
+    .about-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 1.5rem;
+    }
+    .about-stat-card {
+        background: var(--white, #ffffff);
+        border-radius: 20px;
+        padding: 2.25rem 1.75rem;
+        text-align: center;
+        border: 1px solid var(--gray-200, #e5e7eb);
+        box-shadow: var(--shadow-sm, 0 2px 4px rgba(13, 31, 51, 0.05));
+        transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
         position: relative;
         overflow: hidden;
     }
-    
-    .about-intro-card::after {
+    .about-stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent, #d4af37), var(--primary-light, #1a3352));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .about-stat-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-lg, 0 20px 40px rgba(13, 31, 51, 0.12));
+        border-color: rgba(212, 175, 55, 0.3);
+    }
+    .about-stat-card:hover::before {
+        opacity: 1;
+    }
+    .about-stat-icon-box {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, var(--primary, #0d1f33) 0%, var(--primary-light, #1a3352) 100%);
+        color: var(--accent, #d4af37);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        margin: 0 auto 1.25rem;
+        box-shadow: 0 8px 20px rgba(13, 31, 51, 0.15);
+        transition: transform 0.3s ease;
+    }
+    .about-stat-card:hover .about-stat-icon-box {
+        transform: scale(1.08) rotate(3deg);
+    }
+    .about-stat-val {
+        font-size: clamp(2.25rem, 3.5vw, 3rem);
+        font-weight: 800;
+        line-height: 1;
+        color: var(--primary, #0d1f33);
+        margin-bottom: 0.5rem;
+        font-family: var(--font-heading);
+    }
+    .about-stat-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--gray-700, #374151);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.25rem;
+    }
+    .about-stat-desc {
+        font-size: 0.825rem;
+        color: var(--gray-500, #6b7280);
+        margin: 0;
+    }
+
+    /* Executive Intro Card */
+    .about-intro-box {
+        background: var(--white, #ffffff);
+        border-radius: 24px;
+        padding: clamp(2.25rem, 4.5vw, 3.75rem);
+        box-shadow: var(--shadow-md, 0 10px 25px rgba(13, 31, 51, 0.08));
+        border: 1px solid var(--gray-200, #e5e7eb);
+        border-left: 6px solid var(--accent, #d4af37);
+        position: relative;
+        overflow: hidden;
+    }
+    .about-intro-box::after {
         content: '"';
         position: absolute;
-        top: 20px;
-        right: 40px;
-        font-size: 8rem;
-        color: var(--gray-100);
-        font-family: serif;
+        top: -15px;
+        right: 35px;
+        font-size: 8.5rem;
+        color: rgba(212, 175, 55, 0.12);
+        font-family: Georgia, serif;
         line-height: 1;
-        opacity: 0.6;
         pointer-events: none;
     }
-    
-    .about-intro-card p {
-        color: var(--gray-700);
-        line-height: 1.8;
-        font-size: 1.15rem;
+    .about-intro-lead {
+        font-size: clamp(1.15rem, 1.5vw, 1.3rem);
+        font-weight: 600;
+        color: var(--primary, #0d1f33);
+        line-height: 1.7;
         margin-bottom: 1.25rem;
         position: relative;
         z-index: 1;
     }
-    
-    .about-intro-card p:first-child {
-        font-size: 1.3rem;
-        font-weight: 500;
-        color: var(--primary);
+    .about-intro-body {
+        font-size: 1.05rem;
+        line-height: 1.85;
+        color: var(--gray-700, #374151);
+        position: relative;
+        z-index: 1;
     }
-    
-    .about-intro-card p:last-child {
-        margin-bottom: 0;
-    }
-    
-    /* links Section */
-    .about-links-row {
+    .about-intro-highlights {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 2rem;
-        justify-content: center;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 1.75rem;
+        border-top: 1px solid var(--gray-100, #f3f4f6);
+        position: relative;
+        z-index: 1;
     }
-    
-    .about-stat-item {
-        text-align: center;
-        padding: 3rem 2rem;
-        background: var(--white);
-        border-radius: 24px;
-        box-shadow: var(--shadow-sm);
-        border: 1px solid var(--gray-100);
-        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    .about-intro-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        background: var(--gray-50, #f8fafc);
+        border-radius: 12px;
+        border: 1px solid var(--gray-200, #e5e7eb);
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--primary, #0d1f33);
+    }
+    .about-intro-pill i {
+        color: var(--accent, #d4af37);
+        font-size: 1.2rem;
+        flex-shrink: 0;
     }
 
-    .about-stat-item:hover {
-        transform: translateY(-8px);
-        box-shadow: var(--shadow-lg);
-        border-color: transparent;
-    }
-    
-    .about-stat-icon {
-        width: 72px;
-        height: 72px;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1.5rem;
-        color: var(--white);
-        font-size: 2rem;
-        box-shadow: 0 10px 25px rgba(30, 58, 95, 0.2);
-    }
-    
-    .about-stat-number {
-        font-size: clamp(2.5rem, 4vw, 3.5rem);
-        font-weight: 800;
-        line-height: 1;
-        margin-bottom: 0.75rem;
-        color: var(--primary);
-        font-family: var(--font-heading);
-    }
-    
-    .about-stat-label {
-        font-size: 0.95rem;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        font-weight: 700;
-        color: var(--gray-500);
-    }
-    
-    /* Mission & Values Cards */
-    .section-card {
-        background: var(--white);
+    /* Mission & Values Bento */
+    .bento-card {
+        background: var(--white, #ffffff);
         border-radius: 24px;
-        padding: clamp(2.5rem, 5vw, 3.5rem);
-        box-shadow: var(--shadow-sm);
-        border: 1px solid var(--gray-100);
+        padding: clamp(2.25rem, 4vw, 3rem);
+        border: 1px solid var(--gray-200, #e5e7eb);
+        box-shadow: var(--shadow-sm, 0 2px 4px rgba(13, 31, 51, 0.05));
         height: 100%;
-        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+        transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+        display: flex;
+        flex-direction: column;
     }
-    
-    .section-card:hover {
-        transform: translateY(-8px);
-        box-shadow: var(--shadow-lg);
-        border-color: transparent;
+    .bento-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-lg, 0 20px 40px rgba(13, 31, 51, 0.12));
+        border-color: rgba(212, 175, 55, 0.35);
     }
-    
-    .section-icon {
-        width: 64px;
-        height: 64px;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    .bento-icon-wrapper {
+        width: 60px;
+        height: 60px;
         border-radius: 16px;
+        background: linear-gradient(135deg, var(--primary, #0d1f33) 0%, var(--primary-light, #1a3352) 100%);
+        color: #ffffff;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 1.75rem;
-        color: var(--white);
-        font-size: 1.75rem;
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
         position: relative;
     }
-    
-    .section-icon::after {
+    .bento-icon-wrapper::after {
         content: '';
         position: absolute;
         width: 100%;
         height: 100%;
-        background: var(--accent);
+        background: var(--accent, #d4af37);
         border-radius: 16px;
         z-index: -1;
-        top: 6px;
-        left: 6px;
+        top: 5px;
+        left: 5px;
         transition: all 0.3s ease;
     }
-
-    .section-card:hover .section-icon::after {
-        top: 10px;
-        left: 10px;
+    .bento-card:hover .bento-icon-wrapper::after {
+        top: 8px;
+        left: 8px;
     }
-    
-    .section-title {
-        color: var(--primary);
-        font-size: 1.75rem;
+    .bento-title {
+        color: var(--primary, #0d1f33);
+        font-size: 1.5rem;
         font-weight: 800;
-        margin-bottom: 1.25rem;
-        text-wrap: balance;
-    }
-    
-    .section-content p {
-        color: var(--gray-700);
-        line-height: 1.8;
         margin-bottom: 1rem;
     }
-    .section-content p:last-child {
-        margin-bottom: 0;
-    }
-    .section-content ul {
-        padding-left: 1.2rem;
-        color: var(--gray-700);
+    .bento-content {
+        color: var(--gray-700, #374151);
         line-height: 1.8;
+        font-size: 1rem;
+        flex-grow: 1;
     }
-    .section-content li {
-        margin-bottom: 0.5rem;
+    .bento-pillars-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
-    
-    /* Editorial Layout (History & Achievements) */
-    .editorial-header {
-        text-align: center;
-        margin-bottom: 3.5rem;
+    .bento-pillar-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.85rem;
+        padding: 0.85rem 1rem;
+        background: var(--gray-50, #f8fafc);
+        border-radius: 14px;
+        border: 1px solid var(--gray-200, #e5e7eb);
+        transition: background 0.2s ease;
     }
-    .editorial-icon {
-        display: inline-flex;
+    .bento-pillar-item:hover {
+        background: rgba(212, 175, 55, 0.08);
+        border-color: rgba(212, 175, 55, 0.3);
+    }
+    .bento-pillar-icon {
+        color: var(--accent, #d4af37);
+        font-size: 1.25rem;
+        margin-top: 0.1rem;
+        flex-shrink: 0;
+    }
+    .bento-pillar-text strong {
+        display: block;
+        color: var(--primary, #0d1f33);
+        font-size: 0.95rem;
+        margin-bottom: 0.15rem;
+    }
+    .bento-pillar-text span {
+        color: var(--gray-600, #4b5563);
+        font-size: 0.875rem;
+        line-height: 1.5;
+    }
+
+    /* Academic Profiles Grid */
+    .profile-card {
+        background: var(--white, #ffffff);
+        border-radius: 20px;
+        padding: 2rem 1.75rem;
+        border: 1px solid var(--gray-200, #e5e7eb);
+        box-shadow: var(--shadow-sm, 0 2px 4px rgba(13, 31, 51, 0.05));
+        height: 100%;
+        transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+        display: flex;
+        flex-direction: column;
+    }
+    .profile-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-md, 0 12px 30px rgba(13, 31, 51, 0.1));
+        border-color: rgba(212, 175, 55, 0.4);
+    }
+    .profile-badge {
+        display: inline-block;
+        padding: 0.3rem 0.75rem;
+        background: var(--gray-100, #f3f4f6);
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--primary, #0d1f33);
+        margin-bottom: 1.25rem;
+        width: fit-content;
+    }
+    .profile-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: rgba(13, 31, 51, 0.06);
+        color: var(--primary, #0d1f33);
+        display: flex;
         align-items: center;
         justify-content: center;
-        width: 72px;
-        height: 72px;
-        background: var(--primary-light);
-        background: linear-gradient(135deg, rgba(30,58,95,0.05) 0%, rgba(30,58,95,0.15) 100%);
-        color: var(--primary);
-        border-radius: 50%;
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-    }
-    .editorial-title {
-        color: var(--primary);
-        font-size: 2.25rem;
-        font-weight: 800;
-        margin-bottom: 1rem;
-    }
-    .editorial-content {
-        max-width: 800px;
-        margin: 0 auto;
-        font-size: 1.1rem;
-        line-height: 1.85;
-        color: var(--gray-700);
-    }
-    .editorial-content h2, .editorial-content h3 {
-        color: var(--primary);
-        margin-top: 2.5rem;
+        font-size: 1.5rem;
         margin-bottom: 1.25rem;
+        transition: all 0.3s ease;
+    }
+    .profile-card:hover .profile-icon {
+        background: var(--primary, #0d1f33);
+        color: var(--accent, #d4af37);
+        transform: scale(1.05);
+    }
+    .profile-title {
+        font-size: 1.25rem;
         font-weight: 700;
+        color: var(--primary, #0d1f33);
+        margin-bottom: 0.75rem;
     }
-    .editorial-content p {
+    .profile-desc {
+        color: var(--gray-600, #4b5563);
+        font-size: 0.925rem;
+        line-height: 1.65;
+        margin-bottom: 1.25rem;
+        flex-grow: 1;
+    }
+    .profile-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+    .profile-tag {
+        font-size: 0.75rem;
+        background: var(--gray-50, #f8fafc);
+        border: 1px solid var(--gray-200, #e5e7eb);
+        border-radius: 6px;
+        padding: 0.2rem 0.5rem;
+        color: var(--gray-700, #374151);
+    }
+
+    /* Subpage Directory Cards */
+    .subpage-card {
+        background: var(--white, #ffffff);
+        border-radius: 20px;
+        padding: 2rem;
+        border: 1px solid var(--gray-200, #e5e7eb);
+        box-shadow: var(--shadow-sm, 0 2px 4px rgba(13, 31, 51, 0.05));
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+        cursor: pointer;
+        position: relative;
+    }
+    .subpage-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-lg, 0 20px 40px rgba(13, 31, 51, 0.12));
+        border-color: var(--primary, #0d1f33);
+        color: inherit;
+    }
+    .subpage-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         margin-bottom: 1.25rem;
     }
-    
-    /* Building Section */
-    .building-wrapper {
-        position: relative;
-        border-radius: 28px;
-        overflow: hidden;
-        box-shadow: var(--shadow-lg);
-        max-width: 1000px;
-        margin: 0 auto;
+    .subpage-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--primary, #0d1f33) 0%, var(--primary-light, #1a3352) 100%);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        transition: transform 0.3s ease;
     }
-    
-    .building-image {
+    .subpage-card:hover .subpage-icon {
+        transform: scale(1.08);
+    }
+    .subpage-tag {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--accent, #d4af37);
+        letter-spacing: 0.05em;
+        background: rgba(212, 175, 55, 0.1);
+        padding: 0.25rem 0.65rem;
+        border-radius: 50px;
+    }
+    .subpage-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--primary, #0d1f33);
+        margin-bottom: 0.65rem;
+        transition: color 0.2s ease;
+    }
+    .subpage-card:hover .subpage-title {
+        color: var(--accent, #d4af37);
+    }
+    .subpage-desc {
+        color: var(--gray-600, #4b5563);
+        font-size: 0.925rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+    .subpage-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--primary, #0d1f33);
+        transition: gap 0.2s ease, color 0.2s ease;
+    }
+    .subpage-card:hover .subpage-action {
+        color: var(--accent, #d4af37);
+        gap: 0.75rem;
+    }
+
+    /* Campus & Facilities Showcase */
+    .facility-box {
+        background: var(--white, #ffffff);
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid var(--gray-200, #e5e7eb);
+        box-shadow: var(--shadow-md, 0 10px 25px rgba(13, 31, 51, 0.08));
+    }
+    .facility-hero-img-wrap {
+        position: relative;
+        overflow: hidden;
+        max-height: 480px;
+    }
+    .facility-hero-img {
         width: 100%;
-        height: clamp(350px, 50vh, 600px);
+        height: clamp(300px, 45vh, 480px);
         object-fit: cover;
         transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
-
-    .building-wrapper:hover .building-image {
-        transform: scale(1.05);
+    .facility-hero-img-wrap:hover .facility-hero-img {
+        transform: scale(1.04);
     }
-    
-    .building-overlay {
+    .facility-overlay {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(to top, rgba(16, 33, 54, 0.95) 0%, rgba(16, 33, 54, 0.4) 60%, transparent 100%);
-        padding: 6rem 3rem 2.5rem;
-        pointer-events: none;
-        display: flex;
-        align-items: flex-end;
+        background: linear-gradient(to top, rgba(7, 18, 32, 0.95) 0%, rgba(7, 18, 32, 0.4) 60%, transparent 100%);
+        padding: 5rem 2.5rem 2rem;
+        color: #ffffff;
     }
-    
-    .building-overlay h3 {
-        color: var(--white);
-        font-size: clamp(1.75rem, 3vw, 2.5rem);
+    .facility-overlay h3 {
+        color: #ffffff;
+        font-size: clamp(1.5rem, 2.5vw, 2.25rem);
         font-weight: 800;
         margin: 0;
-        text-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-        .about-intro-card::after {
-            display: none;
-        }
-        .building-overlay {
-            padding: 4rem 1.5rem 1.5rem;
-        }
+    .facility-features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+        padding: 2.25rem;
+        background: var(--white, #ffffff);
+    }
+    .facility-feature-item {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    .facility-feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: rgba(13, 31, 51, 0.06);
+        color: var(--primary, #0d1f33);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+        flex-shrink: 0;
+    }
+    .facility-feature-text h4 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--primary, #0d1f33);
+        margin-bottom: 0.25rem;
+    }
+    .facility-feature-text p {
+        color: var(--gray-600, #4b5563);
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin: 0;
     }
 
-    @media (max-width: 575.98px) {
-        .about-links-row {
+    /* History & Achievements Editorial */
+    .editorial-container {
+        max-width: 860px;
+        margin: 0 auto;
+    }
+    .editorial-paper {
+        background: var(--white, #ffffff);
+        border-radius: 24px;
+        padding: clamp(2.25rem, 5vw, 4rem);
+        box-shadow: var(--shadow-md, 0 10px 25px rgba(13, 31, 51, 0.08));
+        border: 1px solid var(--gray-200, #e5e7eb);
+    }
+    .editorial-body {
+        font-size: 1.075rem;
+        line-height: 1.85;
+        color: var(--gray-700, #374151);
+    }
+    .editorial-body h2, .editorial-body h3 {
+        color: var(--primary, #0d1f33);
+        font-weight: 800;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+    .editorial-body p {
+        margin-bottom: 1.25rem;
+    }
+    .editorial-body ul {
+        padding-left: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .editorial-body li {
+        margin-bottom: 0.65rem;
+    }
+
+    /* FAQ Accordion */
+    .about-accordion .accordion-item {
+        background: var(--white, #ffffff);
+        border: 1px solid var(--gray-200, #e5e7eb);
+        border-radius: 16px !important;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm, 0 2px 4px rgba(13, 31, 51, 0.04));
+        transition: all 0.25s ease;
+    }
+    .about-accordion .accordion-item:hover {
+        border-color: rgba(212, 175, 55, 0.4);
+    }
+    .about-accordion .accordion-button {
+        font-size: 1.075rem;
+        font-weight: 700;
+        color: var(--primary, #0d1f33);
+        padding: 1.25rem 1.5rem;
+        background: var(--white, #ffffff);
+        border-radius: 16px !important;
+        box-shadow: none;
+    }
+    .about-accordion .accordion-button:not(.collapsed) {
+        background: var(--gray-50, #f8fafc);
+        color: var(--primary, #0d1f33);
+        border-bottom: 1px solid var(--gray-200, #e5e7eb);
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+    .about-accordion .accordion-body {
+        padding: 1.25rem 1.5rem;
+        font-size: 0.975rem;
+        line-height: 1.75;
+        color: var(--gray-700, #374151);
+        background: var(--gray-50, #f8fafc);
+    }
+
+    /* High-Impact CTA Banner */
+    .about-cta-card {
+        background: linear-gradient(135deg, #0d1f33 0%, #1a3352 100%);
+        border-radius: 28px;
+        padding: clamp(3rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 3.5rem);
+        color: #ffffff;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg, 0 25px 50px rgba(13, 31, 51, 0.15));
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+    .about-cta-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -20%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    .about-cta-card::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        right: -20%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(26, 51, 82, 0.6) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    .about-cta-title {
+        font-size: clamp(2rem, 3.5vw, 2.75rem);
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 1;
+        text-wrap: balance;
+    }
+    .about-cta-text {
+        font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 680px;
+        margin: 0 auto 2.25rem;
+        line-height: 1.75;
+        position: relative;
+        z-index: 1;
+    }
+    .about-cta-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+    }
+    .btn-accent-custom {
+        background: linear-gradient(135deg, #d4af37 0%, #e8c65f 100%);
+        color: #0d1f33 !important;
+        font-weight: 700;
+        border: none;
+        border-radius: 50px;
+        padding: 0.9rem 2rem;
+        font-size: 1.05rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.35);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    .btn-accent-custom:hover {
+        background: linear-gradient(135deg, #e8c65f 0%, #d4af37 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(212, 175, 55, 0.45);
+        color: #071220 !important;
+    }
+    .btn-outline-custom {
+        background: rgba(255, 255, 255, 0.08);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        color: #ffffff !important;
+        font-weight: 600;
+        border-radius: 50px;
+        padding: 0.85rem 2rem;
+        font-size: 1.05rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(8px);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    .btn-outline-custom:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: #ffffff;
+        transform: translateY(-3px);
+        color: #ffffff !important;
+    }
+
+    /* Responsive Polish */
+    @media (max-width: 767.98px) {
+        .about-stats-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .about-stat-card {
+            padding: 1.5rem 1rem;
+        }
+        .about-intro-box::after {
+            display: none;
+        }
+        .facility-features-grid {
+            grid-template-columns: 1fr;
+            padding: 1.5rem;
+        }
+        .about-cta-buttons .btn {
+            width: 100%;
+        }
+    }
+    @media (max-width: 480px) {
+        .about-stats-grid {
             grid-template-columns: 1fr;
         }
     }
@@ -317,156 +853,584 @@
 {% endblock %}
 
 {% block content %}
+
+<!-- ==================== HERO SECTION ==================== -->
 <section class="page-hero">
     <div class="hero-bg-pattern"></div>
     <div class="container">
-        <div class="hero-content text-center">
+        <div class="hero-content text-center" data-aos="fade-up">
             
+            <!-- Breadcrumbs -->
+            <nav class="about-breadcrumb-nav" aria-label="breadcrumb">
+                <div class="about-breadcrumb">
+                    <a href="/"><i class="bi bi-house-door me-1"></i>Головна</a>
+                    <span class="separator"><i class="bi bi-chevron-right"></i></span>
+                    <span class="active">Про ліцей</span>
+                </div>
+            </nav>
+            
+            <!-- Emblem with Halo Effect -->
             <div class="about-hero-emblem-wrapper">
-                <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="about-hero-emblem" width="220" height="220" loading="lazy" decoding="async">
+                <div class="about-hero-emblem-halo"></div>
+                <img src="{% static 'images/emblem.png' %}" alt="Герб Миколаївського ліцею №9" class="about-hero-emblem" width="220" height="220" loading="eager" decoding="async">
+            </div>
+            
+            <div class="mb-2">
+                <span class="hero-badge">
+                    <i class="bi bi-patch-check-fill me-1" style="color: var(--accent);"></i>
+                    Миколаївський ліцей №9
+                </span>
             </div>
             
             <h1 class="hero-title" style="text-wrap: balance;">{{ page.title }}</h1>
-            {% if page.subtitle %}
-            <div class="hero-subtitle">{{ page.subtitle }}</div>
-            {% endif %}
+            
+            <p class="hero-subtitle">
+                {{ page.subtitle|default:"Сучасний освітній заклад для обдарованої молоді — поєднуємо академічні традиції, інноваційні методики та європейські стандарти освіти." }}
+            </p>
+
+            <!-- Quick Jump Anchor Links -->
+            <div class="about-quick-nav-wrapper">
+                <a href="#about-intro" class="about-quick-nav-item">
+                    <i class="bi bi-info-circle"></i> Про нас
+                </a>
+                <a href="#about-values" class="about-quick-nav-item">
+                    <i class="bi bi-bullseye"></i> Місія та цінності
+                </a>
+                <a href="#about-profiles" class="about-quick-nav-item">
+                    <i class="bi bi-mortarboard"></i> Напрями навчання
+                </a>
+                {% if about_subpages %}
+                <a href="#about-subpages" class="about-quick-nav-item">
+                    <i class="bi bi-diagram-3"></i> Структура
+                </a>
+                {% endif %}
+                <a href="#about-facilities" class="about-quick-nav-item">
+                    <i class="bi bi-shield-check"></i> Освітній простір
+                </a>
+                {% if page.history %}
+                <a href="#about-history" class="about-quick-nav-item">
+                    <i class="bi bi-clock-history"></i> Історія
+                </a>
+                {% endif %}
+                <a href="#about-faq" class="about-quick-nav-item">
+                    <i class="bi bi-question-circle"></i> Запитання
+                </a>
+            </div>
+
         </div>
     </div>
-
 </section>
 
-{% if page.intro %}
-<section class="about-section about-section-gray">
+<!-- ==================== KEY STATS & METRICS ==================== -->
+<section class="about-section about-section-white">
+    <div class="container">
+        <div class="about-stats-grid" data-aos="fade-up">
+            
+            <div class="about-stat-card">
+                <div class="about-stat-icon-box">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+                <div class="about-stat-val">{{ page.founded_year|default:"1991" }}</div>
+                <div class="about-stat-title">Рік заснування</div>
+                <p class="about-stat-desc">Понад 30 років академічних традицій</p>
+            </div>
+            
+            <div class="about-stat-card">
+                <div class="about-stat-icon-box">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+                <div class="about-stat-val">{{ page.students_count|default:"500" }}+</div>
+                <div class="about-stat-title">Учнів ліцею</div>
+                <p class="about-stat-desc">Дружня ліцейна родина однодумців</p>
+            </div>
+            
+            <div class="about-stat-card">
+                <div class="about-stat-icon-box">
+                    <i class="bi bi-person-badge-fill"></i>
+                </div>
+                <div class="about-stat-val">{{ page.teachers_count|default:"45+" }}</div>
+                <div class="about-stat-title">Педагогів</div>
+                <p class="about-stat-desc">Вчителі вищої категорії та методисти</p>
+            </div>
+            
+            <div class="about-stat-card">
+                <div class="about-stat-icon-box">
+                    <i class="bi bi-trophy-fill"></i>
+                </div>
+                <div class="about-stat-val">100%</div>
+                <div class="about-stat-title">Вступ до ЗВО</div>
+                <p class="about-stat-desc">Успішне складання НМТ та ДПА</p>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<!-- ==================== EXECUTIVE INTRODUCTION ==================== -->
+<section id="about-intro" class="about-section about-section-gray">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="about-intro-card">
-                    {{ page.intro|richtext }}
+            <div class="col-lg-11 col-xl-10">
+                <div class="about-intro-box" data-aos="fade-up">
+                    <div class="about-section-badge">
+                        <i class="bi bi-stars"></i> Простір можливостей
+                    </div>
+                    
+                    {% if page.intro %}
+                        <div class="about-intro-body">
+                            {{ page.intro|richtext }}
+                        </div>
+                    {% else %}
+                        <p class="about-intro-lead">
+                            Миколаївський ліцей №9 — це сучасний, відкритий та інноваційний освітній простір, спрямований на всебічний розвиток інтелектуальних, творчих та лідерських здібностей кожної дитини.
+                        </p>
+                        <p class="about-intro-body">
+                            Ми створюємо умови, за яких навчання стає захоплюючим процесом відкриття знань. Наш заклад поєднує фундаментальну академічну підготовку з формуванням практичних компетенцій XXI століття: критичного мислення, цифрової грамотності, командної взаємодії та креативності.
+                        </p>
+                    {% endif %}
+
+                    <div class="about-intro-highlights">
+                        <div class="about-intro-pill">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <span>Поглиблене вивчення предметів</span>
+                        </div>
+                        <div class="about-intro-pill">
+                            <i class="bi bi-shield-lock-fill"></i>
+                            <span>Безпечне освітнє середовище</span>
+                        </div>
+                        <div class="about-intro-pill">
+                            <i class="bi bi-laptop"></i>
+                            <span>Сучасні цифрові інструменти</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-{% endif %}
 
-{% if page.founded_year or page.students_count or page.teachers_count %}
-<section class="about-section about-section-white">
+<!-- ==================== MISSION, VISION & CORE VALUES ==================== -->
+<section id="about-values" class="about-section about-section-white">
     <div class="container">
-        <div class="about-links-row">
-            {% if page.founded_year %}
-            <div class="about-stat-item">
-                <div class="about-stat-icon">
-                    <i class="bi bi-calendar-event"></i>
-                </div>
-                <div class="about-stat-number">{{ page.founded_year }}</div>
-                <div class="about-stat-label">Рік заснування</div>
-            </div>
-            {% endif %}
-            
-            {% if page.students_count %}
-            <div class="about-stat-item">
-                <div class="about-stat-icon">
-                    <i class="bi bi-people"></i>
-                </div>
-                <div class="about-stat-number">{{ page.students_count }}+</div>
-                <div class="about-stat-label">Учнів</div>
-            </div>
-            {% endif %}
-            
-            {% if page.teachers_count %}
-            <div class="about-stat-item">
-                <div class="about-stat-icon">
-                    <i class="bi bi-person-badge"></i>
-                </div>
-                <div class="about-stat-number">{{ page.teachers_count }}</div>
-                <div class="about-stat-label">Вчителів</div>
-            </div>
-            {% endif %}
+        <div class="about-section-header" data-aos="fade-up">
+            <span class="about-section-badge">
+                <i class="bi bi-compass"></i> Наші орієнтири
+            </span>
+            <h2 class="about-section-title">Місія та ключові цінності</h2>
+            <p class="about-section-subtitle">Фундаментальні принципи, які щодня визначають напрямок нашої діяльності та розвитку</p>
         </div>
-    </div>
-</section>
-{% endif %}
 
-{% if page.mission or page.values %}
-<section class="about-section about-section-gray">
-    <div class="container">
-        <div class="row g-4">
-            {% if page.mission %}
-            <div class="col-md-6">
-                <div class="section-card">
-                    <div class="section-icon">
+        <div class="row g-4 align-items-stretch">
+            
+            <!-- Mission Card -->
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="bento-card">
+                    <div class="bento-icon-wrapper">
                         <i class="bi bi-bullseye"></i>
                     </div>
-                    <h2 class="section-title">Місія</h2>
-                    <div class="section-content">
-                        {{ page.mission|richtext }}
+                    <h3 class="bento-title">Наша місія</h3>
+                    <div class="bento-content">
+                        {% if page.mission %}
+                            {{ page.mission|richtext }}
+                        {% else %}
+                            <p>
+                                Формування високоосвіченої, національно свідомої, творчої та всебічно розвиненої особистості, здатної до самореалізації в сучасному динамічному світі.
+                            </p>
+                            <p>
+                                Ми прагнемо забезпечити рівний доступ до якісної профільної освіти, розвивати лідерські якості, наукову допитливість та готовність до викликів майбутнього.
+                            </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-            {% endif %}
-            
-            {% if page.values %}
-            <div class="col-md-6">
-                <div class="section-card">
-                    <div class="section-icon">
+
+            <!-- Values Card -->
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="bento-card">
+                    <div class="bento-icon-wrapper">
                         <i class="bi bi-heart-fill"></i>
                     </div>
-                    <h2 class="section-title">Цінності</h2>
-                    <div class="section-content">
-                        {{ page.values|richtext }}
+                    <h3 class="bento-title">Цінності ліцею</h3>
+                    <div class="bento-content">
+                        {% if page.values %}
+                            {{ page.values|richtext }}
+                        {% else %}
+                            <ul class="bento-pillars-list">
+                                <li class="bento-pillar-item">
+                                    <i class="bi bi-mortarboard-fill bento-pillar-icon"></i>
+                                    <div class="bento-pillar-text">
+                                        <strong>Академічна якість та доброчесність</strong>
+                                        <span>Глибокі знання, чесність у навчанні та прагнення до самовдосконалення.</span>
+                                    </div>
+                                </li>
+                                <li class="bento-pillar-item">
+                                    <i class="bi bi-people-fill bento-pillar-icon"></i>
+                                    <div class="bento-pillar-text">
+                                        <strong>Партнерство та взаємоповага</strong>
+                                        <span>Довіра і відкритий діалог між учнями, педагогами та батьками.</span>
+                                    </div>
+                                </li>
+                                <li class="bento-pillar-item">
+                                    <i class="bi bi-lightbulb-fill bento-pillar-icon"></i>
+                                    <div class="bento-pillar-text">
+                                        <strong>Інновації та творчість</strong>
+                                        <span>Впровадження сучасних методик, STEM-освіти та підтримка креативних ідей.</span>
+                                    </div>
+                                </li>
+                                <li class="bento-pillar-item">
+                                    <i class="bi bi-shield-fill-check bento-pillar-icon"></i>
+                                    <div class="bento-pillar-text">
+                                        <strong>Безпека та психологічний комфорт</strong>
+                                        <span>Турбота про фізичне і ментальне здоров'я кожної дитини.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-            {% endif %}
+
         </div>
     </div>
 </section>
-{% endif %}
 
-{% if page.history %}
-<section class="about-section about-section-white">
+<!-- ==================== ACADEMIC PROFILES & PRIORITIES ==================== -->
+<section id="about-profiles" class="about-section about-section-gray">
     <div class="container">
-        <div class="editorial-header">
-            <div class="editorial-icon">
-                <i class="bi bi-clock-history"></i>
-            </div>
-            <h2 class="editorial-title">Історія закладу</h2>
+        <div class="about-section-header" data-aos="fade-up">
+            <span class="about-section-badge">
+                <i class="bi bi-book"></i> Профільне навчання
+            </span>
+            <h2 class="about-section-title">Освітні напрями та пріоритети</h2>
+            <p class="about-section-subtitle">Обирайте напрям, який відповідає талантам і прагненням майбутнього ліцеїста</p>
         </div>
-        <div class="editorial-content">
-            {{ page.history|richtext }}
+
+        <div class="row g-4">
+            
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="profile-card">
+                    <span class="profile-badge">Точні науки</span>
+                    <div class="profile-icon">
+                        <i class="bi bi-cpu-fill"></i>
+                    </div>
+                    <h3 class="profile-title">Математика & IT</h3>
+                    <p class="profile-desc">Поглиблене вивчення алгебри, геометрії, інформатики, алгоритмізації та комп'ютерного моделювання.</p>
+                    <div class="profile-tags">
+                        <span class="profile-tag">Математика</span>
+                        <span class="profile-tag">Інформатика</span>
+                        <span class="profile-tag">Алгоритми</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="profile-card">
+                    <span class="profile-badge">Мови та світ</span>
+                    <div class="profile-icon">
+                        <i class="bi bi-translate"></i>
+                    </div>
+                    <h3 class="profile-title">Філологічний напрям</h3>
+                    <p class="profile-desc">Академічна українська та англійська мови, розвиток мовлення, дебатні практики та зарубіжна література.</p>
+                    <div class="profile-tags">
+                        <span class="profile-tag">Англійська мова</span>
+                        <span class="profile-tag">Українська мова</span>
+                        <span class="profile-tag">Література</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="profile-card">
+                    <span class="profile-badge">Дослідження</span>
+                    <div class="profile-icon">
+                        <i class="bi bi-flask-fill"></i>
+                    </div>
+                    <h3 class="profile-title">STEM & Природничі</h3>
+                    <p class="profile-desc">Практичні лабораторні роботи з фізики, хімії та біології, участь у наукових дослідженнях Малої академії наук.</p>
+                    <div class="profile-tags">
+                        <span class="profile-tag">Фізика</span>
+                        <span class="profile-tag">Хімія</span>
+                        <span class="profile-tag">Біологія</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="profile-card">
+                    <span class="profile-badge">Суспільство</span>
+                    <div class="profile-icon">
+                        <i class="bi bi-bank"></i>
+                    </div>
+                    <h3 class="profile-title">Суспільно-гуманітарний</h3>
+                    <p class="profile-desc">Історія України, правознавство, основи економіки, громадянська освіта та лідерські проєкти.</p>
+                    <div class="profile-tags">
+                        <span class="profile-tag">Історія</span>
+                        <span class="profile-tag">Право</span>
+                        <span class="profile-tag">Лідерство</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SUBPAGE DIRECTORY HUB ==================== -->
+{% if about_subpages %}
+<section id="about-subpages" class="about-section about-section-white">
+    <div class="container">
+        <div class="about-section-header" data-aos="fade-up">
+            <span class="about-section-badge">
+                <i class="bi bi-diagram-3"></i> Структура закладу
+            </span>
+            <h2 class="about-section-title">Розділи про наш ліцей</h2>
+            <p class="about-section-subtitle">Ознайомтеся з історією, адміністрацією, педагогічним колективом та службами ліцею</p>
+        </div>
+
+        <div class="row g-4">
+            {% for item in about_subpages %}
+            <div class="col-lg-6 col-xl-3" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+                <a href="{{ item.url }}" class="subpage-card" aria-label="Перейти до розділу {{ item.title }}">
+                    <div class="subpage-header">
+                        <div class="subpage-icon">
+                            <i class="bi {{ item.icon }}"></i>
+                        </div>
+                        <span class="subpage-tag">{{ item.tag }}</span>
+                    </div>
+                    <h3 class="subpage-title">{{ item.title }}</h3>
+                    <p class="subpage-desc">{{ item.description }}</p>
+                    <div class="subpage-action">
+                        <span>Читати детальніше</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
 {% endif %}
 
-{% if page.building_image %}
+<!-- ==================== CAMPUS, ENVIRONMENT & SAFETY ==================== -->
+<section id="about-facilities" class="about-section about-section-gray">
+    <div class="container">
+        <div class="about-section-header" data-aos="fade-up">
+            <span class="about-section-badge">
+                <i class="bi bi-building"></i> Інфраструктура
+            </span>
+            <h2 class="about-section-title">Сучасний освітній простір</h2>
+            <p class="about-section-subtitle">Створюємо комфортні, безпечні та високотехнологічні умови для кожного ліцеїста</p>
+        </div>
+
+        <div class="facility-box" data-aos="fade-up">
+            
+            {% if page.building_image %}
+            <div class="facility-hero-img-wrap">
+                {% image page.building_image width-1400 format-webp as building_img %}
+                <img src="{{ building_img.url }}" width="{{ building_img.width }}" height="{{ building_img.height }}" loading="lazy" decoding="async" alt="{{ building_img.alt|default:'Будівля Миколаївського ліцею №9' }}" class="facility-hero-img">
+                <div class="facility-overlay">
+                    <h3>Миколаївський ліцей №9</h3>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="facility-features-grid">
+                
+                <div class="facility-feature-item">
+                    <div class="facility-feature-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <div class="facility-feature-text">
+                        <h4>Сертифіковане укриття</h4>
+                        <p>Обладнане захисне приміщення з вентиляцією, автономним освітленням, Wi-Fi та запасами води.</p>
+                    </div>
+                </div>
+
+                <div class="facility-feature-item">
+                    <div class="facility-feature-icon">
+                        <i class="bi bi-display"></i>
+                    </div>
+                    <div class="facility-feature-text">
+                        <h4>Мультимедійні класи</h4>
+                        <p>Інтерактивні дошки, комп'ютерні лабораторії та швидкісний інтернет для сучасного навчання.</p>
+                    </div>
+                </div>
+
+                <div class="facility-feature-item">
+                    <div class="facility-feature-icon">
+                        <i class="bi bi-trophy"></i>
+                    </div>
+                    <div class="facility-feature-text">
+                        <h4>Спортивний комплекс</h4>
+                        <p>Облаштований спортивний зал, тренажерна зона та спортивний майданчик для активного відпочинку.</p>
+                    </div>
+                </div>
+
+                <div class="facility-feature-item">
+                    <div class="facility-feature-icon">
+                        <i class="bi bi-journal-bookmark"></i>
+                    </div>
+                    <div class="facility-feature-text">
+                        <h4>Бібліотека & Медіатека</h4>
+                        <p>Багатий книжковий фонд, художня література та комфортний простір для самопідготовки.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% if gallery_index_page %}
+        <div class="text-center mt-4 pt-2" data-aos="fade-up">
+            <a href="{{ gallery_index_page.url }}" class="btn btn-outline-primary-custom rounded-pill px-4">
+                <i class="bi bi-images me-2"></i>Переглянути фотогалерею ліцею
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ==================== HISTORY SECTION (IF PROVIDED) ==================== -->
+{% if page.history %}
+<section id="about-history" class="about-section about-section-white">
+    <div class="container">
+        <div class="about-section-header" data-aos="fade-up">
+            <span class="about-section-badge">
+                <i class="bi bi-clock-history"></i> Літопис закладу
+            </span>
+            <h2 class="about-section-title">Історія ліцею</h2>
+            <p class="about-section-subtitle">Шлях зростання, традицій та освітніх здобутків крізь десятиліття</p>
+        </div>
+
+        <div class="editorial-container" data-aos="fade-up">
+            <div class="editorial-paper">
+                <div class="editorial-body">
+                    {{ page.history|richtext }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ==================== ACHIEVEMENTS SECTION (IF PROVIDED) ==================== -->
+{% if page.achievements %}
+<section id="about-achievements" class="about-section about-section-gray">
+    <div class="container">
+        <div class="about-section-header" data-aos="fade-up">
+            <span class="about-section-badge">
+                <i class="bi bi-award-fill"></i> Гордість ліцею
+            </span>
+            <h2 class="about-section-title">Наші досягнення та перемоги</h2>
+            <p class="about-section-subtitle">Здобутки учнів та педагогічного колективу на олімпіадах, конкурсах та турнірах</p>
+        </div>
+
+        <div class="editorial-container" data-aos="fade-up">
+            <div class="editorial-paper">
+                <div class="editorial-body">
+                    {{ page.achievements|richtext }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ==================== FAQ / QUICK FACTS ACCORDION ==================== -->
+<section id="about-faq" class="about-section about-section-white">
+    <div class="container">
+        <div class="about-section-header" data-aos="fade-up">
+            <span class="about-section-badge">
+                <i class="bi bi-question-circle"></i> Запитання та відповіді
+            </span>
+            <h2 class="about-section-title">Часті запитання батьків та учнів</h2>
+            <p class="about-section-subtitle">Основна інформація про організацію освітнього процесу та вступ до ліцею</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-xl-8" data-aos="fade-up">
+                <div class="accordion about-accordion" id="aboutFaqAccordion">
+                    
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeadingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+                                <i class="bi bi-pencil-square me-2" style="color: var(--accent);"></i>
+                                Як вступити до Миколаївського ліцею №9?
+                            </button>
+                        </h3>
+                        <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#aboutFaqAccordion">
+                            <div class="accordion-body">
+                                Прийом заяв на вступ здійснюється через наш онлайн-сервіс у розділі <a href="/publichna-informatsiia/vstup-do-litseiu/" class="fw-semibold text-primary">«Вступ до ліцею»</a> або безпосередньо в закладі. Для зарахування необхідно надати заяву батьків, копію свідоцтва про народження / паспорта та особову справу з попереднього закладу освіти.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeadingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                                <i class="bi bi-shield-check me-2" style="color: var(--accent);"></i>
+                                Як організовано безпеку учнів під час тривог?
+                            </button>
+                        </h3>
+                        <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#aboutFaqAccordion">
+                            <div class="accordion-body">
+                                Ліцей має власне сертифіковане укриття, перевірене всіма державними службами. Під час повітряної тривоги всі учасники освітнього процесу оперативно переходять до захисного простору, де облаштовано навчальні місця, Wi-Fi зв'язок, вентиляцію та санітарні зони.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeadingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                                <i class="bi bi-laptop me-2" style="color: var(--accent);"></i>
+                                Які форми навчання підтримуються в ліцеї?
+                            </button>
+                        </h3>
+                        <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#aboutFaqAccordion">
+                            <div class="accordion-body">
+                                Освітній процес організовано в очному, змішаному та дистанційному форматах відповідно до безпекової ситуації в регіоні. Ліцей використовує сучасну електронну платформу, інтерактивні журнали та хмарні сервіси для зручної взаємодії.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeadingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
+                                <i class="bi bi-stars me-2" style="color: var(--accent);"></i>
+                                Чи є можливість відвідувати позакласні гуртки та секції?
+                            </button>
+                        </h3>
+                        <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#aboutFaqAccordion">
+                            <div class="accordion-body">
+                                Так, для учнів діють спортивні секції, дебатний клуб, наукове товариство МАН, мовні клуби та студії творчості. Усі заняття спрямовані на розкриття індивідуальних талантів ліцеїстів.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ADMISSIONS CTA BANNER ==================== -->
 <section class="about-section about-section-gray">
     <div class="container">
-        <div class="building-wrapper">
-            {% image page.building_image width-1200 format-webp as building_img %}
-            <img src="{{ building_img.url }}" width="{{ building_img.width }}" height="{{ building_img.height }}" loading="lazy" decoding="async" alt="{{ building_img.alt|default:'Будівля закладу' }}" class="building-image">
-            <div class="building-overlay">
-                <h3>Наш заклад</h3>
+        <div class="about-cta-card" data-aos="zoom-in">
+            <h2 class="about-cta-title">Готові приєднатися до нашої ліцейної родини?</h2>
+            <p class="about-cta-text">
+                Миколаївський ліцей №9 відкриває двері для допитливих, талановитих та вмотивованих учнів. Оберіть якісну освіту та впевнений старт у майбутнє!
+            </p>
+            <div class="about-cta-buttons">
+                <a href="/publichna-informatsiia/vstup-do-litseiu/" class="btn btn-accent-custom btn-lg">
+                    <i class="bi bi-arrow-right-circle-fill me-2"></i>Подати заяву на вступ
+                </a>
+                <a href="/kontakty/" class="btn btn-outline-custom btn-lg">
+                    <i class="bi bi-geo-alt-fill me-2"></i>Контакти та адреса
+                </a>
             </div>
         </div>
     </div>
 </section>
-{% endif %}
-
-{% if page.achievements %}
-<section class="about-section about-section-white">
-    <div class="container">
-        <div class="editorial-header">
-            <div class="editorial-icon">
-                <i class="bi bi-trophy-fill"></i>
-            </div>
-            <h2 class="editorial-title">Наші досягнення</h2>
-        </div>
-        <div class="editorial-content">
-            {{ page.achievements|richtext }}
-        </div>
-    </div>
-</section>
-{% endif %}
 
 {% endblock %}
