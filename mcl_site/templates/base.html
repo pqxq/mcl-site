@@ -113,6 +113,64 @@
                 }
             });
         });
+
+        // Open external links in a new tab
+        (function() {
+            function isExternalLink(link) {
+                if (!link || !link.href) return false;
+                const protocol = link.protocol;
+                if (protocol !== 'http:' && protocol !== 'https:') return false;
+                if (link.origin === window.location.origin || link.hostname === window.location.hostname) return false;
+                return true;
+            }
+
+            function processLink(link) {
+                if (isExternalLink(link)) {
+                    link.setAttribute('target', '_blank');
+                    const currentRel = link.getAttribute('rel') || '';
+                    const rels = new Set(currentRel.split(/\s+/).filter(Boolean));
+                    rels.add('noopener');
+                    rels.add('noreferrer');
+                    link.setAttribute('rel', Array.from(rels).join(' '));
+                }
+            }
+
+            function processAllLinks() {
+                const links = document.querySelectorAll('a[href]');
+                links.forEach(processLink);
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', processAllLinks);
+            } else {
+                processAllLinks();
+            }
+
+            document.addEventListener('click', function(e) {
+                const link = e.target.closest('a');
+                if (link && isExternalLink(link)) {
+                    processLink(link);
+                }
+            }, { capture: true });
+
+            if (typeof MutationObserver !== 'undefined') {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        mutation.addedNodes.forEach(function(node) {
+                            if (node.nodeType === 1) {
+                                if (node.matches && node.matches('a[href]')) {
+                                    processLink(node);
+                                }
+                                if (node.querySelectorAll) {
+                                    node.querySelectorAll('a[href]').forEach(processLink);
+                                }
+                            }
+                        });
+                    });
+                });
+                observer.observe(document.documentElement, { childList: true, subtree: true });
+            }
+        })();
     </script>
     {% block extra_js %}{% endblock %}
 </body>
