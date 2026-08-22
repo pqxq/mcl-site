@@ -1201,6 +1201,20 @@ img {
     margin-bottom: 0;
 }
 
+.feature-text a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-color: rgba(13, 31, 51, 0.35);
+    text-underline-offset: 3px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.feature-text a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+}
+
 /* ==================== STATS SECTION ==================== */
 .stats-section {
     padding: 0;
@@ -1630,7 +1644,7 @@ img {
 /* ==================== PAGE HERO ==================== */
 .page-hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    padding: 1.5rem 0 1.75rem;
+    padding: 2.25rem 0 2.5rem;
     position: relative;
     overflow: hidden;
 }
@@ -2001,10 +2015,10 @@ img {
 /* ==================== FILTER SECTION ==================== */
 .filter-section {
     background: transparent;
-    padding: 1.5rem 0;
+    padding: 0 0 1.25rem;
     position: relative;
     z-index: 10;
-    margin-top: -60px;
+    margin-top: -24px;
 }
 
 .filter-section .filter-card {
@@ -4846,8 +4860,8 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 
 @media (max-width: 767.98px) {
     .filter-section {
-        margin-top: -36px;
-        padding: 1rem 0;
+        margin-top: -16px;
+        padding: 0 0 1rem;
     }
 
     .filter-card {
