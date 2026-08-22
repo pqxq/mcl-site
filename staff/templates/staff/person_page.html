@@ -7,9 +7,14 @@
     <div class="hero-bg-pattern"></div>
     <div class="container">
         <div class="hero-content text-center">
-            <h1 class="hero-title">Педагогічний колектив</h1>
+            {% if page.get_parent %}
+            <h1 class="hero-title">{{ page.get_parent.title }}</h1>
+            {% else %}
+            <h1 class="hero-title">Кадровий склад</h1>
+            {% endif %}
             <div class="hero-subtitle">Миколаївського ліцею №9</div>
         </div>
+
     </div>
 </section>
 
@@ -107,11 +112,12 @@
                     {% endif %}
 
                     <div class="pt-3 border-top">
-                        <a href="{{ page.get_parent.url }}" class="btn btn-outline-primary-custom">
+                        <a href="{% if page.get_parent %}{{ page.get_parent.url }}{% else %}/pro-litsei/kadrovyi-sklad/{% endif %}" class="btn btn-outline-primary-custom">
                             <i class="bi bi-arrow-left me-2"></i>
-                            До списку колективу
+                            {% if page.get_parent %}Назад до «{{ page.get_parent.title }}»{% else %}Назад до списку{% endif %}
                         </a>
                     </div>
+
                 </div>
             </div>
         </div>
