@@ -6,39 +6,6 @@
 {% block extra_css %}
 <style>
     /* ==================== ABOUT PAGE STYLES (UI/UX DESIGN SYSTEM) ==================== */
-    
-    /* Breadcrumb */
-    .about-breadcrumb-nav {
-        margin-bottom: 1.5rem;
-    }
-    .about-breadcrumb {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1.25rem;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 50px;
-        backdrop-filter: blur(8px);
-        font-size: 0.875rem;
-        color: rgba(255, 255, 255, 0.85);
-    }
-    .about-breadcrumb a {
-        color: rgba(255, 255, 255, 0.9);
-        text-decoration: none;
-        transition: color 0.2s ease;
-    }
-    .about-breadcrumb a:hover {
-        color: var(--accent-light, #e8c65f);
-    }
-    .about-breadcrumb .separator {
-        color: rgba(255, 255, 255, 0.4);
-        font-size: 0.75rem;
-    }
-    .about-breadcrumb .active {
-        color: var(--accent-light, #e8c65f);
-        font-weight: 600;
-    }
 
     /* Hero Emblem & Visuals */
     .about-hero-emblem-wrapper {
@@ -850,18 +817,9 @@
     <div class="hero-bg-pattern"></div>
     <div class="container">
         <div class="hero-content text-center" data-aos="fade-up">
-            
-            <!-- Breadcrumbs -->
-            <nav class="about-breadcrumb-nav" aria-label="breadcrumb">
-                <div class="about-breadcrumb">
-                    <a href="/"><i class="bi bi-house-door me-1"></i>Головна</a>
-                    <span class="separator"><i class="bi bi-chevron-right"></i></span>
-                    <span class="active">{{ page.title }}</span>
-                </div>
-            </nav>
-            
             <!-- Emblem with Halo Effect -->
             <div class="about-hero-emblem-wrapper">
+
                 <div class="about-hero-emblem-halo"></div>
                 <img src="{% static 'images/emblem.png' %}" alt="Герб закладу" class="about-hero-emblem" width="220" height="220" loading="eager" decoding="async">
             </div>

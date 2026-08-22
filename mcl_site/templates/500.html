@@ -1,13 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Internal server error</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </head>
-    <body>
-        <h1>Internal server error</h1>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Помилка сервера | 500 - Миколаївський ліцей №9</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="icon" type="image/png" href="/static/images/emblem.png">
+</head>
+<body class="has-sidebar" style="background: var(--gray-50); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem;">
+    <div class="container">
+        <div class="error-card">
+            <div class="error-code-badge" aria-hidden="true">500</div>
+            <h1 class="error-title">Тимчасова помилка сервера</h1>
+            <p class="error-desc">
+                Вибачте, виникла непередбачувана технічна проблема. Ми вже працюємо над її вирішенням. Будь ласка, спробуйте оновити сторінку або поверніться на головну.
+            </p>
+            
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary-custom btn-lg">
+                    <i class="bi bi-house-door me-2"></i>На головну
+                </a>
+                <button type="button" class="btn btn-outline-primary-custom btn-lg" onclick="window.location.reload();">
+                    <i class="bi bi-arrow-clockwise me-2"></i>Оновити сторінку
+                </button>
+            </div>
 
-        <h2>Sorry, there seems to be an error. Please try again soon.</h2>
-    </body>
+            <div class="error-quick-links">
+                <div class="error-quick-links-title">Швидкий перехід:</div>
+                <div class="error-quick-links-grid">
+                    <a href="/pro-litsei/" class="error-nav-chip">
+                        <i class="bi bi-info-circle"></i> Про ліцей
+                    </a>
+                    <a href="/schedule/" class="error-nav-chip">
+                        <i class="bi bi-calendar-week"></i> Розклад
+                    </a>
+                    <a href="/novyny/" class="error-nav-chip">
+                        <i class="bi bi-newspaper"></i> Новини
+                    </a>
+                    <a href="/kontakty/" class="error-nav-chip">
+                        <i class="bi bi-geo-alt"></i> Контакти
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
+

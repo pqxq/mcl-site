@@ -16,23 +16,44 @@
     </div>
 </section>
 
-<div class="container py-5">
 
-    {% if page.get_children.live %}
-    <div class="row g-4">
-        {% for subpage in page.get_children.live %}
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title h5">
-                        <a href="{% pageurl subpage %}" class="text-decoration-none">{{ subpage.title }}</a>
-                    </h3>
-                </div>
+<section class="content-page-section py-5" style="background: var(--gray-50); min-height: 60vh;">
+    <div class="container">
+        {% if page.get_children.live %}
+        <div class="row g-4">
+            {% for subpage in page.get_children.live %}
+            <div class="col-md-6 col-lg-4">
+                <a href="{% pageurl subpage %}" class="education-card">
+                    <div class="education-card-icon">
+                        <i class="bi bi-book-half"></i>
+                    </div>
+                    <div class="education-card-content">
+                        <h2 class="education-card-title">{{ subpage.title }}</h2>
+                        {% if subpage.specific.subtitle %}
+                        <p class="education-card-desc">{{ subpage.specific.subtitle }}</p>
+                        {% elif subpage.search_description %}
+                        <p class="education-card-desc">{{ subpage.search_description|truncatewords:14 }}</p>
+                        {% else %}
+                        <p class="education-card-desc">Детальніше про освітній напрям та програму</p>
+                        {% endif %}
+                    </div>
+                    <i class="bi bi-chevron-right education-card-arrow" aria-hidden="true"></i>
+                </a>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="bi bi-mortarboard"></i>
+            </div>
+            <h2>Інформація оновлюється</h2>
+            <p>Розділ наповнюється матеріалами освітнього процесу.</p>
+            <a href="/" class="btn btn-primary-custom">На головну</a>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
+</section>
 {% endblock %}
+
 

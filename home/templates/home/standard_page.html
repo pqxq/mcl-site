@@ -12,15 +12,16 @@
             <h1 class="hero-title">{{ page.title }}</h1>
         </div>
     </div>
-
 </section>
 
-<section class="standard-content-section">
+
+
+<section class="standard-content-section" style="background: var(--gray-50); padding: 3.5rem 0 5.5rem; min-height: 60vh;">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <article class="content-article">
-                    <div class="article-content">
+            <div class="col-lg-9">
+                <article class="content-article" style="background: var(--white); border-radius: 20px; padding: clamp(2rem, 4vw, 3.5rem); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm);">
+                    <div class="article-content" style="line-height: 1.85; font-size: 1.05rem; color: var(--gray-700);">
                         {{ page.body|richtext }}
                     </div>
                 </article>
@@ -29,4 +30,5 @@
     </div>
 </section>
 {% endblock %}
+
 

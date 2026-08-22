@@ -9,6 +9,7 @@
     <div class="container">
         <div class="hero-content text-center">
             <h1 class="hero-title">{{ page.title }}</h1>
+
             {% if page.intro %}
             <div class="hero-subtitle">{{ page.intro|richtext }}</div>
             {% endif %}
@@ -16,33 +17,46 @@
     </div>
 </section>
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
 
-            {% if page.documents.all %}
-            <div class="list-group">
-                {% for doc in page.documents.all %}
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="mb-1">{{ doc.title }}</h5>
-                        {% if doc.description %}
-                        <p class="mb-0 text-muted">{{ doc.description }}</p>
-                        {% endif %}
+<section class="document-content-section" style="min-height: 60vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                {% if page.documents.all %}
+                <div class="doc-list">
+                    {% for doc in page.documents.all %}
+                    <div class="doc-list-item">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="document-icon-wrapper flex-shrink-0" style="width: 46px; height: 46px; background: rgba(13, 31, 51, 0.06); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.25rem;">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                            </div>
+                            <div>
+                                <h2 class="h5 mb-1 text-primary fw-bold">{{ doc.title }}</h2>
+                                {% if doc.description %}
+                                <p class="mb-0 text-muted small">{{ doc.description }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <a href="{{ doc.document.url }}" class="btn btn-primary-custom flex-shrink-0" download>
+                            <i class="bi bi-download me-2"></i>Завантажити
+                        </a>
                     </div>
-                    <a href="{{ doc.document.url }}" class="btn btn-primary-custom" download>
-                        <i class="bi bi-download"></i> Завантажити
-                    </a>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="bi bi-folder2-open"></i>
+                    </div>
+                    <h3>Документи ще не додані</h3>
+                    <p>Оновлення документів незабаром з'явиться на сторінці.</p>
+                    <a href="/" class="btn btn-primary-custom">На головну</a>
+                </div>
+                {% endif %}
             </div>
-            {% else %}
-            <div class="text-center py-5">
-                <p class="text-muted">Документи ще не додані.</p>
-            </div>
-            {% endif %}
         </div>
     </div>
-</div>
+</section>
 {% endblock %}
+
 

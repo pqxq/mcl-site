@@ -2,17 +2,18 @@
 
 <header class="top-header">
     <div class="container-fluid px-3">
-        <div class="d-flex align-items-center justify-content-center position-relative">
-            <button class="btn btn-link sidebar-toggle d-lg-none p-0 position-absolute start-0" id="sidebarToggle" aria-label="Відкрити меню" aria-controls="sidebar" aria-expanded="false">
-                <i class="bi bi-list fs-4" aria-hidden="true"></i>
+        <div class="d-flex align-items-center justify-content-center position-relative min-vh-header">
+            <button class="btn btn-link sidebar-toggle d-lg-none d-flex align-items-center justify-content-center position-absolute start-0" id="sidebarToggle" aria-label="Відкрити меню" aria-controls="sidebar" aria-expanded="false" style="width: 44px; height: 44px; color: #ffffff; text-decoration: none;">
+                <i class="bi bi-list fs-3" aria-hidden="true"></i>
             </button>
-            <a href="/" class="header-brand-mobile">
-                <img src="{% static 'images/emblem.png' %}" alt="Герб" class="header-logo-mobile" width="32" height="32" loading="lazy" decoding="async">
-                <span class="header-title-mobile">Миколаївський ліцей №9</span>
+            <a href="/" class="header-brand-mobile d-flex align-items-center gap-2 text-decoration-none">
+                <img src="{% static 'images/emblem.png' %}" alt="Герб ліцею" class="header-logo-mobile" width="34" height="34" loading="lazy" decoding="async">
+                <span class="header-title-mobile text-white fw-bold">Миколаївський ліцей №9</span>
             </a>
-            <a href="/search/" class="btn btn-link header-search-toggle d-lg-none p-0 position-absolute end-0" aria-label="Пошук">
-                <i class="bi bi-search fs-4" aria-hidden="true"></i>
+            <a href="/search/" class="btn btn-link header-search-toggle d-lg-none d-flex align-items-center justify-content-center position-absolute end-0" aria-label="Пошук по сайту" style="width: 44px; height: 44px; color: #ffffff; text-decoration: none;">
+                <i class="bi bi-search fs-5" aria-hidden="true"></i>
             </a>
         </div>
     </div>
 </header>
+

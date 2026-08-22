@@ -1,11 +1,61 @@
 {% extends "base.html" %}
+{% load static wagtailcore_tags %}
 
-{% block title %}Page not found{% endblock %}
+{% block title %}Сторінку не знайдено | 404{% endblock %}
 
 {% block body_class %}template-404{% endblock %}
 
 {% block content %}
-<h1>Page not found</h1>
+<section class="page-hero page-hero-sm">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">Сторінку не знайдено</h1>
+            <p class="hero-subtitle">Помилка 404</p>
+        </div>
+    </div>
+</section>
 
-<h2>Sorry, this page could not be found.</h2>
+<section class="error-page-section">
+    <div class="container">
+        <div class="error-card">
+            <div class="error-code-badge" aria-hidden="true">404</div>
+            <h2 class="error-title">На жаль, запитувана сторінка не існує або була переміщена</h2>
+            <p class="error-desc">
+                Перевірте правильність введеної адреси або скористайтеся пошуком чи швидкими посиланнями нижче, щоб знайти потрібну інформацію.
+            </p>
+            
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary-custom btn-lg">
+                    <i class="bi bi-house-door me-2"></i>На головну
+                </a>
+                <a href="/search/" class="btn btn-primary-dark btn-lg">
+                    <i class="bi bi-search me-2"></i>Пошук по сайту
+                </a>
+            </div>
+
+            <div class="error-quick-links">
+                <div class="error-quick-links-title">Корисні розділи ліцею:</div>
+                <div class="error-quick-links-grid">
+                    <a href="/pro-litsei/" class="error-nav-chip">
+                        <i class="bi bi-info-circle"></i> Про ліцей
+                    </a>
+                    <a href="/schedule/" class="error-nav-chip">
+                        <i class="bi bi-calendar-week"></i> Розклад занять
+                    </a>
+                    <a href="/novyny/" class="error-nav-chip">
+                        <i class="bi bi-newspaper"></i> Новини
+                    </a>
+                    <a href="/publichna-informatsiia/vstup-do-litseiu/" class="error-nav-chip">
+                        <i class="bi bi-mortarboard"></i> Вступ
+                    </a>
+                    <a href="/kontakty/" class="error-nav-chip">
+                        <i class="bi bi-geo-alt"></i> Контакти
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
+

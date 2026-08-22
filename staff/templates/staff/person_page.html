@@ -7,17 +7,11 @@
     <div class="hero-bg-pattern"></div>
     <div class="container">
         <div class="hero-content text-center">
-            <nav aria-label="breadcrumb" class="hero-breadcrumb mb-3">
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="/"><i class="bi bi-house"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ page.get_parent.url }}">Колектив</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ page.title }}</li>
-                </ol>
-            </nav>
+            <h1 class="hero-title">{{ page.title }}</h1>
         </div>
     </div>
-
 </section>
+
 
 <section class="person-content-section">
 <div class="container">
@@ -96,15 +90,15 @@
                     </div>
 
                     {% if page.bio %}
-                    <div class="bio-content mb-5" style="line-height: 1.8; color: #555;">
+                    <div class="bio-content mb-5" style="line-height: 1.85; color: var(--gray-700); font-size: 1.05rem;">
                         {{ page.bio|richtext }}
                     </div>
                     {% endif %}
 
                     <div>
-                        <a href="{{ page.get_parent.url }}" class="btn btn-primary-custom rounded-pill px-4 py-2">
+                        <a href="{{ page.get_parent.url }}" class="btn btn-primary-custom">
                             <i class="bi bi-arrow-left me-2"></i>
-                            До списку
+                            До списку колективу
                         </a>
                     </div>
                 </div>
@@ -113,52 +107,5 @@
     </div>
 </div>
 </section>
-
-<style>
-    .person-content-section {
-        background: var(--gray-50);
-        padding: 3rem 0 5rem;
-        margin-top: -2px;
-    }
-
-    .person-profile-card {
-        border-radius: 20px;
-        position: relative;
-        z-index: 10;
-        min-height: 500px;
-    }
-
-    .profile-portrait-wrapper {
-        width: 100%;
-        max-width: 300px;
-        aspect-ratio: 1;
-        position: relative;
-    }
-
-    @media (max-width: 991.98px) {
-        .profile-portrait-wrapper {
-            max-width: 200px;
-            margin: 0 auto;
-        }
-        .person-profile-card {
-            margin-top: -2rem;
-        }
-    }
-
-    @media (max-width: 575.98px) {
-        .person-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .person-badges .badge {
-            margin-left: 0 !important;
-        }
-
-        .person-content-section {
-            padding: 2rem 0 4rem;
-        }
-    }
-</style>
 {% endblock %}
+

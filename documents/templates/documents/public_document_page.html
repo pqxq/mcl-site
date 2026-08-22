@@ -7,15 +7,8 @@
     <div class="hero-bg-pattern"></div>
     <div class="container">
         <div class="hero-content text-center">
-            <nav aria-label="breadcrumb" class="hero-breadcrumb mb-3">
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="/"><i class="bi bi-house"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{% pageurl page.get_parent %}">{{ page.get_parent.title }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ page.title|truncatewords:5 }}</li>
-                </ol>
-            </nav>
-            
             <h1 class="hero-title">{{ page.title }}</h1>
+
             <div class="hero-meta mt-3">
                 <span class="hero-meta-item">
                     <i class="bi bi-calendar3 me-1"></i>
@@ -26,7 +19,6 @@
             </div>
         </div>
     </div>
-
 </section>
 
 <section class="document-content-section">
@@ -75,7 +67,7 @@
                     </div>
                 {% endif %}
 
-                <div class="document-footer">
+                <div class="document-footer" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-200);">
                     <a href="{% pageurl page.get_parent %}" class="btn btn-primary-custom">
                         <i class="bi bi-arrow-left me-2"></i>Назад до документів
                     </a>
@@ -84,91 +76,4 @@
         </div>
     </div>
 </section>
-
-<style>
-.document-content-section {
-    background: var(--gray-50);
-    padding: 3rem 0 5rem;
-    margin-top: -2px;
-}
-
-.document-description-card {
-    background: var(--white);
-    border-radius: 16px;
-    padding: 2rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-}
-
-.document-description-card .card-icon {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-}
-
-.document-description-card h5 {
-    color: var(--primary);
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.document-description-card .content-body {
-    color: var(--gray-700);
-    line-height: 1.8;
-}
-
-.document-download-card {
-    background: var(--white);
-    border-radius: 16px;
-    padding: 2.5rem;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    border: 2px solid var(--primary);
-}
-
-.document-download-card .download-icon {
-    font-size: 4rem;
-    color: #dc3545;
-    margin-bottom: 1rem;
-}
-
-.document-download-card h5 {
-    color: var(--primary);
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-
-.document-download-card .file-size {
-    color: var(--gray-600);
-    margin-bottom: 1.5rem;
-}
-
-.document-tags {
-    margin-top: 1.5rem;
-    color: var(--gray-600);
-}
-
-.document-tags .tag-badge {
-    display: inline-block;
-    padding: 0.35rem 0.75rem;
-    background: var(--primary);
-    color: white;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    margin-right: 0.5rem;
-}
-
-.document-footer {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--gray-200);
-}
-</style>
 {% endblock %}

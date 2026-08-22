@@ -128,16 +128,27 @@
 {% endblock extra_css %}
 
 {% block content %}
+<section class="page-hero page-hero-sm">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">{{ page.title }}</h1>
+        </div>
+    </div>
+</section>
+
+
+
 <div class="gf-wrapper">
     <div class="gf-container">
 
         {# ── Header ── #}
+        {% if page.intro %}
         <div class="gf-header">
-            <h1>{{ page.title }}</h1>
-            {% if page.intro %}
-                <div class="gf-intro">{{ page.intro|richtext }}</div>
-            {% endif %}
+            <div class="gf-intro">{{ page.intro|richtext }}</div>
         </div>
+        {% endif %}
+
 
         {# ── Embedded Google Form ── #}
         {% if page.google_form_url %}
