@@ -59,26 +59,24 @@
                         </div>
 
                     </div>
+
+                    {% if page.announcement %}
+                    <div class="hero-announcement mt-4 pt-3 pt-lg-4 border-top border-white border-opacity-10">
+                        <div class="hero-announcement-banner d-flex align-items-center gap-3">
+                            <div class="hero-announcement-icon-wrapper flex-shrink-0">
+                                <i class="bi bi-megaphone-fill"></i>
+                            </div>
+                            <div class="hero-announcement-content flex-grow-1 text-start">
+                                {{ page.announcement|richtext }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-{% if page.announcement %}
-<section class="announcement-section" data-aos="fade-up">
-    <div class="container">
-        <div class="announcement-banner">
-            <div class="announcement-icon-wrapper">
-                <i class="bi bi-megaphone-fill"></i>
-            </div>
-            <div class="announcement-content">
-                {{ page.announcement|richtext }}
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
 
 <section class="home-stats-section">
     <div class="container">
@@ -178,8 +176,8 @@
 
 {% if ticker_images %}
 {% load cache %}
-{% cache 3600 home_gallery_ticker %}
-<section class="gallery-marquee-section py-5">
+<section class="gallery-marquee-section">
+    {% cache 3600 home_gallery_ticker %}
     <div class="container">
         <div class="section-header text-center">
             <span class="section-tag">
@@ -212,10 +210,9 @@
             {% endfor %}
         </div>
     </div>
-</section>
-{% endcache %}
+    {% endcache %}
     <div class="container">
-        <div class="text-center mt-4">
+        <div class="text-center gallery-cta-wrapper">
             <a href="/gallery/" class="btn btn-outline-primary-custom rounded-pill px-4">
                 <i class="bi bi-images me-2"></i>Переглянути галерею
             </a>
