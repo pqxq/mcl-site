@@ -179,6 +179,7 @@
 {% if ticker_images %}
 {% load cache %}
 <section class="gallery-marquee-section">
+    <div class="gallery-marquee-bg-decor"></div>
     {% cache 3600 home_gallery_ticker %}
     <div class="container">
         <div class="section-header text-center">
@@ -191,25 +192,55 @@
         </div>
     </div>
     
-    <div class="gallery-marquee-wrapper">
-        <div class="gallery-marquee-track">
-            {% for img in ticker_images %}
-            <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
-                data-caption="{{ img.caption|default:'' }}" 
-                role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
-                {% image img.image width-800 format-webp as ticker_img %}
-                <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" class="rounded" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
+    <div class="gallery-marquee-dual">
+        {# Row 1 — scrolls left (default) #}
+        <div class="gallery-marquee-wrapper">
+            <div class="gallery-marquee-track">
+                {% for img in ticker_images %}{% if forloop.counter0|divisibleby:2 %}
+                <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
+                    data-caption="{{ img.caption|default:'' }}" 
+                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
+                    {% image img.image width-800 format-webp as ticker_img %}
+                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
+                    {% if img.caption %}<span class="gallery-marquee-caption">{{ img.caption }}</span>{% endif %}
+                </div>
+                {% endif %}{% endfor %}
+                {# Duplicate for seamless loop #}
+                {% for img in ticker_images %}{% if forloop.counter0|divisibleby:2 %}
+                <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
+                    data-caption="{{ img.caption|default:'' }}"
+                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
+                    {% image img.image width-800 format-webp as ticker_img %}
+                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
+                    {% if img.caption %}<span class="gallery-marquee-caption">{{ img.caption }}</span>{% endif %}
+                </div>
+                {% endif %}{% endfor %}
             </div>
-            {% endfor %}
-            {# Duplicate for seamless loop #}
-            {% for img in ticker_images %}
-            <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
-                data-caption="{{ img.caption|default:'' }}"
-                role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
-                {% image img.image width-800 format-webp as ticker_img %}
-                <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" class="rounded" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
+        </div>
+
+        {# Row 2 — scrolls right (reverse) #}
+        <div class="gallery-marquee-wrapper">
+            <div class="gallery-marquee-track gallery-marquee-track--reverse">
+                {% for img in ticker_images %}{% if not forloop.counter0|divisibleby:2 %}
+                <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
+                    data-caption="{{ img.caption|default:'' }}"
+                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
+                    {% image img.image width-800 format-webp as ticker_img %}
+                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
+                    {% if img.caption %}<span class="gallery-marquee-caption">{{ img.caption }}</span>{% endif %}
+                </div>
+                {% endif %}{% endfor %}
+                {# Duplicate for seamless loop #}
+                {% for img in ticker_images %}{% if not forloop.counter0|divisibleby:2 %}
+                <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
+                    data-caption="{{ img.caption|default:'' }}"
+                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
+                    {% image img.image width-800 format-webp as ticker_img %}
+                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
+                    {% if img.caption %}<span class="gallery-marquee-caption">{{ img.caption }}</span>{% endif %}
+                </div>
+                {% endif %}{% endfor %}
             </div>
-            {% endfor %}
         </div>
     </div>
     {% endcache %}
