@@ -19,6 +19,63 @@
 
 <section class="schedule-section">
     <div class="container">
+        <!-- Schedule Documents -->
+        {% if schedule_settings.academic_year_structure_doc or schedule_settings.semester_weeks_doc %}
+        <div class="schedule-documents mb-4" aria-label="Документи навчального процесу">
+            <div class="row g-3 {% if not schedule_settings.academic_year_structure_doc or not schedule_settings.semester_weeks_doc %}justify-content-center{% endif %}">
+                {% if schedule_settings.academic_year_structure_doc %}
+                <div class="{% if schedule_settings.semester_weeks_doc %}col-md-6{% else %}col-lg-6 col-md-8{% endif %}">
+                    <a href="{{ schedule_settings.academic_year_structure_doc.url }}" class="schedule-doc-card" target="_blank" rel="noopener noreferrer" download aria-label="Завантажити: {{ schedule_settings.academic_year_structure_title|default:'Структура навчального року' }}">
+                        <div class="schedule-doc-icon">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+                        <div class="schedule-doc-content">
+                            <span class="schedule-doc-badge">Офіційний документ</span>
+                            <div class="schedule-doc-title">{{ schedule_settings.academic_year_structure_title|default:"Структура навчального року" }}</div>
+                            <div class="schedule-doc-meta">
+                                <span class="schedule-doc-ext">{{ schedule_settings.academic_year_structure_doc.file_extension|upper }}</span>
+                                {% if schedule_settings.academic_year_structure_doc.file.size %}
+                                <span class="schedule-doc-size">{{ schedule_settings.academic_year_structure_doc.file.size|filesizeformat }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="schedule-doc-action">
+                            <span class="schedule-doc-download-btn" title="Завантажити">
+                                <i class="bi bi-download"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+
+                {% if schedule_settings.semester_weeks_doc %}
+                <div class="{% if schedule_settings.academic_year_structure_doc %}col-md-6{% else %}col-lg-6 col-md-8{% endif %}">
+                    <a href="{{ schedule_settings.semester_weeks_doc.url }}" class="schedule-doc-card" target="_blank" rel="noopener noreferrer" download aria-label="Завантажити: {{ schedule_settings.semester_weeks_title|default:'Тижні семестру навчального року' }}">
+                        <div class="schedule-doc-icon">
+                            <i class="bi bi-calendar-week"></i>
+                        </div>
+                        <div class="schedule-doc-content">
+                            <span class="schedule-doc-badge">Офіційний документ</span>
+                            <div class="schedule-doc-title">{{ schedule_settings.semester_weeks_title|default:"Тижні семестру навчального року" }}</div>
+                            <div class="schedule-doc-meta">
+                                <span class="schedule-doc-ext">{{ schedule_settings.semester_weeks_doc.file_extension|upper }}</span>
+                                {% if schedule_settings.semester_weeks_doc.file.size %}
+                                <span class="schedule-doc-size">{{ schedule_settings.semester_weeks_doc.file.size|filesizeformat }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="schedule-doc-action">
+                            <span class="schedule-doc-download-btn" title="Завантажити">
+                                <i class="bi bi-download"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
         <!-- Notice Banner -->
         <div class="schedule-notice mb-4">
             <i class="bi bi-bell-fill me-2"></i>

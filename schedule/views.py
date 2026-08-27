@@ -1,9 +1,8 @@
 from collections import Counter
 
 from django.shortcuts import render
-from django.views.decorators.cache import cache_page
 
-from .models import LESSON_TIMES, ClassGroup, Day, Lesson, Week
+from .models import LESSON_TIMES, ClassGroup, Day, Lesson, ScheduleSettings, Week
 
 PARA_BY_LESSON_NUMBER = {
     1: "I",
@@ -87,7 +86,6 @@ def build_schedule_data(lessons):
     return schedule_data
 
 
-@cache_page(60 * 15)
 def schedule_view(request):
     """Display the schedule/timetable page."""
     week_filter = normalize_week_filter(request.GET.get("week"))
@@ -97,10 +95,13 @@ def schedule_view(request):
         .filter(week=int(week_filter))
         .order_by("day", "para_number", "para_part", "class_group__name")
     )
+    schedule_settings = ScheduleSettings.for_request(request)
 
     context = {
         "schedule_data": build_schedule_data(lessons),
         "class_groups": class_groups,
         "current_week": week_filter,
+        "schedule_settings": schedule_settings,
     }
     return render(request, "schedule/schedule_page.html", context)
+

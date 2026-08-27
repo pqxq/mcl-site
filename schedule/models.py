@@ -1,7 +1,9 @@
 from django.db import models
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
-from wagtail.admin.panels import FieldPanel
+
 
 @register_snippet
 class Subject(models.Model):
@@ -102,3 +104,64 @@ class LessonViewSet(SnippetViewSet):
     search_fields = ("subject__name", "cabinet")
 
 register_snippet(LessonViewSet)
+
+
+@register_setting
+class ScheduleSettings(BaseSiteSetting):
+    academic_year_structure_doc = models.ForeignKey(
+        "wagtaildocs.Document",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Структура навчального року",
+        help_text="Документ зі структурою навчального року (PDF/DOCX тощо)",
+    )
+    academic_year_structure_title = models.CharField(
+        "Назва (Структура навчального року)",
+        max_length=255,
+        blank=True,
+        default="Структура навчального року",
+        help_text="Необов'язково. За замовчуванням: 'Структура навчального року'",
+    )
+    semester_weeks_doc = models.ForeignKey(
+        "wagtaildocs.Document",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Тижні семестру навчального року",
+        help_text="Документ з тижнями семестру навчального року (PDF/DOCX тощо)",
+    )
+    semester_weeks_title = models.CharField(
+        "Назва (Тижні семестру)",
+        max_length=255,
+        blank=True,
+        default="Тижні семестру навчального року",
+        help_text="Необов'язково. За замовчуванням: 'Тижні семестру навчального року'",
+    )
+
+    panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel("academic_year_structure_title"),
+                FieldPanel("academic_year_structure_doc"),
+            ],
+            heading="Структура навчального року",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("semester_weeks_title"),
+                FieldPanel("semester_weeks_doc"),
+            ],
+            heading="Тижні семестру навчального року",
+        ),
+    ]
+
+    class Meta:
+        verbose_name = "Налаштування розкладу та документи"
+        verbose_name_plural = "Налаштування розкладу та документи"
+
+    def __str__(self):
+        return "Налаштування розкладу та документи"
+
