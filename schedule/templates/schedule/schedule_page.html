@@ -25,7 +25,7 @@
             <div class="row g-3 {% if not schedule_settings.academic_year_structure_doc or not schedule_settings.semester_weeks_doc %}justify-content-center{% endif %}">
                 {% if schedule_settings.academic_year_structure_doc %}
                 <div class="{% if schedule_settings.semester_weeks_doc %}col-md-6{% else %}col-lg-6 col-md-8{% endif %}">
-                    <a href="{{ schedule_settings.academic_year_structure_doc.url }}" class="schedule-doc-card" target="_blank" rel="noopener noreferrer" download aria-label="Завантажити: {{ schedule_settings.academic_year_structure_title|default:'Структура навчального року' }}">
+                    <a href="{{ schedule_settings.academic_year_structure_doc.url }}" class="schedule-doc-card" target="_blank" rel="noopener noreferrer" aria-label="Відкрити документ: {{ schedule_settings.academic_year_structure_title|default:'Структура навчального року' }}">
                         <div class="schedule-doc-icon">
                             <i class="bi bi-file-earmark-text"></i>
                         </div>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="schedule-doc-action">
-                            <span class="schedule-doc-download-btn" title="Завантажити">
+                            <span class="schedule-doc-download-btn" title="Відкрити у новій вкладці">
                                 <i class="bi bi-download"></i>
                             </span>
                         </div>
@@ -50,7 +50,7 @@
 
                 {% if schedule_settings.semester_weeks_doc %}
                 <div class="{% if schedule_settings.academic_year_structure_doc %}col-md-6{% else %}col-lg-6 col-md-8{% endif %}">
-                    <a href="{{ schedule_settings.semester_weeks_doc.url }}" class="schedule-doc-card" target="_blank" rel="noopener noreferrer" download aria-label="Завантажити: {{ schedule_settings.semester_weeks_title|default:'Тижні семестру навчального року' }}">
+                    <a href="{{ schedule_settings.semester_weeks_doc.url }}" class="schedule-doc-card" target="_blank" rel="noopener noreferrer" aria-label="Відкрити документ: {{ schedule_settings.semester_weeks_title|default:'Тижні семестру навчального року' }}">
                         <div class="schedule-doc-icon">
                             <i class="bi bi-calendar-week"></i>
                         </div>
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="schedule-doc-action">
-                            <span class="schedule-doc-download-btn" title="Завантажити">
+                            <span class="schedule-doc-download-btn" title="Відкрити у новій вкладці">
                                 <i class="bi bi-download"></i>
                             </span>
                         </div>
