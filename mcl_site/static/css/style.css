@@ -1255,10 +1255,16 @@ img {
 
 /* ==================== ANNOUNCEMENT BANNER ==================== */
 .announcement-section {
-    padding: clamp(1.75rem, 3vw, 2.5rem) 0 clamp(1rem, 2vw, 1.5rem);
+    padding: clamp(2rem, 3vw, 2.75rem) 0 0.5rem;
     position: relative;
     z-index: 10;
+    background: #f8fafc;
 }
+
+.announcement-section .container {
+    max-width: 1380px;
+}
+
 
 .announcement-banner {
     display: flex;
