@@ -197,21 +197,25 @@
         <div class="gallery-marquee-wrapper">
             <div class="gallery-marquee-track">
                 {% for img in ticker_images %}{% if forloop.counter0|divisibleby:2 %}
+                {% image img.image width-40 format-webp as lqip %}
                 <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
                     data-caption="{{ img.caption|default:'' }}" 
-                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
-                    {% image img.image width-800 format-webp as ticker_img %}
-                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
+                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}"
+                    style="background-image:url('{{ lqip.url }}')">
+                    {% image img.image width-450 format-webp as ticker_img %}
+                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
                     {% if img.caption %}<span class="gallery-marquee-caption">{{ img.caption }}</span>{% endif %}
                 </div>
                 {% endif %}{% endfor %}
                 {# Duplicate for seamless loop #}
                 {% for img in ticker_images %}{% if forloop.counter0|divisibleby:2 %}
+                {% image img.image width-40 format-webp as lqip %}
                 <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
                     data-caption="{{ img.caption|default:'' }}"
-                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
-                    {% image img.image width-800 format-webp as ticker_img %}
-                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
+                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}"
+                    style="background-image:url('{{ lqip.url }}')">
+                    {% image img.image width-450 format-webp as ticker_img %}
+                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
                     {% if img.caption %}<span class="gallery-marquee-caption">{{ img.caption }}</span>{% endif %}
                 </div>
                 {% endif %}{% endfor %}
@@ -222,21 +226,25 @@
         <div class="gallery-marquee-wrapper">
             <div class="gallery-marquee-track gallery-marquee-track--reverse">
                 {% for img in ticker_images %}{% if not forloop.counter0|divisibleby:2 %}
+                {% image img.image width-40 format-webp as lqip %}
                 <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
                     data-caption="{{ img.caption|default:'' }}"
-                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
-                    {% image img.image width-800 format-webp as ticker_img %}
-                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
+                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}"
+                    style="background-image:url('{{ lqip.url }}')">
+                    {% image img.image width-450 format-webp as ticker_img %}
+                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
                     {% if img.caption %}<span class="gallery-marquee-caption">{{ img.caption }}</span>{% endif %}
                 </div>
                 {% endif %}{% endfor %}
                 {# Duplicate for seamless loop #}
                 {% for img in ticker_images %}{% if not forloop.counter0|divisibleby:2 %}
+                {% image img.image width-40 format-webp as lqip %}
                 <div class="gallery-marquee-image" data-src="{{ img.image.file.url }}"
                     data-caption="{{ img.caption|default:'' }}"
-                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}">
-                    {% image img.image width-800 format-webp as ticker_img %}
-                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" loading="lazy" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
+                    role="button" tabindex="0" aria-label="Відкрити зображення: {{ img.caption|default:'Фото з галереї' }}"
+                    style="background-image:url('{{ lqip.url }}')">
+                    {% image img.image width-450 format-webp as ticker_img %}
+                    <img src="{{ ticker_img.url }}" width="{{ ticker_img.width }}" height="{{ ticker_img.height }}" decoding="async" alt="{{ ticker_img.alt|default:img.caption|default:'Фото з галереї' }}">
                     {% if img.caption %}<span class="gallery-marquee-caption">{{ img.caption }}</span>{% endif %}
                 </div>
                 {% endif %}{% endfor %}
