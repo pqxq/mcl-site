@@ -19,16 +19,15 @@
                 <form action="{% url 'search' %}" method="get" class="search-form mt-4" id="searchForm">
                     <div class="search-input-wrapper">
                         <i class="bi bi-search search-icon"></i>
-                        <input type="text" 
+                        <input type="search" 
                                name="query" 
                                class="search-input" 
                                placeholder="Введіть пошуковий запит..."
                                {% if search_query %}value="{{ search_query }}"{% endif %}
                                autocomplete="off"
                                aria-label="Пошуковий запит"
-                               minlength="3"
                                autofocus>
-                        <button type="submit" class="search-btn" id="searchSubmitBtn">
+                        <button type="submit" class="search-btn" id="searchSubmitBtn" aria-label="Шукати">
                             <span class="search-btn-text">Шукати</span>
                             <i class="bi bi-arrow-right"></i>
                         </button>

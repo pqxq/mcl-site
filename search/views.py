@@ -17,17 +17,8 @@ def search(request):
     min_query_error = ""
 
     # Search
-    if search_query and len(search_query) >= 3:
+    if search_query:
         search_results = Page.objects.live().public().search(search_query)
-
-        # To log this query for use with the "Promoted search results" module:
-
-        # query = Query.get(search_query)
-        # query.add_hit()
-
-    elif search_query:
-        min_query_error = "Введіть щонайменше 3 символи"
-        search_results = Page.objects.none()
     else:
         search_results = Page.objects.none()
 
