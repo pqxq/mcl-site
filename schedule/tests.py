@@ -152,3 +152,8 @@ class ScheduleSettingsTests(TestCase):
         self.assertLess(doc_pos, notice_pos)
         self.assertLess(doc_pos, silence_pos)
 
+        # Verify links open in a new tab without forcing direct download
+        self.assertIn('target="_blank"', content)
+        self.assertNotIn('download aria-label', content)
+
+
