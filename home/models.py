@@ -64,7 +64,7 @@ class HomePage(Page):
                 "intro",
                 "image",
             )
-            .order_by("-first_published_at")[:3]
+            .order_by("-date", "-first_published_at")[:3]
         )
         
         # Get images for the ticker from gallery albums

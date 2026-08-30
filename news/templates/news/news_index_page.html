@@ -19,25 +19,45 @@
 
 
 
-<!-- Filter Section -->
-{% if all_tags %}
+<!-- Filter & Sorting Section -->
+{% if news_items or all_tags or current_tag or current_order == 'asc' %}
 <section class="filter-section">
     <div class="container">
         <div class="filter-card">
             <div class="filter-wrapper">
+                <!-- Sorting -->
                 <span class="filter-label">
-                    <i class="bi bi-funnel me-2"></i>Фільтр:
+                    <i class="bi bi-arrow-down-up me-2"></i>Сортування:
+                </span>
+                <div class="filter-chips me-md-4">
+                    <a href="{% pageurl page %}{% if current_tag %}?tag={{ current_tag|urlencode }}{% endif %}"
+                        class="filter-chip {% if current_order != 'asc' %}active{% endif %}">
+                        <i class="bi bi-sort-down me-1"></i>Спочатку нові
+                    </a>
+                    <a href="{% pageurl page %}?order=asc{% if current_tag %}&tag={{ current_tag|urlencode }}{% endif %}"
+                        class="filter-chip {% if current_order == 'asc' %}active{% endif %}">
+                        <i class="bi bi-sort-up me-1"></i>Спочатку старі
+                    </a>
+                </div>
+
+                {% if all_tags %}
+                <!-- Tag Filter -->
+                <span class="filter-label">
+                    <i class="bi bi-funnel me-2"></i>Теги:
                 </span>
                 <div class="filter-chips">
-                    <a href="{% pageurl page %}" class="filter-chip {% if not current_tag %}active{% endif %}">
+                    <a href="{% pageurl page %}{% if current_order == 'asc' %}?order=asc{% endif %}"
+                        class="filter-chip {% if not current_tag %}active{% endif %}">
                         <i class="bi bi-grid-3x3-gap me-1"></i>Всі
                     </a>
                     {% for tag in all_tags %}
-                    <a href="{% pageurl page %}?tag={{ tag|urlencode }}" class="filter-chip {% if current_tag == tag %}active{% endif %}">
+                    <a href="{% pageurl page %}?tag={{ tag|urlencode }}{% if current_order == 'asc' %}&order=asc{% endif %}"
+                        class="filter-chip {% if current_tag == tag %}active{% endif %}">
                         {{ tag }}
                     </a>
                     {% endfor %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

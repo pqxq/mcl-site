@@ -66,11 +66,17 @@ class NewsIndexPage(Page):
                 "intro",
                 "image",
             )
-            .order_by("-first_published_at")
         )
 
+        order = request.GET.get("order", "desc").strip().lower()
+        if order in ["asc", "oldest", "older"]:
+            current_order = "asc"
+            news_items = all_news_items.order_by("date", "first_published_at")
+        else:
+            current_order = "desc"
+            news_items = all_news_items.order_by("-date", "-first_published_at")
+
         tag_filter = request.GET.get("tag", "").strip()
-        news_items = all_news_items
         if tag_filter:
             news_items = news_items.filter(tags__name=tag_filter).distinct()
 
@@ -84,6 +90,7 @@ class NewsIndexPage(Page):
         context["news_items"] = news_items
         context["all_tags"] = all_tags
         context["current_tag"] = tag_filter
+        context["current_order"] = current_order
         return context
 
 
@@ -122,7 +129,7 @@ class NewsPage(Page):
     class Meta:
         verbose_name = "Новина"
         verbose_name_plural = "Новини"
-        ordering = ["-first_published_at"]
+        ordering = ["-date", "-first_published_at"]
 
     def __str__(self) -> str:
         return self.title
