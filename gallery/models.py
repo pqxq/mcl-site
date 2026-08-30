@@ -54,7 +54,6 @@ class GalleryIndexPage(Page):
                 "intro",
                 "cover_image",
             )
-            .order_by("-first_published_at")
         )
 
     def _get_photo_date(self, album):
@@ -63,9 +62,9 @@ class GalleryIndexPage(Page):
                 datetime.combine(album.date, time.min),
                 timezone.get_current_timezone(),
             )
-        return album.first_published_at
+        return album.first_published_at or timezone.now()
 
-    def _build_photo_list(self, albums):
+    def _build_photo_list(self, albums, order="desc"):
         all_photos = []
         for album in albums:
             photo_date = self._get_photo_date(album)
@@ -76,9 +75,17 @@ class GalleryIndexPage(Page):
                         "caption": image.caption,
                         "album": album,
                         "date": photo_date,
+                        "sort_order": getattr(image, "sort_order", 0),
                     }
                 )
-        all_photos.sort(key=lambda item: item["date"], reverse=True)
+        reverse_sort = (order != "asc")
+        all_photos.sort(
+            key=lambda item: (
+                item["date"],
+                -item["sort_order"] if reverse_sort else item["sort_order"],
+            ),
+            reverse=reverse_sort,
+        )
         return all_photos
 
     class Meta:
@@ -102,18 +109,33 @@ class GalleryIndexPage(Page):
 
         all_albums = self._base_album_queryset()
 
+        # Sorting by date (default: newest first)
+        order = request.GET.get("order", "desc").strip().lower()
+        if order in ["asc", "oldest", "older"]:
+            current_order = "asc"
+            ordered_albums = all_albums.order_by(
+                models.F("date").asc(nulls_last=True), "first_published_at"
+            )
+        else:
+            current_order = "desc"
+            ordered_albums = all_albums.order_by(
+                models.F("date").desc(nulls_last=True), "-first_published_at"
+            )
+
+        context["current_order"] = current_order
+
         # Filter by tag if requested
         tag_filter = request.GET.get("tag", "").strip()
-        albums = all_albums
+        albums = ordered_albums
         if tag_filter:
             albums = albums.filter(tags__name=tag_filter).distinct()
 
         albums = list(albums)
         context["albums"] = albums
 
-        # Get all photos for 'photos' view mode
+        # Get all photos for 'photos' view mode, sorted by date
         if view_mode == "photos":
-            context["all_photos"] = self._build_photo_list(albums)
+            context["all_photos"] = self._build_photo_list(albums, order=current_order)
 
         # Get all tags for filtering logic
         context["tags"] = (
@@ -172,7 +194,7 @@ class GalleryAlbumPage(Page):
     class Meta:
         verbose_name = "Альбом"
         verbose_name_plural = "Альбоми"
-        ordering = ["-first_published_at"]
+        ordering = ["-date", "-first_published_at"]
 
     def __str__(self) -> str:
         return self.title

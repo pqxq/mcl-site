@@ -82,20 +82,41 @@
 <!-- Lightbox Modal -->
 <div id="albumLightbox" class="album-lightbox" role="dialog" aria-modal="true" aria-label="Перегляд зображення">
     <div class="album-lightbox-backdrop"></div>
-    <button class="album-lightbox-close" aria-label="Закрити">
-        <i class="bi bi-x-lg"></i>
-    </button>
-    <button class="album-lightbox-nav album-lightbox-prev" aria-label="Попереднє">
+    
+    <!-- Top toolbar -->
+    <div class="album-lightbox-toolbar">
+        <div class="album-lightbox-counter-badge" id="albumLightboxCounter">
+            <i class="bi bi-images me-1"></i>
+            <span id="albumLightboxCounterText">1 / 1</span>
+        </div>
+        <div class="album-lightbox-actions">
+            <button type="button" class="album-lightbox-action-btn" id="albumLightboxZoomBtn" aria-label="Збільшити зображення" title="Збільшити (Z)">
+                <i class="bi bi-zoom-in" id="albumLightboxZoomIcon"></i>
+            </button>
+            <button type="button" class="album-lightbox-action-btn" id="albumLightboxFullscreenBtn" aria-label="Повноекранний режим" title="Повний екран (F)">
+                <i class="bi bi-arrows-fullscreen" id="albumLightboxFullscreenIcon"></i>
+            </button>
+            <button type="button" class="album-lightbox-close" aria-label="Закрити" title="Закрити (Esc)">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Navigation buttons -->
+    <button type="button" class="album-lightbox-nav album-lightbox-prev" aria-label="Попереднє фото" title="Попереднє (←)">
         <i class="bi bi-chevron-left"></i>
     </button>
-    <button class="album-lightbox-nav album-lightbox-next" aria-label="Наступне">
+    <button type="button" class="album-lightbox-nav album-lightbox-next" aria-label="Наступне фото" title="Наступне (→)">
         <i class="bi bi-chevron-right"></i>
     </button>
+
+    <!-- Main Content -->
     <div class="album-lightbox-content">
-        <img class="album-lightbox-img" id="albumLightboxImg" alt="" width="1200" height="800" loading="lazy" decoding="async">
-        <div class="album-lightbox-info">
+        <div class="album-lightbox-img-wrapper" id="albumLightboxImgWrapper">
+            <img class="album-lightbox-img" id="albumLightboxImg" alt="" width="1200" height="800" loading="lazy" decoding="async">
+        </div>
+        <div class="album-lightbox-caption-wrapper" id="albumLightboxCaptionWrapper">
             <div class="album-lightbox-caption" id="albumLightboxCaption"></div>
-            <div class="album-lightbox-counter" id="albumLightboxCounter"></div>
         </div>
     </div>
 </div>
@@ -107,28 +128,73 @@ document.addEventListener('DOMContentLoaded', function() {
     const lightbox = document.getElementById('albumLightbox');
     const lightboxImg = document.getElementById('albumLightboxImg');
     const lightboxCaption = document.getElementById('albumLightboxCaption');
-    const lightboxCounter = document.getElementById('albumLightboxCounter');
+    const lightboxCaptionWrapper = document.getElementById('albumLightboxCaptionWrapper');
+    const counterText = document.getElementById('albumLightboxCounterText');
     const closeBtn = document.querySelector('.album-lightbox-close');
     const prevBtn = document.querySelector('.album-lightbox-prev');
     const nextBtn = document.querySelector('.album-lightbox-next');
     const backdrop = document.querySelector('.album-lightbox-backdrop');
+    const zoomBtn = document.getElementById('albumLightboxZoomBtn');
+    const zoomIcon = document.getElementById('albumLightboxZoomIcon');
+    const fullscreenBtn = document.getElementById('albumLightboxFullscreenBtn');
+    const fullscreenIcon = document.getElementById('albumLightboxFullscreenIcon');
     
     const photos = document.querySelectorAll('.album-photo-item');
     if (photos.length === 0) return;
     
     let imagesData = [];
     let currentIndex = 0;
+    let isZoomed = false;
     
     // Build images data array
-    photos.forEach(function(photo, idx) {
+    photos.forEach(function(photo) {
         imagesData.push({
             src: photo.getAttribute('data-src'),
             caption: photo.getAttribute('data-caption') || ''
         });
     });
     
+    function toggleZoom() {
+        isZoomed = !isZoomed;
+        lightbox.classList.toggle('is-zoomed', isZoomed);
+        if (zoomIcon) {
+            zoomIcon.className = isZoomed ? 'bi bi-zoom-out' : 'bi bi-zoom-in';
+        }
+        if (zoomBtn) {
+            zoomBtn.setAttribute('title', isZoomed ? 'Зменшити (Z)' : 'Збільшити (Z)');
+        }
+    }
+    
+    function resetZoom() {
+        isZoomed = false;
+        lightbox.classList.remove('is-zoomed');
+        if (zoomIcon) zoomIcon.className = 'bi bi-zoom-in';
+        if (zoomBtn) zoomBtn.setAttribute('title', 'Збільшити (Z)');
+    }
+    
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            if (lightbox.requestFullscreen) {
+                lightbox.requestFullscreen();
+            } else if (lightbox.webkitRequestFullscreen) {
+                lightbox.webkitRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    }
+    
+    document.addEventListener('fullscreenchange', function() {
+        if (fullscreenIcon) {
+            fullscreenIcon.className = document.fullscreenElement ? 'bi bi-fullscreen-exit' : 'bi bi-arrows-fullscreen';
+        }
+    });
+    
     function openLightbox(index) {
         currentIndex = index;
+        resetZoom();
         updateLightbox();
         lightbox.classList.add('show');
         document.body.style.overflow = 'hidden';
@@ -140,18 +206,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function closeLightbox() {
+        resetZoom();
+        if (document.fullscreenElement) {
+            document.exitFullscreen().catch(function() {});
+        }
         lightbox.classList.remove('show');
         document.body.style.overflow = '';
     }
     
     function updateLightbox() {
+        resetZoom();
         lightboxImg.style.opacity = '0';
         setTimeout(function() {
             lightboxImg.src = imagesData[currentIndex].src;
-            lightboxCaption.textContent = imagesData[currentIndex].caption;
-            lightboxCounter.textContent = (currentIndex + 1) + ' / ' + imagesData.length;
+            const caption = (imagesData[currentIndex].caption || '').trim();
+            if (caption) {
+                lightboxCaption.textContent = caption;
+                lightboxCaptionWrapper.classList.add('has-caption');
+            } else {
+                lightboxCaption.textContent = '';
+                lightboxCaptionWrapper.classList.remove('has-caption');
+            }
+            if (counterText) {
+                counterText.textContent = (currentIndex + 1) + ' / ' + imagesData.length;
+            }
             lightboxImg.style.opacity = '1';
-        }, 150);
+        }, 120);
     }
     
     function showPrev() {
@@ -177,31 +257,43 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    closeBtn.addEventListener('click', closeLightbox);
-    backdrop.addEventListener('click', closeLightbox);
-    prevBtn.addEventListener('click', function(e) { e.stopPropagation(); showPrev(); });
-    nextBtn.addEventListener('click', function(e) { e.stopPropagation(); showNext(); });
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (backdrop) backdrop.addEventListener('click', closeLightbox);
+    if (prevBtn) prevBtn.addEventListener('click', function(e) { e.stopPropagation(); showPrev(); });
+    if (nextBtn) nextBtn.addEventListener('click', function(e) { e.stopPropagation(); showNext(); });
+    if (zoomBtn) zoomBtn.addEventListener('click', function(e) { e.stopPropagation(); toggleZoom(); });
+    if (fullscreenBtn) fullscreenBtn.addEventListener('click', function(e) { e.stopPropagation(); toggleFullscreen(); });
+    if (lightboxImg) lightboxImg.addEventListener('click', function(e) { e.stopPropagation(); toggleZoom(); });
     
     document.addEventListener('keydown', function(e) {
         if (!lightbox.classList.contains('show')) return;
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') showPrev();
         if (e.key === 'ArrowRight') showNext();
+        if (e.key === 'z' || e.key === 'Z') toggleZoom();
+        if (e.key === 'f' || e.key === 'F') toggleFullscreen();
     });
     
     // Touch swipe support
     let touchStartX = 0;
     let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
     
     lightbox.addEventListener('touchstart', function(e) {
+        if (isZoomed) return;
         touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
     }, { passive: true });
     
     lightbox.addEventListener('touchend', function(e) {
+        if (isZoomed) return;
         touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 50) {
-            if (diff > 0) showNext();
+        touchEndY = e.changedTouches[0].screenY;
+        const diffX = touchStartX - touchEndX;
+        const diffY = touchStartY - touchEndY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+            if (diffX > 0) showNext();
             else showPrev();
         }
     }, { passive: true });
