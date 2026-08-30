@@ -328,8 +328,13 @@ img {
     height: 60%;
 }
 
-.sidebar-link.active i:first-child {
+.sidebar-link.active i:first-child,
+.sidebar-link.has-active-child i:first-child {
     color: var(--accent);
+}
+
+.sidebar-link.has-active-child {
+    color: #ffffff;
 }
 
 .sidebar-link i:first-child {
@@ -392,6 +397,24 @@ img {
 
 .sidebar-sublink:hover::before {
     background: var(--accent);
+}
+
+.sidebar-sublink.active {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.sidebar-sublink.active::before {
+    background: var(--accent);
+    width: 6px;
+    height: 6px;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.7);
+}
+
+.sidebar-sublink.active:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
 }
 
 .sidebar-divider {

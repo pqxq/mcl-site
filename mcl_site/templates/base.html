@@ -112,6 +112,112 @@
                     setSidebarState(false);
                 }
             });
+
+            // Active sidebar link detection & submenu expansion
+            try {
+                const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+                const sublinks = document.querySelectorAll('.sidebar-sublink');
+                const singleLinks = document.querySelectorAll('.sidebar-item:not(.has-submenu) > .sidebar-link');
+                let matchFound = false;
+
+                // Check sublinks first for exact match
+                sublinks.forEach(function(link) {
+                    const href = link.getAttribute('href');
+                    if (!href) return;
+                    const linkPath = href.replace(/\/+$/, '') || '/';
+                    if (linkPath === currentPath) {
+                        link.classList.add('active');
+                        link.setAttribute('aria-current', 'page');
+                        matchFound = true;
+                        const submenu = link.closest('.sidebar-submenu');
+                        if (submenu) {
+                            submenu.classList.add('show');
+                            const toggle = submenu.previousElementSibling;
+                            if (toggle && toggle.classList.contains('sidebar-link')) {
+                                toggle.setAttribute('aria-expanded', 'true');
+                                toggle.classList.add('has-active-child');
+                            }
+                        }
+                    }
+                });
+
+                // If no exact sublink match, check single top-level links
+                if (!matchFound) {
+                    singleLinks.forEach(function(link) {
+                        const href = link.getAttribute('href');
+                        if (!href) return;
+                        const linkPath = href.replace(/\/+$/, '') || '/';
+                        if (linkPath === currentPath || (linkPath !== '/' && currentPath.startsWith(linkPath + '/'))) {
+                            link.classList.add('active');
+                            link.setAttribute('aria-current', 'page');
+                            matchFound = true;
+                        }
+                    });
+                }
+
+                // If still no match, check sublinks for prefix match (e.g. nested subpages)
+                if (!matchFound) {
+                    sublinks.forEach(function(link) {
+                        const href = link.getAttribute('href');
+                        if (!href) return;
+                        const linkPath = href.replace(/\/+$/, '') || '/';
+                        if (linkPath !== '/' && currentPath.startsWith(linkPath + '/')) {
+                            link.classList.add('active');
+                            link.setAttribute('aria-current', 'page');
+                            const submenu = link.closest('.sidebar-submenu');
+                            if (submenu) {
+                                submenu.classList.add('show');
+                                const toggle = submenu.previousElementSibling;
+                                if (toggle && toggle.classList.contains('sidebar-link')) {
+                                    toggle.setAttribute('aria-expanded', 'true');
+                                    toggle.classList.add('has-active-child');
+                                }
+                            }
+                        }
+                    });
+                }
+                // Sidebar scroll position persistence
+                const sidebarNav = document.getElementById('sidebarNav');
+                if (sidebarNav) {
+                    const savedScroll = sessionStorage.getItem('sidebar_scroll_top');
+                    if (savedScroll !== null) {
+                        sidebarNav.scrollTop = parseInt(savedScroll, 10);
+                    } else {
+                        // First visit / no saved scroll: ensure active item is visible
+                        const activeItem = sidebarNav.querySelector('.sidebar-sublink.active, .sidebar-link.active, .sidebar-link.has-active-child');
+                        if (activeItem) {
+                            activeItem.scrollIntoView({ block: 'nearest' });
+                        }
+                    }
+
+                    // Save scroll position on scroll
+                    let scrollDebounce;
+                    sidebarNav.addEventListener('scroll', function() {
+                        clearTimeout(scrollDebounce);
+                        scrollDebounce = setTimeout(function() {
+                            sessionStorage.setItem('sidebar_scroll_top', String(sidebarNav.scrollTop));
+                        }, 60);
+                    }, { passive: true });
+
+                    // Save immediately when clicking any sidebar link
+                    sidebarNav.addEventListener('click', function(e) {
+                        const link = e.target.closest('a');
+                        if (link) {
+                            sessionStorage.setItem('sidebar_scroll_top', String(sidebarNav.scrollTop));
+                        }
+                    });
+
+                    // Save on page leave
+                    window.addEventListener('beforeunload', function() {
+                        sessionStorage.setItem('sidebar_scroll_top', String(sidebarNav.scrollTop));
+                    });
+                    window.addEventListener('pagehide', function() {
+                        sessionStorage.setItem('sidebar_scroll_top', String(sidebarNav.scrollTop));
+                    });
+                }
+            } catch (err) {
+                console.error('Sidebar active link / scroll error:', err);
+            }
         });
 
         // Open external links in a new tab

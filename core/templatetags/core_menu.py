@@ -29,11 +29,58 @@ PAGE_ICON_MAP = {
 }
 
 
-@register.simple_tag
-def get_sidebar_sections():
-    """Get all sidebar sections with their valid live links"""
+@register.simple_tag(takes_context=True)
+def get_sidebar_sections(context):
+    """Get all sidebar sections with their valid live links, annotating active state based on request/page"""
+    request = context.get("request")
+    current_path = request.path if request else ""
+    current_page = context.get("page") or context.get("self")
+
     sections = SidebarSection.objects.prefetch_related("links", "links__page").all()
-    return [section for section in sections if section.valid_links]
+    result = []
+
+    norm_current_path = current_path.rstrip("/") if current_path != "/" else "/"
+
+    for section in sections:
+        valid_links = section.valid_links
+        if not valid_links:
+            continue
+
+        section_has_active = False
+        for link in valid_links:
+            link_is_active = False
+            link_href = link.href or ""
+            norm_link_href = link_href.rstrip("/") if link_href != "/" else "/"
+
+            # Check page instance matching
+            if link.page_id and current_page:
+                try:
+                    if current_page.id == link.page_id:
+                        link_is_active = True
+                    elif current_page.is_descendant_of(link.page) and link.page.url != "/":
+                        link_is_active = True
+                except Exception:
+                    pass
+
+            # Check URL matching
+            if not link_is_active and norm_link_href:
+                if norm_link_href == "/":
+                    if norm_current_path == "/":
+                        link_is_active = True
+                elif norm_current_path == norm_link_href:
+                    link_is_active = True
+                elif norm_current_path.startswith(norm_link_href + "/"):
+                    link_is_active = True
+
+            link.is_active = link_is_active
+            if link_is_active:
+                section_has_active = True
+
+        section.has_active_link = section_has_active
+        section.is_open = section_has_active or section.is_expanded
+        result.append(section)
+
+    return result
 
 
 
