@@ -32,7 +32,7 @@
                                     <a href="{{ link.href }}" 
                                        class="sidebar-sublink {% if link.is_active %}active{% endif %}" 
                                        {% if link.is_active %}aria-current="page"{% endif %}
-                                       {% if link.new_tab or link.external_url %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                                       {% if link.new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>
                                         {{ link.display_label }}
                                     </a>
                                 </li>
@@ -44,7 +44,7 @@
                             <a href="{{ link.href }}" 
                                class="sidebar-link {% if link.is_active %}active{% endif %}" 
                                {% if link.is_active %}aria-current="page"{% endif %}
-                               {% if link.new_tab or link.external_url %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                               {% if link.new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>
                                 <i class="bi {{ section.icon }}"></i>
                                 <span>{{ section.title }}</span>
                             </a>

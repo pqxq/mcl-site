@@ -320,24 +320,31 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = '';
     }
     
+    function preloadAdjacentImages() {
+        if (imagesData.length <= 1) return;
+        const nextIdx = (currentIndex + 1) % imagesData.length;
+        const prevIdx = (currentIndex - 1 + imagesData.length) % imagesData.length;
+        const imgNext = new Image();
+        imgNext.src = imagesData[nextIdx].src;
+        const imgPrev = new Image();
+        imgPrev.src = imagesData[prevIdx].src;
+    }
+
     function updateLightbox() {
         resetZoom();
-        lightboxImg.style.opacity = '0';
-        setTimeout(function() {
-            lightboxImg.src = imagesData[currentIndex].src;
-            const caption = (imagesData[currentIndex].caption || '').trim();
-            if (caption) {
-                lightboxCaption.textContent = caption;
-                lightboxCaptionWrapper.classList.add('has-caption');
-            } else {
-                lightboxCaption.textContent = '';
-                lightboxCaptionWrapper.classList.remove('has-caption');
-            }
-            if (counterText) {
-                counterText.textContent = (currentIndex + 1) + ' / ' + imagesData.length;
-            }
-            lightboxImg.style.opacity = '1';
-        }, 120);
+        lightboxImg.src = imagesData[currentIndex].src;
+        const caption = (imagesData[currentIndex].caption || '').trim();
+        if (caption) {
+            lightboxCaption.textContent = caption;
+            lightboxCaptionWrapper.classList.add('has-caption');
+        } else {
+            lightboxCaption.textContent = '';
+            lightboxCaptionWrapper.classList.remove('has-caption');
+        }
+        if (counterText) {
+            counterText.textContent = (currentIndex + 1) + ' / ' + imagesData.length;
+        }
+        preloadAdjacentImages();
     }
     
     function showPrev() {

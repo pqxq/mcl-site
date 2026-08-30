@@ -384,24 +384,31 @@
             }
         });
 
+        function preloadAdjacentImages() {
+            if (imagesData.length <= 1) return;
+            var nextIdx = (currentIndex + 1) % imagesData.length;
+            var prevIdx = (currentIndex - 1 + imagesData.length) % imagesData.length;
+            var imgNext = new Image();
+            imgNext.src = imagesData[nextIdx].src;
+            var imgPrev = new Image();
+            imgPrev.src = imagesData[prevIdx].src;
+        }
+
         function updateLightboxContent() {
             resetZoom();
-            modalImg.style.opacity = '0';
-            setTimeout(function() {
-                modalImg.src = imagesData[currentIndex].src;
-                var caption = imagesData[currentIndex].caption;
-                if (caption) {
-                    captionText.textContent = caption;
-                    captionWrapper.classList.add('has-caption');
-                } else {
-                    captionText.textContent = '';
-                    captionWrapper.classList.remove('has-caption');
-                }
-                if (counterText) {
-                    counterText.textContent = (currentIndex + 1) + ' / ' + imagesData.length;
-                }
-                modalImg.style.opacity = '1';
-            }, 120);
+            modalImg.src = imagesData[currentIndex].src;
+            var caption = imagesData[currentIndex].caption;
+            if (caption) {
+                captionText.textContent = caption;
+                captionWrapper.classList.add('has-caption');
+            } else {
+                captionText.textContent = '';
+                captionWrapper.classList.remove('has-caption');
+            }
+            if (counterText) {
+                counterText.textContent = (currentIndex + 1) + ' / ' + imagesData.length;
+            }
+            preloadAdjacentImages();
         }
 
         function openLightbox(src) {

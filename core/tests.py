@@ -103,3 +103,16 @@ class SidebarActiveLinkTest(TestCase):
         valid_links = sections[1].valid_links
         self.assertFalse(valid_links[0].is_active)
         self.assertTrue(valid_links[1].is_active)
+
+    def test_sidebar_link_target_blank_only_when_new_tab_true(self):
+        from django.template import Context, Template
+        from django.test import RequestFactory
+
+        factory = RequestFactory()
+        request = factory.get('/')
+        template = Template('{% include "includes/sidebar.html" %}')
+        rendered = template.render(Context({'request': request}))
+
+        # Internal link without new_tab should NOT have target="_blank"
+        self.assertIn('href="/publichna-informatsiia/ustanovchi/"', rendered)
+        self.assertNotIn('href="/publichna-informatsiia/ustanovchi/" target="_blank"', rendered)

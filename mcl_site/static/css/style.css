@@ -1574,6 +1574,7 @@ img {
     font-family: var(--font-heading);
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -1595,6 +1596,7 @@ img {
     margin-bottom: 1.25rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -5829,6 +5831,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     line-height: 1;
     background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 1rem;
 }
@@ -6827,7 +6830,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     border-radius: 18px;
     display: block;
     cursor: zoom-in;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
 }
 
@@ -6963,6 +6966,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     box-shadow: none !important;
     min-height: 46px;
     -webkit-appearance: none;
+    appearance: none;
 }
 
 .search-input:focus,
