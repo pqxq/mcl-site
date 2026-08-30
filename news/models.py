@@ -131,5 +131,44 @@ class NewsPage(Page):
         verbose_name_plural = "Новини"
         ordering = ["-date", "-first_published_at"]
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        tag_ids = list(self.tags.values_list("id", flat=True))
+        base_qs = (
+            NewsPage.objects.live()
+            .public()
+            .exclude(id=self.id)
+            .select_related("owner")
+            .prefetch_related("tags")
+            .only(
+                "title",
+                "slug",
+                "first_published_at",
+                "search_description",
+                "live",
+                "owner",
+                "date",
+                "intro",
+                "image",
+            )
+        )
+        related = []
+        if tag_ids:
+            related = list(
+                base_qs.filter(tags__id__in=tag_ids)
+                .distinct()
+                .order_by("-date", "-first_published_at")[:3]
+            )
+        if len(related) < 3:
+            exclude_ids = [self.id] + [p.id for p in related]
+            more_news = list(
+                base_qs.exclude(id__in=exclude_ids)
+                .order_by("-date", "-first_published_at")[: 3 - len(related)]
+            )
+            related.extend(more_news)
+
+        context["related_news"] = related
+        return context
+
     def __str__(self) -> str:
         return self.title

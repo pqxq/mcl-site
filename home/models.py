@@ -53,6 +53,7 @@ class HomePage(Page):
             NewsPage.objects.live()
             .public()
             .select_related("owner")
+            .prefetch_related("tags")
             .only(
                 "title",
                 "slug",

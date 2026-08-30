@@ -127,7 +127,7 @@
                         </div>
                         {% endif %}
                         <h2 class="news-title">
-                            <a href="{% pageurl album %}">{{ album.title }}</a>
+                            <a href="{% pageurl album %}" class="stretched-link">{{ album.title }}</a>
                         </h2>
                         {% if album.intro %}
                         <p class="news-excerpt">{{ album.intro|truncatewords:18 }}</p>
@@ -135,14 +135,16 @@
                         {% if album.tags.all %}
                         <div class="news-tags">
                             {% for tag in album.tags.all %}
-                            <span class="news-tag">{{ tag.name }}</span>
+                            <a href="{% pageurl page %}?tag={{ tag.name|urlencode }}" class="news-tag news-tag-interactive" title="Фільтрувати за тегом {{ tag.name }}">{{ tag.name }}</a>
                             {% endfor %}
                         </div>
                         {% endif %}
-                        <a href="{% pageurl album %}" class="read-more">
-                            Переглянути
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
+                        <div class="news-card-footer">
+                            <span class="read-more">
+                                Переглянути
+                                <i class="bi bi-arrow-right"></i>
+                            </span>
+                        </div>
                     </div>
                 </article>
             </div>

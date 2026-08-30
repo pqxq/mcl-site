@@ -124,3 +124,21 @@ class NewsSortingAndFilteringTests(TestCase):
         response_asc = self.client.get(f"{self.news_index.url}?order=asc")
         self.assertEqual(response_asc.status_code, 200)
         self.assertContains(response_asc, "order=asc")
+
+    def test_news_page_context_and_related_news(self):
+        request = self.factory.get(self.news_new.url)
+        context = self.news_new.get_context(request)
+        related = context["related_news"]
+
+        # Current page (news_new) should not be in related
+        self.assertNotIn(self.news_new, related)
+        # Because news_old shares the "Події" tag with news_new, it should be in related
+        self.assertIn(self.news_old, related)
+
+    def test_news_page_render(self):
+        response = self.client.get(self.news_new.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "article-card")
+        self.assertContains(response, "Поділитися:")
+        self.assertContains(response, "Схожі новини")
+        self.assertContains(response, self.news_old.title)

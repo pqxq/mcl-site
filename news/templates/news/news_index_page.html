@@ -82,29 +82,28 @@
                         </div>
                         {% endif %}
                         <div class="news-card-overlay"></div>
+                        <span class="news-card-badge">
+                            <i class="bi bi-calendar3 me-1"></i>{{ post.date|date:"d E Y" }}
+                        </span>
                     </div>
                     <div class="news-card-body">
-                        <div class="news-meta">
-                            <span class="news-date">
-                                <i class="bi bi-calendar3 me-1"></i>
-                                {{ post.date|date:"d E Y" }}
-                            </span>
-                        </div>
-                        <h2 class="news-title">
-                            <a href="{% pageurl post %}">{{ post.title }}</a>
-                        </h2>
-                        <p class="news-excerpt">{{ post.intro|truncatewords:18 }}</p>
                         {% if post.tags.all %}
                         <div class="news-tags">
                             {% for tag in post.tags.all %}
-                            <span class="news-tag">{{ tag.name }}</span>
+                            <a href="{% pageurl page %}?tag={{ tag.name|urlencode }}{% if current_order == 'asc' %}&order=asc{% endif %}" class="news-tag news-tag-interactive" title="Фільтрувати за тегом {{ tag.name }}">{{ tag.name }}</a>
                             {% endfor %}
                         </div>
                         {% endif %}
-                        <a href="{% pageurl post %}" class="read-more">
-                            Читати далі
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
+                        <h2 class="news-title">
+                            <a href="{% pageurl post %}" class="stretched-link">{{ post.title }}</a>
+                        </h2>
+                        <p class="news-excerpt">{{ post.intro|truncatewords:18 }}</p>
+                        <div class="news-card-footer">
+                            <span class="read-more">
+                                Читати далі
+                                <i class="bi bi-arrow-right"></i>
+                            </span>
+                        </div>
                     </div>
                 </article>
             </div>
