@@ -225,6 +225,13 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const lightbox = document.getElementById('galleryLightbox');
+    if (!lightbox) return;
+
+    // Move modal to body to prevent stacking context traps
+    if (lightbox.parentNode !== document.body) {
+        document.body.appendChild(lightbox);
+    }
+
     const lightboxImg = document.getElementById('galleryLightboxImg');
     const lightboxCaption = document.getElementById('galleryLightboxCaption');
     const lightboxCaptionWrapper = document.getElementById('galleryLightboxCaptionWrapper');

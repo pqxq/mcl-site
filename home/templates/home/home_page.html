@@ -261,186 +261,237 @@
     </div>
 </section>
 
-<div id="marqueeLightbox" class="marquee-lightbox-modal" role="dialog" aria-modal="true" aria-label="Перегляд зображення">
-    <button class="marquee-lightbox-close" aria-label="Закрити">&times;</button>
-    <button class="marquee-lightbox-nav marquee-lightbox-prev" aria-label="Попереднє зображення">
+<div id="marqueeLightbox" class="gallery-lightbox album-lightbox marquee-lightbox-modal" role="dialog" aria-modal="true" aria-label="Перегляд зображення">
+    <div class="gallery-lightbox-backdrop"></div>
+    
+    <!-- Top toolbar -->
+    <div class="gallery-lightbox-toolbar">
+        <div class="gallery-lightbox-counter-badge" id="marqueeLightboxCounter">
+            <i class="bi bi-images me-1"></i>
+            <span id="marqueeLightboxCounterText">1 / 1</span>
+        </div>
+        <div class="gallery-lightbox-actions">
+            <button type="button" class="gallery-lightbox-action-btn" id="marqueeLightboxZoomBtn" aria-label="Збільшити зображення" title="Збільшити (Z)">
+                <i class="bi bi-zoom-in" id="marqueeLightboxZoomIcon"></i>
+            </button>
+            <button type="button" class="gallery-lightbox-action-btn" id="marqueeLightboxFullscreenBtn" aria-label="Повноекранний режим" title="Повний екран (F)">
+                <i class="bi bi-arrows-fullscreen" id="marqueeLightboxFullscreenIcon"></i>
+            </button>
+            <button type="button" class="gallery-lightbox-close" aria-label="Закрити" title="Закрити (Esc)">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Navigation buttons -->
+    <button type="button" class="gallery-lightbox-nav gallery-lightbox-prev marquee-lightbox-prev" aria-label="Попереднє фото" title="Попереднє (←)">
         <i class="bi bi-chevron-left"></i>
     </button>
-    <button class="marquee-lightbox-nav marquee-lightbox-next" aria-label="Наступне зображення">
+    <button type="button" class="gallery-lightbox-nav gallery-lightbox-next marquee-lightbox-next" aria-label="Наступне фото" title="Наступне (→)">
         <i class="bi bi-chevron-right"></i>
     </button>
-    <div class="marquee-lightbox-content-wrapper">
-        <img class="marquee-lightbox-content" id="lightboxImg" alt="Gallery Image" width="1200" height="800" loading="lazy" decoding="async">
-        <div id="marqueeLightboxCaption"></div>
-        <div class="marquee-lightbox-counter" id="lightboxCounter"></div>
+
+    <!-- Main Content -->
+    <div class="gallery-lightbox-content">
+        <div class="gallery-lightbox-img-wrapper" id="marqueeLightboxImgWrapper">
+            <img class="gallery-lightbox-img" id="lightboxImg" alt="Gallery Image" width="1200" height="800" loading="lazy" decoding="async">
+        </div>
+        <div class="gallery-lightbox-caption-wrapper" id="marqueeLightboxCaptionWrapper">
+            <div class="gallery-lightbox-caption" id="marqueeLightboxCaption"></div>
+        </div>
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Move modal to body to prevent z-index/transform issues
         var modal = document.getElementById("marqueeLightbox");
-        if (modal && modal.parentNode !== document.body) {
+        if (!modal) return;
+
+        // Move modal to body to prevent z-index/transform issues
+        if (modal.parentNode !== document.body) {
             document.body.appendChild(modal);
         }
 
         var modalImg = document.getElementById("lightboxImg");
         var captionText = document.getElementById("marqueeLightboxCaption");
-        var counterText = document.getElementById("lightboxCounter");
-        var closeBtn = document.querySelector("#marqueeLightbox .marquee-lightbox-close");
-        var prevBtn = document.querySelector(".marquee-lightbox-prev");
-        var nextBtn = document.querySelector(".marquee-lightbox-next");
-        // Build images array from unique sources
+        var captionWrapper = document.getElementById("marqueeLightboxCaptionWrapper");
+        var counterText = document.getElementById("marqueeLightboxCounterText");
+        var closeBtn = modal.querySelector(".gallery-lightbox-close");
+        var prevBtn = modal.querySelector(".gallery-lightbox-prev");
+        var nextBtn = modal.querySelector(".gallery-lightbox-next");
+        var backdrop = modal.querySelector(".gallery-lightbox-backdrop");
+        var zoomBtn = document.getElementById("marqueeLightboxZoomBtn");
+        var zoomIcon = document.getElementById("marqueeLightboxZoomIcon");
+        var fullscreenBtn = document.getElementById("marqueeLightboxFullscreenBtn");
+        var fullscreenIcon = document.getElementById("marqueeLightboxFullscreenIcon");
+
+        // Build unique images array
         var allImageElements = document.querySelectorAll('.gallery-marquee-image');
         var imagesData = [];
         var seenSources = new Set();
         
         allImageElements.forEach(function(img) {
             var src = img.getAttribute('data-src');
-            if (!seenSources.has(src)) {
+            if (src && !seenSources.has(src)) {
                 seenSources.add(src);
                 imagesData.push({
                     src: src,
-                    caption: img.getAttribute('data-caption') || ''
+                    caption: (img.getAttribute('data-caption') || '').trim()
                 });
             }
         });
+
+        if (imagesData.length === 0) return;
         
         var currentIndex = 0;
-        
-        function updateCounter() {
-            if (counterText && imagesData.length > 1) {
-                counterText.innerText = (currentIndex + 1) + ' / ' + imagesData.length;
-                counterText.style.display = 'block';
+        var isZoomed = false;
+
+        function toggleZoom() {
+            isZoomed = !isZoomed;
+            modal.classList.toggle('is-zoomed', isZoomed);
+            if (zoomIcon) {
+                zoomIcon.className = isZoomed ? 'bi bi-zoom-out' : 'bi bi-zoom-in';
+            }
+            if (zoomBtn) {
+                zoomBtn.setAttribute('title', isZoomed ? 'Зменшити (Z)' : 'Збільшити (Z)');
             }
         }
 
-        function openLightbox(src, caption) {
+        function resetZoom() {
+            isZoomed = false;
+            modal.classList.remove('is-zoomed');
+            if (zoomIcon) zoomIcon.className = 'bi bi-zoom-in';
+            if (zoomBtn) zoomBtn.setAttribute('title', 'Збільшити (Z)');
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                if (modal.requestFullscreen) {
+                    modal.requestFullscreen();
+                } else if (modal.webkitRequestFullscreen) {
+                    modal.webkitRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        document.addEventListener('fullscreenchange', function() {
+            if (fullscreenIcon) {
+                fullscreenIcon.className = document.fullscreenElement ? 'bi bi-fullscreen-exit' : 'bi bi-arrows-fullscreen';
+            }
+        });
+
+        function updateLightboxContent() {
+            resetZoom();
+            modalImg.style.opacity = '0';
+            setTimeout(function() {
+                modalImg.src = imagesData[currentIndex].src;
+                var caption = imagesData[currentIndex].caption;
+                if (caption) {
+                    captionText.textContent = caption;
+                    captionWrapper.classList.add('has-caption');
+                } else {
+                    captionText.textContent = '';
+                    captionWrapper.classList.remove('has-caption');
+                }
+                if (counterText) {
+                    counterText.textContent = (currentIndex + 1) + ' / ' + imagesData.length;
+                }
+                modalImg.style.opacity = '1';
+            }, 120);
+        }
+
+        function openLightbox(src) {
             currentIndex = imagesData.findIndex(function(img) { return img.src === src; });
             if (currentIndex < 0) currentIndex = 0;
             
-            modal.style.display = "flex";
-            // Trigger reflow for transition
-            void modal.offsetWidth;
+            resetZoom();
+            updateLightboxContent();
             modal.classList.add("show");
             document.body.style.overflow = 'hidden';
-
-            modalImg.src = src;
-            captionText.innerText = caption;
-            updateCounter();
             
-            // Show/hide nav buttons
-            if (prevBtn && nextBtn) {
-                var showNav = imagesData.length > 1;
-                prevBtn.style.display = showNav ? 'flex' : 'none';
-                nextBtn.style.display = showNav ? 'flex' : 'none';
-            }
+            var showNav = imagesData.length > 1;
+            if (prevBtn) prevBtn.style.display = showNav ? 'flex' : 'none';
+            if (nextBtn) nextBtn.style.display = showNav ? 'flex' : 'none';
         }
 
         function closeLightboxFunc() {
+            resetZoom();
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(function() {});
+            }
             modal.classList.remove("show");
             document.body.style.overflow = '';
-            setTimeout(function () {
-                modal.style.display = "none";
-                modalImg.src = "";
-            }, 300);
         }
         
         function showPrev() {
             currentIndex = (currentIndex - 1 + imagesData.length) % imagesData.length;
-            modalImg.classList.add('lightbox-transition');
-            setTimeout(function() {
-                modalImg.src = imagesData[currentIndex].src;
-                captionText.innerText = imagesData[currentIndex].caption;
-                updateCounter();
-                modalImg.classList.remove('lightbox-transition');
-            }, 150);
+            updateLightboxContent();
         }
         
         function showNext() {
             currentIndex = (currentIndex + 1) % imagesData.length;
-            modalImg.classList.add('lightbox-transition');
-            setTimeout(function() {
-                modalImg.src = imagesData[currentIndex].src;
-                captionText.innerText = imagesData[currentIndex].caption;
-                updateCounter();
-                modalImg.classList.remove('lightbox-transition');
-            }, 150);
+            updateLightboxContent();
         }
 
         // Attach click handlers to images
         allImageElements.forEach(function (img) {
             img.addEventListener('click', function () {
                 var src = this.getAttribute('data-src');
-                var caption = this.getAttribute('data-caption');
-                openLightbox(src, caption);
+                openLightbox(src);
             });
             img.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     var src = this.getAttribute('data-src');
-                    var caption = this.getAttribute('data-caption');
-                    openLightbox(src, caption);
+                    openLightbox(src);
                 }
             });
         });
 
-        // Close button
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeLightboxFunc);
-        }
-        
-        // Navigation buttons
-        if (prevBtn) {
-            prevBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                showPrev();
-            });
-        }
-        if (nextBtn) {
-            nextBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                showNext();
-            });
-        }
-
-        // Close on outside click
-        modal.addEventListener('click', function (event) {
-            if (event.target === modal || event.target.classList.contains('marquee-lightbox-content-wrapper')) {
-                closeLightboxFunc();
-            }
-        });
+        if (closeBtn) closeBtn.addEventListener('click', closeLightboxFunc);
+        if (backdrop) backdrop.addEventListener('click', closeLightboxFunc);
+        if (prevBtn) prevBtn.addEventListener('click', function(e) { e.stopPropagation(); showPrev(); });
+        if (nextBtn) nextBtn.addEventListener('click', function(e) { e.stopPropagation(); showNext(); });
+        if (zoomBtn) zoomBtn.addEventListener('click', function(e) { e.stopPropagation(); toggleZoom(); });
+        if (fullscreenBtn) fullscreenBtn.addEventListener('click', function(e) { e.stopPropagation(); toggleFullscreen(); });
+        if (modalImg) modalImg.addEventListener('click', function(e) { e.stopPropagation(); toggleZoom(); });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(e) {
-            if (modal.style.display !== 'none' && modal.classList.contains('show')) {
-                if (e.key === 'Escape') {
-                    closeLightboxFunc();
-                } else if (e.key === 'ArrowLeft') {
-                    showPrev();
-                } else if (e.key === 'ArrowRight') {
-                    showNext();
-                }
+            if (modal.classList.contains('show')) {
+                if (e.key === 'Escape') closeLightboxFunc();
+                if (e.key === 'ArrowLeft') showPrev();
+                if (e.key === 'ArrowRight') showNext();
+                if (e.key === 'z' || e.key === 'Z') toggleZoom();
+                if (e.key === 'f' || e.key === 'F') toggleFullscreen();
             }
         });
 
         // Touch swipe support for lightbox
         var touchStartX = 0;
         var touchEndX = 0;
+        var touchStartY = 0;
+        var touchEndY = 0;
         
         modal.addEventListener('touchstart', function(e) {
+            if (isZoomed) return;
             touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
         }, { passive: true });
         
         modal.addEventListener('touchend', function(e) {
+            if (isZoomed) return;
             touchEndX = e.changedTouches[0].screenX;
-            var diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) {
-                    showNext();
-                } else {
-                    showPrev();
-                }
+            touchEndY = e.changedTouches[0].screenY;
+            var diffX = touchStartX - touchEndX;
+            var diffY = touchStartY - touchEndY;
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+                if (diffX > 0) showNext();
+                else showPrev();
             }
         }, { passive: true });
     });

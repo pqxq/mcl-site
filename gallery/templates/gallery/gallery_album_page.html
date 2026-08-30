@@ -126,6 +126,13 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const lightbox = document.getElementById('albumLightbox');
+    if (!lightbox) return;
+
+    // Move modal to body to prevent stacking context traps
+    if (lightbox.parentNode !== document.body) {
+        document.body.appendChild(lightbox);
+    }
+
     const lightboxImg = document.getElementById('albumLightboxImg');
     const lightboxCaption = document.getElementById('albumLightboxCaption');
     const lightboxCaptionWrapper = document.getElementById('albumLightboxCaptionWrapper');
