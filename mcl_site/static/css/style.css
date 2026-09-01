@@ -38,11 +38,12 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-    /* Premium Palette */
-    --primary: #0d1f33;
-    --primary-rgb: 13, 31, 51;
-    --primary-dark: #071220;
-    --primary-light: #1a3352;
+    /* Premium Brighter & Lighter Blue Palette */
+    --primary: #184e8e;
+    --primary-rgb: 24, 78, 142;
+    --primary-dark: #0f3563;
+    --primary-light: #2566b3;
+    --primary-lighter: #3b7fc4;
     --accent: #d4af37;
     --accent-rgb: 212, 175, 55;
     --accent-light: #e8c65f;
@@ -64,11 +65,11 @@
     /* Spacing */
     --section-padding: 5rem;
 
-    /* Shadows - Premium Diffused */
-    --shadow-sm: 0 2px 4px rgba(13, 31, 51, 0.05);
-    --shadow-md: 0 10px 25px rgba(13, 31, 51, 0.1);
-    --shadow-lg: 0 25px 50px rgba(13, 31, 51, 0.15);
-    --shadow-glow: 0 0 20px rgba(212, 175, 55, 0.2);
+    /* Shadows - Premium Diffused with subtle blue glow */
+    --shadow-sm: 0 2px 6px rgba(24, 78, 142, 0.06);
+    --shadow-md: 0 10px 25px rgba(24, 78, 142, 0.12);
+    --shadow-lg: 0 25px 50px rgba(24, 78, 142, 0.18);
+    --shadow-glow: 0 0 20px rgba(212, 175, 55, 0.25);
 }
 
 *,
@@ -184,7 +185,7 @@ img {
 
 .sidebar {
     width: 270px;
-    background: linear-gradient(180deg, rgba(26, 51, 82, 0.95) 0%, rgba(13, 31, 51, 0.98) 100%);
+    background: linear-gradient(180deg, rgba(29, 79, 136, 0.97) 0%, rgba(15, 53, 99, 0.99) 100%);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     position: fixed;
@@ -200,7 +201,7 @@ img {
 
 .sidebar-header {
     padding: 1.5rem 1.25rem 1.25rem 1.25rem;
-    background: rgba(13, 31, 51, 0.85);
+    background: rgba(15, 53, 99, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     display: flex;
@@ -490,7 +491,7 @@ img {
 
     .top-header {
         display: block;
-        background: rgba(13, 31, 51, 0.85);
+        background: rgba(15, 53, 99, 0.92);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -3200,7 +3201,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 /* ==================== FOOTER ==================== */
 .site-footer {
     position: relative;
-    background: linear-gradient(180deg, var(--primary-dark) 0%, #08121f 100%);
+    background: linear-gradient(180deg, var(--primary-dark) 0%, #0a2546 100%);
     color: var(--white);
     margin-top: auto;
     border-top: 2px solid var(--accent);
@@ -5443,7 +5444,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 
 .btn-accent-custom {
     background: linear-gradient(135deg, #d4af37 0%, #e8c65f 100%);
-    color: #0d1f33 !important;
+    color: #0f3563 !important;
     font-weight: 700;
     border: none;
     border-radius: 50px;
@@ -5462,7 +5463,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     background: linear-gradient(135deg, #e8c65f 0%, #d4af37 100%);
     transform: translateY(-2px);
     box-shadow: 0 12px 28px rgba(212, 175, 55, 0.45);
-    color: #071220 !important;
+    color: #0d2c52 !important;
 }
 
 .btn-outline-custom {
@@ -7458,7 +7459,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     flex-grow: 1;
 }
 .about-cta-card {
-    background: linear-gradient(135deg, #0d1f33 0%, #1a3352 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
     border-radius: 28px;
     padding: clamp(3rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 3.5rem);
     color: #ffffff;
