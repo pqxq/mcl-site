@@ -192,6 +192,8 @@ img {
     top: 0;
     left: 0;
     height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
     z-index: 1100;
     display: flex;
     flex-direction: column;
@@ -209,6 +211,7 @@ img {
     justify-content: center;
     position: relative;
     min-height: 72px;
+    flex-shrink: 0;
 }
 
 .sidebar-brand {
@@ -250,8 +253,11 @@ img {
 }
 
 .sidebar-nav {
-    flex: 1;
+    flex: 1 1 0%;
+    min-height: 0;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     padding: 1.25rem 0;
 }
 
@@ -437,16 +443,22 @@ img {
 }
 
 .sidebar-footer {
-    padding: 1.25rem;
-    background: rgba(0, 0, 0, 0.15);
+    padding: 1.15rem 1.25rem calc(1.15rem + env(safe-area-inset-bottom, 0px));
+    background: rgba(0, 0, 0, 0.22);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
 }
 
 .sidebar-footer .btn {
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 0.75rem 1rem;
-    font-weight: 600;
-    font-size: 0.925rem;
+    font-weight: 700;
+    font-size: 0.95rem;
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .sidebar-overlay {
@@ -591,11 +603,17 @@ img {
 @media (max-width: 991.98px) {
     .sidebar {
         width: 280px;
+        max-width: 85vw;
+        height: 100vh;
+        height: 100dvh;
+        max-height: 100dvh;
         transform: translateX(-100%);
         left: 0;
         box-shadow: none;
         transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease, visibility 0s linear 0.35s;
         visibility: hidden;
+        display: flex;
+        flex-direction: column;
     }
 
     .sidebar.show {
@@ -6956,7 +6974,9 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 }
 
 .search-input {
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
     border: none !important;
     background: transparent !important;
     padding: 0.75rem 0.5rem;
@@ -6984,8 +7004,9 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 }
 
 .search-btn {
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     padding: 0.75rem 1.75rem;
     background: linear-gradient(135deg, var(--accent) 0%, #e6c555 100%);
@@ -6999,6 +7020,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     min-height: 46px;
     box-shadow: 0 2px 8px rgba(212, 175, 55, 0.25);
     flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .search-btn i {
@@ -7009,6 +7031,60 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     background: linear-gradient(135deg, #e6c555 0%, var(--accent) 100%);
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(212, 175, 55, 0.45);
+}
+
+@media (max-width: 767.98px) {
+    .search-hero.page-hero {
+        padding: clamp(2.5rem, 4vw, 3.5rem) 0 clamp(2.5rem, 4vw, 3.5rem);
+    }
+    .search-form {
+        margin-top: 1.25rem;
+    }
+    .search-input-wrapper {
+        padding: 0.35rem 0.4rem 0.35rem 0.85rem;
+        border-radius: 18px;
+    }
+    .search-icon {
+        padding-right: 0.4rem;
+        font-size: 1.1rem;
+    }
+    .search-input {
+        padding: 0.6rem 0.35rem;
+        font-size: 0.95rem;
+        min-height: 42px;
+    }
+    .search-btn {
+        padding: 0.6rem 1.15rem;
+        font-size: 0.9rem;
+        border-radius: 12px;
+        min-height: 42px;
+        gap: 0.35rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-input-wrapper {
+        padding: 0.3rem 0.35rem 0.3rem 0.75rem;
+        border-radius: 16px;
+    }
+    .search-icon {
+        padding-right: 0.35rem;
+        font-size: 1rem;
+    }
+    .search-input {
+        padding: 0.5rem 0.25rem;
+        font-size: 0.875rem;
+        min-height: 40px;
+    }
+    .search-input::placeholder {
+        font-size: 0.825rem;
+    }
+    .search-btn {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.85rem;
+        border-radius: 11px;
+        min-height: 40px;
+    }
 }
 
 .search-btn:hover i {
