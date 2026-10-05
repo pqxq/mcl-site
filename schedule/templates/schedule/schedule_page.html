@@ -34,8 +34,8 @@
                             <div class="schedule-doc-title">{{ schedule_settings.academic_year_structure_title|default:"Структура навчального року" }}</div>
                             <div class="schedule-doc-meta">
                                 <span class="schedule-doc-ext">{{ schedule_settings.academic_year_structure_doc.file_extension|upper }}</span>
-                                {% if schedule_settings.academic_year_structure_doc.file.size %}
-                                <span class="schedule-doc-size">{{ schedule_settings.academic_year_structure_doc.file.size|filesizeformat }}</span>
+                                {% if schedule_settings.academic_year_structure_doc.file_size %}
+                                <span class="schedule-doc-size">{{ schedule_settings.academic_year_structure_doc.file_size|filesizeformat }}</span>
                                 {% endif %}
                             </div>
                         </div>
@@ -59,8 +59,8 @@
                             <div class="schedule-doc-title">{{ schedule_settings.semester_weeks_title|default:"Тижні семестру навчального року" }}</div>
                             <div class="schedule-doc-meta">
                                 <span class="schedule-doc-ext">{{ schedule_settings.semester_weeks_doc.file_extension|upper }}</span>
-                                {% if schedule_settings.semester_weeks_doc.file.size %}
-                                <span class="schedule-doc-size">{{ schedule_settings.semester_weeks_doc.file.size|filesizeformat }}</span>
+                                {% if schedule_settings.semester_weeks_doc.file_size %}
+                                <span class="schedule-doc-size">{{ schedule_settings.semester_weeks_doc.file_size|filesizeformat }}</span>
                                 {% endif %}
                             </div>
                         </div>
