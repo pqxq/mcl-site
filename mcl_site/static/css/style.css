@@ -6365,16 +6365,16 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     padding: 1.5rem;
     border-radius: 18px;
     margin-bottom: 2rem;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--gray-200);
+    box-shadow: 0 4px 20px rgba(15, 53, 99, 0.06);
+    border: 1px solid #e2e8f0;
 }
 .control-label {
     display: block;
     font-weight: 700;
-    color: var(--gray-600);
+    color: #475569;
     font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     margin-bottom: 0.5rem;
 }
 .week-tabs {
@@ -6385,51 +6385,60 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 .week-tab {
     text-align: center;
     padding: 0.75rem 1rem;
-    background: var(--gray-100);
-    color: var(--gray-700);
+    background: #f1f5f9;
+    color: #334155;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-weight: 600;
     font-size: 0.9rem;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 44px;
+    border: 1px solid transparent;
 }
 .week-tab:hover {
-    background: var(--gray-200);
+    background: #e2e8f0;
     color: var(--primary);
+    transform: translateY(-1px);
 }
 .week-tab.active {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(24, 78, 142, 0.28);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 .class-filter-btn {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 1.25rem;
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: #ffffff;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-weight: 600;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
     min-height: 44px;
+    box-shadow: 0 4px 14px rgba(15, 53, 99, 0.18);
 }
 .class-filter-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(13, 31, 51, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(15, 53, 99, 0.28);
+    color: #ffffff;
 }
+
+/* ==================== SCHEDULE TABLE WRAPPER ==================== */
 .schedule-table-wrapper {
     background: var(--white);
     border-radius: 18px;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--gray-200);
+    box-shadow: 0 10px 30px rgba(15, 53, 99, 0.08);
+    border: 1px solid #cbd5e1;
     overflow: auto;
-    max-height: clamp(520px, 78vh, 880px);
+    max-height: clamp(540px, 80vh, 900px);
     -webkit-overflow-scrolling: touch;
     position: relative;
 }
@@ -6449,7 +6458,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 .schedule-table td {
     border-right: 1px solid #e2e8f0;
     border-bottom: 1px solid #e2e8f0;
-    padding: 0.625rem;
+    padding: 0.625rem 0.5rem;
     text-align: center;
     vertical-align: middle;
     box-sizing: border-box;
@@ -6465,12 +6474,12 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     font-weight: 700;
     font-size: 0.825rem;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     border-top: none;
-    border-bottom: 2.5px solid var(--primary-dark);
-    border-right: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-bottom: 3px solid var(--primary-dark);
+    border-right: 1.5px solid rgba(255, 255, 255, 0.22);
     padding: 0.875rem 0.5rem;
-    box-shadow: 0 3px 6px -2px rgba(15, 53, 99, 0.2);
+    box-shadow: 0 3px 8px rgba(15, 53, 99, 0.2);
 }
 
 /* Top-left corner headers (Sticky Top + Sticky Left) */
@@ -6478,55 +6487,55 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 .schedule-table thead th.para-col,
 .schedule-table thead th.num-col,
 .schedule-table thead th.time-col {
-    z-index: 30;
+    z-index: 35;
     background: #0f3563;
 }
 
 /* ==================== STICKY LEFT COLUMNS ==================== */
-/* Column 1: День */
+/* Column 1: День (52px wide) */
 .schedule-table th.day-col,
 .schedule-table td.day-cell {
     position: sticky;
     left: 0;
-    width: 48px;
-    min-width: 48px;
-    max-width: 48px;
+    width: 52px;
+    min-width: 52px;
+    max-width: 52px;
     border-left: none;
 }
 
-/* Column 2: Пара */
+/* Column 2: Пара (46px wide) */
 .schedule-table th.para-col,
 .schedule-table td.para-cell {
     position: sticky;
-    left: 48px;
+    left: 52px;
     width: 46px;
     min-width: 46px;
     max-width: 46px;
 }
 
-/* Column 3: № */
+/* Column 3: № (38px wide) */
 .schedule-table th.num-col,
 .schedule-table td.num-cell {
     position: sticky;
-    left: 94px;
+    left: 98px;
     width: 38px;
     min-width: 38px;
     max-width: 38px;
 }
 
-/* Column 4: Час (Boundary to Classes) */
+/* Column 4: Час (114px wide, boundary) */
 .schedule-table th.time-col,
 .schedule-table td.time-cell {
     position: sticky;
-    left: 132px;
-    width: 96px;
-    min-width: 96px;
-    max-width: 96px;
-    border-right: 3px solid var(--primary) !important;
-    box-shadow: 4px 0 10px -2px rgba(15, 53, 99, 0.18);
+    left: 136px;
+    width: 114px;
+    min-width: 114px;
+    max-width: 114px;
+    border-right: 3px solid var(--primary-dark) !important;
+    box-shadow: 4px 0 10px -2px rgba(15, 53, 99, 0.22);
 }
 
-/* Body sticky cells z-index */
+/* Sticky metadata cells in tbody */
 .schedule-table tbody td.day-cell,
 .schedule-table tbody td.para-cell,
 .schedule-table tbody td.num-cell,
@@ -6534,127 +6543,242 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     z-index: 10;
 }
 
-/* ==================== DAY & METADATA CELLS ==================== */
-.day-cell {
+/* ==================== METADATA CELLS & DAY BADGE ==================== */
+.schedule-table td.day-cell {
     background: #edf3fa;
     border-right: 1.5px solid #cbd5e1;
     border-bottom: 1.5px solid #cbd5e1;
-    vertical-align: middle;
+    vertical-align: top;
+    padding: 0.75rem 0.25rem;
+}
+
+.day-badge-wrapper {
+    position: sticky;
+    top: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 0;
 }
 
 .day-name {
     writing-mode: vertical-rl;
     text-orientation: mixed;
     transform: rotate(180deg);
-    font-size: 0.85rem;
-    color: var(--primary);
+    font-size: 0.8rem;
+    color: var(--primary-dark);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 700;
+    letter-spacing: 0.12em;
+    font-weight: 800;
     margin: 0 auto;
-    padding: 8px 0;
+    padding: 10px 5px;
+    background: #e0ecf8;
+    border: 1.5px solid #b8d3ee;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(15, 53, 99, 0.08);
 }
 
 .para-cell {
-    background: #f6f8fb;
+    background: #f8fafc;
     border-right: 1.5px solid #cbd5e1;
     border-bottom: 1.5px solid #cbd5e1;
     vertical-align: middle;
 }
 
 .para-name {
-    font-size: 0.8rem;
-    color: var(--primary);
+    font-size: 0.775rem;
+    color: #1e3a8a;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    font-weight: 700;
+    font-weight: 800;
+    background: #e2e8f0;
+    border-radius: 6px;
+    padding: 3px 6px;
+    display: inline-block;
 }
 
 .num-cell {
-    font-weight: 700;
     background: #f8fafc;
     border-right: 1.5px solid #cbd5e1;
     border-bottom: 1px solid #e2e8f0;
-    color: var(--primary);
-    font-size: 0.9rem;
+}
+
+.num-val {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--primary-dark);
 }
 
 .time-cell {
-    font-size: 0.75rem;
-    color: var(--gray-700);
-    white-space: nowrap;
     background: #f8fafc;
     border-bottom: 1px solid #e2e8f0;
+    padding: 0.5rem 0.35rem;
+}
+
+.time-val {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #334155;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+    white-space: nowrap !important;
+    display: inline-block;
 }
 
 /* ==================== VISIBLE DAY SEPARATION ==================== */
-/* Bold divider line marking the start of each day */
+/* High contrast divider marking the start of each day */
 .schedule-table tbody tr.day-start td {
-    border-top: 3.5px solid var(--primary) !important;
+    border-top: 3.5px solid #0f3563 !important;
 }
 
 .schedule-table tbody tr.day-start td.day-cell {
-    border-top: 3.5px solid var(--primary) !important;
+    border-top: 3.5px solid #0f3563 !important;
     background: #e2ecf7;
 }
 
-/* ==================== CLASS SEPARATION & LESSON CELLS ==================== */
+/* Alternating subtle day tint for easier visual tracking */
+.schedule-table tbody tr.day-even td.lesson-cell {
+    background: #fafbfc;
+}
+
+.schedule-table tbody tr.day-even td.day-cell {
+    background: #e5eff9;
+}
+
+.schedule-table tbody tr:hover td.lesson-cell,
+.schedule-table tbody tr.day-even:hover td.lesson-cell {
+    background: #f0f7ff;
+}
+
+/* ==================== CLASS COLUMNS & HEADERS ==================== */
 .schedule-table th.class-col {
-    width: 135px;
-    min-width: 135px;
+    width: 145px;
+    min-width: 145px;
+    max-width: 180px;
     border-right: 2px solid rgba(255, 255, 255, 0.3);
     padding: 0.85rem 0.5rem;
+    vertical-align: bottom;
 }
 
-.schedule-table th.class-col small {
+.class-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 3px;
+    color: #ffffff;
+}
+
+.class-badge {
     display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 500;
-    opacity: 0.88;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 999px;
     text-transform: none;
     letter-spacing: normal;
-    margin-top: 2px;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 1px 7px;
-    border-radius: 4px;
 }
 
+.class-badge.badge-pres {
+    background: rgba(34, 197, 94, 0.22);
+    color: #86efac;
+    border: 1px solid rgba(134, 239, 172, 0.35);
+}
+
+.class-badge.badge-dist {
+    background: rgba(245, 158, 11, 0.22);
+    color: #fde68a;
+    border: 1px solid rgba(253, 230, 138, 0.35);
+}
+
+/* ==================== LESSON CELLS & CARDS ==================== */
 .schedule-table td.lesson-cell {
-    width: 135px;
-    min-width: 135px;
+    width: 145px;
+    min-width: 145px;
+    max-width: 180px;
     background: var(--white);
     min-height: 52px;
     border-right: 2px solid #cbd5e1;
     border-bottom: 1px solid #e2e8f0;
+    padding: 0.5rem 0.4rem;
     transition: background-color 0.15s ease;
 }
 
-.schedule-table td.lesson-cell:hover {
-    background: #f0f7ff;
+.lesson-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    height: 100%;
+    min-height: 48px;
+}
+
+.lesson-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 0;
+}
+
+.lesson-item.has-divider {
+    border-bottom: 1.5px dashed #cbd5e1;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.subgroup-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #1e40af;
+    background: #dbeafe;
+    border: 1px solid #bfdbfe;
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-bottom: 3px;
+    text-transform: uppercase;
 }
 
 .lesson-subject {
     font-weight: 600;
-    color: var(--primary);
-    font-size: 0.8rem;
-    line-height: 1.3;
+    color: #0f172a;
+    font-size: 0.825rem;
+    line-height: 1.25;
     overflow-wrap: anywhere;
     word-break: break-word;
+    text-align: center;
 }
 
 .lesson-cabinet {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
     font-size: 0.7rem;
-    color: var(--gray-600);
+    font-weight: 600;
+    color: #475569;
     margin-top: 3px;
-    background: var(--gray-100);
-    padding: 2px 6px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 1.5px 6px;
     border-radius: 4px;
-    display: inline-block;
 }
 
-/* Distinct subgroup division (dashed vs class column solid) */
-.lesson-item.border-end {
-    border-right: 1.5px dashed #94a3b8 !important;
+.lesson-cabinet i {
+    font-size: 0.65rem;
+    color: var(--primary);
+}
+
+.schedule-table td.empty-cell {
+    background: #fafbfc;
+    color: #cbd5e1;
+}
+
+.empty-mark {
+    font-size: 1.35rem;
+    line-height: 1;
+    color: #cbd5e1;
+    font-weight: 300;
+    user-select: none;
 }
 
 .class-col.hidden,
@@ -6664,49 +6788,77 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 
 /* ==================== RESPONSIVE STICKY COMPACT SIZING ==================== */
 @media (max-width: 575.98px) {
+    .schedule-controls {
+        padding: 1rem;
+        border-radius: 14px;
+    }
+    .week-tabs {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.4rem;
+    }
+    .week-tab {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.825rem;
+        min-height: 40px;
+    }
+    .class-filter-btn {
+        min-height: 40px;
+        font-size: 0.85rem;
+    }
     .schedule-table th.day-col,
     .schedule-table td.day-cell {
-        width: 36px;
-        min-width: 36px;
-        max-width: 36px;
+        width: 38px;
+        min-width: 38px;
+        max-width: 38px;
         left: 0;
-        padding: 0.35rem 0.2rem;
+        padding: 0.35rem 0.15rem;
+    }
+    .day-badge-wrapper {
+        top: 48px;
     }
     .day-name {
-        font-size: 0.72rem;
+        font-size: 0.68rem;
         letter-spacing: 0.04em;
-        padding: 4px 0;
+        padding: 6px 3px;
     }
     .schedule-table th.para-col,
     .schedule-table td.para-cell {
-        width: 34px;
-        min-width: 34px;
-        max-width: 34px;
-        left: 36px;
-        padding: 0.35rem 0.2rem;
+        width: 32px;
+        min-width: 32px;
+        max-width: 32px;
+        left: 38px;
+        padding: 0.35rem 0.15rem;
+    }
+    .para-name {
+        font-size: 0.7rem;
+        padding: 2px 4px;
     }
     .schedule-table th.num-col,
     .schedule-table td.num-cell {
-        width: 30px;
-        min-width: 30px;
-        max-width: 30px;
+        width: 28px;
+        min-width: 28px;
+        max-width: 28px;
         left: 70px;
-        padding: 0.35rem 0.2rem;
+        padding: 0.35rem 0.15rem;
+    }
+    .num-val {
         font-size: 0.825rem;
     }
     .schedule-table th.time-col,
     .schedule-table td.time-cell {
-        width: 82px;
-        min-width: 82px;
-        max-width: 82px;
-        left: 100px;
-        font-size: 0.68rem;
-        padding: 0.35rem 0.3rem;
+        width: 86px;
+        min-width: 86px;
+        max-width: 86px;
+        left: 98px;
+        padding: 0.35rem 0.2rem;
+    }
+    .time-val {
+        font-size: 0.66rem;
     }
     .schedule-table th.class-col,
     .schedule-table td.lesson-cell {
-        width: 120px;
-        min-width: 120px;
+        width: 125px;
+        min-width: 125px;
     }
 }
 
