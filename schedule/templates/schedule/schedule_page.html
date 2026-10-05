@@ -208,8 +208,16 @@
             <svg viewBox="0 0 24 24" width="48" height="48" aria-hidden="true">
                 <path fill="currentColor" d="M7 2h2v2h6V2h2v2h3v17H4V4h3V2zm11 7H6v10h12V9zm-3 2 1.4 1.4L13.8 15l2.6 2.6L15 19l-2.6-2.6L9.8 19 8.4 17.6 11 15l-2.6-2.6L9.8 11l2.6 2.6L15 11z"/>
             </svg>
-            <h4>Розклад ще не додано</h4>
-            <p>Адміністратор може додати розклад через панель керування.</p>
+            <h4>Розклад на цей тиждень формується</h4>
+            <p>Будь ласка, перевірте розклад І або ІІ тижня або зверніться до класного керівника.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                <a href="?week=1" class="btn btn-primary-custom btn-sm">
+                    <i class="bi bi-calendar3 me-1"></i>I тиждень
+                </a>
+                <a href="?week=2" class="btn btn-outline-primary-custom btn-sm">
+                    <i class="bi bi-calendar3 me-1"></i>II тиждень
+                </a>
+            </div>
         </div>
         {% endif %}
     </div>
@@ -224,47 +232,64 @@ document.addEventListener('DOMContentLoaded', function() {
     const scheduleTable = document.getElementById('scheduleTable');
     const scheduleTableWrapper = document.querySelector('.schedule-table-wrapper');
     
+    function applyClassFilter(selectedClassId, selectedLabel) {
+        if (!scheduleTable || !classFilterLabel) return;
+        
+        classFilterLabel.textContent = selectedLabel;
+        dropdownItems.forEach(i => {
+            if (i.getAttribute('data-class-id') === selectedClassId) {
+                i.classList.add('active');
+            } else {
+                i.classList.remove('active');
+            }
+        });
+        
+        const classCols = scheduleTable.querySelectorAll('.class-col');
+        const lessonCells = scheduleTable.querySelectorAll('.lesson-cell');
+        
+        if (selectedClassId === '') {
+            classCols.forEach(col => col.classList.remove('hidden'));
+            lessonCells.forEach(cell => cell.classList.remove('hidden'));
+            try { localStorage.removeItem('mcl_schedule_selected_class'); } catch(e) {}
+        } else {
+            classCols.forEach(col => {
+                if (col.getAttribute('data-class-id') === selectedClassId) {
+                    col.classList.remove('hidden');
+                } else {
+                    col.classList.add('hidden');
+                }
+            });
+            lessonCells.forEach(cell => {
+                if (cell.getAttribute('data-class-id') === selectedClassId) {
+                    cell.classList.remove('hidden');
+                } else {
+                    cell.classList.add('hidden');
+                }
+            });
+            try { localStorage.setItem('mcl_schedule_selected_class', selectedClassId); } catch(e) {}
+        }
+    }
+
     if (classFilterDropdown && scheduleTable) {
         dropdownItems.forEach(function(item) {
             item.addEventListener('click', function(e) {
                 e.preventDefault();
                 const selectedClassId = this.getAttribute('data-class-id');
-                const selectedLabel = this.textContent;
-                
-                // Update button label
-                classFilterLabel.textContent = selectedLabel;
-                
-                // Update active state
-                dropdownItems.forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-                
-                const classCols = scheduleTable.querySelectorAll('.class-col');
-                const lessonCells = scheduleTable.querySelectorAll('.lesson-cell');
-                
-                if (selectedClassId === '') {
-                    // Show all classes
-                    classCols.forEach(col => col.classList.remove('hidden'));
-                    lessonCells.forEach(cell => cell.classList.remove('hidden'));
-                } else {
-                    // Hide all classes except selected
-                    classCols.forEach(col => {
-                        if (col.getAttribute('data-class-id') === selectedClassId) {
-                            col.classList.remove('hidden');
-                        } else {
-                            col.classList.add('hidden');
-                        }
-                    });
-                    
-                    lessonCells.forEach(cell => {
-                        if (cell.getAttribute('data-class-id') === selectedClassId) {
-                            cell.classList.remove('hidden');
-                        } else {
-                            cell.classList.add('hidden');
-                        }
-                    });
-                }
+                const selectedLabel = this.textContent.trim();
+                applyClassFilter(selectedClassId, selectedLabel);
             });
         });
+
+        // Restore saved class from localStorage
+        try {
+            const savedClassId = localStorage.getItem('mcl_schedule_selected_class');
+            if (savedClassId) {
+                const targetItem = Array.from(dropdownItems).find(i => i.getAttribute('data-class-id') === savedClassId);
+                if (targetItem) {
+                    applyClassFilter(savedClassId, targetItem.textContent.trim());
+                }
+            }
+        } catch(e) {}
     }
 
     if (scheduleTableWrapper && window.matchMedia('(max-width: 768px)').matches) {

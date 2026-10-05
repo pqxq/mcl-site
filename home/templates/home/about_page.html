@@ -67,6 +67,27 @@
         gap: 0.625rem;
         justify-content: center;
     }
+    @media (max-width: 767.98px) {
+        .about-quick-nav-wrapper {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            justify-content: flex-start;
+            padding-bottom: 0.5rem;
+            margin-left: -0.75rem;
+            margin-right: -0.75rem;
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+            scrollbar-width: none;
+        }
+        .about-quick-nav-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        .about-quick-nav-item {
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+    }
     .about-quick-nav-item {
         display: inline-flex;
         align-items: center;
