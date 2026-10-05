@@ -1,3 +1,5 @@
+from urllib.parse import urlsplit
+
 from django import template
 from core.models import SidebarSection
 
@@ -50,7 +52,11 @@ def get_sidebar_sections(context):
         for link in valid_links:
             link_is_active = False
             link_href = link.href or ""
-            norm_link_href = link_href.rstrip("/") if link_href != "/" else "/"
+            try:
+                parsed_path = urlsplit(link_href).path
+            except Exception:
+                parsed_path = link_href
+            norm_link_href = (parsed_path or link_href).rstrip("/") if (parsed_path or link_href) != "/" else "/"
 
             # Check page instance matching
             if link.page_id and current_page:
@@ -70,6 +76,11 @@ def get_sidebar_sections(context):
                 elif norm_current_path == norm_link_href:
                     link_is_active = True
                 elif norm_current_path.startswith(norm_link_href + "/"):
+                    link_is_active = True
+
+            # Special fallback for schedule page
+            if not link_is_active and norm_current_path in ("/schedule", "/rozklad"):
+                if norm_link_href in ("/schedule", "/rozklad") or "розклад" in str(link.display_label).strip().lower():
                     link_is_active = True
 
             link.is_active = link_is_active

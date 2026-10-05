@@ -120,12 +120,26 @@
                 const singleLinks = document.querySelectorAll('.sidebar-item:not(.has-submenu) > .sidebar-link');
                 let matchFound = false;
 
-                // Check sublinks first for exact match
+                const getNormalizedPath = function(href) {
+                    if (!href) return '';
+                    try {
+                        const parsed = new URL(href, window.location.origin);
+                        return parsed.pathname.replace(/\/+$/, '') || '/';
+                    } catch (e) {
+                        return href.replace(/\/+$/, '') || '/';
+                    }
+                };
+
+                const isSchedulePage = (currentPath === '/schedule' || currentPath === '/rozklad');
+
+                // Check sublinks first for exact match or schedule page
                 sublinks.forEach(function(link) {
                     const href = link.getAttribute('href');
                     if (!href) return;
-                    const linkPath = href.replace(/\/+$/, '') || '/';
-                    if (linkPath === currentPath) {
+                    const linkPath = getNormalizedPath(href);
+                    const isScheduleLink = isSchedulePage && (linkPath === '/schedule' || linkPath === '/rozklad' || link.textContent.trim().toLowerCase() === 'розклад');
+
+                    if (linkPath === currentPath || isScheduleLink) {
                         link.classList.add('active');
                         link.setAttribute('aria-current', 'page');
                         matchFound = true;
@@ -146,8 +160,10 @@
                     singleLinks.forEach(function(link) {
                         const href = link.getAttribute('href');
                         if (!href) return;
-                        const linkPath = href.replace(/\/+$/, '') || '/';
-                        if (linkPath === currentPath || (linkPath !== '/' && currentPath.startsWith(linkPath + '/'))) {
+                        const linkPath = getNormalizedPath(href);
+                        const isScheduleLink = isSchedulePage && (linkPath === '/schedule' || linkPath === '/rozklad' || link.textContent.trim().toLowerCase() === 'розклад');
+
+                        if (linkPath === currentPath || isScheduleLink || (linkPath !== '/' && currentPath.startsWith(linkPath + '/'))) {
                             link.classList.add('active');
                             link.setAttribute('aria-current', 'page');
                             matchFound = true;
@@ -160,7 +176,7 @@
                     sublinks.forEach(function(link) {
                         const href = link.getAttribute('href');
                         if (!href) return;
-                        const linkPath = href.replace(/\/+$/, '') || '/';
+                        const linkPath = getNormalizedPath(href);
                         if (linkPath !== '/' && currentPath.startsWith(linkPath + '/')) {
                             link.classList.add('active');
                             link.setAttribute('aria-current', 'page');

@@ -407,20 +407,20 @@ img {
 }
 
 .sidebar-sublink.active {
-    background: rgba(255, 255, 255, 0.08);
-    color: #ffffff;
-    font-weight: 500;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff !important;
+    font-weight: 600;
 }
 
 .sidebar-sublink.active::before {
     background: var(--accent);
-    width: 6px;
-    height: 6px;
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.7);
+    width: 7px;
+    height: 7px;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.9);
 }
 
 .sidebar-sublink.active:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.16);
     color: #ffffff;
 }
 
@@ -6482,6 +6482,15 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     box-shadow: 0 3px 8px rgba(15, 53, 99, 0.2);
 }
 
+/* Header text with automatic vertical wrap when narrow */
+.header-text-vertical {
+    display: inline-block;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+}
+
 /* Top-left corner headers (Sticky Top + Sticky Left) */
 .schedule-table thead th.day-col,
 .schedule-table thead th.para-col,
@@ -6548,33 +6557,33 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     background: #edf3fa;
     border-right: 1.5px solid #cbd5e1;
     border-bottom: 1.5px solid #cbd5e1;
-    vertical-align: top;
-    padding: 0.75rem 0.25rem;
+    vertical-align: middle !important;
+    text-align: center;
+    padding: 1rem 0.25rem;
 }
 
 .day-badge-wrapper {
-    position: sticky;
-    top: 54px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 6px 2px;
+    margin: 0 auto;
+    padding: 10px 0;
 }
 
 .day-name {
     writing-mode: vertical-rl;
     text-orientation: upright;
-    font-size: 0.75rem;
-    color: var(--primary-dark);
+    font-size: 0.95rem;
+    color: #0c2d54;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.16em;
     font-weight: 800;
     margin: 0 auto;
-    padding: 12px 4px;
-    background: #e0ecf8;
-    border: 1.5px solid #b8d3ee;
-    border-radius: 14px;
-    box-shadow: 0 1px 4px rgba(15, 53, 99, 0.08);
+    padding: 20px 7px;
+    background: #dbeafe;
+    border: 2px solid #93c5fd;
+    border-radius: 18px;
+    box-shadow: 0 3px 8px rgba(15, 53, 99, 0.12);
 }
 
 .para-cell {
@@ -6787,6 +6796,24 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     display: none !important;
 }
 
+/* ==================== TABLET & MOBILE VERTICAL HEADERS ==================== */
+@media (max-width: 767.98px) {
+    .schedule-table thead th.day-col,
+    .schedule-table thead th.para-col {
+        padding: 0.5rem 0.15rem;
+    }
+    .header-text-vertical {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        line-height: 1.1;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
 /* ==================== RESPONSIVE STICKY COMPACT SIZING ==================== */
 @media (max-width: 575.98px) {
     .schedule-controls {
@@ -6812,16 +6839,20 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
         min-width: 38px;
         max-width: 38px;
         left: 0;
-        padding: 0.35rem 0.15rem;
+        padding: 0.4rem 0.15rem;
     }
     .day-badge-wrapper {
-        top: 48px;
+        padding: 6px 0;
     }
     .day-name {
-        font-size: 0.65rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        padding: 10px 3px;
+        border-radius: 12px;
+    }
+    .header-text-vertical {
+        font-size: 0.66rem;
         letter-spacing: 0.08em;
-        padding: 6px 2px;
-        border-radius: 10px;
     }
     .schedule-table th.para-col,
     .schedule-table td.para-cell {
