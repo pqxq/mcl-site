@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block title %}{{ page.title }} | Новини | Миколаївський ліцей №9{% endblock %}
+{% block title %}{{ page.title }} | Новини{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -38,7 +38,7 @@
                     {% if page.image %}
                     <div class="article-card-media">
                         {% image page.image width-1200 format-webp as page_image %}
-                        <img src="{{ page_image.url }}" width="{{ page_image.width }}" height="{{ page_image.height }}" class="article-main-image" loading="eager" decoding="async" alt="{{ page_image.alt|default:page.title }}">
+                        <img src="{{ page_image.url }}" width="{{ page_image.width }}" height="{{ page_image.height }}" class="article-main-image" loading="eager" decoding="async" alt="{{ page.title }}">
                     </div>
                     {% endif %}
 
@@ -106,7 +106,7 @@
                                 <div class="news-card-image">
                                     {% if post.image %}
                                     {% image post.image width-800 format-webp as post_image %}
-                                    <img src="{{ post_image.url }}" width="{{ post_image.width }}" height="{{ post_image.height }}" class="w-100 h-100 object-fit-cover" loading="lazy" decoding="async" alt="{{ post_image.alt|default:post.title }}">
+                                    <img src="{{ post_image.url }}" width="{{ post_image.width }}" height="{{ post_image.height }}" class="w-100 h-100 object-fit-cover" loading="lazy" decoding="async" alt="{{ post.title }}">
                                     {% else %}
                                     <div class="news-placeholder">
                                         <i class="bi bi-newspaper"></i>

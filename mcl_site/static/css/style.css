@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+
 /* ==================== HOMEPAGE MOBILE FIXES ==================== */
 @media (max-width: 575.98px) {
     body {
@@ -35,7 +37,6 @@
         border-radius: 10px !important;
     }
 }
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
     /* Premium Brighter & Lighter Blue Palette */
@@ -47,6 +48,7 @@
     --accent: #d4af37;
     --accent-rgb: 212, 175, 55;
     --accent-light: #e8c65f;
+    --accent-dark: #8c6508;
 
     /* Neutrals */
     --white: #ffffff;
@@ -259,6 +261,8 @@ img {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     padding: 1.25rem 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
 /* Custom scrollbar for sidebar */
@@ -1110,7 +1114,7 @@ img {
 
 .section-tag {
     display: inline-block;
-    color: var(--accent);
+    color: var(--accent-dark, #8c6508);
     font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -6485,8 +6489,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 /* Header text with automatic vertical wrap when narrow */
 .header-text-vertical {
     display: inline-block;
-    word-break: break-all;
-    overflow-wrap: break-word;
+    white-space: nowrap;
     letter-spacing: 0.04em;
     line-height: 1.2;
 }
@@ -6501,32 +6504,32 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 }
 
 /* ==================== STICKY LEFT COLUMNS ==================== */
-/* Column 1: День (52px wide) */
+/* Column 1: День (64px wide) */
 .schedule-table th.day-col,
 .schedule-table td.day-cell {
     position: sticky;
     left: 0;
-    width: 52px;
-    min-width: 52px;
-    max-width: 52px;
+    width: 64px;
+    min-width: 64px;
+    max-width: 64px;
     border-left: none;
 }
 
-/* Column 2: Пара (46px wide) */
+/* Column 2: Пара (54px wide) */
 .schedule-table th.para-col,
 .schedule-table td.para-cell {
     position: sticky;
-    left: 52px;
-    width: 46px;
-    min-width: 46px;
-    max-width: 46px;
+    left: 64px;
+    width: 54px;
+    min-width: 54px;
+    max-width: 54px;
 }
 
 /* Column 3: № (38px wide) */
 .schedule-table th.num-col,
 .schedule-table td.num-cell {
     position: sticky;
-    left: 98px;
+    left: 118px;
     width: 38px;
     min-width: 38px;
     max-width: 38px;
@@ -6536,7 +6539,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 .schedule-table th.time-col,
 .schedule-table td.time-cell {
     position: sticky;
-    left: 136px;
+    left: 156px;
     width: 114px;
     min-width: 114px;
     max-width: 114px;
@@ -7956,5 +7959,85 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     position: relative;
     z-index: 1;
 }
+
+/* ==================== CONTACTS PAGE ==================== */
+.contacts-grid {
+    margin-top: 1rem;
+}
+
+.contact-feature-card {
+    background: #ffffff;
+    border: 1px solid rgba(24, 78, 142, 0.08);
+    border-radius: 16px;
+    padding: 1.75rem 1.5rem;
+    box-shadow: 0 4px 20px rgba(24, 78, 142, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(24, 78, 142, 0.12);
+    border-color: rgba(24, 78, 142, 0.2);
+}
+
+.contact-feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(24, 78, 142, 0.08);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    margin-bottom: 1.15rem;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+.contact-feature-card:hover .contact-feature-icon {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+.contact-feature-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+.contact-feature-text {
+    font-size: 0.925rem;
+    color: var(--gray-700);
+    line-height: 1.55;
+    margin-bottom: auto;
+    padding-bottom: 0.75rem;
+}
+
+.contact-feature-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.925rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.contact-feature-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.contact-feature-strong {
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+}
+
 
 

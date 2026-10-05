@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block title %}{{ page.title }} | Миколаївський ліцей №9{% endblock %}
+{% block title %}{{ page.title }}{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -89,7 +89,7 @@
             <div class="gallery-photo-item" data-src="{{ full_image.url }}" data-caption="{{ photo.caption }}" data-index="{{ forloop.counter0 }}" tabindex="0" role="button">
                 <div class="gallery-photo-inner">
                     {% image photo.image width-800 format-webp as photo_thumb %}
-                    <img src="{{ photo_thumb.url }}" width="{{ photo_thumb.width }}" height="{{ photo_thumb.height }}" class="gallery-photo-img" loading="lazy" decoding="async" alt="{{ photo_thumb.alt|default:photo.caption|default:photo.album.title }}">
+                    <img src="{{ photo_thumb.url }}" width="{{ photo_thumb.width }}" height="{{ photo_thumb.height }}" class="gallery-photo-img" loading="lazy" decoding="async" alt="{% if photo.caption %}{{ photo.caption }}{% elif photo.album.title %}{{ photo.album.title }} — фото {{ forloop.counter }}{% else %}Фото ліцею{% endif %}">
                     <div class="gallery-photo-overlay">
                         <div class="gallery-photo-icon">
                             <i class="bi bi-arrows-fullscreen"></i>
@@ -102,6 +102,33 @@
             </div>
             {% endfor %}
         </div>
+        {% if photos_page.has_other_pages %}
+        <nav class="search-pagination mt-5" aria-label="Пагінація фотографій">
+            <ul class="pagination-list justify-content-center">
+                {% if photos_page.has_previous %}
+                <li>
+                    <a href="?view=photos{% if current_tag %}&amp;tag={{ current_tag|urlencode }}{% endif %}{% if current_order != 'desc' %}&amp;order={{ current_order }}{% endif %}&amp;page={{ photos_page.previous_page_number }}" class="page-link prev">
+                        <i class="bi bi-chevron-left"></i>
+                        <span>Назад</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                <li class="page-info">
+                    Сторінка {{ photos_page.number }} з {{ photos_page.paginator.num_pages }}
+                </li>
+
+                {% if photos_page.has_next %}
+                <li>
+                    <a href="?view=photos{% if current_tag %}&amp;tag={{ current_tag|urlencode }}{% endif %}{% if current_order != 'desc' %}&amp;order={{ current_order }}{% endif %}&amp;page={{ photos_page.next_page_number }}" class="page-link next">
+                        <span>Далі</span>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
         {% else %}
         <div class="empty-state">
             <svg viewBox="0 0 24 24" width="48" height="48" aria-hidden="true">
@@ -121,7 +148,7 @@
                     <div class="news-card-image">
                         {% if album.cover_image %}
                         {% image album.cover_image width-800 format-webp as album_cover %}
-                        <img src="{{ album_cover.url }}" width="{{ album_cover.width }}" height="{{ album_cover.height }}" class="w-100 h-100 object-fit-cover" loading="lazy" decoding="async" alt="{{ album_cover.alt|default:album.title }}">
+                        <img src="{{ album_cover.url }}" width="{{ album_cover.width }}" height="{{ album_cover.height }}" class="w-100 h-100 object-fit-cover" loading="lazy" decoding="async" alt="{{ album.title }}">
                         {% else %}
                         <div class="news-placeholder">
                             <i class="bi bi-images"></i>

@@ -1,5 +1,6 @@
 from datetime import datetime, time
 
+from django.core.paginator import Paginator
 from django.db import models
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -133,9 +134,14 @@ class GalleryIndexPage(Page):
         albums = list(albums)
         context["albums"] = albums
 
-        # Get all photos for 'photos' view mode, sorted by date
+        # Get all photos for 'photos' view mode, sorted by date with pagination (24 per page)
         if view_mode == "photos":
-            context["all_photos"] = self._build_photo_list(albums, order=current_order)
+            photo_list = self._build_photo_list(albums, order=current_order)
+            paginator = Paginator(photo_list, 24)
+            page_number = request.GET.get("page", 1)
+            photos_page = paginator.get_page(page_number)
+            context["all_photos"] = photos_page
+            context["photos_page"] = photos_page
 
         # Get all tags for filtering logic
         context["tags"] = (

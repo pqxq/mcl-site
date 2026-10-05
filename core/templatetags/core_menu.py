@@ -87,6 +87,18 @@ def get_sidebar_sections(context):
             if link_is_active:
                 section_has_active = True
 
+        if len(valid_links) > 1 and not section_has_active:
+            for link in valid_links:
+                if link.page_id:
+                    try:
+                        parent = link.page.get_parent()
+                        if parent and parent.live and parent.url and parent.url != "/":
+                            if (current_page and current_page.id == parent.id) or norm_current_path == parent.url.rstrip("/"):
+                                section_has_active = True
+                            break
+                    except Exception:
+                        pass
+
         section.has_active_link = section_has_active
         section.is_open = section_has_active or section.is_expanded
         result.append(section)

@@ -54,18 +54,12 @@
                     <p>Спробуйте уточнити запит одним або кількома словами.</p>
                 </div>
             {% elif search_query %}
-                <div class="results-header">
-                    <h2 class="results-title">
-                        {% if search_results %}
-                            Знайдено результатів: {{ search_results.paginator.count }}
-                        {% else %}
-                            Нічого не знайдено
-                        {% endif %}
-                    </h2>
-                    <p class="results-query">за запитом «<strong>{{ search_query }}</strong>»</p>
-                </div>
-
                 {% if search_results %}
+                    <div class="results-header">
+                        <h2 class="results-title">Знайдено результатів: {{ search_results.paginator.count }}</h2>
+                        <p class="results-query">за запитом «<strong>{{ search_query }}</strong>»</p>
+                    </div>
+
                     <div class="results-list">
                         {% for result in search_results %}
                             <article class="result-card">
@@ -133,7 +127,8 @@
                             <i class="bi bi-search"></i>
                         </div>
                         <h2>Нічого не знайдено</h2>
-                        <p>Спробуйте змінити пошуковий запит або перевірте правильність написання</p>
+                        <p class="results-query mb-2">за запитом «<strong>{{ search_query }}</strong>»</p>
+                        <p class="text-muted">Спробуйте змінити пошуковий запит або перевірте правильність написання</p>
                         <div class="suggestions">
                             <p><strong>Поради:</strong></p>
                             <ul>
