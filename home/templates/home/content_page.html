@@ -96,9 +96,13 @@
                     <div class="row g-4">
                         {% for child in page.get_children.live %}
                         <div class="col-md-6">
-                            <a href="{% pageurl child %}" class="child-page-card">
+                            <a href="{% if child.slug == 'rozklad' %}{% url 'schedule' %}{% else %}{% pageurl child %}{% endif %}" class="child-page-card">
                                 <div class="child-page-icon">
+                                    {% if child.slug == 'rozklad' %}
+                                    <i class="bi bi-calendar-week"></i>
+                                    {% else %}
                                     <i class="bi bi-file-text"></i>
+                                    {% endif %}
                                 </div>
                                 <div class="child-page-content">
                                     <h4>{{ child.title }}</h4>

@@ -1,8 +1,8 @@
 Django>=5.2,<5.3
-wagtail==7.4.2
+wagtail==8.0
 psycopg2-binary>=2.9
 dj-database-url>=2.1.0
-django-modelcluster>=6.0
+django-modelcluster>=6.5
 django-taggit>=5.0
 Pillow>=10.0
 gunicorn>=20.0.0

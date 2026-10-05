@@ -161,24 +161,6 @@ img {
     outline-offset: 3px;
 }
 
-.skip-link {
-    position: absolute;
-    left: 1rem;
-    top: -3rem;
-    z-index: 2000;
-    background: var(--white);
-    color: var(--primary);
-    border: 2px solid var(--primary);
-    border-radius: 8px;
-    padding: 0.5rem 0.875rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-}
-
-.skip-link:focus {
-    top: 1rem;
-}
-
 /* ==================== SIDEBAR LAYOUT ==================== */
 .has-sidebar {
     display: flex;
@@ -252,6 +234,126 @@ img {
 
 .sidebar-brand:hover img {
     transform: scale(1.05);
+}
+
+/* ==================== SIDEBAR SEARCH ==================== */
+.sidebar-search {
+    padding: 0.85rem 0.875rem 0.65rem 0.875rem;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-search-form {
+    margin: 0;
+}
+
+.sidebar-search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    padding: 0.15rem 0.35rem 0.15rem 0.75rem;
+    transition: all 0.22s ease;
+}
+
+.sidebar-search-box:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.28);
+}
+
+.sidebar-search-box:focus-within {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.22);
+}
+
+.sidebar-search-box.is-active {
+    background: rgba(212, 175, 55, 0.12);
+    border-color: var(--accent);
+}
+
+.sidebar-search-icon {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.sidebar-search-box:focus-within .sidebar-search-icon,
+.sidebar-search-box.is-active .sidebar-search-icon {
+    color: var(--accent);
+}
+
+.sidebar-search-input {
+    width: 100%;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-family: var(--font-body);
+    padding: 0.45rem 0;
+    outline: none;
+}
+
+.sidebar-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+}
+
+.sidebar-search-input::-webkit-search-cancel-button {
+    cursor: pointer;
+    filter: invert(1);
+    opacity: 0.6;
+}
+
+.sidebar-search-kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0 5px;
+    min-width: 18px;
+    height: 18px;
+    line-height: 1;
+    font-family: inherit;
+    margin-right: 0.25rem;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.sidebar-search-box:focus-within .sidebar-search-kbd {
+    display: none;
+}
+
+.sidebar-search-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.65);
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    padding: 0;
+    font-size: 1.05rem;
+}
+
+.sidebar-search-btn:hover {
+    background: var(--accent);
+    color: var(--primary-dark);
 }
 
 .sidebar-nav {
@@ -761,55 +863,7 @@ img {
     min-height: 65vh;
 }
 
-.hero-bg-shapes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
 
-.hero-shape {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    animation: floatShape 20s infinite alternate ease-in-out;
-}
-
-@keyframes floatShape {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(30px, 50px) rotate(15deg); }
-}
-
-.hero-shape-1 {
-    width: 600px;
-    height: 600px;
-    top: -200px;
-    right: -100px;
-    animation-duration: 25s;
-}
-
-.hero-shape-2 {
-    width: 400px;
-    height: 400px;
-    bottom: -100px;
-    left: -100px;
-    animation-duration: 18s;
-    animation-direction: alternate-reverse;
-}
-
-.hero-shape-3 {
-    width: 250px;
-    height: 250px;
-    top: 40%;
-    left: 20%;
-    background: rgba(212, 175, 55, 0.05);
-    animation-duration: 22s;
-}
 
 .hero-content {
     position: relative;

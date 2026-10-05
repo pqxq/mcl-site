@@ -8,6 +8,24 @@
         </a>
     </div>
 
+    <div class="sidebar-search">
+        <form action="/search/" method="get" class="sidebar-search-form" role="search">
+            <div class="sidebar-search-box{% if request.path == '/search/' %} is-active{% endif %}">
+                <i class="bi bi-search sidebar-search-icon" aria-hidden="true"></i>
+                <input type="search" 
+                       name="query" 
+                       class="sidebar-search-input" 
+                       placeholder="Пошук..." 
+                       aria-label="Пошук по сайту" 
+                       autocomplete="off"
+                       value="{{ request.GET.query|default:'' }}">
+                <kbd class="sidebar-search-kbd" aria-hidden="true" title="Гаряча клавіша: натисніть /">/</kbd>
+                <button type="submit" class="sidebar-search-btn" aria-label="Знайти" title="Знайти">
+                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
 
     <nav class="sidebar-nav" id="sidebarNav">
         <ul class="sidebar-menu">
@@ -63,6 +81,40 @@
                     if (el) el.scrollTop = parseInt(s, 10);
                 }
             } catch(e) {}
+
+            var searchInput = document.querySelector('.sidebar-search-input');
+            if (searchInput) {
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' || e.code === 'Escape') {
+                        searchInput.blur();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', function(e) {
+                var tag = document.activeElement ? document.activeElement.tagName : '';
+                if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tag) || (document.activeElement && document.activeElement.isContentEditable)) {
+                    return;
+                }
+
+                var isSlash = (e.code === 'Slash' || e.code === 'NumpadDivide' || e.key === '/') && !e.altKey && !e.ctrlKey && !e.metaKey;
+                var isCtrlK = (e.ctrlKey || e.metaKey) && (e.code === 'KeyK' || e.key === 'k' || e.key === 'K');
+
+                if (isSlash || isCtrlK) {
+                    if (window.innerWidth < 992) {
+                        var sidebar = document.getElementById('sidebar');
+                        if (!sidebar || !sidebar.classList.contains('show')) {
+                            window.location.href = '/search/';
+                            return;
+                        }
+                    }
+                    if (searchInput) {
+                        e.preventDefault();
+                        searchInput.focus();
+                        searchInput.select();
+                    }
+                }
+            });
         })();
     </script>
 

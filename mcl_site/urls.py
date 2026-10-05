@@ -23,6 +23,8 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
     path("schedule/", schedule_views.schedule_view, name="schedule"),
+    path("rozklad/", RedirectView.as_view(url="/schedule/", permanent=True)),
+    path("osvitnii-protses/rozklad/", RedirectView.as_view(url="/schedule/", permanent=True)),
     path("admissions/", RedirectView.as_view(url="/publichna-informatsiia/vstup-do-litseiu/", permanent=True)),
     path("about/", RedirectView.as_view(url="/pro-litsei/", permanent=True)),
     path("news/", RedirectView.as_view(url="/novyny/", permanent=True)),
