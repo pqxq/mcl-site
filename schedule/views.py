@@ -34,14 +34,23 @@ def get_lesson_numbers(para_number, para_part):
 
 
 def annotate_para_headers(sorted_rows):
-    para_rowspans = Counter(row["para"] for row in sorted_rows.values())
+    for num, row in sorted_rows.items():
+        if not row.get("para"):
+            row["para"] = PARA_BY_LESSON_NUMBER.get(int(num), "")
+
+    para_rowspans = Counter(row["para"] for row in sorted_rows.values() if row.get("para"))
     last_para = None
     for row in sorted_rows.values():
-        is_new_para = row["para"] != last_para
+        para_val = row.get("para")
+        is_new_para = bool(para_val and para_val != last_para)
         row["show_para"] = is_new_para
         if is_new_para:
-            row["para_rowspan"] = para_rowspans[row["para"]]
-            last_para = row["para"]
+            row["para_rowspan"] = para_rowspans.get(para_val, 1)
+            last_para = para_val
+        elif not para_val:
+            row["show_para"] = True
+            row["para_rowspan"] = 1
+            last_para = None
 
 
 def build_schedule_data(lessons):
@@ -63,7 +72,7 @@ def build_schedule_data(lessons):
                     lesson_number,
                     {
                         "time": LESSON_TIMES.get(lesson_number, ""),
-                        "para": PARA_BY_LESSON_NUMBER.get(lesson_number, ""),
+                        "para": PARA_BY_LESSON_NUMBER.get(int(lesson_number), ""),
                         "lessons": {},
                     },
                 )
@@ -80,6 +89,13 @@ def build_schedule_data(lessons):
                 )
 
         sorted_rows = dict(sorted(lessons_by_number.items()))
+        # Ensure 1 group is ALWAYS above 2 group in every lesson cell
+        for row in sorted_rows.values():
+            for class_lessons in row["lessons"].values():
+                class_lessons.sort(
+                    key=lambda item: (item.get("sub_group") or 0, str(item.get("subject", "")))
+                )
+
         annotate_para_headers(sorted_rows)
         schedule_data[day_name] = sorted_rows
 
@@ -93,7 +109,7 @@ def schedule_view(request):
     lessons = list(
         Lesson.objects.select_related("subject", "class_group")
         .filter(week=int(week_filter))
-        .order_by("day", "para_number", "para_part", "class_group__name")
+        .order_by("day", "para_number", "para_part", "class_group__name", "sub_group")
     )
     schedule_settings = ScheduleSettings.for_request(request)
 

@@ -6437,10 +6437,10 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     border-radius: 18px;
     box-shadow: 0 10px 30px rgba(15, 53, 99, 0.08);
     border: 1px solid #cbd5e1;
-    overflow: auto;
-    max-height: clamp(540px, 80vh, 900px);
-    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    overflow-y: visible;
     position: relative;
+    margin-bottom: 1.5rem;
 }
 
 .schedule-table {
@@ -6558,24 +6558,23 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 4px 0;
+    padding: 6px 2px;
 }
 
 .day-name {
     writing-mode: vertical-rl;
-    text-orientation: mixed;
-    transform: rotate(180deg);
-    font-size: 0.8rem;
+    text-orientation: upright;
+    font-size: 0.75rem;
     color: var(--primary-dark);
     text-transform: uppercase;
     letter-spacing: 0.12em;
     font-weight: 800;
     margin: 0 auto;
-    padding: 10px 5px;
+    padding: 12px 4px;
     background: #e0ecf8;
     border: 1.5px solid #b8d3ee;
-    border-radius: 20px;
-    box-shadow: 0 1px 3px rgba(15, 53, 99, 0.08);
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(15, 53, 99, 0.08);
 }
 
 .para-cell {
@@ -6595,6 +6594,7 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     border-radius: 6px;
     padding: 3px 6px;
     display: inline-block;
+    min-width: 22px;
 }
 
 .num-cell {
@@ -6706,10 +6706,11 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
 .lesson-card-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    justify-content: center;
+    gap: 6px;
+    justify-content: space-evenly;
     height: 100%;
     min-height: 48px;
+    padding: 2px 0;
 }
 
 .lesson-item {
@@ -6817,9 +6818,10 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
         top: 48px;
     }
     .day-name {
-        font-size: 0.68rem;
-        letter-spacing: 0.04em;
-        padding: 6px 3px;
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        padding: 6px 2px;
+        border-radius: 10px;
     }
     .schedule-table th.para-col,
     .schedule-table td.para-cell {
@@ -6868,6 +6870,13 @@ p a:not(.btn):not(.nav-link):not(.card-link):not(.badge):not(.sidebar-brand):not
     color: var(--gray-500);
     margin-top: 0.85rem;
     font-weight: 500;
+    display: none;
+}
+
+@media (max-width: 991.98px) {
+    .schedule-scroll-hint {
+        display: block;
+    }
 }
 
 
