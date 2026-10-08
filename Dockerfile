@@ -1,8 +1,8 @@
 # Use an official Python runtime as a parent image.
 FROM python:3.11-slim
 
-# Add user that will be used in the container.
-RUN useradd wagtail
+# Add user that will be used in the container with a dedicated home directory.
+RUN useradd -m -d /home/wagtail -s /bin/bash wagtail
 
 # Port used by this container to serve HTTP.
 EXPOSE 8000
@@ -35,8 +35,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the source code of the project into the container.
 COPY . /app/
 
-# Create media directory and set ownership
-RUN mkdir -p /app/staticfiles /app/media && chown -R wagtail:wagtail /app
+# Create media directory and set ownership for app and home directory
+RUN mkdir -p /app/staticfiles /app/media /home/wagtail/.gunicorn && chown -R wagtail:wagtail /app /home/wagtail
 
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail

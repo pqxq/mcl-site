@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.sitemaps.views import sitemap
+from wagtail.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.contrib import admin
 from django.http import HttpResponse
@@ -30,7 +30,7 @@ urlpatterns = [
     path("news/", RedirectView.as_view(url="/novyny/", permanent=True)),
     path("staff/", RedirectView.as_view(url="/pro-litsei/pedahohichnyi-kolektyv/", permanent=True)),
     path("documents/", RedirectView.as_view(url="/publichna-informatsiia/", permanent=True)),
-    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
     path(
         "robots.txt",
         lambda request: HttpResponse(

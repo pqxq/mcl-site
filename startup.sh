@@ -39,6 +39,7 @@ exec gunicorn mcl_site.wsgi:application \
     --threads=${THREADS} \
     --worker-class=gthread \
     --preload \
+    --no-control-socket \
     --max-requests=${MAX_REQUESTS} \
     --max-requests-jitter=${MAX_REQUESTS_JITTER} \
     --timeout=120 \
