@@ -1,5 +1,7 @@
 from django.utils.html import escape
 from wagtail import hooks
+from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
+from wagtail.admin.rich_text.editors.draftail.features import InlineStyleFeature
 from wagtail.rich_text import LinkHandler
 
 
@@ -28,10 +30,58 @@ def register_external_link_feature(features):
 @hooks.register("register_rich_text_features")
 def register_underline_feature(features):
     """
-    Ensure 'underline' is registered in default rich text features so that all
-    RichTextField and RichTextBlock instances in the Wagtail Admin panel have access
-    to the Underline formatting option.
+    Register 'underline' as a Draftail inline style feature with proper
+    editor plugin and HTML converter.
     """
-    if "underline" not in features.default_features:
-        features.default_features.append("underline")
+    feature_name = "underline"
+    type_ = "UNDERLINE"
 
+    control = {
+        "type": type_,
+        "label": "U",
+        "description": "Underline",
+        "style": {"textDecoration": "underline"},
+    }
+
+    features.register_editor_plugin(
+        "draftail", feature_name, InlineStyleFeature(control)
+    )
+
+    db_conversion = {
+        "from_database_format": {"u[{}]": InlineStyleElementHandler(type_)},
+        "to_database_format": {"style_map": {type_: "u"}},
+    }
+    features.register_converter_rule("contentstate", feature_name, db_conversion)
+
+    if feature_name not in features.default_features:
+        features.default_features.append(feature_name)
+
+
+@hooks.register("register_rich_text_features")
+def register_strikethrough_feature(features):
+    """
+    Register 'strikethrough' as a Draftail inline style feature with proper
+    editor plugin and HTML converter.
+    """
+    feature_name = "strikethrough"
+    type_ = "STRIKETHROUGH"
+
+    control = {
+        "type": type_,
+        "label": "S",
+        "description": "Strikethrough",
+        "style": {"textDecoration": "line-through"},
+    }
+
+    features.register_editor_plugin(
+        "draftail", feature_name, InlineStyleFeature(control)
+    )
+
+    db_conversion = {
+        "from_database_format": {"s[{}]": InlineStyleElementHandler(type_)},
+        "to_database_format": {"style_map": {type_: "s"}},
+    }
+    features.register_converter_rule("contentstate", feature_name, db_conversion)
+
+    if feature_name not in features.default_features:
+        features.default_features.append(feature_name)
