@@ -23,17 +23,26 @@ ALLOWED_HOSTS = [
     "www.ml9.mk.ua",
     "healthcheck.railway.app",
     "ml9-website-production.up.railway.app",
+    "localhost",
+    "127.0.0.1",
 ]
 
 # Allow Railway's auto-generated domain
 railway_domain = os.environ.get("RAILWAY_PUBLIC_DOMAIN")
-if railway_domain:
+if railway_domain and railway_domain not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append(railway_domain)
 
-# Allow additional custom hosts via env var
-extra_host = os.environ.get("ALLOWED_HOST")
-if extra_host:
-    ALLOWED_HOSTS.append(extra_host)
+# Allow additional custom hosts via env var (single, comma-separated, or Cloudflare domain)
+extra_hosts = (
+    os.environ.get("ALLOWED_HOSTS")
+    or os.environ.get("ALLOWED_HOST")
+    or os.environ.get("CLOUDFLARE_DOMAIN")
+)
+if extra_hosts:
+    for host in extra_hosts.split(","):
+        host = host.strip()
+        if host and host not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(host)
 
 # --------------------------------------------------
 # CSRF / HTTPS
@@ -45,14 +54,30 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 if railway_domain:
-    CSRF_TRUSTED_ORIGINS.append(f"https://{railway_domain}")
+    origin = f"https://{railway_domain}"
+    if origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(origin)
 
-# Railway terminates TLS at the proxy level and forwards
+extra_csrf = os.environ.get("CSRF_TRUSTED_ORIGINS")
+if extra_csrf:
+    for o in extra_csrf.split(","):
+        o = o.strip()
+        if o and o not in CSRF_TRUSTED_ORIGINS:
+            CSRF_TRUSTED_ORIGINS.append(o)
+elif extra_hosts:
+    for host in extra_hosts.split(","):
+        host = host.strip()
+        if host and not host.startswith("."):
+            origin = host if host.startswith("http") else f"https://{host}"
+            if origin not in CSRF_TRUSTED_ORIGINS:
+                CSRF_TRUSTED_ORIGINS.append(origin)
+
+# Railway and Cloudflare terminate TLS at the edge/proxy level and forward
 # requests over HTTP internally. We must NOT redirect to HTTPS
 # ourselves or it will cause an infinite redirect loop.
 SECURE_SSL_REDIRECT = False
 
-# Trust Railway's proxy header so request.is_secure() works correctly.
+# Trust proxy header so request.is_secure() works correctly with Cloudflare & Railway.
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 SESSION_COOKIE_SECURE = True
@@ -72,7 +97,7 @@ if os.environ.get("DATABASE_URL"):
     DATABASES = {
         "default": dj_database_url.config(
             default=os.environ["DATABASE_URL"],
-            conn_max_age=600,
+            conn_max_age=int(os.environ.get("CONN_MAX_AGE", 60)),
             conn_health_checks=True,
         )
     }
@@ -89,12 +114,13 @@ except ValueError:
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "core.middleware.CloudflareMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     *MIDDLEWARE,
 ]
 
 # --------------------------------------------------
-# STATIC FILES
+# STATIC FILES (WhiteNoise optimized for memory & edge caching)
 # --------------------------------------------------
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
@@ -102,6 +128,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = (
     "whitenoise.storage.CompressedManifestStaticFilesStorage"
 )
+WHITENOISE_MAX_AGE = 31536000
+WHITENOISE_MANIFEST_STRICT = False
+WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 
 # --------------------------------------------------
 # MEDIA FILES
@@ -162,12 +191,34 @@ LOGGING = {
 }
 
 # --------------------------------------------------
-# CACHING
+# CACHING (Offload from Python worker RAM to Redis or Database)
 # --------------------------------------------------
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "mcl-site-cache",
+redis_url = os.environ.get("REDIS_URL") or os.environ.get("CACHE_URL")
+if redis_url:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": redis_url,
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                "IGNORE_EXCEPTIONS": True,
+            },
+            "TIMEOUT": 3600,
+        }
     }
-}
+else:
+    # Use DatabaseCache to keep worker RSS memory footprint minimal
+    # (Table django_cache is created by `python manage.py createcachetable` in startup.sh)
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+            "LOCATION": "django_cache",
+            "TIMEOUT": 3600,
+            "OPTIONS": {
+                "MAX_ENTRIES": 1000,
+                "CULL_FREQUENCY": 3,
+            },
+        }
+    }
+

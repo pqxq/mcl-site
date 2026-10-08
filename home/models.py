@@ -43,6 +43,7 @@ class HomePage(Page):
 
     max_count = 1
 
+    @method_decorator(cache_page(60 * 15))
     def serve(self, request, *args, **kwargs):
         return super().serve(request, *args, **kwargs)
 
@@ -68,9 +69,9 @@ class HomePage(Page):
             .order_by("-date", "-first_published_at")[:3]
         )
         
-        # Get images for the ticker from gallery albums
+        # Get images for the ticker from gallery albums (limited to 16 for optimal memory footprint)
         from gallery.models import GalleryImage
-        ticker_images = GalleryImage.objects.select_related('image', 'page').order_by('-page__first_published_at')[:30]
+        ticker_images = GalleryImage.objects.select_related('image', 'page').order_by('-page__first_published_at')[:16]
         # Provide album and image IDs for linking
         context['ticker_images'] = [
             {

@@ -165,10 +165,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 
+# Memory limits: stream uploads exceeding threshold to disk to avoid RAM bloat
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5 MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2 * 1024 * 1024  # 2 MB
+
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "mcl_site"
 WAGTAILIMAGES_MAX_IMAGE_PIXELS = 10_000_000
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10 MB upload cap
+WAGTAILIMAGES_JPEG_QUALITY = 80
+WAGTAILIMAGES_WEBP_QUALITY = 80
 WAGTAILIMAGES_FORMAT_FILTER_SPEC_MAP = {
     "webp": "format-webp",
 }

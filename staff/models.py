@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.fields import RichTextField
@@ -22,6 +24,10 @@ class StaffIndexPage(Page):
     class Meta:
         verbose_name = "Колектив"
         verbose_name_plural = "Колектив"
+
+    @method_decorator(cache_page(60 * 15))
+    def serve(self, request, *args, **kwargs):
+        return super().serve(request, *args, **kwargs)
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)

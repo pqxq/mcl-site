@@ -134,10 +134,27 @@ class GalleryIndexPage(Page):
         albums = list(albums)
         context["albums"] = albums
 
-        # Get all photos for 'photos' view mode, sorted by date with pagination (24 per page)
+        # Get photos for 'photos' view mode via direct queryset pagination (24 per page)
+        # Prevents loading hundreds or thousands of photo objects into Python RAM
         if view_mode == "photos":
-            photo_list = self._build_photo_list(albums, order=current_order)
-            paginator = Paginator(photo_list, 24)
+            album_ids = [a.id for a in albums]
+            photos_qs = (
+                GalleryImage.objects.filter(page_id__in=album_ids)
+                .select_related("image", "page")
+            )
+            if current_order == "asc":
+                photos_qs = photos_qs.order_by(
+                    models.F("page__date").asc(nulls_last=True),
+                    "page__first_published_at",
+                    "sort_order",
+                )
+            else:
+                photos_qs = photos_qs.order_by(
+                    models.F("page__date").desc(nulls_last=True),
+                    "-page__first_published_at",
+                    "-sort_order",
+                )
+            paginator = Paginator(photos_qs, 24)
             page_number = request.GET.get("page", 1)
             photos_page = paginator.get_page(page_number)
             context["all_photos"] = photos_page
@@ -220,6 +237,30 @@ class GalleryImage(Orderable):
         FieldPanel("image"),
         FieldPanel("caption"),
     ]
+
+    @property
+    def album(self):
+        """Backward-compatible alias for template rendering"""
+        return self.page
+
+    def __getitem__(self, key):
+        """Enable dictionary subscript access like item['album'] for backward compatibility"""
+        if key == "album":
+            return self.page
+        if key == "image":
+            return self.image
+        if key == "caption":
+            return self.caption
+        if key == "sort_order":
+            return getattr(self, "sort_order", 0)
+        if key == "date":
+            if self.page.date:
+                return timezone.make_aware(
+                    datetime.combine(self.page.date, time.min),
+                    timezone.get_current_timezone(),
+                )
+            return self.page.first_published_at or timezone.now()
+        raise KeyError(key)
 
     def __str__(self) -> str:
         return self.caption or self.image.title

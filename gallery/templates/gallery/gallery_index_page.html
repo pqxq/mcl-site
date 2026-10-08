@@ -88,8 +88,7 @@
             {% image photo.image width-800 format-webp as full_image %}
             <div class="gallery-photo-item" data-src="{{ full_image.url }}" data-caption="{{ photo.caption }}" data-index="{{ forloop.counter0 }}" tabindex="0" role="button">
                 <div class="gallery-photo-inner">
-                    {% image photo.image width-800 format-webp as photo_thumb %}
-                    <img src="{{ photo_thumb.url }}" width="{{ photo_thumb.width }}" height="{{ photo_thumb.height }}" class="gallery-photo-img" loading="lazy" decoding="async" alt="{% if photo.caption %}{{ photo.caption }}{% elif photo.album.title %}{{ photo.album.title }} — фото {{ forloop.counter }}{% else %}Фото ліцею{% endif %}">
+                    <img src="{{ full_image.url }}" width="{{ full_image.width }}" height="{{ full_image.height }}" class="gallery-photo-img" loading="lazy" decoding="async" alt="{% if photo.caption %}{{ photo.caption }}{% elif photo.album.title %}{{ photo.album.title }} — фото {{ forloop.counter }}{% else %}Фото ліцею{% endif %}">
                     <div class="gallery-photo-overlay">
                         <div class="gallery-photo-icon">
                             <i class="bi bi-arrows-fullscreen"></i>

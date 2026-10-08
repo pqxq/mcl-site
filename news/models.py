@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.db import models
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -87,7 +88,12 @@ class NewsIndexPage(Page):
             key=str.casefold,
         )
 
-        context["news_items"] = news_items
+        paginator = Paginator(news_items, 12)
+        page_number = request.GET.get("page", 1)
+        paginated_news = paginator.get_page(page_number)
+
+        context["news_items"] = paginated_news
+        context["paginated_news"] = paginated_news
         context["all_tags"] = all_tags
         context["current_tag"] = tag_filter
         context["current_order"] = current_order

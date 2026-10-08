@@ -7,19 +7,22 @@ RUN useradd wagtail
 # Port used by this container to serve HTTP.
 EXPOSE 8000
 
-# Set environment variables.
+# Set environment variables for minimal memory usage and predictable runtime.
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PORT=8000 \
-    DJANGO_SETTINGS_MODULE=mcl_site.settings.production
+    DJANGO_SETTINGS_MODULE=mcl_site.settings.production \
+    MALLOC_ARENA_MAX=2 \
+    MALLOC_TRIM_THRESHOLD_=100000
 
-# Install system packages required by Wagtail and Django.
+# Install system packages required by Wagtail, Django, and libjemalloc2 for memory management.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
     build-essential \
     libpq-dev \
     libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
+    libjemalloc2 \
  && rm -rf /var/lib/apt/lists/*
 
 # Use /app folder as a directory where the source code is stored.

@@ -276,24 +276,6 @@
                     processLink(link);
                 }
             }, { capture: true });
-
-            if (typeof MutationObserver !== 'undefined') {
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        mutation.addedNodes.forEach(function(node) {
-                            if (node.nodeType === 1) {
-                                if (node.matches && node.matches('a[href]')) {
-                                    processLink(node);
-                                }
-                                if (node.querySelectorAll) {
-                                    node.querySelectorAll('a[href]').forEach(processLink);
-                                }
-                            }
-                        });
-                    });
-                });
-                observer.observe(document.documentElement, { childList: true, subtree: true });
-            }
         })();
     </script>
     {% block extra_js %}{% endblock %}
