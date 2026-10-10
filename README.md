@@ -1,110 +1,61 @@
-# mcl_site
+# Mykolaiv Classical Lyceum №9 — Website
 
-A Wagtail-powered site for Миколаївський ліцей №9.
-
-## Migration Checklist
-
-- Content tree:
-
-  - Create under Home: About, Admissions, Education, Schedule, News, Staff, Partners, Public Documents.
-  - Add child pages: News articles under News; Staff profiles under Staff; Documents under Public Documents.
-- Menus:
-
-  - Admin → Snippets → Menus: create `primary` and `footer` menus; add items linking to pages.
-- SEO settings:
-
-  - Admin → Settings → SEO Settings: set default meta description and OpenGraph image.
-- Redirects:
-
-  - Prepare a CSV `redirects.csv` with `old_path,new_path[,is_permanent]`.
-  - Import with:
-
-    ```powershell
-    D:/mcl-site/venv/Scripts/python.exe manage.py import_redirects redirects.csv --dry-run
-    D:/mcl-site/venv/Scripts/python.exe manage.py import_redirects redirects.csv
-    ```
-- Documents route:
-
-  - Wagtail serves files at `/documents/`. Use a different slug for the public documents index (e.g., `/public-docs/`).
-
-## Development
-
-```powershell
-D:/mcl-site/venv/Scripts/python.exe manage.py migrate
-D:/mcl-site/venv/Scripts/python.exe manage.py runserver
-```
-
-Login to Wagtail admin at `/admin/`.
-
-# Миколаївський ліцей №9 Website
-
-A modern Django/Wagtail CMS website for Mykolaiv Classical Lyceum #9 in Ukraine. Features dynamic content management, staff directory, news updates, admissions forms, and class scheduling.
+A Django/Wagtail CMS website for Mykolaiv Classical Lyceum №9 (Миколаївський ліцей №9), Ukraine. Includes a staff directory, news feed, class schedule, admissions form, and public document management.
 
 ## Features
 
-- **Dynamic CMS** — Wagtail-powered content management
-- **Responsive Design** — Mobile-first Bootstrap 5.3.0 layout
-- **Staff Directory** — Teacher profiles with education, experience, and subjects
-- **News Management** — Blog-style news with date filters and search
-- **Class Schedule** — Interactive weekly schedule with group filtering
-- **Admissions Form** — Online application form for prospective students
-- **Modern UI** — Gold accent color scheme with smooth animations
-- **SEO Optimized** — Built-in SEO features through Wagtail
+| Feature | Description |
+|---|---|
+| **Content Management** | Wagtail-powered CMS with a structured page tree |
+| **Staff Directory** | Teacher profiles with subjects, education, and experience |
+| **News** | Date-filtered news with full-text search |
+| **Class Schedule** | Weekly schedule with per-group filtering |
+| **Admissions** | Online application form for prospective students |
+| **Public Documents** | Managed document library with a dedicated public route |
+| **Responsive Layout** | Bootstrap 5.3 mobile-first design |
+| **SEO** | Built-in Wagtail SEO settings and OpenGraph support |
 
 ## Tech Stack
 
-- **Backend**: Django 5.1.x, Python 3.8+
-- **CMS**: Wagtail 7.2.1
-- **Database**: SQLite (development), PostgreSQL (production recommended)
-- **Frontend**: Bootstrap 5.3.0, Custom CSS with CSS variables
+- **Backend**: Django 5.2, Python 3.11
+- **CMS**: Wagtail 8.0
+- **Database**: SQLite (development) / PostgreSQL (production)
+- **Frontend**: Bootstrap 5.3, custom CSS with CSS variables
 - **Icons**: Bootstrap Icons
 - **Typography**: DM Sans (headings), IBM Plex Sans (body)
+- **Static files**: WhiteNoise
+- **Server**: Gunicorn
 
 ## Project Structure
 
 ```
-mcl_site/                  # Main project settings
+mcl_site/              # Project configuration
 ├── settings/
-│   ├── base.py           # Common settings
-│   ├── dev.py            # Development settings
-│   └── production.py     # Production settings
-├── templates/            # Global templates
-│   ├── base.html
-│   ├── 404.html
-│   └── 500.html
-└── static/css/style.css  # Main stylesheet
+│   ├── base.py        # Shared settings
+│   ├── dev.py         # Development overrides (SQLite, DEBUG=True)
+│   └── production.py  # Production settings (PostgreSQL, security headers)
+├── templates/         # Global templates (base.html, 404.html, 500.html)
+└── static/css/style.css
 
-home/                      # Home app
-├── models.py             # HomePage, AboutPage, HeroImage
-└── templates/home/
-
-news/                      # News management
-├── models.py             # NewsIndexPage, NewsPage
-└── templates/news/
-
-staff/                     # Staff directory
-├── models.py             # StaffIndexPage, PersonPage
-└── templates/staff/
-
-schedule/                  # Class scheduling
-├── models.py             # ClassGroup, Lesson
-└── templates/schedule/
-
-admissions/               # Applications
-├── models.py             # ApplicationFormPage
-└── templates/admissions/
+admissions/            # Application form
+documents/             # Public documents library
+gallery/               # Photo gallery
+home/                  # Home page and About page
+news/                  # News index and articles
+schedule/              # Class groups and weekly schedule
+search/                # Site-wide search
+staff/                 # Staff index and individual profiles
 ```
 
-## Installation
+## Local Development
 
 ### Prerequisites
 
-- Python 3.8+ (3.11+ recommended)
+- Python 3.11+
 - pip
-- Virtual Environment (recommended)
-- PostgreSQL (for production deployment)
+- (Optional) PostgreSQL for a production-equivalent local setup
 
-### Setup Instructions
+### Setup
 
 1. **Clone the repository**
 
@@ -113,122 +64,182 @@ admissions/               # Applications
    cd mcl-site
    ```
 
-   Or download and extract the ZIP file, then navigate to the project directory.
-2. **Create and activate virtual environment**
+2. **Create and activate a virtual environment**
 
    ```bash
-   # Windows
-   python -m venv venv
-   venv\Scripts\activate
-
-   # Linux/macOS
    python3 -m venv venv
-   source venv/bin/activate
+   source venv/bin/activate        # Linux / macOS
+   # venv\Scripts\activate         # Windows
    ```
+
 3. **Install dependencies**
 
    ```bash
    pip install -r requirements.txt
    ```
-4. **Create environment file** (recommended for production)
+
+4. **Configure environment variables**
 
    ```bash
-   # Copy the example file
    cp .env.example .env
-   # Edit .env with your actual settings (especially SECRET_KEY)
+   # Edit .env — at minimum set a unique SECRET_KEY
    ```
 
-   For development, you can skip this step as default values are provided.
-5. **Run migrations**
+   Development defaults in `dev.py` work without a `.env` file if you just want to get running quickly.
+
+5. **Apply migrations**
 
    ```bash
    python manage.py migrate
    ```
-6. **Initialize site structure** (creates HomePage, News, Admissions, About pages)
+
+6. **Set up the initial page tree**
+
+   Creates the Home, News, Admissions, About, and other top-level pages:
 
    ```bash
    python manage.py setup_site
    ```
-7. **Create superuser (admin)**
+
+7. **Create an admin account**
 
    ```bash
    python manage.py createsuperuser
    ```
-8. **Run development server**
+
+8. **Start the development server**
 
    ```bash
    python manage.py runserver
    ```
 
-   Visit `http://localhost:8000/admin/` to access the Wagtail CMS admin panel.
+   The site is available at `http://localhost:8000/`. The Wagtail admin is at `/admin/`.
+
+### Docker (alternative)
+
+See [DOCKER_QUICKSTART.md](DOCKER_QUICKSTART.md) for Docker Compose and standalone container instructions.
 
 ## Configuration
 
-### Settings Files
-
-- **Development** (`mcl_site/settings/dev.py`): SQLite database, debug mode enabled
-- **Production** (`mcl_site/settings/production.py`): PostgreSQL recommended, security settings
-
 ### Environment Variables
 
-Create a `.env` file in the project root:
+| Variable | Required | Description |
+|---|---|---|
+| `SECRET_KEY` | Yes | Django secret key. Generate with `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"` |
+| `DEBUG` | No | Set to `False` in production |
+| `DATABASE_URL` | Production | PostgreSQL connection string, e.g. `postgres://user:pass@host:5432/dbname` |
+| `ALLOWED_HOSTS` | Production | Comma-separated list of allowed hostnames |
+| `DJANGO_SETTINGS_MODULE` | No | Defaults to `mcl_site.settings.dev` |
+| `WAGTAILADMIN_BASE_URL` | No | Full base URL used in Wagtail email links |
+| `AZURE_ACCOUNT_NAME` | Optional | Azure Blob Storage account name (for media in production) |
+| `AZURE_ACCOUNT_KEY` | Optional | Azure Blob Storage account key |
+| `AZURE_CONTAINER` | Optional | Blob container name (default: `media`) |
 
-```
-DEBUG=False
-SECRET_KEY=your-secret-key-here
-ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
-DATABASE_URL=postgresql://user:password@localhost/mcl_site
-```
+### Static and Media Files
 
-### Static & Media Files
+Static files live in `mcl_site/static/`. User uploads go to `media/`.
 
-- **Static files**: `mcl_site/static/` (CSS, JS, images)
-- **Media files**: `media/` (user uploads, dynamically served)
-
-Collect static files for production:
+Collect static files before deploying:
 
 ```bash
 python manage.py collectstatic
 ```
 
-## Usage
+### Design Tokens
 
-### Managing Content
-
-1. Visit `/admin/` and log in with your superuser credentials
-2. Use Wagtail's intuitive interface to:
-   - Add news articles
-   - Manage staff profiles
-   - Update schedules
-   - Review applications
-   - Manage pages
-
-### Adding Pages
-
-Pages are created through the Wagtail admin interface:
-
-- Home page content
-- About page
-- Custom pages under any parent
-
-### Customizing Design
-
-Main styles are in `mcl_site/static/css/style.css`:
-
-- CSS variables for colors, fonts, spacing
-- Responsive breakpoints (Bootstrap 5)
-- Component styles (buttons, cards, badges, etc.)
-
-Color variables:
+The main stylesheet is `mcl_site/static/css/style.css`. Key CSS variables:
 
 ```css
---primary: #1e3a5f      /* Navy blue */
---accent: #d4af37       /* Gold */
---white: #ffffff
---gray-50: #f9fafb
+--primary:  #1e3a5f;   /* navy blue */
+--accent:   #d4af37;   /* gold      */
+--white:    #ffffff;
+--gray-50:  #f9fafb;
 ```
 
-## Development
+## Content Management
+
+Log in at `/admin/` to manage site content.
+
+### Page Tree
+
+After running `setup_site`, the expected Wagtail page tree is:
+
+```
+Root
+└── Home
+    ├── About
+    ├── Admissions
+    ├── Education
+    ├── Schedule
+    ├── News
+    │   └── (News articles)
+    ├── Staff
+    │   └── (Staff profiles)
+    ├── Partners
+    └── Public Documents
+        └── (Document entries)
+```
+
+### Menus
+
+Menus are managed as Wagtail snippets: **Admin → Snippets → Menus**.
+
+Create a `primary` and a `footer` menu, then add items linking to pages.
+
+### SEO Settings
+
+**Admin → Settings → SEO Settings** — set the default meta description and OpenGraph image used across pages that don't override them.
+
+### Redirects
+
+To bulk-import redirects from a CSV (`old_path,new_path[,is_permanent]`):
+
+```bash
+# Dry run first
+python manage.py import_redirects redirects.csv --dry-run
+
+# Apply
+python manage.py import_redirects redirects.csv
+```
+
+> **Note**: Wagtail serves document downloads at `/documents/`. Use a different slug for the public documents index page (e.g., `/public-docs/`) to avoid conflicts.
+
+## Deployment
+
+### General checklist
+
+- Set `DEBUG=False`
+- Set a strong, unique `SECRET_KEY`
+- Add your domain(s) to `ALLOWED_HOSTS`
+- Point `DATABASE_URL` to a PostgreSQL instance
+- Run `python manage.py collectstatic`
+- Run `python manage.py migrate`
+
+### Docker (production)
+
+Build and run the production image:
+
+```bash
+docker build -t mcl-site:prod .
+docker run -p 8000:8000 \
+  -e DJANGO_SETTINGS_MODULE=mcl_site.settings.production \
+  -e SECRET_KEY=<your-secret-key> \
+  -e DATABASE_URL=postgres://user:pass@db:5432/mcl_site \
+  mcl-site:prod
+```
+
+The production image uses Gunicorn and runs `startup.sh` on start, which applies migrations before launching the server.
+
+### Cloud platforms (Azure, Railway, Heroku)
+
+1. Set all required environment variables in the platform's dashboard.
+2. Point your build to the `Dockerfile` (production).
+3. Configure a managed PostgreSQL database and update `DATABASE_URL`.
+4. For media storage on Azure, set the `AZURE_*` variables.
+
+A `railway.toml` is included for Railway deployments.
+
+## Development Reference
 
 ### Running Tests
 
@@ -236,98 +247,37 @@ Color variables:
 python manage.py test
 ```
 
-### Database Migrations
+### Migrations
 
 ```bash
-# Create migration
 python manage.py makemigrations
-
-# Apply migrations
 python manage.py migrate
 ```
 
-### Code Style
-
-Follow PEP 8 conventions. Use consistent indentation (4 spaces).
-
-## Deployment
-
-### Heroku/Cloud Platforms
-
-1. Set `DEBUG=False` in production settings
-2. Add domain to `ALLOWED_HOSTS`
-3. Use PostgreSQL database (recommended)
-4. Set secure headers and SSL
-5. Configure environment variables
-
-### Docker
-
-A `Dockerfile` is provided:
+### Reset development database
 
 ```bash
-docker build -t mcl-site .
-docker run -p 8000:8000 mcl-site
-```
-
-### Static Files
-
-For production, use WhiteNoise or a CDN:
-
-```bash
-# In settings/production.py
-MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    # ... other middleware
-]
-```
-
-## Troubleshooting
-
-### Database Errors
-
-```bash
-# Reset database (development only)
 rm db.sqlite3
 python manage.py migrate
 python manage.py createsuperuser
 ```
 
-### Missing Static Files
+### Code Style
 
-```bash
-python manage.py collectstatic --noinput
-```
-
-### Permission Errors
-
-Ensure your user has write permissions to `media/` and `static/` directories.
+Follow PEP 8. Use 4-space indentation throughout.
 
 ## Contributing
 
-1. Create a feature branch: `git checkout -b feature/your-feature`
-2. Commit changes: `git commit -am 'Add new feature'`
-3. Push to branch: `git push origin feature/your-feature`
-4. Submit a pull request
+1. Branch off `main`: `git checkout -b feature/your-feature`
+2. Commit your changes: `git commit -am 'Short description'`
+3. Push and open a pull request against `main`
 
 ## License
 
-This project is licensed under the MIT License - see LICENSE file for details.
+MIT — see [LICENSE](LICENSE).
 
-## Support
+## References
 
-For issues and questions:
-
-- Check [Wagtail Documentation](https://docs.wagtail.org/)
-- Check [Django Documentation](https://docs.djangoproject.com/)
-- Open an issue on GitHub
-
-## Team
-
-- **CMS**: Wagtail
-- **Framework**: Django
-- **Design**: Bootstrap 5
-
----
-
-**Last Updated**: December 2025
-**Version**: 1.0.0
+- [Wagtail Documentation](https://docs.wagtail.org/)
+- [Django Documentation](https://docs.djangoproject.com/)
+- [Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.3/)
